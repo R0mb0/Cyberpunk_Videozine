@@ -22,3 +22,13 @@ Source: youtube
 
 [![Cyberpunk_videozine_vol1](https://github.com/R0mb0/Cyberpunk_Videozine/blob/main/Copertine_video_in_rete/Decoder%20Cyberpunk%20%20%20Videozine%20%202%20(HQ).jpg)](https://www.youtube.com/watch?v=KxVLI6gTEKI)   
 Source: youtube
+
+<details>
+<summary>
+  
+## Un omaggio speciale a [Sixthclone](https://www.youtube.com/@Sixthclone)
+
+</summary>
+
+
+</details>
