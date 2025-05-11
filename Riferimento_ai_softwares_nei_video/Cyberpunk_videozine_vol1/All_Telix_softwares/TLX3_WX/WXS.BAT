@@ -1,0 +1,1 @@
+wxfer -c speed %1 port %2 -s %3

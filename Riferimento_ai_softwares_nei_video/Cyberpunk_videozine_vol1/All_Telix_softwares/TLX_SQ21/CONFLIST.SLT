@@ -1,0 +1,94 @@
+//-----------------------------------------------------------
+// CONFLIST.SL? Get Conference list.
+//
+// Please look at the comments through the whole file, and modify to
+// suit your needs, BEFORE you use it. Then recompile with CS CONFLIST.
+//-----------------------------------------------------------
+
+// If you have suggestions for improving this script, please suggest
+// improvements to me via old-fashioned snail-mail to:
+
+// Author:  Inge Vabekk
+//          Hamangskogen 108
+//          N-1300 SANDVIKA
+//          NORWAY
+//          tel. (472) 546 396
+
+str thisBBStype [] = "MBBS"    // This BBS type.      
+   ,codename   [8]             // This BBS's codename
+   ,line      [80]             // Temporary storage
+   ,file      [64]             // Filename
+   ,command   [10]="Command:"  // Command prompt
+                               // For the Global storage:
+   ,global   []="GLOBAL"       // Global script
+   ,PutLine  []="PUTLINE"      // Put Line script
+   ,BBStype  []="BTYPE"        // BBS type
+   ,code     []="CNAME"        // Codename for this BBS
+   ,short    []="SHORT"        // Shortened BBS name
+   ,prompt   []="PROMPT"       // Current command prompt
+   ,newmes   []="NEWMES"       // Directory for new messages
+   ,gconflst []="CNFLST"       // Get conference list?
+   ;     
+
+int tol = 300                  // No activity for 30 sec.
+   ,stat, tmark                // makes script time out. 
+   ,BBSver                     // MBBS version.
+   ,Enter=13                   // Code for CR.
+   ;
+
+//-----------------------------------------------------------   
+// Script starts here.
+//-----------------------------------------------------------   
+
+main()
+{
+// Only if online.
+
+  if (!carrier())
+  { prints ("Tý: Sorry -- can't list conferences in offline mode.");
+    return (-1);                       // Doesn't match script!
+  }
+  read (bbstype,codename);             // Get current BBS type.
+  if (codename != thisBBStype)  
+  { prints ("Tý: Sorry -- The CONFLIST script only works with MBBS.");
+    return (-1);                       // Doesn't match script!
+  }
+  read (prompt,command);               // Get current command prompt.
+  read (newmes,line);
+  read (code,codename);
+  strcat (line,codename);
+  strcat (line,".LST");
+  fdelete (line);                      // Delete old list.
+  capture("*CLOSE*");                  // Close current log file.
+  capture (line);
+
+  call (PutLine,"R SH A",Enter);
+  waitfor(command, 20);
+  
+  capture ("*CLOSE*"); 
+
+  file = "LOG\";                       // log file.
+  read (short,codename);               // Get name of
+  strcat (file,codename);
+  capture ("*CLOSE*");                 // Close capture file.
+  capture (file);                      // Proceed with the old one.
+  write (gconflst,"");                 // Got conference list.
+}
+
+//-----------------------------------------------------------
+// Read a global variable.
+//-----------------------------------------------------------
+
+read (str name, str varname)
+{
+  return (call (global,"R",name,varname));
+}
+
+//-----------------------------------------------------------
+// Write a global variable.
+//-----------------------------------------------------------
+
+write(str name, str varname)
+{ 
+  return (call (global,"W",name,varname));
+}

@@ -1,0 +1,174 @@
+///////////////////////////////////////////////////////////////////////////////
+
+                               QMM 3.02
+                               
+///////////////////////////////////////////////////////////////////////////////
+
+
+Welcome to QMM 3.02, The Qmail/PCBoard Manager. You will notice that there
+have been a lot of changes since QMM 2.20. Some of these changes are
+readily apparent and some are not, so please, read the file QMM.TXT
+first. It will save you a lot of time.
+
+                               **********
+If you are upgrading from QMM 2.20 or from QMM 3.00/3.01 you should run
+QMMSETUP and load in each of your QMM Profiles (I've changed the name
+from QMM Configurations), review each of them to make sure that they
+contain all the correct settings, especially the Qmail Door Prompts
+and the QMM Options. Then save them.
+
+All your QMM Profiles must be saved to QMM 3.02 standards for QMM 3.02
+to work correctly!
+                               ***********
+
+QMMSys/QMM 3.02 was developed using Telix 3.12 and tested by users
+with Telix 3.11. This should ensure that you will not have any
+problems when upgrading to Telix 3.12.
+
+New features with QMM 3.02 are:
+
+        Linked Profiles
+        AutoRecall Mode
+        Multiple Dialing Directory Support
+        Wake Up
+        Pending Actions Display
+        
+Linked Profiles lets you Link up to 12 Profiles for execution during
+a single online session. Great for BBSes with multiple Qmail Doors or
+for changing the sequence of QMM events.
+
+AutoRecall Mode is actually a new script, QMMAUTOR.SLC. AutoRecall
+Mode is like AutoPilot, but it calls each Profile once in sequence,
+then goes on to the next until a connection is made or the maximum
+redial limit is reached.
+
+Multiple Dialing Directory Support lets you enter the name of the
+Telix Dialing Directory in each Profile. This allows users with more
+than one Dialing Directory to use their existing Directories.
+
+Wake Up lets QMM send a <CR> 3 seconds after a connection is
+established to wake up those PCBoards which need an extra <CR>. 
+
+DATAPAC users please note that you will need to toggle Wake Up ON.
+
+Pending Actions displays any File Transfer Lists or InstaScripts created
+for a <QM_ID> or Profile at the Profile Selection Screen.
+
+I've changed the name of AutoPilot Recall Mode to SessionSaver in
+order to avoid confusion with AutoRecall Mode. SessionSaver will call
+a Profile back if a connection is lost during an AutoPilot/AutoRecall
+session.
+
+QMM 3.02 supports the following features:
+
+                  1.     PCBoard Navigation
+                  2.     InstaScript
+                  3.     Unlimited File Transfers
+                  4.     AutoDownload All Files from a Capture File during
+                          the same session.
+                  5.     PCBoard Prompt Management
+                  6.     iNet/Datapac Logon Support Built-in
+                  7.     ProLogon Support
+                  8.     ProBank Support
+                  9.     Qmail Door Prompt Management
+                 10.     Qmail Door Management
+                 11.     Qmail File Management
+                 12.     Qmail Door Message Pointer Resets
+                 13.     Qmail Door Offline Protocol Selection
+                 14.     MarkMail Support Built-in
+                 15.     QMM Options
+                 16.     Prompted Option Mode
+                 17.     AutoPilot/AutoRecall Mode
+                 18.     Extensive Usage File Stamping
+                 19.     Internal Password Support instead of Telix's Dialing
+                          Directory
+                 20.     Protocol Translation Table
+                 21.     AutoPilot Recall Option
+                 21.     SessionSaver
+                 22.     Multiple Dialing Directory Support
+                 23.     Linked Profiles
+                 24.     Wake Up Support
+                 25.     Pending Actions Display
+                 
+And, much, much more!
+
+Oh, yes. Registered users will receive QMMSys and The Files Manager
+free from me, as a gift.
+
+To give you an idea of what QMMSys does, here is the Main Menu from
+QMMSys. As you can see, you can start many of your most useful
+communications applications right from this screen. In addition, you
+can toggle your Capture File and Log File ON/OFF, you can change
+Terminal Emulations as well as Comm Parameters from this menu.
+
+QMMSys provides handy Editors for Download, Upload, InstaScripts and
+AutoPilot Lists. It also manages those lists for you.
+
+QMMSys also allows complete colour configuration for QMMSys/QMM 3.02.
+
+ษออออออออออออออออออออออออออออออออออออออปษอออออออออออออออออออออออออออออออออออออป
+บ QMMSys 1.00 ... The QMM System #0000 บบ Current Dir: C:\TELIX               บ
+บ (c) Jack Mlynek, 1988 and 1989       บบ Down Dir   : C:\TELIX\DOWNLOAD\     บ
+บ Capture File: QMMSYS.CAP is PAUSED   บบ Up Dir     : C:\TELIX\UPLOAD\       บ
+บ Log File    : TELIX.USE is ON        บบ Script Dir : C:\TELIX\SCRIPT\       บ
+ฬออออออออออออออออออออออออออออออออออออออนฬอออออออออออออออออออออออออออออออออออออน
+บ                                      บบ                                     บ
+บ   A ... AutoPilot Mode               บบ   M ... InstaScript Editor          บ
+บ   B ... Interactive Mode             บบ   N ... Timed DOS Command           บ
+บ   C ... Configure QMMSys             บบ   O ... DOS Command                 บ
+บ   D ... Delete a BBS Profile         บบ   P ... Shell to DOS                บ
+บ   E ... Edit a BBS Profile           บบ   Q ... Quit QMMSys                 บ
+บ   F ... The Files Manager            บบ   R ... Exit Telix                  บ
+บ   G ... Download List Editor         บบ   S ... Telix Dialing Directory     บ
+บ   H ... Upload List Editor           บบ   T ... <Qmail Reader>              บ
+บ   I ... AutoPilot List Editor        บบ   U ... <Text Editor>               บ
+บ   J ... Delete A List                บบ   V ... <Directory Program>         บ
+บ   K ... Timed Script                 บบ   W ... <User Defined Program 1>    บ
+บ   L ... Script                       บบ   X ... <User Defined Program 2>    บ
+บ                                      บบ                                     บ
+ศออออออออออออออออออออออออออออออออออออออผศอออออออออออออออออออออออออออออออออออออผ
+ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+บ   Select <A - X>:                                                           บ
+ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+
+
+The Files Manager will let you read a New Files List as created by
+Qmail and perform many operations similar of Vern Buerg's LIST.COM.
+You can move through the file, do a Zippy Scan for Text or a Locate
+Scan for Files, both forward and backward. You can jump to a specific
+page, leave a page marker and instantly return to that page. You can
+Shell to DOS or even do a DIR of your Download Directory.
+
+But best of all, The Files Manager will tag a file, using a lightbar,
+and save it to a download list which QMM 3.02 can use. It will even
+save the descriptions! The BBS Id and the Conference will also be
+maintained. Maximum file size is 3.5 megabytes, so most large DIR
+Files created by your BBS should fit.
+
+As we all know, developing a program such as QMMSys/QMM 3.02 requires
+the help of a lot of people. I would like to take this opportunity to
+publicly express my gratitude to this special group of people, for
+their wisdom, knowledge and insights, without which QMMSys/QMM 3.02
+would not have been created.
+
+Peter Bailey
+Bev Green
+Matthew Lewis
+Gun Onen
+Dave Nimon
+Don Gray
+Robert Walker
+Peter Sleggs
+Hugh Graham
+Jud Newell
+Ian Singer
+Joseph Freer
+Peter Kaiser
+Colin Sampaleanu
+Mark Herring
+
+So, once again, welcome to QMM 3.02! Enjoy!
+
+
+Jack
+

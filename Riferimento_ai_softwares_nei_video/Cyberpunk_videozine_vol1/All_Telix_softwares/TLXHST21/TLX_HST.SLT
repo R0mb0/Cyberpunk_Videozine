@@ -1,0 +1,1844 @@
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  TLX_HST Script, Version 2.1                                       //
+//                                                                    //
+//  For Telix SALT version 3.12                                       //
+//                                                                    //
+//  (c) Andrzej Taramina, 1989, 1990                                  //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+str Copyright[] = "TLX_HST 2.1, Copyright: Andrzej Taramina 1989, 1990";
+
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Global variables and storage areas                                //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+int OK = 0;                            // Global status codes
+int TERMINATE = 99;
+int TIMEOUT = 98;
+int MSG_BOX_COL = 62;
+int MSG_TXT_COL = 48;
+str TLX_ERR[] = "TLX_HST 2.1 - ERROR ";
+str VERSION[3] = "2.1";                // Version Number
+
+int Global_Status = 0;
+str Rom_Level_Str[4] = "";             // Modem rom level
+int Rom_Level;
+
+str Main_Menu[1500];                   // Main menu storage
+int Disp_Menu_Loaded = 0;              // subfunction menu storage &
+str Disp_Menu[1200];                   //             loaded flags
+int Sets_Menu_Loaded = 0;
+str Sets_Menu[1200];
+int Regs_Menu_Loaded = 0;
+str Regs_Menu[1200];
+int Help_Menu_Loaded = 0;
+str Help_Menu[1200];
+int Test_Menu_Loaded = 0;
+str Test_Menu[1200];
+int Fone_Menu_Loaded = 0;
+str Fone_Menu[1200];
+int Comp_Menu_Loaded = 0;
+str Comp_Menu[1200];
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Main line code                                                    //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+main()
+ {
+  int save_scr;
+  int t1, t2, t3, t4a, t4b, t5;
+  int stat;
+  int time_handle;
+  int old_baud, old_datab, old_parity, old_stopb;
+  int choice;
+  int menu_len;
+  int o1, o2, o3, o4, o5, o6, o7;
+  str buffer[100];
+
+  save_scr = vsavearea(0,0,79,24);        // save screen image
+  clear_scr();
+  load_scr("menu_mgr");                   // Load menu manager
+  flushbuf();
+
+  if (carrier())                          // make sure we're offline
+     {
+      error_msg("This Script MUST be run OFFLINE (in terminal mode)",
+                "Script terminated due to above error.","","");
+      unload_scr("menu_mgr");
+      vrstrarea(save_scr);
+      cursor_onoff(1);
+      return(-1);
+     }
+
+  t1  = track("961",0);                    // set tracking for rom level
+  t2  = track("963",0);
+  t3  = track("964",0);
+  t4a = track("1440",0);
+  t4b = track("1441",0);
+  t5  = track("OK",0);
+
+  flushbuf();                             // get rom level from modem
+  cputs("ATI0^M");
+  time_handle = timer_start(20);
+  while (1)
+     {
+      terminal();
+      stat = track_hit(0);
+      if (stat == t1)
+         {
+          Rom_Level_Str = "961";
+          Rom_Level     = 961;
+          break;
+         }
+      else if (stat == t2)
+              {
+               Rom_Level_Str = "963";
+               Rom_Level     = 963;
+               break;
+              }
+      else if (stat == t3)
+              {
+               Rom_Level_Str = "964";
+               Rom_Level     = 964;
+               break;
+              }
+      else if (stat == t4a)
+              {
+               Rom_Level_Str = "1440";
+               Rom_Level     = 1440;
+               break;
+              }
+      else if (stat == t4b)
+              {
+               Rom_Level_Str = "1441";
+               Rom_Level     = 1441;
+               break;
+              }
+      else if (stat == t5)
+              break;
+      else if (time_up(time_handle))
+              break;
+     }
+
+  track_free(0);                          // clean up after tracking
+  timer_free(time_handle);
+
+  if (Rom_Level_Str == "")                    // check for recognized rom
+     {
+      error_msg("Sorry, your modem is not a USRobotics Courier HST or",
+                "the ROM level is higher than 144x or lower than 961.",
+                "TLX_HST 2.1 Script terminating due to above error.",
+                "");
+      unload_scr("menu_mgr");
+      vrstrarea(save_scr);
+      cursor_onoff(1);
+      return(-1);
+     }
+
+  cputs("AT&B0^M");
+  old_baud   = get_baud();                // save old connect parms
+  old_parity = get_parity();
+  old_datab  = get_datab();
+  old_stopb  = get_stopb();
+  set_cparams(2400,0,8,1);
+  _local_echo = 1;
+
+ call("menu_mgr","l",Main_Menu,"tlx_hstm",menu_len);
+ call("menu_mgr","p",Main_Menu,Rom_Level_Str,13);
+ if (Rom_Level < 964)
+    {
+     call("menu_mgr","ga",Main_Menu,buffer,5,o1,o2,o3,o4,o5,o6,o7);
+     call("menu_mgr","pa",Main_Menu,buffer,5,'O',o2,o3,56,o5,o6,o7);
+    }
+
+ while (Global_Status == OK)              // main menu display loop
+  {
+  choice = call("menu_mgr","d",Main_Menu,buffer,0,1,0,0);
+  call("menu_mgr","r");
+  cursor_onoff(1);
+  update_term();
+  if (choice == 1)                        // do Telix setup?
+     telix_def();
+  else if (choice == 2)                   // do PCBoard setup?
+          pcboard_def();
+  else if (choice == 3)                   // display subfunctions?
+          submenu_disp();
+  else if (choice == 4)                   // set subfunctions?
+          submenu_sets();
+  else if (choice == 5)                   // data compression subfns?
+          submenu_comp();
+  else if (choice == 6)                   // phone # subfunctions?
+          submenu_fone();
+  else if (choice == 7)                   // test subfunctions?
+          submenu_test();
+  else if (choice == 8)                   // help subfunctions?
+          submenu_help();
+  else if (choice == 9)                   // exit?
+          {
+           Global_Status = TERMINATE;
+           break;
+          }
+  if (choice == 1 or choice == 2) wait_for_key();
+  }
+
+  if (Global_Status == TIMEOUT)           // did we get a timeout?
+     {
+      error_msg("WAITFOR timeout on current modem operation,",
+                "Reply not received within 20 seconds.",
+                "TLX_HST 2.1 Script terminating due to above error.",
+                "");
+     }
+
+  // reset everything before exiting TLX_HST
+
+  set_cparams(old_baud,old_parity,old_datab,old_stopb);
+  _local_echo = 1;
+  unload_scr("menu_mgr");
+  cursor_onoff(1);
+  vrstrarea(save_scr);
+  return(0);
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Process "Display" submenu                                         //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+submenu_disp()
+{
+ int done = 0;
+ int choice;
+ int menu_len;
+ str buffer[100];
+
+ if (! Disp_Menu_Loaded)
+    {
+     call("menu_mgr","l",Disp_Menu,"tlx_hstd",menu_len);
+     Disp_Menu_Loaded = 1;
+    }
+
+ while (! done and Global_Status == OK)   // display submenu loop
+  {
+  choice = call("menu_mgr","d",Disp_Menu,buffer,0,1,0,0);
+  call("menu_mgr","r");
+  cursor_onoff(1);
+  update_term();
+  if (choice == 1)                      // display rom level?
+     get_level();
+  else if (choice == 2)                 // display memory checksum?
+          chk_sum();
+  else if (choice == 3)                 // display ram settings?
+          current_set();
+  else if (choice == 4)                 // display nram settings?
+          nram_set();
+  else if (choice == 5)                 // display link diagnostics?
+          link_diag();
+  else if (choice == 6)                 // modem config inquiry?
+          modem_inq();
+  else if (choice == 7)                 // return to prev menu?
+          {
+           done = 1;
+           Global_Status = OK;
+           break;
+          }
+  if (! done and choice > 0) wait_for_key();
+  }
+}
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Process "Set" submenu                                             //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+submenu_sets()
+{
+ int done = 0;
+ int choice;
+ int menu_len;
+ int o1, o2, o3, o4, o5, o6, o7;
+ str buffer[100];
+
+ if (! Sets_Menu_Loaded)
+    {
+     call("menu_mgr","l",Sets_Menu,"tlx_hsts",menu_len);
+     if (Rom_Level < 964)
+        {
+         call("menu_mgr","ga",Sets_Menu,buffer,3,o1,o2,o3,o4,o5,o6,o7);
+         call("menu_mgr","pa",Sets_Menu,buffer,3,'O',o2,o3,56,o5,o6,o7);
+        }
+     Sets_Menu_Loaded = 1;
+    }
+
+ while (! done and Global_Status == OK)   // display submenu loop
+  {
+  choice = call("menu_mgr","d",Sets_Menu,buffer,0,1,0,0);
+  call("menu_mgr","r");
+  cursor_onoff(1);
+  update_term();
+  if (choice == 1)                      // set clock?
+     set_clock();
+  else if (choice == 2)                 // reset modem ot nram setting?
+          set_to_nram();
+  else if (choice == 3)                 // set modem link rate?
+          set_rate();
+  else if (choice == 4)                 // reset data mode to std?
+          data_mode();
+  else if (choice == 5)                 // set registers submenu?
+          submenu_regs();
+  else if (choice == 6)                 // write values to NRAM?
+          write_nram();
+  else if (choice == 7)                 // reset telix modem strings?
+          set_tlx_cfg();
+  else if (choice == 8)                 // return to prev menu?
+          {
+           done = 1;
+           Global_Status = OK;
+           break;
+          }
+  if (! done and choice > 0 and choice != 5) wait_for_key();
+  }
+}
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Process "Register" submenu                                        //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+submenu_regs()
+{
+ int done = 0;
+ int choice;
+ int menu_len;
+ int o1, o2, o3, o4, o5, o6, o7;
+ str buffer[100];
+
+ if (! Regs_Menu_Loaded)
+    {
+     call("menu_mgr","l",Regs_Menu,"tlx_hstr",menu_len);
+     if (Rom_Level < 964)
+        {
+         call("menu_mgr","ga",Regs_Menu,buffer,3,o1,o2,o3,o4,o5,o6,o7);
+         call("menu_mgr","pa",Regs_Menu,buffer,3,'O',o2,o3,56,o5,o6,o7);
+        }
+     Regs_Menu_Loaded = 1;
+    }
+
+ while (! done and Global_Status == OK)   // display submenu loop
+  {
+  choice = call("menu_mgr","d",Regs_Menu,buffer,0,1,0,0);
+  call("menu_mgr","r");
+  cursor_onoff(1);
+  update_term();
+  if (choice == 1)                      // set registers
+     set_sregs();
+  else if (choice == 2)                 // set reg13?
+          set_s13reg();
+  else if (choice == 3)                 // set reg15?
+          set_s15reg();
+  else if (choice == 4)                 // return to prev menu?
+          {
+           done = 1;
+           Global_Status = OK;
+           break;
+          }
+  if (! done and choice > 0) wait_for_key();
+  }
+}
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Process "Help" submenu                                            //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+submenu_help()
+{
+ int done = 0;
+ int choice;
+ int menu_len;
+ str buffer[100];
+
+ if (! Help_Menu_Loaded)
+    {
+     call("menu_mgr","l",Help_Menu,"tlx_hsth",menu_len);
+     Help_Menu_Loaded = 1;
+    }
+
+ while (! done and Global_Status == OK)   // display submenu loop
+  {
+  choice = call("menu_mgr","d",Help_Menu,buffer,0,1,0,0);
+  call("menu_mgr","r");
+  cursor_onoff(1);
+  update_term();
+  if (choice == 1)                      // display basic help?
+     basic_help();
+  else if (choice == 2)                 // display extended help?
+          ext_help();
+  else if (choice == 3)                 // display dial help?
+          dial_help();
+  else if (choice == 4)                 // display switch help?
+          switch_help();
+  else if (choice == 5)                 // display s-register help?
+          sreg_help();
+  else if (choice == 6)                 // return to prev menu?
+          {
+           done = 1;
+           Global_Status = OK;
+           break;
+          }
+  if (! done and choice > 0) wait_for_key();
+  }
+}
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Process "Test" submenu                                            //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+submenu_test()
+{
+ int done = 0;
+ int choice;
+ int menu_len;
+ str buffer[100];
+
+ if (! Test_Menu_Loaded)
+    {
+     call("menu_mgr","l",Test_Menu,"tlx_hste",menu_len);
+     Test_Menu_Loaded = 1;
+    }
+
+ while (! done and Global_Status == OK)   // display submenu loop
+  {
+  choice = call("menu_mgr","d",Test_Menu,buffer,0,1,0,0);
+  call("menu_mgr","r");
+  cursor_onoff(1);
+  update_term();
+  if (choice == 1)                      // ram test?
+     ram_test();
+  else if (choice == 2)                 // interface test?
+          interface_test();
+  else if (choice == 3)                 // analog loop test?
+          analog_loop();
+  else if (choice == 4)                 // freqency test?
+          freq_test();
+  else if (choice == 5)                 // return to prev menu?
+          {
+           done = 1;
+           Global_Status = OK;
+           break;
+          }
+  if (! done and choice > 0) wait_for_key();
+  }
+}
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Process "Fone" submenu                                            //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+submenu_fone()
+{
+ int done = 0;
+ int choice;
+ int menu_len;
+ str buffer[100];
+
+ if (! Fone_Menu_Loaded)
+    {
+     call("menu_mgr","l",Fone_Menu,"tlx_hstf",menu_len);
+     Fone_Menu_Loaded = 1;
+    }
+
+ while (! done and Global_Status == OK)   // display submenu loop
+  {
+  choice = call("menu_mgr","d",Fone_Menu,buffer,0,1,0,0);
+  call("menu_mgr","r");
+  cursor_onoff(1);
+  update_term();
+  if (choice == 1)                      // display/set phone #'s?
+     disp_phone();
+  else if (choice == 2)                 // dial a phone #?
+          dial_phone();
+  else if (choice == 3)                 // return to prev menu?
+          {
+           done = 1;
+           Global_Status = OK;
+           break;
+          }
+  if (! done and choice > 0) wait_for_key();
+  }
+}
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Process "Compression" submenu                                     //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+submenu_comp()
+{
+ int done = 0;
+ int choice;
+ int menu_len;
+ str buffer[100];
+
+ if (! Comp_Menu_Loaded)
+    {
+     call("menu_mgr","l",Comp_Menu,"tlx_hstc",menu_len);
+     Comp_Menu_Loaded = 1;
+    }
+
+ while (! done and Global_Status == OK)   // display submenu loop
+  {
+  choice = call("menu_mgr","d",Comp_Menu,buffer,0,1,0,0);
+  call("menu_mgr","r");
+  cursor_onoff(1);
+  update_term();
+  if (choice == 1)                      // disable compression?
+     disable_comp();
+  else if (choice == 2)                 // automatic compression?
+          auto_comp();
+  else if (choice == 3)                 // enable compression?
+          enable_comp();
+  else if (choice == 4)                 // return to prev menu?
+          {
+           done = 1;
+           Global_Status = OK;
+           break;
+          }
+  if (! done and choice > 0) wait_for_key();
+  }
+}
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to wait for user to hit a key                            //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+wait_for_key()
+ {
+  int v_handle;
+
+  v_handle = vsavearea(50,23,79,23);        // save screen image
+  pstraxy("***Hit any key to continue***",50,23,48);
+  inkeyw();
+  vrstrarea(v_handle);
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to dial a number and exit                                //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+dial_phone()
+ {
+  str prefix[4];
+  str number[25];
+
+  while (1)
+     {
+      clear_scr();
+      prints("(T) for tone, (P) for pulse dialing and (Enter)...");
+      gotoxy(0,2);
+      gets(prefix,1);
+      if (prefix == "t" or prefix == "T")
+         {
+          prefix = "ATDT";
+          break;
+         }
+      if (prefix == "p" or prefix == "P")
+         {
+          prefix = "ATDP";
+          break;
+         }
+      tone(450,50);
+     }
+
+  gotoxy(0,5);
+  prints("Type desired telephone number and (Enter)");
+  gotoxy(0,7);
+  gets(number,25);
+  gotoxy(0,9);
+  hangup();
+  prints("Exiting TLX_HST and dialing......");
+  cputs(prefix);
+  cputs(number);
+  cputs("^M");
+  Global_Status = TERMINATE;
+  return();
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to display HST ROM level                                 //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+get_level()
+ {
+  clear_scr();
+  prints("USR HST ROM LEVEL DISPLAY -- ATI0");
+  cputs("ATI0^M");
+  if (waitfor("OK",10))
+     return(OK);
+  else
+     return(TIMEOUT);
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to display HST memory check_sum                          //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+chk_sum()
+ {
+  clear_scr();
+  prints("USR HST MEMORY CHECKSUM (ROM) DISPLAY -- ATI1");
+  cputs("ATI1^M");
+  if (waitfor("OK",10))
+     return(OK);
+  else
+     return(TIMEOUT);
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to perform HST RAM test                                  //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+ram_test()
+{
+  clear_scr();
+  prints("USR HST RAM MEMORY TEST -- ATI2");
+  cputs("ATI2^M");
+  if (waitfor("OK",10))
+     return(OK);
+  else
+     return(TIMEOUT);
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to display HST RAM settings                              //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+current_set()
+ {
+  clear_scr();
+  prints("USR HST CURRENT MODEM SETTINGS -- ATI4");
+  cputs("ATI4^M");
+  if (not waitfor("HOOK",10)) return(TIMEOUT);
+  if (waitfor("OK",10))
+     return(OK);
+  else
+     return(TIMEOUT);
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to display HST Non-volatile RAM settings                 //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+nram_set()
+ {
+  clear_scr();
+  prints("USR HST NON-VOLATILE RAM SETTINGS -- ATI5");
+  cputs("ATI5^M");
+  if (waitfor("OK",10))
+     return(OK);
+  else
+     return(TIMEOUT);
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to display HST link diagnostics                          //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+link_diag()
+ {
+  clear_scr();
+  prints("USR HST LINK DIAGNOSTICS DISPLAY -- ATI6");
+  cputs("ATI6^M");
+  if (waitfor("OK",10))
+     return(OK);
+  else
+     return(TIMEOUT);
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to display/set internal HST TOD clock                    //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+set_clock()
+ {
+  str input[1];
+  int ret_val;
+
+  ret_val = OK;
+  clear_scr();
+  prints("USR HST INTERNAL CLOCK DISPLAY -- ATI3");
+  prints("Current modem clock value is:");
+  cputs("ATI3^M");
+  if (not waitfor("OK",10)) return(TIMEOUT);
+  prints(" ");
+  prints("Do you wish to set the modem clock (Y/N) ");
+  gets(input,1);
+  if (input != "Y" and input != "y")
+     return(OK);
+  clear_scr();
+  prints("USR HST INTERNAL CLOCK SETTING");
+  gotoxy(0,2);
+  prints("OPTION 1: Synchronize to system clock");
+  prints("OPTION 2: Specify your own clock value");
+
+  while (1)
+     {
+      gotoxy(0,5);
+      printsc("Type 1 or 2 and (Enter):  ");
+      gets(input,1);
+      if (input == "1")
+         {
+          ret_val = sys_clock();
+          break;
+         }
+      else if (input == "2")
+         {
+          ret_val = usr_clock();
+          break;
+         }
+      else tone(450,50);
+     }
+
+  gotoxy(0,11);
+  prints("Modem Internal clock value is now:");
+  cputs("ATI3^M");
+  if (waitfor("OK",10))
+     return(ret_val);
+  else
+     return(TIMEOUT);
+ }
+
+sys_clock()
+ {
+  str time_str[8];
+
+  clear_scr();
+  prints("SYNCHRONIZING MODEM CLOCK TO SYSTEM CLOCK");
+  gotoxy(0,2);
+  printsc("Current system clock is ");
+  time(curtime(),time_str);
+  prints(time_str);
+  cputs("ATK1^M");
+  if (not waitfor("OK",10)) return(TIMEOUT);
+  prints("^MSetting...");
+  cputs("ATI3=");
+  cputs(time_str);
+  cputs("K1^M");
+  if (waitfor("OK",10))
+     return(OK);
+  else
+     return(TIMEOUT);
+ }
+
+usr_clock()
+ {
+  str time_str[8];
+
+  clear_scr();
+  prints("MANUAL SETTING OF USR HST INTERNAL CLOCK");
+  gotoxy(0,2);
+  prints("WARNING: The script does not validate the clock value;");
+  prints("         an incorrect clock value will return an error.");
+  gotoxy(0,6);
+  printsc("Type a clock value in HH:MM:SS format and  (Enter): ");
+  gets(time_str,8);
+  cputs("ATK1^M");
+  if (not waitfor("OK",10)) return(TIMEOUT);
+  prints("^MSetting...");
+  cputs("ATI3=");
+  cputs(time_str);
+  cputs("K1^M");
+  if (waitfor("OK",10))
+     return(OK);
+  else
+     return(TIMEOUT);
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to set HST S-Registers                                   //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+set_sregs()
+ {
+  str reg_num[2];
+  str reg_val[3];
+
+  clear_scr();
+  prints("SET HST S-REGISTER(S)");
+  cputs("ATS$^M");
+  if (not waitfor("OK",10)) return(TIMEOUT);
+  while (1)
+     {
+      gotoxy(0,17);
+      prints("Enter register you want to set (0-12,16-17,19-28,38) <Enter>=None:   ");
+      gotoxy(67,17);
+      gets_lead0(reg_num,2);
+      if (reg_num == "")
+         return(OK);
+      if (reg_num >= "00" and reg_num <= "12" and num_str(reg_num))
+         break;
+      if (reg_num == "16" or reg_num == "17" and num_str(reg_num))
+         break;
+      if (reg_num >= "19" and reg_num <= "28" and num_str(reg_num))
+         break;
+      if (reg_num == "38")
+         break;
+      tone(400,50);
+     }
+
+  clear_scr();
+  printsc("Current value of register S");
+  printsc(reg_num);
+  prints(":");
+  cputs("ATS");
+  cputs(reg_num);
+  cputs("?^M");
+  if (not waitfor("OK",10)) return(TIMEOUT);
+
+  while (1)
+     {
+      gotoxy(0,7);
+      printsc("Type new S");
+      printsc(reg_num,);
+      prints(" register value or (Enter) to leave as is: ");
+      gets_lead0(reg_val,3);
+      if (reg_val == "")
+         return(OK);
+      if (reg_val >= "0" and reg_val <="255" and num_str(reg_val))
+         break;
+      tone(400,50);
+     }
+
+  cputs("ATS");
+  cputs(reg_num);
+  cputs("=");
+  cputs(reg_val);
+  cputs("^M");
+  if (not waitfor("OK",10)) return(TIMEOUT);
+  gotoxy(0,14);
+  printsc("New S");
+  printsc(reg_num);
+  prints(" register value returned by modem is:");
+  cputs("ATS");
+  cputs(reg_num);
+  cputs("?^M");
+  if (waitfor("OK",10))
+     return(OK);
+  else
+     return(TIMEOUT);
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to reset HST to NRAM defaults                            //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+set_to_nram()
+ {
+  int input;
+
+  clear_scr();
+  input = show_yn("Reset HST to NRAM defaults",
+          "Resetting to NRAM defaults may erase changes made to the modem",
+          "operational parameters or S-Registers if these changes were not",
+          "copied to NRAM.");
+  if (input != 'y' and input != 'Y')
+     return(OK);
+
+  cputs("ATZ^M");
+  if (waitfor("OK",10))
+     return(OK);
+  else
+     return(TIMEOUT);
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to display HST Basic command help                        //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+basic_help()
+ {
+  clear_scr();
+  cputs("AT$^M");
+  if (not waitfor("Hook",10)) return(TIMEOUT);
+  if (not waitfor("Hook",10)) return(TIMEOUT);
+  if (waitfor("OK",10))
+     return(OK);
+  else
+     return(TIMEOUT);
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to display HST Basic Command help                        //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+ext_help()
+ {
+  clear_scr();
+  cputs("AT&$^M");
+  if (waitfor("OK",30))
+     return(OK);
+  else
+     return(TIMEOUT);
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to display HST Dialing Command help                      //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+dial_help()
+ {
+  clear_scr();
+  cputs("ATD$^M");
+  if (not waitfor("Hook",30)) return(TIMEOUT);
+  if (waitfor("OK",30))
+     return(OK);
+  else
+     return(TIMEOUT);
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to display HST S-register help                           //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+sreg_help()
+ {
+  clear_scr();
+  cputs("ATS$^M");
+  if (waitfor("OK",30))
+     return(OK);
+  else
+     return(TIMEOUT);
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to display HST Switch settings help                      //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+switch_help()
+ {
+  clear_scr();
+  prints("HST DIP SWITCH HELP SCREEN");
+  prints(" ");
+  prints("    ‹  ‹   ");
+  prints("   ⁄ƒƒƒƒƒƒø⁄ƒ¬ƒ¬ƒ¬ƒ¬ƒ¬ƒ¬ƒ¬ƒ¬ƒ¬ƒø");
+  prints(" UP≥€€€€€€≥≥ ≥€≥ ≥€≥ ≥ ≥€≥ ≥ ≥€≥   FACTORY");
+  prints(" DN≥      ≥≥€≥ ≥€≥ ≥€≥€≥ ≥€≥€≥ ≥   SETTINGS");
+  prints("   ¿ƒƒƒƒƒƒŸ¿ƒ¡ƒ¡ƒ¡ƒ¡ƒ¡ƒ¡ƒ¡ƒ¡ƒ¡ƒŸ");
+  prints("      ﬂ  ﬂ      1 2 3 4 5 6 7 8 9 10");
+  prints(" ");
+  prints(" Sw#         Description                 Sw#           Description       ");
+  prints(" ------------------------------------------------------------------------");
+  prints("  1...Data Terminal Ready Override        6...Carrier Detect Override    ");
+  prints("      UP=DTR Normal  DN=DTR always ON         UP=Pin 8     DN=Always ON  ");
+  prints("  2...Verbal/Numeric Result Codes         7...Single/Multiple Phone      ");
+  prints("      UP=Verbal      DN=Numeric               UP=Single    DN=Multiple   ");
+  prints("  3...Result Code Display                 8...Command Set Recognition    ");
+  prints("      UP=No Display  DN=Display               UP=Dumb Mode DN=Smart Mode ");
+  prints("  4...Command Mode Local Echo             9...Normal Mode Escape Code op.");
+  prints("      UP=Echo        DN=No Echo               UP=Hang Up   DN=Keep Connect");
+  prints("  5...Auto Answer                        10...Power-on Software Defaults ");
+  prints("      UP=AA 1st ring DN=No AA                 UP=Use NRAM  DN=Use ROM    ");
+  prints(" ");
+  prints("  Quad Switch: Send/Receive UP=Pin2 Xmit/Pin3 Rcv DN=Pin2 Rcv/Pin3 Xmit");
+  return(OK);
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to write to NRAM                                         //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+write_nram()
+ {
+  int input;
+
+  clear_scr();
+  input = show_yn("Write NRAM",
+          "Writing changes to NRAM may change your power-up modem defaults!",
+          "","");
+  if (input != 'y' and input != 'Y')
+     return(OK);
+
+  cputs("AT&W^M");
+  if (not waitfor("OK",10)) return(TIMEOUT);
+  return(nram_set());
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to perform PC to Modem interface test                    //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+interface_test()
+ {
+  clear_scr();
+  prints("PC/MODEM INTERFACE TEST: If the Modem/PC Interface is functional,");
+  prints("the modem will respond with 'OK'...");
+  delay_scr(50);
+  cputs("AT^M");
+  if (waitfor("OK",10))
+     return(OK);
+  else
+     return(TIMEOUT);
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to perform Analog Loopback/Dial Frequency test           //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+analog_loop()
+ {
+  clear_scr();
+  prints("ANALOG LOOPBACK SELF-TEST AND DIAL FREQUENCY TEST: The HST will");
+  prints("modulate and demodulate its own internal test pattern and return");
+  prints("the pattern to the scree. The first step, upon success, will");
+  prints("display 'CONNECT 2400'. The second step will display 'NO CARRIER'.");
+  cputs("AT&M0S16=5D^M");
+  if (not waitfor("CONNECT 2400",20)) return(TIMEOUT);
+  prints(" ");
+  prints("-- Step 1 OK");
+  delay_scr(30);
+  cputs("X");
+  if (not waitfor("NO CARRIER",20)) return(TIMEOUT);
+  prints(" ");
+  prints("-- Step 2 OK");
+  cputs("AT&M4S16=0^M");
+  if (waitfor("OK",20))
+     return(OK);
+  else
+     return(TIMEOUT);
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to perform Analog Loopback/Answer Frequency test         //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+freq_test()
+ {
+  clear_scr();
+  prints("ANALOG LOOPBACK SELF-TEST AND ANSWER FREQUENCY TEST: The HST will");
+  prints("modulate and demodulate its own internal test pattern and return");
+  prints("the pattern to the scree. The first step, upon success, will");
+  prints("display 'CONNECT 2400'. The second step will display 'NO CARRIER'.");
+  cputs("AT&M0S16=5A^M");
+  if (not waitfor("CONNECT 2400",20)) return(TIMEOUT);
+  prints(" ");
+  prints("-- Step 1 OK");
+  delay_scr(30);
+  cputs("X");
+  if (not waitfor("NO CARRIER",20)) return(TIMEOUT);
+  prints(" ");
+  prints("-- Step 2 OK");
+  cputs("AT&M4S16=0^M");
+  if (waitfor("OK",20))
+     return(OK);
+  else
+     return(TIMEOUT);
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to reset HST data modes & error control                  //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+data_mode()
+ {
+  clear_scr();
+  prints("RESET STANDARD HST DATA MODE.  This function will reset the HST");
+  prints("modem error control and data mode defaults for normal operation.");
+  prints(" ");
+  cputs("AT&M4S16=0^M");
+  if (waitfor("OK",20))
+     return(OK);
+  else
+     return(TIMEOUT);
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to set PCBoard defaults                                  //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+pcboard_def()
+ {
+  str input[1];
+
+  clear_scr();
+  flushbuf();
+  prints("MODEM SWITCH SETTINGS FOR PCBOARD 14.X HOST OPERATIONS");
+  prints(" ");
+  prints("    ‹  ‹   ");
+  prints("   ⁄ƒƒƒƒƒƒø⁄ƒ¬ƒ¬ƒ¬ƒ¬ƒ¬ƒ¬ƒ¬ƒ¬ƒ¬ƒø");
+  prints(" UP≥€€€€€€≥≥€≥€≥ ≥ ≥ ≥€≥€≥ ≥ ≥€≥");
+  prints(" DN≥      ≥≥ ≥ ≥€≥€≥€≥ ≥ ≥€≥€≥ ≥");
+  prints("   ¿ƒƒƒƒƒƒŸ¿ƒ¡ƒ¡ƒ¡ƒ¡ƒ¡ƒ¡ƒ¡ƒ¡ƒ¡ƒŸ");
+  prints("      ﬂ  ﬂ  1 2 3 4 5 6 7 8 9 10");
+  prints(" ");
+  prints("NOTE: Switch 7 setting may be changed if you are running");
+  prints("      a multi-phone operation");
+  prints(" ");
+  prints("NOTE: Do NOT change the modem's switch settings at this time.");
+  prints("      Once the script has terminated and all internal parameters");
+  prints("      have been set and written to non-volatile RAM (NRAM),");
+  prints("      terminate Telix via the ALT-X command, power off the");
+  prints("      HST modem, set the switches to match the diagram above,");
+  prints("      and power the modem back on.  The new switch settings");
+  prints("      will then go into effect.");
+  prints(" ");
+  printsc("Press <Enter> to continue with other modem parameters");
+  gets(input,1);
+  show_msg("Set Modem for PCBoard Operations",
+           "This function will set all modem parameters and S-registers",
+           "to optimum values for 38400 bps operation with PCBoard 14.x",
+           "These settings are consistent with Clark's PCBMODEM pgm.",
+           "Press any key to continue modem setup for PCBoard operation");
+  Global_Status = fast_set_pcb();
+ }
+
+//
+telix_def()
+ {
+  str input[1];
+
+  flushbuf();
+  clear_scr();
+  prints("MODEM SWITCH SETTINGS FOR TELIX 3.12 ORIGINATE OPERATIONS");
+  prints(" ");
+  prints("    ‹  ‹   ");
+  prints("   ⁄ƒƒƒƒƒƒø⁄ƒ¬ƒ¬ƒ¬ƒ¬ƒ¬ƒ¬ƒ¬ƒ¬ƒ¬ƒø");
+  prints(" UP≥€€€€€€≥≥€≥€≥ ≥ ≥ ≥€≥€≥ ≥ ≥€≥");
+  prints(" DN≥      ≥≥ ≥ ≥€≥€≥€≥ ≥ ≥€≥€≥ ≥");
+  prints("   ¿ƒƒƒƒƒƒŸ¿ƒ¡ƒ¡ƒ¡ƒ¡ƒ¡ƒ¡ƒ¡ƒ¡ƒ¡ƒŸ");
+  prints("      ﬂ  ﬂ  1 2 3 4 5 6 7 8 9 10");
+  prints(" ");
+  prints("NOTE: Do NOT change the modem's switch settings at this time.");
+  prints("      Once the script has terminated and all internal parameters");
+  prints("      have been set and written to non-volatile RAM (NRAM),");
+  prints("      terminate Telix via the ALT-X command, power off the");
+  prints("      HST modem, set the switches to match the diagram above,");
+  prints("      and power the modem back on.  The new switch settings");
+  prints("      will then go into effect.");
+  prints(" ");
+  printsc("Press <Enter> to continue with other modem parameters");
+  gets(input,1);
+  show_msg("Set Modem for Telix Operations",
+           "This function will set all modem operational parameters and",
+           "S-Registers to their optimum values for 38400 bps operation",
+           "when using Telix 3.12 in originate mode.",
+           "Press any key to continue modem setup for Telix operation");
+  Global_Status = fast_set_telix();
+ }
+
+fast_set_telix()
+ {
+  clear_scr();
+  prints("SENDING TELIX SETUP PARAMETERS TO HST MODEM.......");
+  prints(" ");
+  cputs("AT &F^M");                            // load factory settings
+  if (not waitfor("OK",10)) return(TIMEOUT);
+  delay_scr(20);
+  cputs("AT C1 E0 F1 M1 Q0 V1 X6 B1^M");
+  if (not waitfor("OK",10)) return(TIMEOUT);
+  delay_scr(20);
+  cputs("AT &A1 &B1 &G0 &H1 &I0 ^M");
+  if (not waitfor("OK",10)) return(TIMEOUT);
+  delay_scr(20);
+  if (Rom_Level >= 964)
+     cputs("AT &K0");
+  else
+     cputs("AT");
+  cputs(" &M4 &N0 &P0 &R2 &S1 &Y1^M");
+  if (not waitfor("OK",10)) return(TIMEOUT);
+  delay_scr(20);
+  cputs("AT S0=0 S1=0 S2=43 S3=13 ^M");
+  if (not waitfor("OK",10)) return(TIMEOUT);
+  delay_scr(20);
+  cputs("AT S4=10 S5=8 S6=2 S7=60 S8=2 ^M");
+  if (not waitfor("OK",10)) return(TIMEOUT);
+  delay_scr(20);
+  cputs("AT S9=6 S10=7 S11=70 S12=50 ^M");
+  if (not waitfor("OK",10)) return(TIMEOUT);
+  delay_scr(20);
+  cputs("AT S13=0 S16=0 S17=0 ^M");
+  if (not waitfor("OK",10)) return(TIMEOUT);
+  delay_scr(20);
+  cputs("AT S19=0 S20=0 S21=10 S22=17 S23=19^M");
+  if (not waitfor("OK",10)) return(TIMEOUT);
+  delay_scr(20);
+  return(save_parms(1));
+ }
+
+fast_set_pcb()
+ {
+  clear_scr();
+  prints("SENDING PCBOARD SETUP PARAMETERS TO HST MODEM.......");
+  prints(" ");
+  cputs("AT &F^M");                            // load factory settings
+  if (not waitfor("OK",10)) return(TIMEOUT);
+  delay_scr(20);
+  cputs("AT C1 E0 F1 M0 Q0 V1 X4 B1^M");
+  if (not waitfor("OK",10)) return(TIMEOUT);
+  delay_scr(20);
+  cputs("AT &A1 &B1 &G0 &H3 &I0 &M4 ^M");
+  if (not waitfor("OK",10)) return(TIMEOUT);
+  delay_scr(20);
+  if (Rom_Level >= 964)
+     cputs("AT &K0");
+  else
+     cputs("AT");
+  cputs(" &N0 &P0 &R2 &S1 &Y1^M");
+  if (not waitfor("OK",10)) return(TIMEOUT);
+  delay_scr(20);
+  cputs("AT S0=0 S1=1 S2=255 S3=13^M");
+  if (not waitfor("OK",10)) return(TIMEOUT);
+  delay_scr(20);
+  cputs("AT S4=10 S5=8 S6=2 S7=30 S8=2^M");
+  if (not waitfor("OK",10)) return(TIMEOUT);
+  delay_scr(20);
+  cputs("AT S9=6 S10=7 S11=70 S12=50^M");
+  if (not waitfor("OK",10)) return(TIMEOUT);
+  delay_scr(20);
+  cputs("AT S13=0 S15=0 S16=0 S17=0^M");
+  if (not waitfor("OK",10)) return(TIMEOUT);
+  delay_scr(20);
+  cputs("AT S19=0 S20=0 S21=10 S22=17 S23=19^M");
+  if (not waitfor("OK",10)) return(TIMEOUT);
+  delay_scr(20);
+  return(save_parms(0));
+ }
+
+save_parms(int telix)
+ {
+  int input;
+
+  input = show_yn("Write Modem settings to NRAM",
+          "All modem parameters and S-registers have been set",
+          "Write these settings to nonvolatile NRAM?","");
+  if (input == 'y' or input == 'Y')
+     {
+      clear_scr();
+      prints("WRITING PARAMETER & S-REGISTER SETTINGS TO NRAM");
+      cputs("AT&W^M");
+      if (not waitfor("OK",10)) return(TIMEOUT);
+
+      input = show_yn("Modem Reset",
+              "If you changed switch settings 2,3,4,5 OR 9, a modem reset",
+              "must be performed for the new switch settings to go into effect.",
+              "Do you wish a modem reset to be performed now?");
+      if (input == 'y' or input == 'Y')
+         {
+          clear_scr();
+          prints("RESETTING HARDWARE TO NRAM AND NEW SWITCH SETTINGS");
+          cputs("ATZ^M");
+          if (not waitfor("OK",10)) return(TIMEOUT);
+         }
+     }
+
+  if (telix)
+     return(set_tlx_cfg());
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to set Telix Config. strings                             //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+set_tlx_cfg()
+ {
+  int input;
+
+  clear_scr();
+  input = show_yn("Telix Config. String",
+         "Do you wish to set Telix Config. modem/dialing strings to default",
+         "values? If so, be sure that when you exit TLX_HST you use the Telix",
+         "command ALT-O to save the values since TLX_HST can't do that!!");
+  if (input != 'y' and input != 'Y')
+     return(OK);
+
+  prints("SETTING TELIX CONFIG. MODEM/DIALING STRINGS TO DEFAULTS...");
+  prints("");
+  _mdm_hang_str = "~~~+++~~~ATH0^^M";
+  _mdm_init_str = "ATZ^^M~~~";
+  _auto_ans_str = "ATS0=1^^M~~~";
+  _connect_str  = "CONNECT";
+  _dialpost     = "^^M";
+  _dialpref     = "ATDT";
+  _dialpref2    = "ATDT";
+  _dialpref3    = "ATDT";
+  _no_connect1  = "NO CARRIER";
+  _no_connect2  = "BUSY";
+  _no_connect3  = "VOICE";
+  _no_connect4  = "NO DIAL TONE";
+  _redial_stop  = "^^M";
+  prints("OK");
+
+  return(OK);
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to disable MNP level 5 data compression                  //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+disable_comp()
+ {
+  clear_scr();
+  printsc("DISABLE MNP LEVEL 5 DATA COMPRESSION - AT&K0");
+  cputs("AT&K0^M");
+  if (waitfor("OK",10))
+     return(OK);
+  else
+     return(TIMEOUT);
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to auto enable/disable MNP level 5 data compression      //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+auto_comp()
+ {
+  clear_scr();
+  printsc("AUTO ENABLE/DISABLE MNP LEVEL 5 DATA COMPRESSION - AT&K1");
+  cputs("AT&K1^M");
+  if (waitfor("OK",10))
+     return(OK);
+  else
+     return(TIMEOUT);
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to enable MNP level 5 data compression                   //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+enable_comp()
+ {
+  clear_scr();
+  printsc("FORCE ENABLE MNP LEVEL 5 DATA COMPRESSION - AT&K2");
+  cputs("AT&K2^M");
+  if (waitfor("OK",10))
+     return(OK);
+  else
+     return(TIMEOUT);
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function displays Modem Configuration Inquiry screen              //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+modem_inq()
+ {
+  clear_scr();
+  printsc("MODEM CONFIGURATION INQUIRY SCREEN - ATI7");
+  printsc(" ");
+  cputs("ATI7^M");
+  if (waitfor("OK",10))
+     return(OK);
+  else
+     return(TIMEOUT);
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function sets the S13 register                                    //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+set_s13reg()
+ {
+  str input[1];
+  str new_value[3];
+
+  clear_scr();
+  prints("ROM LEVEL 964+ - S-REGISTER 13 SETTINGS");
+  prints("S-register 13 controls certain little used features of the HST Modem");
+  prints("Each bit in the register controls a modem feature or function,");
+  prints("as shown below. The corresponding bit value precedes each feature");
+  prints("description. To select a feature, add its bit value to the total");
+  prints("and store the total in the register.  The max S13 value is 223,");
+  prints("(1+2+4+8+16+64+128)");
+  prints(" ");
+  prints("Bit value   1: Reset on dropping of DTR");
+  prints("Bit value   2: Auto-answer in originate mode");
+  prints("Bit value   4: Disable result code pause");
+  prints("Bit value   8: DS0 on DTR low-to-high");
+  prints("Bit Value  16: DS0 on power-up & ATZ");
+  prints("Bit Value  32: Disable HST Modulation (V.32/DS only)");
+  prints("Bit Value  64: Disable MNP level 3");
+  prints("Bit Value 128: Watchdog hardware reset");
+  prints(" ");
+  prints("NOTE: Please refer to your HST manual for aditional information");
+  prints("      on the above features and S13-register settings");
+  prints(" ");
+  printsc("Do you wish to change the value of S-register 13 (Y/N)? ");
+  gets(input,1);
+  if (input != "y" and input != "Y")
+     return(OK);
+  gotoxy(0,21);
+  prints("New total bit value for S-register 13 (0-255) or <Enter> to cancel:    ");
+  while (1)
+     {
+      gotoxy(68,21);
+      gets_lead0(new_value,3);
+      if (new_value == "")
+         return(OK);
+      else if (new_value >= "0" and new_value <= "255" and num_str(new_value))
+              break;
+      tone(400,50);
+     }
+  clear_scr();
+  printsc("SETTING NEW S-REGISTER 13 VALUE - ATS13=");
+  prints(new_value);
+  cputs("ATS13=");
+  cputs(new_value);
+  cputs("^M");
+  if (waitfor("OK",10))
+     return(OK);
+  else
+     return(TIMEOUT);
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function sets the S15 register                                    //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+set_s15reg()
+ {
+  str input[1];
+  str new_value[3];
+
+  clear_scr();
+  prints("ROM LEVEL 964+ - S-REGISTER 15 SETTINGS");
+  prints("S-register 15 controls many of the level 964+ ROM features. Each bit");
+  prints("in the register controls a modem feature or function, as shown below");
+  prints("The corresponding bit value precedes each feature description.");
+  prints("To select a feature, add its bit value to the total and store the");
+  prints("the total in the register.  The max S15 value is 255 (128+64+16+8+2+1).");
+  prints(" ");
+  prints("Bit value   1: disable extra high-frequency equalization");
+  prints("Bit value   2: disable 7200/4800bps online fallback");
+  prints("Bit value   4: force 300bps back channel");
+  prints("Bit value   8: use 128-byte buffer in non-MNP operation");
+  prints("Bit Value  16: disable MNP Level 4");
+  prints("Bit Value  32: set DEL as backspace key");
+  prints("Bit Value  64: Unusual MNP incompatibility");
+  prints("Bit Value 128: Interbridge network compatibility");
+  prints(" ");
+  prints("NOTE: Please refer to your HST manual for aditional information");
+  prints("      on the above features and S15-register settings");
+  prints(" ");
+  printsc("Do you wish to change the value of S-register 15 (Y/N)? ");
+  gets(input,1);
+  if (input != "y" and input != "Y")
+     return(OK);
+  gotoxy(0,21);
+  prints("New total bit value for S-register 15 (0-255) or <Enter> to cancel:  ");
+  while (1)
+     {
+      gotoxy(68,21);
+      gets_lead0(new_value,3);
+      if (new_value == "")
+         return(OK);
+      else if (new_value >= "0" and new_value <= "255" and num_str(new_value))
+              break;
+      tone(400,50);
+     }
+  clear_scr();
+  printsc("SETTING NEW S-REGISTER 15 VALUE - ATS15=");
+  prints(new_value);
+  cputs("ATS15=");
+  cputs(new_value);
+  cputs("^M");
+  if (waitfor("OK",10))
+     return(OK);
+  else
+     return(TIMEOUT);
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to list/set Modem link rate settings                     //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+set_rate()
+ {
+  str input[1];
+  str new_rate[4];
+
+  clear_scr();
+  prints("MODEM LINK RATE SETTINGS - AT&Nx");
+  prints(" ");
+  prints("This command allows you to set the modem LINK rate (the data rate ");
+  prints("on the modem-modem connection) to a FIXED value between 300bps and");
+  prints("14,400bps.  Normally, the default (&N0) allows the modem to adapt its");
+  prints("rate to that of the receiving modem.  Forcing a fixed link rate  ");
+  prints("will cause your modem to disconnect if the other modem is not set ");
+  prints("at the same rate.  Unless you have a need for this feature, use of ");
+  prints("the default value is recommended.");
+  prints(" ");
+  prints("Do you want to change the modem's link rate setting (Y/N):   ");
+  gotoxy(59,10);
+  gets(input,1);
+  if (input != "y" and input != "Y")
+     return(OK);
+  clear_scr();
+  prints("CHANGE LINK RATE SETTING - AT&Nx");
+  prints(" ");
+  prints("0=set link rate to DEFAULT - AUTO SPEED DETECT");
+  prints("1=set link rate to 300bps");
+  prints("2=set link rate to 1200bps");
+  prints("3=set link rate to 2400bps");
+  prints("4=set link rate to 4800bps");
+  prints("5=set link rate to 7200bps");
+  prints("6=set link rate to 9600bps");
+  prints("7=set link rate to 12K bps");
+  prints("8=set link rate to 14.4K bps");
+  gotoxy(0,12);
+  prints("Enter new link rate value (0-8) or <Enter> to cancel:   ");
+  while (1)
+     {
+      gotoxy(53,10);
+      gets(input,1);
+      if (input == "")
+         return(OK);
+      else if (input == "0")
+              {
+               new_rate = "Auto";
+               break;
+              }
+      else if (input == "1")
+              {
+               new_rate = "300";
+               break;
+              }
+      else if (input == "2")
+              {
+               new_rate = "1200";
+               break;
+              }
+      else if (input == "3")
+              {
+               new_rate = "2400";
+               break;
+              }
+      else if (input == "4")
+              {
+               new_rate = "4800";
+               break;
+              }
+      else if (input == "5")
+              {
+               new_rate = "7200";
+               break;
+              }
+      else if (input == "6")
+              {
+               new_rate = "9600";
+               break;
+              }
+      else if (input == "7")
+              {
+               new_rate = "12000";
+               break;
+              }
+      else if (input == "8")
+              {
+               new_rate = "14400";
+               break;
+              }
+      tone(400,50);
+     }
+
+  clear_scr();
+  printsc("SETTING NEW LINK RATE TO ");
+  printsc(new_rate);
+  printsc(" bps: AT&N");
+  prints(input);
+  cputs("AT&N");
+  cputs(input);
+  cputs("^M");
+  if (waitfor("OK",10))
+     return(OK);
+  else
+     return(TIMEOUT);
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to display/set RAM-stored phone numbers                  //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+disp_phone()
+ {
+  str num0[36];
+  str num1[36];
+  str num2[36];
+  str num3[36];
+  str change_num[1];
+  str new_num[36];
+
+  while (1)
+     {
+      num0 = "";
+      num1 = "";
+      num2 = "";
+      num3 = "";
+      clear_scr();
+      printsc("RAM-STORED NUMBERS (BLANK INDICATES NO NUMBER STORED)");
+      gotoxy(0,2);
+      flushbuf();
+      cputs("AT&Z0?^M");
+      get_num(num0);
+      flushbuf();
+      cputs("AT&Z1?^M");
+      get_num(num1);
+      flushbuf();
+      cputs("AT&Z2?^M");
+      get_num(num2);
+      flushbuf();
+      cputs("AT&Z3?^M");
+      get_num(num3);
+
+      printsc("NUMBER 0: ");
+      prints(num0);
+      printsc("NUMBER 1: ");
+      prints(num1);
+      printsc("NUMBER 2: ");
+      prints(num2);
+      printsc("NUMBER 3: ");
+      prints(num3);
+
+      gotoxy(0,10);
+      printsc("Number to change (0-3) or (Enter) to leave unchanged:   ");
+      while (1)
+         {
+          gotoxy(54,10);
+          gets(change_num,1);
+          if (change_num == "")
+             return(OK);
+          else if (change_num >= "0" and change_num <= "3")
+                  break;
+          tone(400,50);
+         }
+
+      gotoxy(0,12);
+      printsc("Enter new number (36 pos.max.) ____________________________________");
+      gotoxy(31,12);
+      gets(new_num,36);
+      cputs("AT&Z");
+      cputs(change_num);
+      cputs("=");
+      cputs(new_num);
+      cputs("^M");
+      gotoxy(0,16);
+      printsc("New number has been stored in RAM at position ");
+      prints(change_num);
+      delay_scr(20);
+     }
+ }
+
+get_num(str number)
+ {
+  int i, chr;
+  str temp[5];
+
+  chr = cgetct(100);
+  if (chr != 13)
+     error_msg("Internal problem getting number",
+               "Was expecting CR","","");
+  chr = cgetct(100);
+  if (chr != 10)
+     error_msg("Internal problem getting number",
+               "Was expecting LF","","");
+
+  for (i = 0; i < 36; ++i)
+      {
+       chr = cgetct(100);
+       if (chr == 13 or chr == -1)
+          {
+           delay(10);
+           return();
+          }
+       else
+          setchr(number,i,chr);
+      }
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to get input number with leading zeros                   //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+gets_lead0(str result,int digits)
+ {
+
+  gets(result,digits);
+  if (result == "")
+     return(0);
+  while (strlen(result) < digits)
+        inschrs("0",result,0,1);
+
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to test if a string is all numeric                       //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+num_str(str teststr)
+ {
+  int i;
+
+  for (i=0; i < strlen(teststr); ++i)
+      if (not isdigit(subchr(teststr,i)))
+         return(0);
+  return(1);
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to display a message box                                 //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+show_msg(str hdr, str t1, str t2, str t3, str t4)
+ {
+  call("menu_mgr","m",3,MSG_BOX_COL,MSG_TXT_COL,1,0,-1,hdr,t1,t2,t3,t4);
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to display a YES/NO box                                  //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+show_yn(str hdr, str t1, str t2, str t3)
+ {
+  return(call("menu_mgr","m",3,MSG_BOX_COL,MSG_TXT_COL,1,0,-1,hdr,t1,
+              t2,t3,"                          Continue (Y/N)?"));
+ }
+
+//
+////////////////////////////////////////////////////////////////////////
+//                                                                    //
+//  Function to display an error message                              //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
+
+error_msg(str t1, str t2, str t3, str t4)
+ {
+  call("menu_mgr","m",3,MSG_BOX_COL,MSG_TXT_COL,1,1,-1,
+       "TLX_HST 2.1 - ERROR",t1,t2,t3,t4);
+  return(-1);
+ }
+

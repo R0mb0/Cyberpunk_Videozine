@@ -1,0 +1,21 @@
+// Sample extension script for remote (non-local) mode (TESTEXT.SLT)
+// Copyright (C) CompuProducts Ent. 1990 
+// Author: Jason H. Tepperman
+//
+// Notice the carrier checking.  Since this is a remote script we need it, but
+// in a local mode script we wouldn't.  This is the main reason we have the
+// sans 'L' and the 'L' versions of the two scripts.  As per spec, this is 
+// the sans 'L' version
+
+
+main(){
+  
+  if (!carrier()) {
+     pstra("Carrier is not detected.  Use the local extension instead ...",12);
+     prints("^M^J");
+     return;
+  }
+  
+  cputs("^M^JThis is the remote version of the sample extension script ...^M^J^M^J");
+  
+}

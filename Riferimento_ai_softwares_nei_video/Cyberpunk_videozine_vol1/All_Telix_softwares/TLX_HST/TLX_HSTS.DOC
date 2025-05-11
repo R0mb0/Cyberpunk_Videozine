@@ -1,0 +1,46 @@
+Telix HST Service Script Release 1.0
+
+HST MODEM SETUP UNDER Telix 3.11
+
+Setting up your modem for Telix use is quite simple.  In the Telix
+configuratin (ALT_O), make sure that the following parameters are
+specified:
+
+MODEM & DIALING OPTIONS
+
+Init String:         ATZ~~~AT&B1^M
+Hang Up String:      ~~~+++~~~ATH0^M
+Dial abort string:   ^M
+Drop DTR to Hang Up: on
+
+Note: Use of the ~ as delay character and ^M as carriage return
+will insure proper script operation under Telix release 3.11.
+
+
+TERMINAL OPTIONS
+
+Baud:         19200
+XON/XOFF:     off
+CTS/RTS:      on
+DSR/DTR:      off
+
+
+DIALING DIRECTORY ENTRIES
+
+Set the baud rate, for dialing directory entries that support another
+USR HST modem at the other end, to 19200 baud for the best speed.
+
+
+That's it.  proper switch settings are:
+
+1,2,6,7,10: UP
+All others: DOWN
+
+
+Andrzej Taramina
+58 Aquila Court
+Rexdale, Ontario
+Canada, M9W 5J2
+
+12/13/1988
+

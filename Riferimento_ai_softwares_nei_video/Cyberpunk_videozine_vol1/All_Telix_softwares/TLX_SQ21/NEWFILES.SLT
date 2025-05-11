@@ -1,0 +1,233 @@
+//-----------------------------------------------------------
+// NEWFILES.SLT Get list of new files on this BBS.
+//
+// Please look at the comments through the whole file, and modify to
+// suit your needs, BEFORE you use it. Then recompile with CS NEWFILES.
+//-----------------------------------------------------------
+
+// If you have suggestions for improving this script, please suggest
+// improvements to me via old-fashioned snail-mail to:
+
+// Author:  Inge Vabekk
+//          Hamangskogen 108
+//          N-1300 SANDVIKA
+//          NORWAY
+//          tel. (472) 546 396
+
+str logfile  [80]            // Log file name
+   ,shortname [8]            // Short name of BBS
+   ,Update     []="UPDATE$"  // Name of update program
+   ,command  [10]            // Command prompt
+   ,lline    [80]            // Help line
+                             // For the Global storage:
+   ,global   []="GLOBAL"     // Global script
+   ,PutLine  []="PUTLINE"    // PutLine script
+   ,bbstype  []="BTYPE"      // BBS type
+   ,short    []="SHORT"      // Short BBS name
+   ,version  []="BBSver"     // BBS version
+   ,newfil   []="NEWFIL"     // XBoard's New Files indicator
+   ,newmes   []="NEWMES"     // Directory for messages and new file list
+   ,code     []="CNAME"      // Code name for this BBS
+   ,prompt   []="PROMPT"     // Current command prompt
+   ;     
+
+// Other constants and variables.
+
+int file1
+   ,file2
+   ,file3
+   ,t1, t2, t3, t4, t5
+   ,more
+   ,tol = 300      // timeout limit 30 sec.
+   ,tmark, stat
+   ,mbbs, pcb, rbbs, opus, fido, crcs    // Possible BBS types
+   ,BBSver         // PCBoard version.
+   ,Enter=13       // Code for CR (Enter)
+   ;
+
+//-----------------------------------------------------------
+// NewFiles script starts here.
+//-----------------------------------------------------------
+
+main()
+{
+  entry();                               // Updates colors & status bar. 
+
+// Check if online.
+//-----------------------------------------------------------
+
+  if (!carrier())   
+  { prints ("Tý: Sorry -- you can't get new files when you're offline!");
+    return (-1);
+  }
+  
+// Find BBS type (Set one logical variable).
+
+  read (bbstype,shortname);              // Get BBS type,
+  mbbs = pcb = rbbs = opus = fido = crcs = 0;
+  if (shortname == "PCB" ) pcb = 1;
+  else if (shortname == "MBBS") mbbs = 1;
+  else if (shortname == "RBBS") rbbs = 1;
+  else if (shortname == "OPUS") opus = 1;
+  else if (shortname == "FIDO") fido = 1;
+  else if (shortname == "CRCS") crcs = 1;
+  else                                          
+  { prints ("Tý: Sorry -- Unknown BBS type for the NewFiles script.");
+    return (-1);
+  }
+  read (version,logfile);                // Get version number too.
+  BBSver = subchr (logfile,0);
+
+  read (prompt,command);                 // Get command prompt.
+  read (short,shortname);                // Get name of
+  logfile = "CAT\";                      // file list.
+  strcat (logfile,shortname);
+  if (filesize (logfile) == 0) fdelete (logfile);
+
+  do
+  { terminal();                        // Process all echo
+    delay(3);                          // from the BBS.
+  } while (cinp_cnt() > 0);
+
+  capture ("*CLOSE*");                 // Close capture file.
+  newdir (_telix_dir); // Make sure we're in the TELIX main directory.
+  logfile = "LOG\TEMP.SQR";            // Create a temporary file
+                                       // in the logfile directory.
+  fdelete (logfile);                   // Delete previous file.
+  capture (logfile);                   // Start new capture.
+  
+  t5 = track ("^J",0);                 // Track linefeeds 
+  if (mbbs)
+  { t2 = track ("-more-",0);           // More?
+    t3 = track (">=none :",0);         // Track directory prompt
+    t4 = track ("YYMMDD",0);           // Track date
+    call (PutLine,"F N",Enter);        // Go get the new files.
+  }
+  else if (pcb)
+  { t2 = track ("lag, More?",0);       // More prompt?
+    t3 = track ("to continu",0);       // Enter to continue?
+    t4 = track ("ning Direc",0);       // No date for PCB.
+    call (PutLine,"N S A NS",Enter);   // Go get the new files.
+  }
+  t1 = track (command,0);              // Track Command.
+
+  tol = 150;                           // Set 15 sec. timeout.
+  more = 0;
+  tmark = timer_start (tol);
+
+  while ((stat=trig()) > 0)
+  { if (stat == t1)                    // Command - done.
+      break;         
+
+    if (pcb)
+    { if (stat==t2 || stat==t3)        // Continue or more
+      { more = 1;
+        call (PutLine,"NS",Enter);     // Non-Stop.
+      }
+    }
+    else if (mbbs)
+    { if (stat==t2)
+      { more = 1;
+        cputc (Enter);                 // Continue.
+      }
+      else if (stat==t3)               // What directories?
+        call (PutLine,"*",Enter);      // All.
+
+      else if (stat==t4)               // Date...
+        cputc (Enter);
+    }
+  }
+
+  timer_free (tmark);                  // free timer channel
+  track_free (0);                      // and all track channels.
+  tol = 300;                           // Restore timeout.
+  capture ("*CLOSE*");                 // Close the temporary log file.
+
+  if (read (newfil,lline) > 0)         // New files wanted:
+  { t1 = fopen (logfile,"r");          // Open temporary file.
+    read (newmes,logfile);
+    read (code,lline);
+    strcat (logfile,lline);
+    strcat (logfile,".NEW");
+//  prints (logfile);
+    t2 = fopen (logfile,"w");          // Open XBoard's list.
+    while (fgets(logfile,strmaxlen(logfile),t1) >=0)
+    { fputs (logfile,t2);
+      fputs ("^M^J",t2);
+    }
+    fclose (t1);
+    fclose (t2);
+  }
+
+  exec (Update,shortname);             // Update log + cat files.
+  logfile = "LOG\";
+  strcat (logfile,shortname);          // Find name of log file.
+  capture (logfile);                   // Start new capture.
+  if (more)
+  { if (mbbs)
+      call (PutLine,"Q U L 0",Enter);  // Stop this prompt for later.
+    else if (pcb)
+      call (PutLine,"P 0",Enter);      // Stop this prompt for later.
+    waitfor (command,2);
+  }
+  return (0);                            // Return OK.
+}
+
+//-----------------------------------------------------------
+// Routine to update colors and status bar.
+//-----------------------------------------------------------
+
+entry ()
+{
+  _back_color = 1;
+  _fore_color = 14;
+  update_term();
+}
+
+//-----------------------------------------------------------
+//  Trig loop. Waits here until either one "trig string" is
+//  found, or we have a time-out, or carrier is lost.
+//-----------------------------------------------------------
+
+trig()
+{
+int i;
+  do
+  { terminal();
+  }  while (!time_up (tmark)             // Loop until time-out
+          && carrier()                   // or carrier lost
+          && (i=track_hit(0))==0);       // or we trigged.
+  if (i==0) 
+    i = -1;                              // Error!
+  else
+    timer_restart (tmark,tol);           // Restore timer.
+  return (i);
+}
+
+//-----------------------------------------------------------
+// Read a global variable.
+//-----------------------------------------------------------
+
+read (str name, str varname)
+{
+  return (call (global,"R",name,varname));
+}
+
+//-----------------------------------------------------------
+// Execute a program.
+//-----------------------------------------------------------
+
+exec (str prog,str pram)
+{
+str line [80];
+int i;
+  i = run (prog,pram,2);               // Try to run program.
+  if (i >= 0) return (i);              // OK.
+
+  line = "Couldn't find or execute '";
+  strcat (line,prog);
+  strcat (line,".EXE'!");
+  tone (80,80);                        // No success:
+  status_wind (line,20);
+  return (i);
+}

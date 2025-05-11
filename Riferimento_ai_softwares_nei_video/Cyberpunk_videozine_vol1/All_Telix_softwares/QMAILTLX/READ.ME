@@ -1,0 +1,37 @@
+A week or so ago, I uploaded a script for Telix 3.00 which would work 
+with the Qwikmail door on Cheers!, a PC-Board in Memphis, Tennessee.  
+Since then I have rewritten the script so that it is more efficient and 
+more useful -- it not only runs better but it also is capable of being 
+used with Radio Free Memphis, another PC-Board in Memphis, without any 
+change.  (It can detect which board has answered and will adjust the 
+door number and filenames accordingly.)  It should be possible to modify 
+it to work with other PC-Boards anywhere.
+
+I link the script to the directory entry, so it runs every time I call 
+Cheers! or Radio Free Memphis.  I prefer to remain online after the 
+script runs so that I might immediately check for new files, etc., so it 
+does not automatically log off.  If you prefer to run the script from 
+the <Alt><G> command, do an automatic log-off, set a timer to allow 
+unattended operation, or need to join a conference before entering the 
+Qwikmail door, you can get inspiration for the changes you need to make 
+by looking at Don Weinman's scripts for Sleepy Hollow.
+
+I read those scripts with great interest, because my script also uses 
+the "tracking" approach in looking for the arrival of strings.  I find 
+this approach faster than the use of "waitfor," but it is also a lot 
+trickier.  I suspect timing may be a problem with "tracking," and in my 
+previous script I had to manufacture a kludge or two to cope with 
+strings arriving at awkward times.  (I run Telix 3.00 on a Zenith Z-151, 
+a 4.77mHz machine, and a 2400-bps Hayes-compatible modem.)  The current 
+script seems to catch all the expected strings in time to act upon them.
+
+No doubt my fundamental problem is that I am not much of a programmer in 
+any language, and I have never written in C.  My SALT probably speaks 
+with a strange Pascal accent, therefore.  It works for me, on my 
+equipment and on the two boards in Memphis -- beyond that I can make no 
+promises and certainly no guarantees.  Take this script and see if you 
+can make it both more elegant and useable; if you can get it to work 
+better, please let me see the modifications you have made.
+
+--Maurice Crouse, Memphis, Tennessee
+

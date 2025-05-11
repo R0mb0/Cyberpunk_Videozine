@@ -1,0 +1,52 @@
+
+
+
+
+
+
+     What is TFE?
+     ------------
+     If you use Telix, you need TFE.  Telix is the best telecommunications
+     program around; but like most such programs, when it comes to updating,
+     adding, deleting or any other activity involving the contents of your
+     dialing directories, it leaves a lot to be desired.  For instance, to
+     change the password for one BBS, you have to point to that directory
+     entry, type E, hit ENTER enough times to get past EVERY other field,
+     and finally change the entry.  Want to create a new entry that's almost
+     identical to an existing one?  Fine, just enter all the same data all
+     over again, then hit the Toggle key enough times to make sure you got
+     it right.  If one field was wrong, prepare to abuse the ENTER key
+     again.  But there is a better way: TelixFonEd (TFE).
+
+     TFE gives you easier, more complete control over the content and
+     arrangement of your Telix version 3.0 (or higher) dialing directories
+     (FON files).
+
+     Using TFE, you can:
+
+     o    Translate Procomm v2.4, Procomm+, Qmodem v4, Telemate v2, GT Power
+          v15.50, Boyan D-3, Boyan v4 and Commo v4 dialing directories into
+          Telix format.
+     o    Manipulate entries individually, as groups of marked entries, or
+          as highlighted ranges.
+     o    Sort any part (or all) of a dialing directory on any field, in
+          ascending or descending order.
+     o    Insert and delete entries at random.
+     o    Copy or move data from one location in a directory to another.
+     o    Write part of a directory (or the entire directory) to another FON
+          file.
+     o    Print selected entries (or all entries) to a file or printer.
+     o    Edit any field in the directory in a simple, intuitive full-screen
+          format (no more ENTERing through every field in an entry just to
+          change the password).
+     o    Pop up menus for many fields (Protocols, Terminal types, etc.) --
+          on request, or automatically whenever you enter invalid data.
+     o    Clean up corrupted FON files.
+     o    Merge two or more FON files, combining duplicate entries.
+     o    Store additional information about any entries in a FON file, such
+          as "Sysop Name" or "Hours of Operation."
+     o    Change the values of an entire group of fields with one command.
+     o    Search-and-Replace on any part (or all) of a field.
+     o    And much more!
+
+

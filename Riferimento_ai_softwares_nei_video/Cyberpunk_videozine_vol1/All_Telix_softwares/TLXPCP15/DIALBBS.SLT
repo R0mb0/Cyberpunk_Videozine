@@ -1,0 +1,59 @@
+//This area is for user configurable variables
+
+str message_tone[]="y";
+
+
+///////////////////////////////////////////////////////////////////////////////
+//                                                                           //
+//                 dialbbs v1.0 Copyright (c) by Charles Lee                 //
+//                         November 1988                                     //
+//                                                                           //
+///////////////////////////////////////////////////////////////////////////////
+
+beep(int freq)
+{
+    if((message_tone=="y")|(message_tone=="Y"))
+    {
+        tone(freq,20);
+    }
+}
+
+main()
+{
+    int baud,
+        status,
+        fp;
+    str fon_path[76],
+        fondir_path[76],
+        script_name[13];
+
+    baud=get_baud();
+    status=dial("",0,1);
+    if(!status)
+    {
+        beep(500);
+        status_wind("User aborted!",10);
+        return;
+    }
+    set_cparams(baud,0,8,2);
+
+    if(_entry_enum)
+    {
+        fondir_path=_script_dir;
+        strcat(fondir_path,"fondir.pcp");
+        fp=fopen(fondir_path,"r");
+        fgets(fon_path,76,fp);
+        fclose(fp);
+        fp=fopen(fon_path,"r");
+        fseek(fp,(((_entry_enum-1)*86)+110),0);
+        fgets(script_name,12,fp);
+        fclose(fp);
+        //If there is a script associated with the number, execute it!
+        if(subchr(script_name,0))
+        {
+            call(script_name);
+        }
+    }
+
+}
+

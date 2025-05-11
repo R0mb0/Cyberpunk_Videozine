@@ -1,0 +1,21 @@
+ФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФ
+ллллллл ллллллл ллллллл л ллллллл
+ллллллл ллллллл ллллллл л лллллл
+ллл лл  ллл ллл лллл лл   ллллллл
+ллллллл ллллллл ллллллл    лллллл
+ллл ллл ллл ллл ллллл     ллллллл
+ФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФФ
+ллллллл ллллллл ллллллл
+ллл ллл ллл ллл лллллл                 Private BBS system
+ллллллл ллллллл ллллллл                for support of MiniBBS
+ллл ллл ллл ллл  лллллл                only.
+ллллллл ллллллл ллллллл
+ФФФФФФФФФФФФФФФФФФФФФФФ      MiniBBS support board
+1200/300 Baud
+
+                  Sysop: Jonathan Rapoport  (Auther of MiniBBS)
+       Co/Remote Sysops: Gregg Ipp          (Tester of MiniBBS)
+                         Iain Grant         (Has MiniBBS message, & file base)
+                         Barry Carter       (Has MiniBBS Message base)
+                         Robert Lee         (Friend, and makes suggestions)
+

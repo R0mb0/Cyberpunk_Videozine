@@ -1,0 +1,13 @@
+CPDownload Version History File
+Entire Work Copyright (C) CompuProducts Ent. 1990-1991
+Authors: J. Tepperman, W. Teller
+
+Version 1.10 -- Fixed all known problems with the EXITCPD menu.  The [S]end Esc
+                option was removed, as it was no longer needed.  CPDS (the
+                configuration program), was made more concise (i.e. it now
+                shows a protocol name, not just a letter or number).  In 
+                addition both the configuration program and the EXITCPD menu
+                both support "lightbars" for easier option selection.
+                
+Version 1.00 -- Initial Release.
+

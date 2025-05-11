@@ -1,0 +1,436 @@
+//-----------------------------------------------------------
+// PCB.SL?    Telix script for logon to a PCBoard BBS.
+//
+// This script is normally called from the script LOGON.SLC.
+//
+// Please look at the comments through the whole file, and modify to
+// suit your needs, BEFORE you use it. Then recompile with CS PCB.
+//-----------------------------------------------------------
+
+// If you have suggestions for improving this script, please suggest
+// improvements to me via old-fashioned snail-mail to:
+
+// Author:  Inge Vabekk
+//          Hamangskogen 108
+//          N-1300 SANDVIKA
+//          NORWAY
+//          tel. (472) 546 396
+
+str thisBBStype[]="PCB"        // Must be PCB to work.
+   ,line      [80]             // Temporary line.
+   ,logfile   [64]             // Log file name.
+   ,catfile   [32]             // Catalog file name.
+   ,filelist  [12]             // Name of file list.
+   ,Sdoor      [2]             // and door to open
+   ,myprot     [2]             // My protocol
+   ,hisprot    [2]             // and BBS's prot. character.
+   ,command   [10]             // Current command prompt.
+                               // For the Global storage:
+   ,global      []="GLOBAL"    // Global script.
+   ,PutLine     []="PUTLINE"   // PutLine script.
+   ,bbstype     []="BTYPE"     // BBS type.
+   ,short       []="SHORT"     // Short BBS name.
+   ,Cprot       []="CPROT"     // Current protocol.
+   ,Hprot       []="HPROT"     // "His" protocol.
+   ,passw       []="PASSW"     // Current password.
+   ,version     []="BBSVER"    // Current PCB version.
+   ,prompt      []="PROMPT"    // Current command prompt.
+   ,conf        []="CONF"      // Current conference.
+   ,mscript     []="MDOOR"     // Name of mail door/script.
+   ,mailup      []="MAILUP"    // Default PCB mail upload script
+   ,update      []="UPDATE$"   // Name of update program.
+   ;     
+
+int tol = 200                  // No activity for 20 sec.
+   ,tmark                      // makes script time out.
+   ,stat
+   ,door                       // Door number.
+   ,InDoor                     // TRUE if in door.
+   ,mega                       // MegaMail door.
+   ,MarkM                      // MarkMail door.
+   ,dbdoor                     // Dial-Back door.
+   ,BBSver                     // PCB version
+   ,first
+   ,error                      // General error indicator
+   ,cm                         // Trig on Command prompt
+   ,pm                         // Trig on "Personal Mail"
+   ,pw                         // Trig on password.
+   ,Enter=13                   // Code for CR.
+   ;
+
+//-----------------------------------------------------------
+// PCBOARD logon script entered here.
+//-----------------------------------------------------------
+
+main ()
+{
+int i, m;
+
+  first = 1;                             // First time on.
+  entry();                               // Update colors & status bar.
+
+// Only if online.
+
+  if (!carrier())  
+  { failtone();
+    status_wind ("Tý: THIS SCRIPT ONLY WORKS IF YOU'RE ONLINE!",20);
+    return (-1);
+  }
+
+  read (bbstype,line);                   // Get BBS type. 
+  if (line != thisBBStype)  
+  { wrongBBS();                          // Doesn't match script!
+    return (-1);
+  }
+
+  command = "Command";                   // Set code for command prompt.
+  write (prompt,command);                // Start tracking NOW.
+
+  pw = track ("ill echo)?", 0);          // Track password.
+  pm = track ("ter)=yes?", 0);           // Scan for personal mail?
+  cm = track (command,   0);             // Command.
+
+//printsc ("pw = "); printn (pw); prints (" ill echo)?");
+//printsc ("pm = "); printn (pm); prints (" ter)=yes?");
+//printsc ("cm = "); printn (cm); prints (" command");
+
+  read (version,line);
+  BBSver = subchr (line,0);              // Get PCB version.
+  write (conf,"Main Board");             // Always starts in this conf.
+
+  read (Cprot,myprot);
+  if (myprot=="1")
+    hisprot = "O";
+  else if (myprot=="E")                  // ymodEm/g
+    hisprot = "G";
+  else if (myprot=="D")                  // external Dsz
+    hisprot = "Z";
+  else
+    hisprot = myprot;
+  write (Hprot,hisprot);                 // Write BBS protocol.
+
+  read (passw,line);                     // Get password.
+// ****** REMEMBER: Don't use PutLine here ! *****
+  cputs (line);
+  if (BBSver < 100)                      // If entry from ProLogon,
+  { cputs (";");                         // add a semicolon, 
+    cputs (Sdoor);                       // DOOR number,
+    cputs (";NS");                       // NS
+  }
+  terminal();
+  cputs ("^M");                          // and ENTER.
+
+  if (get_baud() < 4800)                 // Speed below 4800?
+  { delay (2);                           // Delay, then terminate
+    cputs ("^K");                        // long output with CTRL-K.
+  }
+
+  InDoor = BBSver < 100;                 // Entry from ProLogon:
+  if (BBSver > 144)                      // For PCBoard < 14.5 we should
+  { door = 0;                            // be in door already.
+    InDoor = 1;
+    i = strposi(_entry_name,"D:",0);     // Find door number from name.
+    if (i > 0) 
+    { substr (_entry_name,i+2,2,Sdoor);  // Copy max. 2 characters.
+      door = stoi(Sdoor);                // Find door number.
+      if (door != 0) InDoor = 0;
+    }
+  }
+  else                                   // ProLogon or PBCoard < 14.5:
+  { Sdoor = "1";                         // Door 1 is default.
+    door = 1;
+  }
+
+// Start tracking incoming text. For ease of reading and programming,
+// this is split into different sections.
+//-----------------------------------------------------------
+
+  error = 1;
+  SECTION1();                            // Run section one.
+  release();
+  if (first) first = GetPrompt();        // Get prompt if I didn't get it.
+
+fail:
+  if (!carrier()) error = 1;
+  if (error) return (-1);
+
+  setchr (line,0,BBSver);                // Update PCB version.
+  setchr (line,1,0);
+  write (version,line);
+
+  if (dbdoor)
+  { error = call ("DialBack");           // Chain to the DialBack script.
+    if (error) goto fail;                // Can't continue. 
+  }
+  line=mailup;                           // ASCII upload mail.
+  if (MarkM)                             // Check which door.
+    line="MARKMAIL";                     // Chain to the MarkMail script.
+  else if (mega)
+    line="MEGAMAIL";                     // Chain to the MegaMail script.
+  write (mscript,line);                  // Write name of mail script.
+  return (0);
+}
+
+//-----------------------------------------------------------
+// Section 1: Check any happenings before first command.
+//-----------------------------------------------------------
+
+SECTION1()
+{
+int c                         // Single character.
+   ,lfs
+   ,novice                    // For tracking:
+   ,more                      // "More" prompt received if TRUE.
+   ,he                        // Help needed
+   ,en                        // ENTER to continue
+   ,ns                        // Non-stop request.
+   ,mo                        // More?
+   ,lf                        // Linefeed.
+   ,dr1, dr2, dr3, dr4        // various doors.
+   ;
+
+  dr2=dr3=dr4=mega=MarkM=dbdoor=more=novice=0;     // Preset some.
+
+  dr1 = track ("ProDoor ",0);            // ZIPM mail.
+//printsc ("dr1 = "); printn (dr1); prints (" ProDoor");
+  if (door > 1)
+  { dr2 = track ("M a r k M",0);         // MarkMail.
+    dr3 = track ("ing MEGA,",0);         // Megamail.
+    dr4 = track ("DB_DOOR ",0);          // Dial-Back door.
+//printsc ("dr2 = "); printn (dr2); prints (" M a r k M");
+//printsc ("dr3 = "); printn (dr3); prints (" ing MEGA,");
+//printsc ("dr4 = "); printn (dr4); prints (" DB_DOOR ");
+  }
+  mo = track ("p, More?",0);             // More?
+  en = track ("r to cont",0);            // Enter to continue
+  ns = track ("non-stop",0);             // Non-stop request?
+  he = track (" for help",0);            // Novice.
+  lf = track ("^J",0);                   // Long list? (trig on LF)
+//printsc ("mo = "); printn (mo); prints (" p, More?");  
+//printsc ("en = "); printn (en); prints (" er to co");
+//printsc ("ns = "); printn (ns); prints (" non-stop");  
+//printsc ("he = "); printn (he); prints (" for help");  
+//printsc ("lf = "); printn (lf); prints (" (lf)");
+
+  tmark = timer_start (tol);             // Give me 20 sec.
+
+  do
+  { stat=trig();                         // answer any logon questions
+//printsc ("TRIG:");  printn (stat);  prints ("");
+    if (stat == lf)                      // Linefeed?
+    { if (++lfs%10 == 0)                 // More than 10: Send break.
+        cputs ("^K");
+      continue;
+    }
+    else if (stat > 0)
+      lfs = 0;                           // Other trig: Reset lf count.
+
+    if (stat==dr1)            
+    { BBSver = 140;                      // ZIPmail.
+      if (door < 2) goto found;
+    }
+    else if (stat == dr2)    
+    { MarkM = 1;                         // Mark Mail.
+      error = 0;
+      goto found;
+    }
+    else if (stat == dr3)
+    { mega = 1;                          // MegaMail.
+      error = 0;
+      goto found;
+    }                        
+    else if (stat == dr4)
+    { dbdoor= 1;                         // DialBack.
+      error = 0;
+      goto found;
+    }
+    else if (stat == he)         		 		 // ? for help
+    { novice = 1;                        // Set NOVICE.
+      tone (500,10);
+    }
+    else if (stat == en)                 // ENTER to continue
+      cputs ("^M");
+
+    else if (stat==ns || stat==mo)       // Non-stop? More?
+    { more = 1;
+      call (PutLine, "N", Enter);        // No thanks. 
+    }
+    else if (stat==pm)                   // Scan for mail?
+      call (PutLine, "N", Enter);        // No thanks. 
+
+    else if (stat == cm)                 // Command:
+    { if (first)
+      { first = GetPrompt();             // Use a better prompt.
+        track_free (cm);                 // Change trigger
+        cm = track (command,0);          // accordingly.
+      }
+      if (novice)                        // Novice?
+      { novice= 0;                       // No sir! I'm an Expert! :-)
+        call (PutLine, "X", Enter);
+      }
+      else if (more)                     // Did it ask for "more"?
+      { more = 0;
+        call (PutLine, "P 0", Enter);    // Set page length 0.
+      }
+      else
+      { if (door < 2                     // Door 0 or 1 and PCBoard
+        && BBSver > 144)
+          if (door==0) InDoor = 1;       // 14.5 or newer: Must ZIP.
+
+        if (InDoor)                      // If we're in the right door,
+        { error = 0;
+          break;                         // this section is done.
+        }
+        else
+        { line = "DOOR ";
+          strcat (line,Sdoor);
+//printsc ("Starting DOOR. Door is "); printn (door);
+//printsc ("InDoor = "); printn (InDoor); prints ("");
+          call (PutLine, line, Enter);
+        }
+      }
+    }
+    else if (stat == pw)                 // Additional password request:
+    { read (passw,line);
+      cputs (line);                      // Write password
+      cputs ("^M");                      // and ENTER.
+    }
+    else if (stat < 0)                   // Time-out:
+    { cputs ("^M");                      // Send Enter.
+      ++error;
+    }
+//printsc ("End of Loop: Error = ");
+//printn (error);
+//prints ("");
+  } while (error > 0 && error < 3);
+
+found: 
+  InDoor = 1;                            // We have found a door.
+  return (error);                        // Return with error or OK.
+}
+
+//-----------------------------------------------------------
+//  Find correct command prompt to use.
+//-----------------------------------------------------------
+
+GetPrompt()
+{
+int i,j;
+
+  flush();                               // Eat output from BBS.
+  i = getx()-10;                         // Get coordinates.
+  j = gety();
+  if (i < 10) i=0;
+  vgetchrs (i,j,command,0,10);           // Make new trig for command.
+  for (i=strlen(command); i>0; --i)
+  { if (subchr(command,i) > ' ') break;
+    setchr(command,i,0);
+  }
+  i = strposi(command," Command",0);     // Can't use part of conference.
+  if (i > 0) substr (command,i,i,command);
+
+  write (prompt,command);     // Define command prompt for other scripts.
+
+  return (0);
+}
+                                         
+//-----------------------------------------------------------
+// Routine to update colors and status bar.
+//-----------------------------------------------------------
+
+entry ()
+{
+  _back_color = 1;
+  _fore_color = 14;
+  update_term();
+}
+
+//-----------------------------------------------------------
+// Free timer and tracking functions.
+//-----------------------------------------------------------
+
+release()
+{
+  timer_free (tmark);                    // free timer channel
+  track_free (0);                        // and all track channels.
+}
+
+//-----------------------------------------------------------
+// Play fail tone.
+//-----------------------------------------------------------
+
+failtone()
+{
+  int n;
+  for (n=140; n > 10; n = 100*n/120) 
+  { tone(n*10,12);                       // Fail tone!!
+    terminal();                          // Process text.
+  }
+}
+                                         
+//-----------------------------------------------------------
+// Wrong BBS type.
+//-----------------------------------------------------------
+
+wrongBBS()
+{
+str help[48];
+
+    failtone();                          // Alarm.    
+    help = "This script is for ";        // Catenate strings.
+    strcat (help,thisBBStype);
+    strcat (help," only!");
+    status_wind (help,20);               // Display message for 2 sec.
+}
+
+//-----------------------------------------------------------
+// Flush incoming text from BBS.
+//-----------------------------------------------------------
+
+flush()
+{
+  do  
+  { terminal();                      // Process all echo
+    delay(1);                        // from the BBS.
+  } while (cinp_cnt() > 0);
+}
+
+//-----------------------------------------------------------
+//  Trig loop. Waits here until either one "trig string" is
+//  found, or we have a time-out, or carrier is lost.
+//-----------------------------------------------------------
+
+trig()
+{
+int i;
+  do
+  { terminal();
+  }  while (!time_up (tmark)             // Loop until time-out
+          && carrier()                   // or carrier lost
+          && (i=track_hit(0))==0);       // or we trigged.
+  if (i==0) 
+    i = -1;                              // Error!
+  else
+    timer_restart (tmark,tol);           // Restore timer.
+  return (i);
+}
+
+//-----------------------------------------------------------
+// Read a global variable.
+//-----------------------------------------------------------
+
+read (str name, str varname)
+{
+  return (call (global,"R",name,varname));
+}
+
+//-----------------------------------------------------------
+// Write a global variable.
+//-----------------------------------------------------------
+
+write(str name, str varname)
+{ 
+  return (call (global,"W",name,varname));
+}
+
+

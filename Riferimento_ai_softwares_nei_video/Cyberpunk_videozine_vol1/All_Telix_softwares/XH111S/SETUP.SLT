@@ -1,0 +1,2957 @@
+//////////////////////////////////////////////////////////////////////////////
+//   S E T U P  0 . 0  -  For XHost                                       //
+//   Configures the XHost script                                          //
+//   by Andras Pattantyus...                                                 //
+///////////////////////////////////////////////////////////////////////////////
+
+str xhost_name[64],
+    bbs_name[20],                 // BBS name
+    temp_dir[64],
+    host_dir[64],
+    sysop_name[25],
+    system_pass[12],
+    protkeys[18],
+    protdata[18],
+    busystr[10],
+    minbaud[6],
+
+    confname[20],
+    confpath[45],
+    conf_lvl[3],
+    confnum[3],
+
+    obj_lvl[3],
+    obj_flag[8],
+    obj_name[30],
+    obj_path[45],
+    flags[8],
+
+    chat1[2],
+    chat0[2],
+
+    params[45],
+    control[8],
+
+    ratio[3],
+    bytes[9],                   // for things read off .DATs
+
+    levels[2],
+
+    first[80],     //Ä¿
+    second[80],    // ³
+    third[80],     // ³ Global vars to be eliminated
+    fourth[80],    // ³
+                   // ³
+    temp[64],      // ³
+    temp2[64],     //ÄÙ
+                   
+    tim[3];
+
+str index[510];
+
+int high_dir, high_txt, high_door, high_conf, high, maxmsgs, maxdays;
+  // markers for last message base, file base, text file
+
+str stat_save[80];
+int stat_color, help_line;
+int conf_stat,
+    menu,
+    sysbyte;
+
+///////////////////////////////////////////////////////////////////////////////
+
+main()
+{
+ int old_b, old_baud;
+ 
+ _scr_chk_key = 0;
+ 
+ old_baud = get_baud();
+ old_b = _back_color;
+ 
+ _back_color = 0;
+ 
+ update_term();
+ clear_scr();
+ gethelpline();
+ if (help_line != -1)
+    {
+     vgetchrs(0, help_line, stat_save, 0, 80);
+     gotoxy(0, help_line);
+     stat_color = vgetchr()/256;
+     }
+ if(read_config(xhost_name) != -1)
+  {
+  if (ask_syspass() == 1)
+      setup(xhost_name);
+  }
+ pstraxy("Exiting XHost Setup.", 0, 23, 7);
+ gotoxy(0, 23);   
+ _back_color = old_b;
+ update_term();
+ cursor_onoff(1);
+ set_cparams(old_baud, get_parity(), get_datab(), get_stopb());
+ _scr_chk_key = 1;
+}
+///////////////////////////////////////////////////////////////////////////////
+
+setup( str host_name)
+{
+ int key, screen1;
+ 
+while(key != 27)
+{
+ draw_menu(0, 25, 5, 55, 17, 30, " XHost Setup ", 29);
+ cursor_onoff(1);
+ pstraxy(" ", 46, 16, 31);
+ gotoxy(46, 16);
+ 
+ key = -1;
+ while(strchr("12345678^027", 0, key) == -1)
+       key = inkeyw();
+  
+ vputchr(key+6912);
+
+ if (key == '1')
+    system();
+ else if (key == '2')
+    options();
+ else if (key == '3')
+    modem();
+ else if (key == '4')
+    conf();
+ else if (key == '5')
+    user();
+ else if (key == '6')
+    protos();
+ else if (key == '7')
+    menus();
+ else if (key == '8')
+   {
+    save(host_name);
+    key = 27;
+    }
+ stat_line(0);
+ if (host_dir)
+     newdir(host_dir);
+ }
+}
+///////////////////////////////////////////////////////////////////////////////
+system( )
+{
+ int pos, key, x;
+ clear_scr();
+ draw_menu(1, 34, 4, 64, 13, 127, " Paths & Names ", 112);
+while(key != 27)
+     {
+     pstraxy(" ", 56, 12, 112);
+     gotoxy(56, 12);
+ 
+     cursor_onoff(1);
+     key = -1;
+
+     stat_line(0);
+     while(strchr("12345^027", 0, key) == -1)
+          key = inkeyw();
+
+     vputchr(key+28672);
+
+     cursor_onoff(0);
+
+      stat_line(5);
+      if (key == '1')
+         {
+          ed(second, 64, host_dir, " XHost Directory ");
+          if (second)
+             {
+              strupper(second);
+              if ( verify(second, 0))
+                  host_dir = second;
+              }
+          }
+      else if (key == '2')
+         {
+          ed(second, 64, temp_dir, " Temporary Directory ");
+          if (second)
+             {
+              strupper(second);
+              if (verify(second, 0))
+                  temp_dir = second;
+              }
+           }
+     else if (key == '3')
+         ed(sysop_name, 25, sysop_name, " SysOp's Name ");
+     else if (key == '4')
+         ed(bbs_name, 20, bbs_name, " System Name ");
+     else if (key == '5')
+         {
+          ed(system_pass, 12, system_pass, " System Password ");
+          strupper(system_pass);
+          }
+   }
+ stat_line(0);
+}
+///////////////////////////////////////////////////////////////////////////////
+options( )
+{
+ int c, edity = 5, key, pos;
+ str chaton[2], chatoff[2];
+
+ chaton = chat1;
+ chatoff = chat0;
+
+ cursor_onoff(0);
+ clear_scr();
+ stat_line(6);
+
+ box(20, 4, 54, 18, 1, 0, 127);
+ pstraxy(" Options ", 33, 4, 126);
+ pstraxy("Capture All Calls", 22, 5, 112);
+ pstraxy("Closed System", 22, 6, 112);
+ pstraxy("Monitor Call Progress", 22, 7, 112);
+ pstraxy("Exit Telix after Call", 22, 8, 112);
+ pstraxy("Lock Sound ON", 22, 9, 112);
+ pstraxy("Lock Sound OFF", 22, 10, 112);
+ pstraxy("Allow Aliases", 22, 11, 112);
+ pstraxy("Do NOT Use File Lists", 22, 12, 112);
+ pstraxy("Do NOT Test Uploads", 22, 13, 112);
+ pstraxy("Do NOT keep User Records", 22, 14, 112);
+ pstraxy("Use FILE_ID.DIZ files", 22, 15, 112);
+ pstraxy("Sound Hours      On at:    :00", 22, 16, 112);
+ pstraxy("Off at:    :00", 38, 17, 112);
+
+ dispopt();
+
+ while(c != -1)
+   {
+   cursor_onoff(1);
+   if (edity <= 17)
+	   vputchrs(21, edity, "", 0, 1, 112);
+
+   if (edity <= 15)
+	  {
+	  gotoxy(50, edity);
+      key = yn('Y', 7);
+
+      if (key == 1 || key == 0)
+         {
+          pos = power2(edity - 3);
+          sysbyte = sysbyte & (16777215 - pos);     // reset that bit
+          sysbyte = sysbyte | (pos * key);
+          c = 0;
+          }
+      else
+          c = key;
+      }
+   else if (edity == 16)
+           {
+            c = edit_string(chaton, 47, 16, 2, 127);
+            if (stoi(chaton) == 0)
+                chaton = "00";
+            if (stoi(chaton) > 24)
+               {
+                chaton = chat1;
+                pstraxy(chaton, 47, 16, 127);
+                }
+            }
+   else if (edity == 17)
+           {
+            c = edit_string(chatoff, 47, 17, 2, 127);
+            if (stoi(chatoff) == 0)
+                chatoff = "00";
+            if (stoi(chatoff) > 24)
+               {
+                chatoff = chat0;
+                pstraxy(chatoff, 47, 17, 127);
+                }
+            }
+
+   if (edity <= 17)
+      vputchrs(21, edity, " ", 0, 1, 112);
+
+   if (c == 3)
+     ++edity;
+   else if (c == 2)
+     --edity;
+
+   if (edity < 5)
+      edity = 17;
+   if (edity > 17)
+	  edity = 5;
+   }
+
+ chat1 = chaton;
+ chat0 = chatoff;
+}
+///////////////////////////////////////////////////////////////////////////////
+modem( )
+{
+int c, x, z, edity = 7;
+
+ cursor_onoff(0);
+ clear_scr();
+ stat_line(5);
+
+ box(38, 5, 65, 11, 1, 0, 127);
+ pstraxy(" Modem Config ", 45, 5, 126);
+
+ pstraxy("Minimum Baud", 41, 7, 112);
+ pstraxy("Lock Rate?", 41, 8, 112);
+ pstraxy("Null Modem?", 41, 9, 112);
+ pstraxy("Busy String", 41, 10, 112);
+ 
+ pstraxy(minbaud, 54, 7, 127);
+ pstraxy(busystr, 54, 10, 127);
+
+ second = "No";
+ third = "No";
+
+ if (sysbyte&1)          // locked rate
+    second = "Yes";
+ if (sysbyte&2)         // direct connects
+    third = "Yes";
+
+ vputchrs(54, 8, second, 0, strlen(second), 128-strlen(second)*2);
+ vputchrs(54, 9, third, 0, strlen(third), 128-strlen(third)*2);
+
+  while(c > -1)
+   {
+   if (edity <= 10)
+       vputchrs(39, edity, "", 0, 1, 112);
+
+   if (edity == 7)
+          {
+           first = minbaud;
+           c = edit_string(minbaud, 54, 7, 6, 127);
+           if (set_cparams(stoi(minbaud), 0, 8, 1) == -1)
+               {
+                setchrs(minbaud, 0, 0, 6);
+                minbaud = first;
+                vputchrs(54, 7, minbaud, 0, 6, 127);
+                }
+           }
+   else if (edity == 8 || edity == 9)
+           {
+           gotoxy(54, edity);
+           cursor_onoff(1);
+           c = yn('N', 7);
+           if (edity == 9)
+              x = 2;
+           else
+              x = 1;
+           if (c == 1 || c == 0)
+               {
+                sysbyte = sysbyte&(4095-x);      // turn bit off
+                sysbyte = sysbyte | (c * x);    // OR to set
+                c = 0;
+               }
+           cursor_onoff(0);
+           }
+   else if (edity == 10)
+           c = edit_string(busystr, 54, 10, 10, 127);
+
+  if (edity <= 10)
+     vputchrs(39, edity, " ", 0, 1, 112);
+
+   if (c == 3)
+     ++edity;
+   else if (c == 2)
+     --edity;
+   if (edity < 7)
+      edity = 10;
+   if (edity > 10)
+      edity = 7;
+   }
+}
+///////////////////////////////////////////////////////////////////////////////
+conf( )
+{
+ int confer = 1, key, edity, video, editx;
+ str tempx[64];
+
+ cursor_onoff(0);
+
+ if (!check_hd())
+     return;
+ clear_scr();
+ box(21, 10, 75, 22, 1, 0, 93);
+
+ pstraxy(" Conferences ", 42, 10, 95);
+
+ pstraxy("Conf", 23, 11, 94);
+
+ pstraxy("Name", 23, 13, 94);
+
+ pstraxy("Level", 23, 14, 94);
+
+ pstraxy("Flags", 23, 15, 94);
+
+ pstraxy("Path", 23, 16, 94);
+
+ pstraxy("Messages      Number       Days", 23, 17, 94);   // toggle on/off
+
+ pstraxy("Private", 23, 18, 94);   // toggle on/off
+
+ pstraxy("Files", 23, 19, 94);      // <C/R> to edit 'em
+
+ pstraxy("Text Files", 23, 20, 94);  // <C/R> to edit 'em
+
+ pstraxy("Doors", 23, 21, 94);  // <C/R> to edit 'em
+
+ if (confer <= high_conf)
+     disp_conf(confer);
+
+ editx = 0;
+while(confer != 0)
+ {
+ stat_line(1);
+ cursor_onoff(0);
+ key = 0;
+ while(key == 0)
+      key = inkeyw();
+
+ if (key == 27)
+    {
+     confer = 0;
+     continue;
+     }
+ else if (key == 13)
+     {
+      stat_line(2);
+      first = confname;
+      third = conf_lvl;
+      second = flags;
+      fourth = confpath;
+
+      key = 0;
+      edity = 13;
+
+      while(key > -1)
+        {
+         if (edity <= 21)
+             vputchrs(22, edity, "", 0, 1, 80);
+
+         if (edity == 13)
+             key = edit_string(first, 29, 13, 19, 80);
+         else if (edity == 14)
+             key = edit_string(third, 29, 14, 3, 80);
+         else if (edity == 15)
+             key = edit_string(second, 29, 15, 8, 80);
+         else if (edity == 16)
+             {
+             key = edit_string(fourth, 29, 16, 45, 80);
+             if (verify(fourth, 0))
+                {
+                 confpath = fourth;
+                 strupper(fourth);
+                 }
+             }
+         else if (edity == 17)
+                 {
+                 if (editx == 0)
+                    {
+                      cursor_onoff(1);
+                      gotoxy(32, 17);
+                      key = yn('Y', 5);
+
+                      if (key == 1 || key == 0)
+                         {
+                         conf_stat = conf_stat & 254;
+                         conf_stat = conf_stat | key;
+                         key = 0;
+                         }
+                     }
+                  else if (editx == 1)
+                      {
+                      itos(maxmsgs, temp);
+                      key = edit_string(temp, 44, 17, 5, 80);
+                      maxmsgs = stoi(temp);
+                      }
+                  else
+                      {
+                      itos(maxdays, temp);
+                      key = edit_string(temp, 55, 17, 3, 80);
+                      maxdays = stoi(temp);
+                      }
+                   }
+         else if (edity == 18)
+                 {
+                  cursor_onoff(1);
+                  gotoxy(32, 18);
+                  key = yn('N', 5);
+                  if (key == 1 || key == 0)
+                     {
+                     conf_stat = conf_stat & 253;
+                     conf_stat = conf_stat | (2*key);
+                     key = 0;
+                     }
+                  }
+        else if ((edity == 19 || edity == 20 || edity == 21) && strlen(confpath))
+                {
+                cursor_onoff(0);
+                vputchrs(34, edity, "(Enter) to edit", 0, 15, 80);
+                key = inkeyw();
+                setchrs(tempx, 0, 0, 15);
+                vputchrs(34, edity, tempx, 0, 15, 80);
+                if (key == 13)
+                   {
+                     temp = first;
+                     temp2 = third;
+                     tempx = second;
+                     video = vsavearea(3, 8, 78, 16);
+                     objects(confer, edity-18);
+                     stat_line(2);
+                     vrstrarea(video);
+                     first = temp;
+                     third = temp2;
+                     second = tempx;
+                    }
+                 else if (key == 18432)
+                     key = 2;
+                 else if (key == 15360)     // save
+                     key = -2;
+                 else if (key == 27)
+                     key = -1;
+                 else
+                     key = 3;
+                }
+
+       if (edity <= 21)
+          vputchrs(22, edity, " ", 0, 1, 80);
+
+        if (key == 3)
+           {
+            if (edity == 17 && editx < 2)
+               ++editx;
+            else
+               ++edity;
+            }
+        else if (key == 2)
+           {
+           if (edity == 17 && editx > 0)
+              --editx;
+           else
+              --edity;
+            }
+
+        if (edity < 13)
+          {
+           edity = 21;
+           editx = 2;
+           }
+        if (edity > 21)
+           {
+           edity = 13;
+           editx = 0;
+           }
+         }
+
+     if (key == -2)
+        {
+         if (!first)
+            {
+             confname = "";
+             confpath = "";
+             conf_lvl = "1";
+             setchrs(flags, 0, '0', 8);
+             }
+          else
+            {
+             confname = first;
+
+             key = stoi(third);
+
+             if (key >= 0 && key <= 255)
+                itos(stoi(third), conf_lvl);     //get rid of junk
+             else
+                conf_lvl = "1";
+             checkbs(second);
+             flags = second;
+             }
+            save_conf(confer);
+           }
+       }
+ else if (key == 7680)  // Alt-A to edit Confs.Dat
+         {
+          newdir(host_dir);
+          cursor_onoff(1);
+          run(_editor, "CONFS.DAT", 0);
+          cursor_onoff(0);
+          high_conf = FindHighConf();
+          if (confer > high_conf)
+             confer = high_conf;
+          }
+ else if (key == 21248)          // Delete conference
+         {
+          confname = "";
+          save_conf(confer);
+          }
+ else if (key == 20736) // PgDn
+       {
+        if (confer > 1)
+            --confer;
+        }
+ else if (key == '+' || key == 20011) // New Conference
+      {
+       if (high_conf < 40)
+          ++high_conf;
+       confer = high_conf;
+       }
+ else if (key == 18688) // PgUp
+    {
+     if (confer < high_conf)
+         ++confer;
+     }
+ else if (key == 33792)  // Ctrl-PgUp
+     {
+      if (confer == high_conf)
+         continue;
+      else if (confer <= high_conf-10)
+         confer = confer + 10;
+      else
+         confer = high_conf;
+     }
+ else if (key == 30208)  // Ctrl-PgDn
+       {
+        if (confer <= 1)
+            continue;
+        else if (confer > 10)
+            confer = confer - 10;
+        else
+            confer = 1;
+       }
+  else
+      continue;
+
+  if (confer <= high_conf)
+      disp_conf(confer);
+  }
+}
+///////////////////////////////////////////////////////////////////////////////
+objects( int conf_num, int type)
+{
+ int dir = 1, key, screen, i;
+
+ str comline[127], temp1[12];
+ cursor_onoff(0);
+
+ if (!check_hd())
+     return;
+
+ itos(conf_num, confnum);
+ if (type == 1)
+    high = high_dir;
+ else if (type == 2)
+    high = high_txt;
+ else if (type == 3)
+    high = high_door;
+ draw_screen(type, dir);
+
+while(key != 27)
+{
+ stat_line(3);
+ key = inkeyw();
+ 
+if (key == 13 && dir <= high)
+    {
+     if (type == 3)
+         vputchrs(6, 15, "Alt-O: More Door Options", 0, 24, 22);
+     first = obj_name;
+     second = obj_path;
+     third = obj_lvl;
+     fourth = obj_flag;
+
+     if (edit_loop(12, 12, 12, 12, 29, 44, 3, 8) == -2)
+        {
+         if (!second || !first)
+            {
+             second = "";
+             obj_name = "";
+             obj_path = "";
+             obj_lvl = "1";
+             setchrs(obj_flag, 0, '0', 8);
+             saveobj(type, dir);
+             if (dir <= high)
+                 disp_dir(type, dir);
+            }
+
+          if (type == 1)
+             {
+              if (!verify(second, 0))
+                 {
+                   if (dir <= high)
+                       disp_dir(type, dir);
+                   second = "";
+                 }
+              }
+          else if (type == 2)
+             {
+              if (just_filename(second))
+                  inschrs(confpath, second, 0, strlen(confpath));
+              }
+
+          if (second)
+             {
+              obj_path = second;
+              obj_name = first;
+
+              key = stoi(third);
+
+              if (key >= 1 && key <= 255)
+                 itos(stoi(third), obj_lvl);     //get rid of junk
+              else
+                  obj_lvl = "1";
+              checkbs(fourth);
+              obj_flag = fourth;
+
+              if (type == 3)
+                 {
+                  if (stoi(tim) >= 0)
+                     itos(stoi(tim), tim);     //get rid of junk
+                  }
+              saveobj(type, dir);
+              }
+          }
+       if (type == 3)
+          vputchrs(6, 15, "Alt-O: More Door Options", 0, 24, 30);
+       cursor_onoff(0);
+      }
+
+ else if (key == '+' || key == 20011)          // Add dir
+         {
+         if (high < 255)
+            {
+             ++high;
+             obj_name = "New!";
+             if (type == 1)
+                obj_path = _down_dir;
+             else if (type == 2)
+                obj_path = confpath;
+             else if (type == 3)
+                obj_path = _telix_dir;
+
+             obj_lvl = "1";
+             tim = "15";
+             params = "";
+             setchrs(control, 0, '0', 8);
+             setchrs(obj_flag, 0, '0', 8);
+             saveobj(type, high);
+             dir = high;
+            }
+          }
+
+ else if (key == 21248)          // Erase object
+         {
+          if (dir <= high)
+            {
+             obj_name = "";
+             obj_path = "";
+             saveobj(type, dir);
+             --dir;
+             if (dir < 1)
+                dir = 0;
+             disp_dir(type, dir);
+             }
+          continue;
+          }
+ else if (key == 6144 && type == 3)  // Alt-O for Doors
+       {
+         box(3, 8, 77, 15, 1, 1, 30);
+         box(6, 11, 76, 14, 0, 0, 30);
+
+         box(3, 1, 66, 6, 1, 0, 30);
+         pstraxy(" Help on Status Flags ", 25, 1, 31);
+         pstraxy("Flag order: 12345678  Status: 1 = On, 0 = Off", 15, 2, 23);
+         pstraxy("1: Script       2: ANSI Req'd  3: DOOR.SYS   4: DORINFO1.DEF", 5, 4, 23);
+         pstraxy("5: PCBOARD.SYS  6: CVT-1.SLC   7: CVT-2.SLC  8: CVT-3.SLC", 5, 5, 23);
+
+         pstraxy(" More on Doors ", 34, 8, 29);
+
+         pstraxy(obj_name, 12, 9, 31);
+
+         pstraxy("Params", 6, 11, 31);
+         pstraxy("Time", 6, 12, 31);
+         pstraxy("Status", 6, 13, 31);
+         first = params;
+         second = tim;
+         third = control;
+         pstraxy(first, 13, 11, 23);
+         pstraxy(second, 13, 12, 23);
+         pstraxy(third, 13, 13, 23);
+
+         if (edit_loop(13, 13, 13, 0, 44, 3, 8) == -2)
+             {
+               params = first;
+               key = stoi(second);
+               if (key >= 0 && key <= 999)
+                   itos(stoi(second), tim);
+               checkBS(third);
+               control = third;
+              }
+          saveobj(type, dir);
+          cursor_onoff(0);
+          delay(15);
+          box(3, 1, 66, 6, 1, 0, 0);
+          draw_screen(type, dir);
+          }
+ else if (key == 7680)  // Alt-A to edit nnn.ttt
+         {
+          getext(comline, type);
+          newdir(confpath);
+          prep(conf_num, comline, temp1);
+          cursor_onoff(1);
+          run(_editor, temp1, 0);
+          cursor_onoff(0);
+          high = FindHigh(conf_num, type);
+          if (dir > high)
+             dir = high;
+          }
+ else if (key == 5120)  // Alt-T to edit Text Files
+         {
+           second = obj_path;
+
+           if (!fnstrip(second, 3))      // if !(filename & extension)
+                continue;
+
+           if (strchr(second, 0, 46) == -1 && !filefind(second, 0))
+               strcat(second, ".ASC");
+
+            cursor_onoff(1);         // A restored cursor is helpful
+            run(_editor, second, 0);
+            cursor_onoff(0);
+            if (dir <= high)
+                disp_dir(type, dir);
+            continue;
+           }
+ else if (key == 20736) // PgDn
+       {
+        if (dir > 1)
+            --dir;
+        }
+ else if (key == 18688) // PgUp
+    {
+     if (dir < high)
+         ++dir;
+   }
+ else if (key == 33792)  // Ctrl-PgUp
+     {
+      if (dir == high)
+         continue;
+      else if (dir <= high-10)
+         dir = dir + 10;
+      else
+         dir = high;
+     }
+ else if (key == 30208)  // Ctrl-PgDn
+       {
+        if (dir <= 1)
+            continue;
+        else if (dir > 10)
+            dir = dir - 10;
+        else
+            dir = 1;
+       }
+  else
+      continue;
+
+  if (dir <= high)
+      disp_dir(type, dir);
+  }
+
+ if (type == 1)
+     high_dir = high;
+ else if (type == 2)
+     high_txt = high;
+ else if (type == 3)
+     high_door = high;
+}
+///////////////////////////////////////////////////////////////////////////////
+user( )
+{
+ int key, i;
+ int dir = 1;
+
+ cursor_onoff(0);
+
+ if (!check_hd())
+     return;
+
+ if (!filefind("LEVELS.DAT", 0))
+     create();
+
+while(key != 27)
+{
+ draw_menu(2, 10, 7, 46, 14, 112, " User Setup ", 127);
+ stat_line(0);
+ cursor_onoff(1);
+ pstraxy(" ", 29, 13, 112);
+ gotoxy(29, 13);
+
+ key = -1;
+ while (strchr("123^027", 0, key) == -1)
+        key = inkeyw();
+  
+ cursor_onoff(0);
+ vputchr(key+32512);
+
+ if (key == '1')
+	{
+	 box(3, 8, 45, 15, 1, 0, 30);
+
+	 pstraxy(" Edit Levels ", 18, 8, 29);
+	 pstraxy("Lvl ", 6, 9, 30);
+	 itos(dir, second);
+	 if (strlen(second) == 1)
+		 inschrs(" ", second, 1, 1);
+	 pstraxy(second, 10, 9, 31);
+	 pstraxy("Name", 6, 11, 31);
+	 pstraxy("Time", 6, 12, 31);
+	 pstraxy("Bytes", 6, 13, 31);
+	 pstraxy("Ratio", 6, 14, 31);
+
+	 dir = 1;
+
+	 get_lvl(dir);
+
+	 while(key != 0)
+		 {
+		  stat_line(4);
+		  cursor_onoff(0);
+		  disp_lvl(dir);
+		  key = 0;
+
+		  while (!key)
+			 key = toupper(inkeyw());
+
+		  if (key == 27)
+			  key = 0;
+		  else if (key == 13)
+			 {
+			  first = obj_name;
+			  second = tim;
+			  third = bytes;
+			  fourth = ratio;
+              if(edit_loop(12, 12, 12, 12, 29, 3, 9, 3) == -2)
+				{
+				  if (!first)
+					 {
+					  obj_name = "";
+					  tim = "0";
+					  bytes = "0";
+					  ratio = "1";
+					 }
+				   else
+					  {
+					   obj_name = first;
+					   i = stoi(second);
+                       if (i >= 0 && i <= 999)
+                           itos(i, tim);
+					   i = stoi(third);
+					   if (i >= 0)
+                         itos(i, bytes);
+					   i = stoi(fourth);
+					   if (i >= 0 && i <= 255)
+                          itos(i, ratio);
+						}
+				  save_lvl(dir);
+				  }
+		   }
+		  else if (key == 18176)   // Home
+			   {
+			   if (dir != 1)
+				  {
+				   dir = 1;
+				   get_lvl(dir);
+				   }
+			   }
+		  else if (key == 20224)   // End
+			   {
+			   if (dir != 255)
+				  {
+				   dir = 255;
+				   get_lvl(dir);
+				  }
+				continue;
+			   }
+
+		  else if (key == 20736)
+			{
+			if (dir > 1)
+			   {
+				--dir;
+				get_lvl(dir);
+				}
+			 }
+		  else if (key == 18688)
+			  {
+			   if (dir < 255)
+				  {
+				   ++dir;
+				   get_lvl(dir);
+				   }
+			  }
+		  else if (key == 20992 && dir > 0) 	   // Insert level
+				  {
+				   obj_name = "User";
+				   tim = "0";
+				   bytes = "0";
+				   ratio = "1";
+				   key = fopen("LEVELS.DAT", "r+");
+				   fseek(key, 508, 0);
+				   i = ctoi(2, key);		// inserted level takes space of level
+											// being 'pushed' out.
+				   fseek(key, (dir-1)*2, 0);
+				   fread(index, (255-dir)*2, key);
+				   fseek(key, (dir-1)*2, 0);
+				   itoc(i, 2, key);
+				   fwrite(index, (255-dir)*2, key);
+				   fclose(key);
+				   key = 1;
+				   save_lvl(dir);
+				   }
+		  else if (key == 21248)		  // Delete level
+				  {
+				   key = fopen("LEVELS.DAT", "r+");
+				   fseek(key, 2 * dir, 0);
+				   fread(index, (255-dir)*2, key);
+				   fseek(key, (dir-1)*2, 0);
+				   fwrite(index, (255-dir)*2, key);
+				   fputc(0, key);
+				   fputc(0, key);
+				   fclose(key);
+				   key = 1;
+				   get_lvl(dir);
+				  }
+		  else if (key == 33792)  // Ctrl-PgUp
+			  {
+				if (dir == 255)
+					continue;
+				else if (dir <= 245)
+					dir = dir + 10;
+				else
+					dir = 255;
+				get_lvl(dir);
+				}
+		  else if (key == 30208)  // Ctrl-PgDn
+			   {
+				if (dir == 1)
+					continue;
+				else if (dir > 10)
+					dir = dir - 10;
+				else
+					dir = 1;
+				get_lvl(dir);
+			   }
+		}
+  }
+else if (key == '2' || key == '3')
+    {
+	  itos(subchr(levels, key-50), second);
+	  ed(second, 3, second, "Enter the Level");
+	  if (second)
+		 {
+		 if (stoi(second) <= 255 && stoi(second) > 0)
+			 setchr(levels, key-50, stoi(second));
+		  }
+     }
+   }
+}
+///////////////////////////////////////////////////////////////////////////////
+protos( )
+{
+ int c, edity = 5, editx, key, pos;
+
+ cursor_onoff(0);
+ box(4, 0, 19, 23, 1, 0, 112);
+  pstraxy("K     B  E  B", 6, 1, 112);
+  pstraxy("e  O  a  x  i", 6, 2, 112);
+  pstraxy("y  n  t  t  m", 6, 3, 112);
+pstraxy("ÃÄÄÁÄÄÁÄÄÁÄÄÁÄÄ´", 4, 4, 112);
+
+ disp_prot();   // show all
+ editx = 6;
+ edity = 5;
+
+ while(c != -1)
+   {
+   cursor_onoff(1);
+
+   if (edity <= 22)
+       vputchrs(5, edity, "", 0, 1, 112);
+
+// edity == protocol, editx == option
+
+   gotoxy(editx, edity);
+
+// key is at x = 6
+
+   if (editx == 6)
+      {
+      key = toupper(inkeyw());
+
+      if (key <= 255 && key >= 33)
+         {// search for duplicate
+         c = subchr(protkeys, edity-5);
+         setchr(protkeys, edity-5, '^A');
+         if (strchr(protkeys, 0, key) >= 0)
+            {
+             tone(659, 14);
+             setchr(protkeys, edity-5, c);
+             }
+         else
+            {
+             setchr(protkeys, edity-5, toupper(key));
+             vputchr(toupper(key) + 28672);
+             }
+          c = 0;
+         }
+      else
+         {
+          if (key == 19200)
+             c = -4;
+          else if (key == 19712)
+             c = 4;
+          else if (key == 27)
+             c = -1;
+          else if (key == 18432)
+             c = 2;
+          else if (key == 20480)
+             c = 3;
+          }
+      }
+   else
+      {
+       if (editx <= 9 || strchr("XYZ1GSETMKAC ", 0, subchr(protkeys, edity-5))
+            == -1)
+           {
+           key = ynp('Y');
+
+           if (key == 1 || key == 0)
+              {
+               pos = power2((editx - 9)/3);
+               c = subchr(protdata, edity - 5);
+               c = c & (255 - pos);     // reset that bit
+               c = c | (pos * key);
+               setchr(protdata, edity-5, c);
+               c = 0;
+              }
+           else
+               c = key;
+           }
+        else c = -4;
+        }
+
+   if (edity <= 22)
+      vputchrs(5, edity, " ", 0, 1, 112);
+
+   if (c == 3)
+      ++edity;
+   else if (c == 2)
+      --edity;
+   else if (c == 4)
+      editx = editx + 3;
+   else if (c == -4)
+      editx = editx - 3;
+
+   if (editx < 6)
+       editx = 18;
+   if (editx > 18)
+       editx = 6;
+
+   if (edity < 5)
+      edity = 22;
+   if (edity > 22)
+      edity = 5;
+   }
+}
+///////////////////////////////////////////////////////////////////////////////
+menus( )
+{
+int key, editx = 0, edity = 1, c, x2;
+str mkey[1], cmd[3], opt[3];
+menu = 0;
+
+if (!check_hd())
+     return;
+
+if ((menu = pickmenu()) == -1)
+    return;
+
+pstraxy("Key Lvl Flags    Cmd Opt ³ Key Lvl Flags    Cmd Opt ", 0, 0, 112);
+load_menudef(menu);
+disp_menu();
+if (menu == 256)
+    obj_name = "Global Commands";
+stat_line(8);
+cursor_onoff(0);
+
+while (menu > -1)
+    {
+      if (edity <= 23)
+          vputchrs(editx, edity, "", 0, 0, 112);
+
+      key = inkeyw();
+
+      if (key == 13)        // edit
+         {
+          // key = 1, lvl = 4, flags = 7, Cmd = 16, Opt = 20;
+          // + 23 for next row;
+          c = 0;
+          x2 = (editx/27) * 110 + (edity - 1) * 5;
+
+          setchr(mkey, 0, subchr(index, x2+2));
+          itos(subchr(index, x2), obj_lvl);
+          itobs(subchr(index, x2+1), obj_flag);
+          itos(subchr(index, x2+3), cmd);
+          itos(subchr(index, x2+4), opt);
+
+
+          x2 = 1;
+          while (c > -1)
+                {
+                if (x2 == 1)
+                    c = edit_string(mkey, editx+1, edity, 1, 112);
+                else if (x2 == 2)
+                    c = edit_string(obj_lvl, editx+4, edity, 3, 112);
+                else if (x2 == 3)
+                    c = edit_string(obj_flag, editx+8, edity, 8, 112);
+                else if (x2 == 4)
+                    c = edit_string(cmd, editx+17, edity, 3, 112);
+                else if (x2 == 5)
+                    c = edit_string(opt, editx+21, edity, 3, 112);
+
+               if (c == 1 || c == 3)
+                  ++x2;
+               else if (c == 2)
+                  --x2;
+
+               if (x2 < 1)
+                   x2 = 5;
+               if (x2 > 5)
+                   x2 = 1;
+               }
+            // gotta save here...
+
+          x2 = (editx/27) * 110 + (edity - 1) * 5;
+          setchr(index, x2, stoi(obj_lvl));
+          setchr(index, x2+1, bstoi(obj_flag));
+          setchr(index, x2+2, subchr(mkey, 0));
+          setchr(index, x2+3, stoi(cmd));
+          setchr(index, x2+4, stoi(opt));
+          cursor_onoff(0);
+         }
+      else if (key == 19200)    // left
+         c = -4;
+      else if (key == 19712)   // right
+         c = 4;
+      else if (key == 27)      // ESCape
+         menu = -1;
+      else if (key == 18432)   // Up
+         c = 2;
+      else if (key == 20480)   // Down
+         c = 3;
+      else if (key == 15360)   // Save
+        {
+          save_menudef(menu);
+          c = 0;
+          }
+
+      else if (key == 11776)  // Alt-C  Clear Menu
+         {
+          index = "";
+          disp_menu();
+          c = 0;
+          editx = 0;
+          edity = 1;
+          }
+                              // Alt-P  Pick Menu 6400
+      else if (key == 6400)   // Pick
+          {
+          if ((c = pickmenu()) >= 0)
+             {
+              menu = c;
+              load_menudef(menu);
+              disp_menu();
+              if (menu == 256)
+                  obj_name = "Global Commands";
+              stat_line(8);
+              cursor_onoff(0);
+              editx = 0;
+              edity = 1;
+              }
+           c = 0;
+          }
+                              // Alt-N  Name      12544
+       else if (key == 12544)
+          {
+          edit_string(obj_name, 11, help_line, 25, stat_color);
+          gotoxy(editx, edity);
+          cursor_onoff(0);
+          c = 0;
+          }
+
+   if (edity <= 23)
+      vputchrs(editx, edity, " ", 0, 0, 112);
+
+   if (c == 3)
+      ++edity;
+   else if (c == 2)
+      --edity;
+   else if (c == 4)
+      editx = editx + 27;
+   else if (c == -4)
+      editx = editx - 27;
+
+   if (editx < 0)
+       editx = 27;
+   if (editx > 27)
+       editx = 0;
+   if (edity < 1)
+      edity = 27;
+   if (edity > 23)
+      edity = 1;
+   }
+}
+///////////////////////////////////////////////////////////////////////////////
+pickmenu( )
+{
+str input[3];
+int mnu;
+cursor_onoff(1);
+stat_line(7);
+mnu = -2;
+while (mnu == -2)
+    {
+    if (getsxy(input, 3, 13, help_line, stat_color) == -1)
+        mnu = -1;
+    else if (!input)
+        listmenus();
+    else if (toupper(subchr(input, 0)) == 'G')        // global menu
+        mnu = 256;
+    else
+        mnu = stoi(input);
+    }
+cursor_onoff(0);
+return mnu;
+}
+///////////////////////////////////////////////////////////////////////////////
+listmenus( )
+{
+// Up to 256 Menus to list! w/names!
+// For now, stick to max 40 ? menus
+// 24 lines @ 4/line = 96
+// how about 2/line, 20 lines -> 40 -> 7 pages max
+// w/ pgup-pgdn - allow pick?
+
+// so... go through each menu, get name only
+// display: nnn. Menu Name[30]
+// 35/name, + spacing
+}
+///////////////////////////////////////////////////////////////////////////////
+save_menudef( int mnu )
+{
+int x, fudge, end;
+if (mnu == 256)
+    end = 19;
+// parse menu list,  delete all null keys
+for (x = 0; x <= end; ++x)       // 50 commands in all
+    {
+    if (subchr(index, (x - fudge) * 5 + 2) == 0)
+       {
+       delchrs(index, (x - fudge) * 5, 5);
+       ++fudge;
+       }
+    }
+int mfile;
+newdir(host_dir);
+if ((mfile = fopen("MENU.DEF", "r+")) > 0)
+    {
+    if (mnu < 256)
+        {
+        fseek(mfile, mnu * 255 + 100, 0);
+        fwrite(obj_name, 25, mfile);
+        fwrite(index, 230, mfile);
+        }
+    else
+        fwrite(index, 100, mfile);
+    }
+fclose(mfile);
+}
+///////////////////////////////////////////////////////////////////////////////
+load_menudef( int mnu )
+{
+int mfile, pos, x;
+str name[12];
+newdir(host_dir);
+
+if ((mfile = fopen("MENU.DEF", "r")) > 0)
+    {
+    if (mnu < 256)
+       {
+       fseek(mfile, mnu*255 + 100, 0);
+       if (fread(obj_name, 25, mfile) == 25)
+            fread(index, 230, mfile);
+       }
+    else fread(index, 100, mfile);
+    }
+fclose(mfile);
+}
+///////////////////////////////////////////////////////////////////////////////
+disp_menu( )
+{
+str dispstr[23] = "                       ", temp[8];
+int x = 0;
+
+ box(0, 1, 51, 23, 0, 0, 112);
+ while (x <= 225 && subchr(index, x+2) > 0)
+    {
+    setchr(dispstr, 0, subchr(index, x+2));
+
+    itos(subchr(index, x), temp);
+    copychrs(temp, dispstr, 3, strlen(temp));
+
+    itobs(subchr(index, x+1), temp);
+    copychrs(temp, dispstr, 7, 8);
+
+    itos(subchr(index, x+3), temp);
+    copychrs(temp, dispstr, 16, strlen(temp));
+
+    itos(subchr(index, x+4), temp);
+    copychrs(temp, dispstr, 20, strlen(temp));
+
+    if (x <= 110)
+       vputchrs(1, x/5 + 1, dispstr, 0, 23, 112);
+    else
+       vputchrs(24, (x - 110)/5, dispstr, 0, 23, 112);
+    setchrs(dispstr, 0, 32, 23);
+    x = x + 5;
+    }
+}
+///////////////////////////////////////////////////////////////////////////////
+disp_prot( )
+{
+int x, dat, i;
+
+str disp[13];
+
+setchrs(disp, 0, 32, 33);
+
+for (x = 0; x <= 17; ++x)
+    {
+     setchr(disp, 0, subchr(protkeys, x));
+     dat = subchr(protdata, x);
+
+     for (i = 3; i <= 12; i = i+3)
+         setchr(disp, i, 'N');
+
+     if (dat&1)
+        setchr(disp, 3, 'Y');
+     if (dat&2)
+        setchr(disp, 6, 'Y');
+     if (dat&4)
+        setchr(disp, 9, 'Y');
+     if (dat&8)
+        setchr(disp, 12, 'Y');
+     vputchrs(6, x+5, disp, 0, 13, 112);
+    }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+save( str host_name)
+{
+ int x, host_handle, screen;
+  
+ if ((host_handle = fopen(host_name, "r+")) <= 0)
+      {
+       second =  "Can't open ";
+       strcat(second, host_name);
+       strcat(second, ".");
+       status_wind(second, 10);
+       fclose(host_handle);
+       return -1;
+      }
+  cursor_onoff(0);
+  pstraxy("Saving...", 0, 23, 7);
+
+  fseek(host_handle, 15, 0);
+  format(host_dir);
+  fwrite(host_dir, 64, host_handle);
+
+  fseek(host_handle, 82, 0);
+  format(bbs_name);
+  fwrite(bbs_name, 20, host_handle);
+
+  fseek(host_handle, 105, 0);
+  format(system_pass);
+  fwrite(system_pass, 12, Host_handle);
+
+  fseek(host_handle, 120, 0);
+  format(sysop_name);
+  fwrite(sysop_name, 25, host_handle);
+
+  fseek(host_handle, 148, 0);
+  format(temp_dir);
+  fwrite(temp_dir, 64, host_handle);
+
+  fseek(host_handle, 214, 0);
+  for (x = 0 ; x <= 1; ++x)
+   {
+   fputc(subchr(levels, x), host_handle);
+   fseek(host_handle, 4, 1);
+   }
+
+  itoc(high_conf, 4, host_handle);
+  fseek(host_handle, 1, 1);
+
+  itoc(stoi(chat1), 4, host_handle);
+  fseek(host_handle, 1, 1);
+
+  itoc(stoi(chat0), 4, host_handle);
+  fseek(host_handle, 1, 1);
+
+  itoc(sysbyte, 4, host_handle);
+  fseek(host_handle, 1, 1);
+
+  itoc(stoi(minbaud), 4, host_handle);
+
+  fseek(host_handle, 275, 0);
+
+  fwrite(protkeys, 18, host_handle);
+
+  fseek(host_handle, 3, 1);
+
+  fwrite(protdata, 18, host_handle);
+
+  fseek(host_handle, 3, 1);
+  while((x = strchr(busystr, 0, '|')) >= 0)
+       setchr(busystr, x, '^M');
+
+  fwrite(busystr, 10, host_handle);
+  fclose(host_handle);
+  fnstrip(host_name, 12, first);
+  strcat(first, "ADD.SLC");
+  if ((host_handle = fopen(first, "r+")) > 0)
+     {
+    //15 81
+     fseek(host_handle, 15, 0);
+     fwrite(host_dir, 64, host_handle);
+     fseek(host_handle, 81, 0);
+     fputc((sysbyte&4096)/4096, host_handle);
+     }
+  fclose(host_handle);
+
+  vrstrarea(screen);
+  pstraxy("Configuration saved...", 0, 22, 7);
+
+ }
+///////////////////////////////////////////////////////////////////////////////
+read_config( str host_name)
+{
+ int c, x, host_handle;
+
+ if (!host_name || !filefind(host_name, 0))
+  {
+   host_name = _script_dir;
+   if (subchr(_script_dir, strlen(_script_dir)-1) != '\')
+       setchr(_script_dir, strlen(_script_dir), '\');
+   strcat(host_name, "XHOST.SLC");
+   strupper(host_name);
+   }
+   
+  box(6, 10, 74, 12, 1, 0, 27);
+  
+  pstraxy(" File to Update ", 32, 10, 30);
+  pstraxy(host_name, 8, 11, 23);
+  c = edit_string(host_name, 8, 11, 64, 23);
+  if (c == -1)
+      return -1;
+
+  strupper(host_name);
+
+  if (!filefind(host_name, 0))
+     {
+      status_wind("File not found.", 10);
+      gotoxy(0, 23);
+      return -1;
+     }
+  else
+    {
+     if (_script_dir)
+         newdir(_script_dir);
+     if (x = fopen("SETUP.SLC", "r+"))  // update
+      {
+       fseek(x, 15, 0);
+       fputs(host_name, x);
+       fputc(0, x);
+       }   
+     fclose(x);
+     }
+
+ host_handle = fopen(host_name, "r");
+ 
+ if (!host_handle || ferror(host_handle))
+   {
+    status_wind("Unable to open file.", 10);
+    fclose(host_handle);
+    return -1;
+    } 
+    
+  cursor_onoff(0);
+  
+  pstraxy("Loading...", 0, 23, 7);
+    
+  fseek(host_handle, 15, 0);
+  fread(host_dir, 64, host_handle);
+
+  fseek(host_handle, 82, 0);
+  fread(bbs_name, 20, host_handle);
+
+  fseek(host_handle, 105, 0);
+  fread(system_pass, 12, host_handle);
+
+  fseek(host_handle, 120, 0);
+  fread(sysop_name, 25, host_handle);
+
+  fseek(host_handle, 148, 0);
+  fread(temp_dir, 64, host_handle);
+
+  fseek(host_handle, 214, 0);
+
+  for (x = 0 ; x <= 1; ++x)
+      {
+       setchr(levels, x, fgetc(host_handle));
+       fseek(host_handle, 4, 1);
+       }
+
+  high_conf = ctoi(4, host_handle);
+
+  fseek(host_handle, 1, 1);
+
+  itos(ctoi(4, host_handle), chat1);
+
+  fseek(host_handle, 1, 1);
+
+  itos(ctoi(4, host_handle), chat0);
+
+  inschrs("00", chat1, 0, 2-strlen(chat1));
+  inschrs("00", chat0, 0, 2-strlen(chat0));
+
+  fseek(host_handle, 1, 1);
+
+  sysbyte = ctoi(4, host_handle);
+
+  fseek(host_handle, 1, 1);
+  itos(ctoi(4, host_handle), minbaud);
+
+  fseek(host_handle, 275, 0);
+  fread(protkeys, 18, host_handle);
+  fseek(host_handle, 3, 1);
+
+  fread(protdata, 18, host_handle);
+
+  fseek(host_handle, 3, 1);
+  fread(busystr, 10, host_handle);
+  while((x = strchr(busystr, 0, '^M')) >= 0)
+       setchr(busystr, x, '|');
+  fclose(host_handle);
+
+  if (host_dir)
+     newdir(host_dir);
+}  
+
+///////////////////////////////////////////////////////////////////////////////
+
+ask_syspass()
+{
+ clear_scr();
+ 
+ if (system_pass)
+    {
+   box (17, 10, 62, 12, 1, 0, 27);
+   
+   pstraxy(" System Password Check ", 28, 10, 31);
+   cursor_onoff(1);
+   getsxy(first, 16, 19, 11, 17);
+   if (strcmpi(first, system_pass) != 0)
+      {
+       pstraxy("Access has been denied!", 0, 22, 7);
+       return -1;
+       }
+   else pstraxy("Access has been achieved.", 0, 22, 7);
+    }
+   return 1;
+}
+///////////////////////////////////////////////////////////////////////////////
+
+format( str string)
+{
+  while(subchr(string, strlen(string)-1) == 32)
+     delchrs(string, strlen(string)-1, 1);
+}
+///////////////////////////////////////////////////////////////////////////////
+
+yn( int def, int b_color)
+{
+int c = -1;
+
+int UP = 18432, 
+    DOWN = 20480;
+
+while(strchr("YN^027^013", 0, c) == -1 && c != UP && c != DOWN)
+      c = toupper(inkeyw());
+
+if (c == 27)
+   return -1;
+else if (c == 13)
+    c = def;
+if (c == 'Y')
+  {
+   pstraxy("Yes", getx(), gety(), b_color*16+10);
+   return 1;
+  }
+else if (c == 'N')
+   {
+   pstraxy("No ", getx(), gety(), b_color*16+12);
+   return 0;
+   }
+else if (c == UP)
+     return 2;
+else if (c == 15360)
+     return -2;
+else return 3;
+}    
+///////////////////////////////////////////////////////////////////////////////
+
+
+edit_string( str String, int X, int Y, int Length, int Color)
+{
+
+int scrn;
+
+int UP = 18432, 
+    DOWN = 20480, 
+    HOME = 18176, 
+    END = 20224,
+    LEFT = 19200, 
+    RIGHT = 19712,
+    F2 = 15360,
+    EDIT = 9, 
+    HELP = 15104, 
+    EXIT = 27;
+    
+ str Backup[80], // backup of string to edit.
+     Temp[80];
+
+ int X2,        // current x.pos of cursor
+     Char,      // the char from keyboard
+     Ins = 0,   // insert mode toggle
+     EndX,      // pos of last character
+     TempX = 0, // temporary spaces at end of string
+     RetVal = 0;
+ 
+ X2 = X;
+ gotoxy(X2, Y);
+ EndX = X+strlen(String);
+ if (Length < strlen(String))
+   setchr(String, length-1, 0);
+ Backup = String;
+ setchrs(String, strlen(String), 0, length-strlen(String));
+ vputchrs(X, Y, String, 0, length, color);
+
+ cursor_onoff(1);
+ 
+ while(retval == 0)
+  {
+  Char = inkeyw();
+
+  if (Char == 8)       // BackSpace
+    {
+     if (TempX)
+        {
+          --TempX;
+          --X2;
+          }
+     else if (X2 > X)
+        {
+         Temp =  "";
+         vgetchrs(X2, Y, Temp, 0, Endx-X2);
+         vputchrs(X2-1, Y, Temp, 0, Endx-X2+1, color);
+         --X2;
+         --EndX;
+         }
+     gotoxy(X2, Y);
+     continue;
+     }
+     
+ if (Char == 21248)     // Delete char
+     {
+       if (!TempX && X2 < Endx)
+            {
+             vgetchrs(X2+1, Y, Temp, 0, Endx-X2-1);
+             setchr(temp, endx-x2-1, 0);
+             vputchrs(X2, Y, Temp, 0, Endx-X2, color);
+              --EndX;
+              gotoxy(X2, Y);
+             }
+      continue;
+      }
+  
+  if (Char > 31 && Char < 256)
+     {
+       if (Ins && X2 < EndX && x2 < X+Length-1)
+         {
+          Temp =  "";
+          vgetchrs(X2, Y, Temp, 0, Endx-X2);
+          if (Endx <= X+Length-1)
+              vputchrs(X2+1, Y, Temp, 0, Endx-x2, color);
+          else
+              vputchrs(X2+1, Y, Temp, 0, Endx-x2-1, color);
+
+          }
+        vputchr(Char+color*256);
+
+        if (Char == 32)  // if space
+            {
+             if (X2 < EndX)
+                 {
+                  if (Ins)
+                     ++EndX;
+                  }
+             else if (X2 == EndX-1 && !Ins)
+                  {
+                  --EndX;
+                  Tempx = 1;
+                  }
+             else if (X2 < X+Length-1)
+                  ++TempX;
+
+             if (X2 < X+Length-1)
+                  ++X2;
+
+             if (EndX > X+Length)
+               EndX = X+Length;
+
+             gotoxy(X2, Y);
+             continue;
+             }
+
+         if (X2 >= EndX || (Ins && EndX < X+Length))
+            {
+             if (TempX)  // if we were past the end of string
+              {
+               EndX = EndX+TempX;  // add the amount we were past by
+               TempX = 0;          // reset amount
+               }
+             ++EndX;          // Move end pointer
+             }
+
+          if (EndX > X+Length)
+              EndX = X+Length;
+          if (X2 < X+Length-1)
+              ++X2;
+         gotoxy(X2, Y);
+         continue;
+        }
+
+  if (Char == LEFT)
+     {
+      if (X2 > X)
+         {
+          --X2;
+          if (TempX)
+            --TempX;
+          gotoxy(X2, Y);
+          }
+       else
+           retval = 2;
+      continue;
+      }
+      
+  if (Char == RIGHT)
+    {
+      if (X2 < X+Length-1)
+         {
+          ++X2;
+          if (X2 > EndX)
+             ++TempX;
+          gotoxy(X2, Y);
+         }
+       else
+         retval = 1;
+     continue;
+     }
+
+  if (Char == END)
+      {
+       if (X2 == EndX || Endx == X)
+          continue;
+       X2 = EndX;
+       if (X2 > X+Length-1)
+         --X2;
+       TempX = 0;
+       gotoxy(X2, Y);
+       continue;
+       }
+
+  if (Char == HOME)
+     {
+      X2 = X;
+      tempX = 0;
+      gotoxy(X2, Y);
+      continue;
+      }
+
+  if (Char == 13 || Char == UP || Char == DOWN || Char == F2)
+    {
+     String = "";
+     vgetchrs(X, Y, String, 0, EndX-X);
+     setchr(String, EndX-X, 0);
+     if (Char == 13 || Char == DOWN)
+        retval = 3;
+     if (Char == UP)
+        retval = 2;
+     if (char == F2)
+        retval = -2;        // save on exit
+     continue;
+     }
+
+  if (Char == 29952)    // Ctrl-End
+    {
+    if (!TempX)
+     {
+      setchrs(Temp, 0, 0, Length);
+      vputchrs(X2, Y, temp, 0, EndX-X2, color);
+      EndX = X2;
+      gotoxy(X2, Y);
+      }
+     continue;
+     }
+
+  if (Char == EXIT)  // exit
+     {
+      String = Backup;
+      retval = -1;              // don't save on exit
+      continue;
+      }
+
+  if (Char == 30464)    // Ctrl-Home
+     {
+      EndX = strlen(Backup)+X;
+      String = Backup;
+      setchrs(String, strlen(String), 0, Length-strlen(String));
+      vputchrs(X, Y, String, 0, Length, color);
+      X2 = X;
+      TempX = 0;
+      gotoxy(X2, Y);
+      continue;
+     }
+
+  if (Char == 20992)   // Toggles insert
+     {
+      Ins = !Ins;
+      continue;
+      }
+
+  if (Char == HELP)   // HELP!!!
+     {
+      cursor_onoff(0);
+
+      scrn = vsavearea(19, 3, 62, 21);
+
+      box(19, 3, 61, 20, 2, 0, 127);
+
+      pstraxy(" Help ", 37, 3, 124);
+
+      pstraxy("Editing functions:", 21, 4, 112);
+
+      pstraxy("Use   and  ", 21, 6, 112);
+      pstraxy("^[", 25, 6, 122);
+      pstraxy("^Z", 31, 6, 122);
+      pstraxy("to move along the line.", 33, 6, 112);
+
+      pstraxy("Home", 21, 7, 122);
+      pstraxy("goes to the start of the line.", 26, 7, 112);
+
+      pstraxy("End", 21, 8, 122);
+      pstraxy("goes to the end of the line.", 25, 8, 112);
+
+      pstraxy("Use  ,   and", 21, 9, 112);
+      pstraxy("^X", 25, 9, 122);
+      pstraxy("^Y", 28, 9, 122);
+      pstraxy("^QÙ", 34, 9, 122);
+
+      pstraxy("to change lines, ", 37, 9, 112);
+      pstraxy("or to save and exit.", 26, 10, 112);
+
+      pstraxy("Escape", 21, 11, 122);
+      pstraxy("exits using the default string.", 28, 11, 112);
+
+      pstraxy("Backspace", 21, 12, 122);
+      pstraxy("erases the previous character", 31, 12, 112);
+      pstraxy("on the line.", 26, 13, 112);
+
+      pstraxy("Delete", 21, 14, 122);
+      pstraxy("erases the current character.", 28, 14, 112);
+
+      pstraxy("Control-Home", 21, 15, 122);
+      pstraxy("restarts the line with the", 34, 15, 112);
+      pstraxy("default string.", 26, 16, 112);
+
+      pstraxy("Control-End", 21, 17, 122);
+      pstraxy("deletes from the current", 33, 17, 112);
+      pstraxy("character to the end of the line.", 26, 18, 112);
+
+      pstraxy("Insert", 21, 19, 122);
+      pstraxy("toggles insert mode.", 28, 19, 112);
+      inkeyw();
+      vrstrarea(scrn);
+      cursor_onoff(1);
+      }
+   }
+   if (retval > 0)
+     {
+      String = "";
+      vgetchrs(X, Y, String, 0, EndX-X);
+      setchr(String, EndX-X, 0);
+      }
+ format(string);
+ return retval;
+}
+///////////////////////////////////////////////////////////////////////////////
+disp_dir( int type, int dir)
+{
+ str temp[45];
+ itos(dir, temp);
+ inschrs("  ", temp, strlen(temp), 3-strlen(temp));
+ pstraxy(temp, 9, 9, 31);
+
+ itos(high, temp);
+ pstraxy(temp, 19, 8, 31);
+ if (dir >= 1)
+     getobj(type, dir);
+ else
+     {
+     obj_name = "";
+     obj_path = "";
+     obj_lvl = "";
+     setchrs(obj_flag, 0, '0', 8);
+     }
+
+ setchrs(temp, 0, 32, 64);
+ pstraxy(obj_name, 12, 11, 23);
+ vputchrs(12+strlen(obj_name), 11, temp, 0, 30-strlen(obj_name), 23);
+ strupper(obj_path);
+ pstraxy(obj_path, 12, 12, 23);
+ vputchrs(12+strlen(obj_path), 12, temp, 0, 45-strlen(obj_path), 23);
+ pstraxy(obj_lvl, 12, 13, 23);
+ setchr(temp, 2, 0);
+ pstraxy(temp, 12+strlen(obj_lvl), 13, 23);
+ pstraxy(obj_flag, 12, 14, 23);
+}
+///////////////////////////////////////////////////////////////////////////////
+create()
+{
+int f;
+str s[30];
+f = fopen("LEVELS.DAT", "w");
+setchrs(index, 0, 0, 510);
+setchr(index, 0, 254);
+setchr(index, 1, 1);
+fwrite(index, 510, f);            // simply create index
+s = "New User";
+fwrite(s, 30, f);            // add on one record (new user)
+itoc(15, 2, f);              // it is the only one explicitly referenced
+itoc(0, 4, f);               // by xHost
+fputc(1, f);
+fclose(f);
+}
+///////////////////////////////////////////////////////////////////////////////
+verify( str dir, int runs)
+{
+ int screen, ret;
+ str s[64];
+ s = dir;
+
+ if(subchr(dir, strlen(dir)-1) == '\')
+    delchrs(dir, strlen(dir)-1, 1);
+
+ if (newdir(dir) == 0 && runs == 0)
+     {
+      fnstrip(s, 14, s);
+      screen = vsavearea(16, 10, 64, 13);
+      box(16, 10, 63, 12, 1, 0, 28);
+      pstraxy(" Warning! ", 35, 10, 157);
+
+      if (s == dir)
+          {
+          pstraxy("That drive doesn't exist!", 27, 11, 31);
+          vrstrarea(screen);
+          return 0;
+          }
+
+      pstraxy("That directory doesn't exist. Create it? ", 18, 11, 31);
+      cursor_onoff(1);
+
+      if (yn('Y', 1) == 1)
+         {
+          s = "md ";
+          strcat(s, dir);
+          dos(s, 0);
+          delchrs(s, 0, 3);
+          strcat(dir, "\");
+          ret = verify(s, 1);
+          }
+
+      cursor_onoff(0);
+      vrstrarea(screen);
+      return ret;
+      }
+  else if (runs == 1 && !newdir(dir))
+         return 0;
+  strcat(dir, "\");
+  return 1;
+ }
+///////////////////////////////////////////////////////////////////////////////
+
+get_lvl(int num)
+{
+int c, zz;
+
+str s[64], temp[37];
+
+s = host_dir;
+inschrs("LEVELS.DAT", s, strlen(s), 10);
+
+c = fopen(s, "r");
+
+fseek(c, (num-1)*2, 0);
+
+zz = ctoi(2, c); // get offset of level
+
+if (zz <= 0)
+   {
+    obj_name = "";
+    ratio = "1";
+    bytes = "0";
+    tim = "0";
+    fclose(c);
+    return;
+    }
+
+fseek(c, zz, 0);  // go to that offset
+// file format:New User                        s
+// descr[30] time[2] bytes[4] ratio[1]
+
+if (fread(temp, 37, c) < 37)
+   {
+    fclose(c);
+    return -1;
+   }
+fclose(c);
+
+subchrs(temp, 0, 30, obj_name);
+itos(get_int(temp, 30, 2), tim);
+itos(get_int(temp, 32, 4), bytes);
+itos(subchr(temp, 36), ratio);
+}
+///////////////////////////////////////////////////////////////////////////////
+
+disp_lvl( int dir)
+{
+ str temp[30];
+ itos(dir, temp);
+ inschrs("  ", temp, strlen(temp), 3-strlen(temp));
+ pstraxy(temp, 10, 9, 31);
+
+ pstraxy(obj_name, 12, 11, 23);
+ setchrs(temp, 0, 32, 30);
+ vputchrs(12+strlen(obj_name), 11, temp, 0, 30-strlen(obj_name), 23);
+
+ pstraxy(tim, 12, 12, 23);
+ vputchrs(12+strlen(tim), 12, temp, 0, 3-strlen(tim), 23);
+
+ pstraxy(bytes, 12, 13, 23);
+ vputchrs(12+strlen(bytes), 13, temp, 0, 9-strlen(bytes), 23);
+
+ pstraxy(ratio, 12, 14, 23);
+ setchr(temp, 3, 0);
+ pstraxy(temp, 12+strlen(ratio), 14, 23);
+}
+///////////////////////////////////////////////////////////////////////////////
+
+save_lvl( int num)
+{
+int c, zz;
+
+str s[64], temp[37];
+
+s = host_dir;
+inschrs("LEVELS.DAT", s, strlen(s), 10);
+
+c = fopen(s, "r+");
+
+fseek(c, (num-1)*2, 0);
+
+zz = ctoi(2, c); // get offset of level
+
+if (zz <= 0)
+   {
+    fseek(c, 0, 2);
+    zz = ftell(c);
+    fseek(c, (num-1)*2, 0);
+    itoc(zz, 2, c);          // Save offset to file
+    fclose(c);
+    c = fopen(s, "a");
+    }
+
+fseek(c, zz, 0);  // go to that offset
+
+// file format: New User                        s
+// descr[30] time[2] byte[4] ratio[1]
+
+copychrs(obj_name, temp, 0, 30);
+put_int(stoi(tim), temp, 30, 2);
+put_int(stoi(bytes), temp, 32, 4);
+setchr(temp, 36, stoi(ratio));
+fwrite(temp, 37, c);
+fclose(c);
+return;         // return time for this level
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+ctoi(int num, int fcb)
+{
+ str buf[4];
+ fread(buf, num, fcb);
+ return (get_int(buf, 0, num));
+}
+///////////////////////////////////////////////////////////////////////////////
+
+itoc( int src, int num, int file)
+{
+ str digits[4];
+ int i, ma, mz, my;
+
+if (num == 4)
+  mz = 16777216;
+else
+  mz = 256;
+
+ my = src;
+
+ for (ma = 1; ma <= num; ++ma)
+   {
+    i = my/mz;
+    setchr(digits, num-ma, i);
+    my = my%mz;
+    mz = mz/256;
+    }
+ fwrite(digits, num, file);
+ return;
+}
+///////////////////////////////////////////////////////////////////////////////
+
+just_filename(str filespec)
+{
+   if (strpos(filespec, ":", 0) != -1)
+       return 0;
+   if (strpos(filespec, "\", 0) != -1)
+       return 0;
+   if (strpos(filespec, "/", 0) != -1)
+       return 0;
+
+   return 1;
+}
+///////////////////////////////////////////////////////////////////////////////
+
+edit_loop( int x1, int x2, int x3, int x4, int l1, int l2, int l3, int l4)
+ {
+  int val = 0, next = 1;
+
+  stat_line(2);
+
+  while(val > -1)
+     {
+      if (next == 1)
+          val = edit_string(first, x1, 11, l1, 23);
+      else if (next == 2)
+         {
+          val = edit_string(second, x2, 12, l2, 23);
+          strupper(second);
+          }
+      else if (next == 3)
+           val = edit_string(third, x3, 13, L3, 23);
+      else if (next == 4 && x4)
+          {
+           val = edit_string(fourth, x4, 14, L4, 23);
+           if (val == 3)
+               val = -2;
+           }
+      else if (next == 4 && !x4)
+              {
+               if (val == 2)
+                  next = 3;
+               else
+                  next = 1;
+               }
+// 3 down  2 up
+
+      next = next + val*2 - 5;
+      if (next <= 0)
+          next = 4;
+      if (next > 4 || (next > 3 && !x4))
+          next = 1;
+     }
+   return val;
+ }
+///////////////////////////////////////////////////////////////////////////////
+save_conf( int dir_num)
+{
+int c, x;
+
+if (dir_num <= 0 || dir_num > 40)
+    return 0;
+
+newdir(host_dir);
+
+c = fopen("CONFS.DAT",  "r+");
+
+if (c <= 0)
+   {
+    fclose(c);
+    c = fopen("CONFS.DAT", "w");
+    }
+
+fseek(c, 0, 2);
+
+if (80*(dir_num - 1) >= ftell(c))
+   {
+    fclose(c);
+    c = fopen("CONFS.DAT",  "a");
+    }
+fseek(c, 80*(dir_num-1), 0);
+
+fputc(stoi(conf_lvl), c);
+bstoc(flags, c);
+fputc(conf_stat, c);
+fwrite(confname, 20, c);
+fwrite(confpath, 45, c);
+fputc(high_dir, c);
+fputc(high_txt, c);
+fputc(high_door, c);
+itoc(maxmsgs, 2, c);
+fputc(maxdays, c);
+fwrite(temp, 3, c);
+fwrite("^001^M^J", 3, c);
+fclose(c);
+if (dir_num > high_conf)
+    high_conf = dir_num;
+return;
+}
+///////////////////////////////////////////////////////////////////////////////
+Get_Conf( int dir_num )
+{
+int c;
+str temp[80];
+
+if (dir_num < 1 || dir_num > high_conf)
+    return 0;
+
+newdir(host_dir);
+
+c = fopen("CONFS.DAT",  "r");
+
+if (c <= 0)
+   {
+    fclose(c);
+    confname = "";
+    return 0;
+    }
+
+fseek(c, 80*(dir_num-1), 0);
+
+if (fread(temp, 80, c) == 80)
+    {
+    itos(subchr(temp, 0), conf_lvl);
+    itobs(subchr(temp, 1), flags);
+    conf_stat = subchr(temp, 2);
+    subchrs(temp, 3, 20, confname);
+    subchrs(temp, 23, 45, confpath);
+    if (!confpath)
+        confpath = host_dir;
+    high_dir = subchr(temp, 68);
+    high_txt = subchr(temp, 69);
+    high_door = subchr(temp, 70);
+    maxmsgs = get_int(temp, 71, 2);
+    maxdays = subchr(temp, 73);
+    }
+else
+    confname = "";
+
+fclose(c);
+if (ConfName)
+  return 1;
+return 0;
+}
+///////////////////////////////////////////////////////////////////////////////
+disp_conf( int num )
+{
+ str tmp[45];
+
+ if (!get_conf(num) && num > 0)
+    {
+     confname = "Empty";
+     conf_lvl = "1";
+     confpath = host_dir;
+     setchrs(flags, 0, '0', 8);
+     conf_stat = 1;     // messages ON
+     high_dir = 0;
+     high_txt = 0;
+     high_door = 0;
+     maxmsgs = 0;
+     maxdays = 0;
+    }
+ else if (num <= 0)
+     return 0;
+
+ itos(num, tmp);
+ inschrs("  ", tmp, 0, 3-strlen(tmp));
+ pstraxy(tmp, 28, 11, 95);
+
+ setchrs(temp, 0, 32, 30);
+
+ pstraxy(confname, 29, 13, 80);
+ vputchrs(29+strlen(confname), 13, temp, 0, 20-strlen(confname), 80);
+
+ pstraxy(conf_lvl, 29, 14, 80);
+ vputchrs(29+strlen(conf_lvl), 14, temp, 0, 3-strlen(conf_lvl), 80);
+
+ pstraxy(flags, 29, 15, 80);
+
+ pstraxy(confpath, 29, 16, 80);
+ vputchrs(29+strlen(confpath), 16, temp, 0, 45-strlen(confpath), 80);
+
+ second = "No";
+ if (conf_stat&1)        // Messages on/off
+     second = "Yes";
+
+ vputchrs(34, 17, " ", 0, 1, 95);
+ vputchrs(32, 17, second, 0, strlen(second), 96-strlen(second)*2);
+
+ itos(maxmsgs, tmp);
+
+ pstraxy(tmp, 44, 17, 80);
+ vputchrs(44+strlen(tmp), 17, "     ", 0, 5-strlen(tmp), 80);
+
+ itos(maxdays, tmp);
+ pstraxy(tmp, 55, 17, 80);
+ vputchrs(55+strlen(tmp), 17, "   ", 0, 3-strlen(tmp), 80);
+
+ second = "No";
+ if (conf_stat&2)        // Private yes/no
+     second = "Yes";
+
+ vputchrs(34, 18, " ", 0, 1, 95);
+ vputchrs(32, 18, second, 0, strlen(second), 96-strlen(second)*2);
+}
+///////////////////////////////////////////////////////////////////////////////
+
+check_hd( )
+{
+ if (host_dir)
+    {
+     if (newdir(host_dir))
+        return 1;
+     }
+ box(9, 11, 70, 13, 1, 0, 30);
+ pstraxy("Please define the XHost Directory first (System).", 11, 12, 28);
+ delay_scr(20);
+ return 0;
+ }
+///////////////////////////////////////////////////////////////////////////////
+
+itobs( int num, str dest)
+{
+int x, num2;
+num2 = num;
+
+for (x = 0; x <= 7; ++x)
+     {
+      setchr(dest, x, num2%2+48);
+      num2 = num2/2;
+      }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+ed( str s, int len, str init, str head)
+{
+ int x;
+ x = (80-len)/2;
+ if (strlen(head) > len)
+    x = (80-strlen(head))/2;
+
+ box(x-2, 16, 81-x, 18, 1, 0, 27);
+
+ pstraxy(head, 39-strlen(head)/2, 16, 30);
+ pstraxy(init, x, 17, 23);
+
+ s = init;
+ edit_string(s, x, 17, len, 23);
+ box(x-2, 16, 82-x, 19, 1, 0, 0);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+SaveObj( int Type, int Num )
+{
+ int objf, objlen, xx;
+ str obj_fname[64], exte[4];
+
+ getext(exte, type);
+
+ if (type == 3)
+     objlen = 131;
+ else
+     objlen = 80;
+
+ prep(stoi(confnum), exte, obj_fname);
+ inschrs(confpath, obj_fname, 0, strlen(confpath));
+
+ objf = fopen(obj_fname, "r+");
+
+ if (objf <= 0)
+    {
+     fclose(objf);
+     objf = fopen(obj_fname, "w");
+     }
+
+ // type = 1 = dir
+ // type = 2 = text
+ // type = 3 = door
+
+ fseek(objf, 0, 2);
+
+ xx = ftell(objf);
+ if (317 + objlen*(num-1) >= xx)
+    {
+     if (xx > 0)
+        {
+         fclose(objf);
+         objf = fopen(obj_fname, "a");
+         }
+     else
+         comment(objf);
+     }
+
+ fseek(objf, 317 + objlen * (num - 1), 0);
+
+ fputc(stoi(obj_lvl), objf);
+ bstoc(obj_flag, objf);
+ fwrite(obj_name, 30, objf);
+ fwrite(obj_path, 45, objf);
+ fputc(1, objf);
+ fwrite("^M^J", 2, objf);
+
+ if (type == 3)        // doors only
+    {
+     fwrite(params, 45, objf);
+     itoc(stoi(tim), 2, objf);
+     bstoc(control, objf);
+     fwrite("^001^M^J", 3, objf);
+     }
+ fclose(objf);
+// - dir    [80]
+// Level[1] Flag[1] Descr[30] Path[45] endbyte[1] [^M^J]
+// - text files  [80]
+// Level[1] Flag[1] Descr[30] Path[45] endbyte[1] [^M^J]
+// - door  [131]
+// Level[1] Flag[1] Descr[30] Path[45] endbyte[1] [^M^J]     -> 80
+// Params[45] Time[2] Control[1] endbyte[1] [^M^J]           -> 51
+
+// [Control = 00000000]
+//               AIIIS      Ansi, Info:3, Script = 1 | Prog = 0
+
+}
+///////////////////////////////////////////////////////////////////////////////
+// f //
+// GetObj
+
+// Type = 1 File Dir
+//        2 Door
+//        3 Text File
+// Num      Number of filedir/text/door
+
+GetObj( int type, int num )
+{
+ int objf, objlen;
+ str obj_fname[64], temp[131], param[12];
+ if (num < 1)
+    return 0;
+ getext(param, type);
+
+ if (type == 3)
+     objlen = 131;
+ else
+     objlen = 80;
+
+ prep(stoi(confnum), param, obj_fname);
+ inschrs(confpath, obj_fname, 0, strlen(confpath));
+
+ objf = fopen(obj_fname, "r");
+ obj_lvl = -1;
+ if (objf > 0)
+    {
+ // type = 1 = dir
+ // type = 2 = text
+ // type = 3 = door
+
+     fseek(objf, 317 + objlen*(num-1), 0);
+
+     if (fread(temp, objlen, objf) == objlen)
+         {
+         itos(subchr(temp, 0), obj_lvl);
+         itobs(subchr(temp, 1), obj_flag);
+         subchrs(temp, 2, 30, obj_name);
+         format(obj_name);
+         subchrs(temp, 32, 45, obj_path);
+         format(obj_path);
+
+         if (type == 3)
+            {
+             subchrs(temp, 80, 45, params);
+             format(params);
+             itos(get_int(temp, 125, 2), tim);
+             itobs(subchr(temp, 127), control);
+             }
+         fclose(objf);
+         return 1;
+         }
+    }
+ obj_lvl = "";
+ setchrs(obj_flag, 0, '0', 8);
+ setchrs(control, 0, '0', 8);
+ params = "";
+ tim = "";
+ obj_name = "";
+ obj_path = "";
+ fclose(objf);
+ return 0;
+}
+
+// - dir    [80]
+// Level[1] Flag[1] Descr[30] Path[45] endbyte[1] [^M^J]
+// - text files  [80]
+// Level[1] Flag[1] Descr[30] Path[45] endbyte[1] [^M^J]
+// - door  [131]
+// Level[1] Flag[1] Descr[30] Path[45] endbyte[1] [^M^J]    -> 80
+// Params[45] Time[2] Control[1] [1] [^M^J]                 -> 51
+// [Control = 00000000]
+//               AIIIS      Ansi, Info:3, Script = 1 | Prog = 0
+///////////////////////////////////////////////////////////////////////////////
+bstoc( str s, int f )
+{
+int x, sum, factor = 1;
+for (x = 0; x <= 7; ++x)
+    {
+    sum = sum + (subchr(s, x)-48)*factor;
+    factor = factor * 2;
+    }
+fputc(sum, f);
+}
+///////////////////////////////////////////////////////////////////////////////
+bstoi( str s)
+{
+int x, sum, factor = 1;
+for (x = 0; x <= 7; ++x)
+    {
+    sum = sum + (subchr(s, x)-48)*factor;
+    factor = factor * 2;
+    }
+return sum;
+}
+///////////////////////////////////////////////////////////////////////////////
+stat_line( int opt)
+{
+ str line[80];
+
+ if (opt == 1)
+     line = "Esc: Quit  Enter: Edit  PgUp/Dn: ñ1  Ctrl-Pg: ñ10  +: Add  (Del)ete";
+  else if (opt == 2)
+     line = "Esc: Cancel  F1: Help on Edit  F2: Save  ^X^Y to change fields";
+  else if (opt == 3)
+     line = "Esc:Quit  PgUp/Dn:ñ1  Ctrl-Pg:ñ10  +:Add  (Del)ete  Enter:Edit  Alt-A:Editor";
+  else if (opt == 4)
+     line = "Esc: Quit  PgUp/Dn: ñ1  Ctrl-Pg: ñ10  Home  End  (Ins)ert  (Del)ete  Enter: Edit";
+  else if (opt == 5)
+     line = "Esc: Cancel  F1: Help on Edit";
+  else if (opt == 6)
+     line = "Esc: Quit  (Y)es (N)o  ^X^Y to change fields";
+  else if (opt == 7)
+     line = "Select Menu:";
+  else if (opt == 8)
+    {
+     itos(menu, line);
+     inschrs("  ", line, 0, 3-strlen(line));
+     inschrs(": ", line, strlen(line), 2);
+     inschrs("Menu #", line, 0, 6);
+     inschrs(obj_name, line, strlen(line), strlen(obj_name));
+     setchrs(line, strlen(line), 32, 37-strlen(line));
+     inschrs("³ F2:Save Enter:Edit Alt-{Pick Name Clear}", line, strlen(line), 42);
+     }
+  else
+      {
+       vputchrs(0, help_line, stat_save, 0, 80, stat_color);
+       return;
+       }
+  vputchrs(0, help_line, line, 0, 80, stat_color);
+}
+///////////////////////////////////////////////////////////////////////////////
+Prep( int num, str ext, str buf )
+{
+itos(num, buf);
+inschrs("000", buf, 0, 3-strlen(buf));
+inschrs(ext, buf, strlen(buf), strlen(ext));
+}
+///////////////////////////////////////////////////////////////////////////////
+comment( int fh )
+{
+// len = 317
+fputs("* XHost Data File *", fh);
+fputs("^M^J*^M^J* dirs[80]:", fh);
+fputs("^M^J*   Level[1] Flag[1] Descr[30] Path[45] ASCII_001[1] CR/LF[2]", fh);
+fputs("^M^J* text files[80]:", fh);
+fputs("^M^J*   Level[1] Flag[1] Descr[30] Path[45] ASCII_001[1] CR/LF[2]", fh);
+fputs("^M^J* doors[131]:", fh);
+fputs("^M^J*   Level[1] Flag[1] Descr[30] Path[45] ASCII_001[1] CR/LF[2]", fh);
+fputs("^M^J*   Params[45] Time[2] Control[1] ASCII_001[1] CR/LF[2]^M^J", fh);
+}
+///////////////////////////////////////////////////////////////////////////////
+Power2( int pow )
+{
+int x, retval = 1;
+for (x = 1; x <= pow; ++x)
+    retval = retval*2;
+return retval;
+}
+///////////////////////////////////////////////////////////////////////////////
+DispOpt( )
+{
+int x, y;
+for (x = 2; x <= 12; ++x)
+    {
+    if (sysbyte&power2(x))
+        vputchrs(50, x + 3, "Yes", 0, 3, 122);
+    else
+        vputchrs(50, x + 3, "No ", 0, 3, 124);
+    }
+pstraxy(chat1, 47, 16, 127);
+pstraxy(chat0, 47, 17, 127);
+}
+///////////////////////////////////////////////////////////////////////////////
+Draw_Menu( int menu, int x, int y, int x2, int y2, int color, Str head, int c2)
+{
+ cursor_onoff(0);
+ clear_scr();
+ box(x, y, x2, y2, 1, 0, color);
+
+ pstraxy(head, (x2 + x - Strlen(head))/2, y, c2);
+ if (menu == 0)
+    {
+     pstraxy("1.   System", 29, 7, 31);
+     pstraxy("2.   Options", 29, 8, 31);
+     pstraxy("3.   Modem Config", 29, 9, 31);
+     pstraxy("4.   Conferences", 29, 10, 31);
+     pstraxy("5.   User Levels", 29, 11, 31);
+     pstraxy("6.   Protocols", 29, 12, 31);
+     pstraxy("7.   Menu Editor", 29, 13, 31);
+     pstraxy("8.   Save and Exit", 29, 14, 31);
+     pstraxy("Which option? ", 32, 16, 26);
+     pstraxy("ESC: Exit without saving", 29, 17, c2);
+    }
+ else if (menu == 1)
+    {
+     pstraxy("1.   XHost Directory", 38, 6, 112);
+     pstraxy("2.   Temp Directory", 38, 7, 112);
+     pstraxy("3.   SysOp's Name", 38, 8, 112);
+     pstraxy("4.   BBS Name", 38, 9, 112);
+     pstraxy("5.   System Password", 38, 10, 112);
+     pstraxy("Which option? ", 42, 12, 122);
+    }
+  else if (menu == 2)
+    {
+     pstraxy("1.   Edit Levels", 13, 9, 127);
+     pstraxy("2.   Level to bypass FILES.LST", 13, 10, 127);
+     pstraxy("3.   Level to access any path", 13, 11, 127);
+     pstraxy("Which option? ", 15, 13, 117);
+     }
+}
+///////////////////////////////////////////////////////////////////////////////
+FindHigh(int conf, int Type)
+{
+int x, f, reclen;
+str fname[12], dump[4];
+getext(dump, type);
+prep(conf, dump, fname);
+newdir(confpath);
+
+if (type == 3)
+    reclen = 131;
+else
+    reclen = 80;
+x = (filesize(fname)-304)/reclen; // start at last record
+while (Getobj(type, x) != 1 && X > 0)
+        --x;
+return x;
+}
+///////////////////////////////////////////////////////////////////////////////
+FindHighConf( )
+{
+int x, f;
+newdir(host_dir);
+x = filesize("CONFS.DAT")/80; // start at last record
+high_conf = 40; // need to set for get_conf()
+while (get_conf(x) != 1 && x >= 1)
+       --x;
+return x;
+}
+///////////////////////////////////////////////////////////////////////////////
+GetExt( str buf, int type )
+{
+  if (type == 1)
+     buf = ".DIR";
+  else if (type == 2)
+     buf = ".TXT";
+  else if (type == 3)
+     buf = ".DOR";
+}
+///////////////////////////////////////////////////////////////////////////////
+draw_screen( int type, int dir )
+{
+ str second[30];
+
+ box(3, 8, 77, 15, 1, 0, 30);
+ pstraxy("Conf:", 5, 8, 30);
+ pstraxy(confnum, 10, 8, 31);
+
+ pstraxy("High:", 14, 8, 30);
+
+ second = " Files Setup ";
+ if (type == 2)
+    second = " Text Files ";
+ else if (type == 3)
+    {
+    second = " Doors Setup ";
+    vputchrs(6, 15, "Alt-O: More Door Options", 0, 24, 30);
+    }
+ pstraxy(second, 34, 8, 29);
+
+ pstraxy("#", 8, 9, 30);
+ pstraxy("Name", 6, 11, 31);
+ pstraxy("Path", 6, 12, 31);
+ pstraxy("Level", 6, 13, 31);
+ pstraxy("Flags", 6, 14, 31);
+
+ if (dir <= high)
+    disp_dir(type, dir);
+}
+///////////////////////////////////////////////////////////////////////////////
+CheckBS( str s )
+{
+ int i, char;
+ setchrs(s, strlen(s), 32, 8-strlen(s));
+ for (i = 0; i <= 7; ++i)
+     {
+      char = subchr(s, i);
+      if (char != 48 && char != 32)
+          setchr(s, i, 49);  // set flag to 1
+      else
+          setchr(s, i, 48); // else 0
+      }
+}
+///////////////////////////////////////////////////////////////////////////////
+GetHelpLine( )
+{
+int x, y;
+x = getx();
+y = gety();
+str list0[] = "00244249", things[2];
+help_line = -1;
+while (strlen(list0) > 0)
+      {
+        substr(list0, 0, 2, things);
+        delchrs(list0, 0, 2);
+        gotoxy(16, stoi(things));
+        if (vgetchr()%256 == '³')
+           help_line = stoi(things);
+        }
+gotoxy(x, y);
+}
+///////////////////////////////////////////////////////////////////////////////
+get_int( str src, int pos, int num )
+{
+int i, x, mult = 1;
+for (x = 0; x < num; ++x)
+  {
+   i = subchr(src, pos + x) * mult + i;
+   mult = mult * 256;
+  }
+return i;
+}
+///////////////////////////////////////////////////////////////////////////////
+put_int( int src, str target, int pos, int num)
+{
+ int x, div, source;
+
+if (num == 4)
+    div = 16777216;
+else
+    div = 256;
+
+ source = src;
+
+ for (x = num - 1; x >= 0; --x)
+    {
+     setchr(target, pos + x, source/div);
+     source = source%div;
+     div = div/256;
+     }
+}
+///////////////////////////////////////////////////////////////////////////////
+ynp( int def)
+{
+int c = -1;
+
+int UP = 18432,
+    DOWN = 20480;
+
+while(strchr("YN^027^013", 0, c) == -1 && c != UP && c != DOWN)
+      c = toupper(inkeyw());
+
+if (c == 27)
+   return -1;
+else if (c == 13)
+    c = def;
+if (c == 'Y')
+  {
+   vputchr('Y' + 28672);
+   return 1;
+  }
+else if (c == 'N')
+   {
+   vputchr('N' + 28672);
+   return 0;
+   }
+else if (c == UP)
+     return 2;
+else if (c == 15360)        // save
+     return -2;
+else if (c == 19200)    // left
+     return -4;
+else if (c == 19712)       // right
+     return 4;
+else return 3;      // down
+}    
+///////////////////////////////////////////////////////////////////////////////
+//End of Setup                                                               //
+//////////////////////////////////////////////////////////////////////////////

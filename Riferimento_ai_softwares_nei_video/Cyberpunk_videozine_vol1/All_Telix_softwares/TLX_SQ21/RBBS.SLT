@@ -1,0 +1,215 @@
+//-----------------------------------------------------------
+// RBBS.SL? Automatic logging into an RBBS system.
+//
+// Please look at the comments through the whole file, and modify to
+// suit your needs, BEFORE you use it. Then recompile with CS RBBS.
+//-----------------------------------------------------------
+
+// If you have suggestions for improving this script, please suggest
+// improvements to me via old-fashioned snail-mail to:
+
+// Author:  Inge Vabekk
+//          Hamangskogen 108
+//          N-1300 SANDVIKA
+//          NORWAY
+//          tel. (472) 546 396
+
+str thisBBStype[] = "RBBS"   // This BBS type.      
+   ,line    [80]             // General input line.
+                             // For the Global storage:
+   ,global   []="GLOBAL"     // Global script.
+   ,bbstype  []="BTYPE"      // BBS type.
+// ,short    []="SHORT"      // Short BBS name.
+// ,protocol []="CPROT"      // Current protocol.
+// ,conf     []="CONF"       // Current conference
+// ,prompt   []="PROMPT"     // Current command prompt.
+   ;     
+
+int tol = 300                            // No activity for 1 minute
+   ,stat, tmark
+   ;
+
+//-----------------------------------------------------------   
+// Script starts here.
+//-----------------------------------------------------------   
+
+main()
+{
+int novice;                              // Novice indicator.
+
+// Variables for tracking:
+int mo,        // More?
+    en,        // ENter to continue
+    ak,        // Any key to continue
+    sc,        // Scan for mail
+    cm,        // Main command.
+    rb,        // Read Bulletins
+    nv;        // Novice.
+
+// Only if online.
+
+  if (!carrier())  
+  { failtone();
+    status_wind ("Tý: THIS SCRIPT ONLY WORKS IF YOU'RE ONLINE!",20);
+    return (-1);
+  }
+
+  read (bbstype,line);                   // Get BBS type. 
+
+  if (line != thisBBStype)  
+  { wrongBBS();                          // Doesn't match script!
+    return (-1);
+  }
+
+  entry();                               // Updates colors & status bar. 
+  cputs ("^K^K^K");                      // Send a BREAK to stop that     
+                                         // stupid heading.
+  novice = 0;                            // Assume I'm an expert.
+
+// Start looking for requests from RBBS.
+
+  mo = track ("N,C,A>?",0);              // More?
+  en = track ("A)bort?",0);              // ENTER to continue
+  ak = track ("ontinue",0);              // Any key to continue
+  sc = track ("[Y],N)?",0);              // Scan for mail/bulletins
+  cm = track ("V,W,X>?",0);              // Main command.
+  rb = track (" none)?",0);              // Read Bulletins
+  nv = track ("ÄÄÄÄÄÄ ",0);              // If novice.
+
+  tmark = timer_start (tol);             // Gimme half a minute.
+
+  while ((stat=trig()) > 0)              // answer any questions.
+  { if (stat==nv)                        // Novice?
+      novice = 1;
+
+    else if (stat==en || stat==mo        // ENTER to continue or MORE?
+         ||  stat==sc)                   // Scan for mail?
+      cputs ("N^M");                     // No thanks. 
+
+    else if (stat==ak                    // Any Key to continue
+         ||  stat==rb)                   // Read Bulletins?
+      cputs ("^M");
+
+    else if (stat==cm)                   // Command?
+    { if (novice)                        // Novice?
+      { novice=0;                        // No I'm not!
+        cputs ("X^M");                   // Tell him I'm an expert!
+      }
+      else  
+        break;                           // Done!
+    }
+  }
+  release();                             // Release timer & tracks.
+
+// Time-out or carrier lost!
+
+  if (stat < 0)
+  { failtone();                          // Play fail tone.
+    status_wind ("Logon failed!",20);
+    return (-1);
+  }
+
+  cputs ("R S^M");
+  return(0);  
+}
+
+//-----------------------------------------------------------
+// Wrong BBS type.
+//-----------------------------------------------------------
+
+wrongBBS()
+{
+str help[48];
+
+    failtone();                          // Alarm.    
+    help = "This script is for ";        // Catenate strings.
+    strcat (help,thisBBStype);
+    strcat (help," only!");
+    status_wind (help,20);               // Display message for 2 sec.
+}
+
+//-----------------------------------------------------------
+// Play fail tone.
+//-----------------------------------------------------------
+
+failtone()
+{
+  int n;
+  for (n=140; n > 10; n = 100*n/120) 
+  { tone(n*10,12);                       // Fail tone!!
+    terminal();                          // Process text.
+  }
+}
+
+//-----------------------------------------------------------
+// Routine to update colors and status bar.
+//-----------------------------------------------------------
+
+entry ()
+{
+  _back_color = 1;
+  _fore_color = 14;
+  update_term();
+}
+
+//-----------------------------------------------------------
+// Play good tune.
+//-----------------------------------------------------------
+
+goodtone()
+{
+int n;
+  for (n=20; n < 200; n = 144*n/100) 
+  { tone(n*10,6);                        // Good tone!
+    terminal();                          // Process text.
+  }
+}
+
+//-----------------------------------------------------------
+//  Trig loop. Waits here until either one "trig string" is
+//  found, or we have a time-out, or carrier is lost.
+//-----------------------------------------------------------
+
+trig()
+{
+int i;
+  do
+  { terminal();
+  }  while (!time_up (tmark)             // Loop until time-out
+          && carrier()                   // or carrier lost
+          && (i=track_hit(0))==0);       // or we trigged.
+  if (i==0) 
+    i = -1;                              // Error!
+  else
+    timer_restart (tmark,tol);           // Restore timer.
+  return (i);
+}
+
+//-----------------------------------------------------------
+// Free timer and tracking functions.
+//-----------------------------------------------------------
+
+release()
+{
+  timer_free (tmark);                    // free timer channel
+  track_free (0);                        // and all track channels.
+}
+
+
+//-----------------------------------------------------------
+// Read a global variable.
+//-----------------------------------------------------------
+
+read (str name, str varname)
+{
+  return (call (global,"R",name,varname));
+}
+
+//-----------------------------------------------------------
+// Write a global variable.
+//-----------------------------------------------------------
+
+write(str name, str varname)
+{ 
+  return (call (global,"W",name,varname));
+}

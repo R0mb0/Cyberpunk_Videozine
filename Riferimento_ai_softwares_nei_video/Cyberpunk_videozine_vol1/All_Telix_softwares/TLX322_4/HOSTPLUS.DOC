@@ -1,0 +1,4302 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     Host+
+
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     Program Reference Manual
+
+
+
+
+
+
+
+
+
+
+
+                Copyright (C) 1986-94 deltaComm Development, Inc.
+
+                              ALL RIGHTS RESERVED.
+
+
+
+
+                            deltaComm Development, Inc.
+
+                      P.O. Box 1185, Cary, NC  27512   USA
+
+            (919)-460-4556 / (919)-460-4531 fax / (919)-481-9399 BBS
+
+
+     Telix v3.22 - Host+                                    COPYRIGHT    ii
+
+
+
+
+
+                                Copyright Notice
+
+
+
+
+
+     Telix is Copyright (c) 1986-1994 by deltaComm Development, Inc.
+
+     Host+ is Copyright (c) 1989-1994 by deltaComm Development, Inc.
+
+     This document is Copyright (c) 1988-1994 by deltaComm Development, Inc.
+
+     No parts of Telix or this document may be copied in part or in whole,
+     except as provided in the License in the following pages.
+
+
+
+
+
+                                   Disclaimer
+
+     deltaComm Development, Inc., makes no warranty of any kind, either
+     express or implied, including but not limited to implied warranties of
+     merchantability and fitness for a particular purpose, with respect to
+     this software and accompanying documentation.
+
+     IN NO EVENT SHALL DELTACOMM DEVELOPMENT, INC., BE LIABLE FOR ANY DAMAGES
+     (INCLUDING DAMAGES FOR LOSS OF BUSINESS PROFITS, BUSINESS INTERRUPTION,
+     LOSS OF BUSINESS INFORMATION, OR OTHER PECUNIARY LOSS) ARISING OUT OF THE
+     USE OF OR INABILITY TO USE THIS PROGRAM, EVEN IF DELTACOMM DEVELOPMENT,
+     INC., HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+
+
+
+
+                                   Trademarks
+
+     Telix is a trademark of deltaComm Development, Inc.
+
+     Many product names found throughout this manual are trademarks of var-
+     ious companies.
+
+
+     Telix v3.22 - Host+                                   COPYRIGHT    iii
+
+
+
+
+
+
+
+                                C O N T E N T S
+
+     1.   INTRODUCTION....................................................1
+         1.1  Host+ Description...........................................1
+         1.2  Machine Requirements........................................2
+         1.3  Host+ Files.................................................2
+
+     2.   Getting Started.................................................7
+         2.1  Installing Host+............................................7
+         2.2  First Time Configuration....................................8
+         2.3  First Time Logon............................................9
+
+     3.   Program Features - Sysop Online................................11
+         3.1  Fast Logon.................................................11
+         3.2  Status Box Toggle..........................................11
+         3.3  Help Screen Toggle.........................................11
+         3.4  Chat Mode Toggle...........................................11
+         3.5  User Control...............................................12
+         3.6  Local shell to DOS.........................................12
+         3.7  Screen Image...............................................12
+         3.8  Capture Log................................................13
+         3.9  Hangup.....................................................13
+
+     4.   Program Features - Sysop Offline...............................15
+         4.1  Local Mode.................................................15
+         4.2  Configure Host+............................................15
+         4.3  User Editor................................................15
+         4.4  File Compressor............................................15
+         4.5  Text Editor................................................15
+         4.6  Exit.......................................................15
+
+     5.   User Commands..................................................17
+         5.1  Access Levels..............................................17
+         5.2  Message System.............................................17
+         5.3  File System................................................19
+         5.4  Page the Sysop.............................................21
+         5.5  Bulletin Listings..........................................21
+         5.6  Your Settings..............................................22
+         5.7  Comment to Sysop...........................................22
+         5.8  Expert Mode................................................22
+         5.9  Run a Door.................................................22
+         5.10 Goodbye....................................................22
+         5.11 System Log.................................................22
+         5.12 Shell to DOS...............................................23
+         5.13 Shut down Host+............................................23
+
+
+     Telix v3.22 - Host+                                     Contents    iv
+
+
+
+     6.   Customizing Host+..............................................25
+         6.1  Configuring the Modem......................................25
+         6.2  Configuring the Colors.....................................26
+         6.3  Configuring Bulletins......................................26
+         6.4  Configuring Doors..........................................27
+         6.5  Configuring Archives.......................................30
+         6.6  Configuring Macros.........................................31
+         6.7  Configuring Events.........................................32
+         6.8  Configuring User Options...................................33
+         6.9  Configuring the File Bases.................................34
+         6.10 Configuring the Message Areas..............................35
+         6.11 Configuring the Upload Items...............................36
+         6.12 Configuring General Info...................................36
+         6.13 Configuring BBS Data.......................................38
+         6.14 Restoring and Saving Configs...............................38
+         6.15 Creating Colorful Screens..................................39
+
+     7.   Adding Files...................................................43
+         7.1  Adding Files with ADDFILES.EXE.............................43
+         7.2  Manually Changing Files....................................46
+         7.3  Manually Moving/Removing Files.............................47
+
+     8.   The User Editor................................................49
+         8.1  User Fields................................................49
+         8.2  User Fields you Cannot Edit................................51
+
+     9.   The Files Compressor...........................................53
+         9.1  Compressing the User File..................................53
+         9.2  Compressing the File Base..................................53
+         9.3  Compressing the Message Bases..............................54
+         9.4  Running from a Batch File..................................54
+         9.5  Repairing Damaged Files....................................55
+
+     10.  Using Doorway.EXE..............................................57
+     11.  Security.......................................................59
+
+     12.  Registered Utilities...........................................61
+         12.1 The Files Editor...........................................61
+         12.2 The Menu Editor............................................62
+         12.2.1   Making New Menu Screens................................64
+         12.2.2   Customizing Menu Commands..............................65
+         12.3 The External User Editor...................................68
+
+     13.  Appendix A - Installing Doors..................................71
+     14.  Appendix B - Example Events....................................73
+     15.  Appendix C - Product Support...................................77
+     16.  Appendix D - File Formats......................................79
+         D.1  HOSTDOOR.SYS...............................................79
+         D.2  Custom Converters..........................................83
+
+     17.  Appendix E - External Archive Testing..........................87
+
+     18.  Index..........................................................89
+
+
+     Telix v3.22 - Host+                                 Introductions    1
+
+
+
+     1.   INTRODUCTION
+
+
+
+     1.1  Host+ Description
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     Host+ is a remote system that may be used as a complete BBS.  It is
+     fast, friendly, extremely flexible, and powerful enough to be
+     customized for each person's tastes. Even novice computer users may
+     have it up and running in minutes.
+
+     Host+ has been written for the Telix communications program using SALT
+     (Script Application Language for Telix) -- a powerful and extensive
+     communications script language.
+
+     Here are some of the advanced features you will find in Host+:
+
+        ş Fully working message bases, file bases, ability to drop to DOS,
+          and support for user added doors.
+
+        ş May be configured to run multiple conferences for files and
+          messages.
+
+        ş A FSME (Full Screen Message Editor) that allows quoting of
+          messages. Messages may be up to 99 lines long.  A Line Message
+          Editor is included for those whose machines do not support ANSI.
+
+        ş Add any file from any drive to the files base with the
+          ADDFILES.EXE program. Accepts 1000 files per directory and 100
+          tagged files with full mouse support.
+
+        ş A file management program, or file compressor (HPCOMP.EXE)
+          controls all message, file, and user databases.
+
+        ş 10 user levels.  You decide each level's access to features and
+          on line time. The trash can list allows you to have a text file
+          of names you don't want on your system.
+
+        ş Host+ keeps track of the user's time on per day. A user that has
+          60 minutes a day and uses 45 on the first call will only have 15
+          minutes left.
+
+        ş Program up to 5 different events at any time of the day.  The
+          special event time of "every" will run an event after each call.
+          Special Event programs allow the event to abort both the Host+
+          and Telix programs.
+
+        ş New status log file (HOSTPLUS.LOG) supplies complete information
+          on what happens while users are online with Host+.  It logs
+          bulletins read, doors opened, events run, total minutes used on
+          the system by each caller, if carrier was lost, time running out,
+          and no input in five minutes.
+
+
+     Telix v3.22 - Host+                                 Introductions    2
+
+
+
+        ş Support for user added doors.  Host+ supports PCBoard 14.x, QBBS,
+          RBBS, and GAP/DOORWAY doors.
+
+        ş Support for Marshall Dudley's DOORWAY program for greater control
+          over the shell to DOS from remote.
+
+        ş Support for external protocols that have been added to Telix by
+          you (except for Bimodem and HS/Link).
+
+        ş Support for up to 10 different archive programs.  Default
+          programs supported are ZIP, PAK, ARC, ARJ, and LZH.  You may add
+          support for more.
+
+        ş Full keyboard macro support.  You may reassign all keys on the
+          keyboard, including those used by Host+.
+
+
+
+     1.2  Machine Requirements
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     Host+ requires a minimum of 350k memory and requires Telix 3.12 or
+     later and DOS version 3.22 or later.  A hard drive is highly
+     recommended.
+
+
+     1.3  Host+ Files
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     Host+ comes with a number of files and creates more in its operation.
+     Following is a list of files included with Host+ and comments about
+     their being required for operation:
+
+          HINSTALL.EXE        This is the installation program. Once used
+                              it may be deleted.
+
+          HOSTPLUS.DAT        This contains the Host+ program files in a
+                              compressed format.  HINSTALL extracts the
+                              files and puts them in the correct
+                              directories.  You may delete this file
+                              following installation.
+
+          HOSTPLUS.SLC        This is the main program script.  It is the
+                              script which you call in order to run Host+.
+
+          HOSTPLUS.OVL        This contains the screen overlays for Host+.
+
+          HPUTILS.SLC         Utilities script, it contains the Configure
+                              Program and the User Editor Program. It is
+                              called by the HOSTPLUS.SLC program. It may
+                              also run in Telix by typing HPUTILS after
+                              pressing Alt-G. It will be placed in your
+                              script directory by HINSTALL.
+
+
+     Telix v3.22 - Host+                                 Introductions    3
+
+
+
+          HPMSGED.OVL         Message Editor script overlay, contains all
+                              of the message editor routines. It will be
+                              placed in your script directory by HINSTALL.
+                              HPMSGED.OVL may be deleted if you do not wish
+                              to use the message editor or have no message
+                              base.
+
+          HPMENUS.DAT         This is the file which contains all of the
+                              menus for each of the levels as well as the
+                              sections. It will be placed in your Host+
+                              data directory by HINSTALL.
+
+          HPCOMP.EXE          This is the file which does all the data file
+                              compression.  It will be placed in your Telix
+                              directory.
+
+          *.HP                Door Converter overlays, contain all the
+                              information to convert to the different BBS
+                              systems. They will be placed in your Host+
+                              data directory. Current converters: GAP.HP,
+                              PCB14.HP, QBBS.HP.  If you do not want to
+                              have support for a specific BBS type, then
+                              you may delete the converter for that BBS.
+
+          HOSTPLUS.LNG        This file holds all of the BBS commands in
+                              English. Future versions will be able to run
+                              in other languages.
+
+          HOSTPLUS.LIB        This library file holds all of the command
+                              overlays used in the configuration program.
+
+
+
+     Files created and maintained by Host+ throughout its operation (and
+     held in the Host+ data files directory) include:
+
+
+
+          HPUSER.DAT          This is the file that holds all of the user
+                              information.
+
+          HOSTPLUS.LOG        This is the log of what each user does when
+                              on the system.
+
+          HPFBASE.DAT         This holds the number and name of each files
+                              base.
+
+          HPFILES.*           This is the file that holds all of the file
+                              database information.  The file extension is
+                              the number of the database.
+
+          HPMBASE.DAT         This holds the number and name of each
+                              message base.
+
+
+     Telix v3.22 - Host+                                 Introductions    4
+
+
+
+          HPINDEX.*           This file holds the message pointers for each
+                              user for each message base. The file
+                              extension is the number of the database.
+
+          HPHEADER.*          This is the header information for each
+                              message in the message base. The file
+                              extension is the number of the message base.
+
+          HPMSG.*             This holds the actual messages for the
+                              message base. The file extension is the
+                              number of the message base.
+
+          HPDOORS.DAT         This file contains all of the information you
+                              enter when you configure to run a door
+                              program.
+
+          HPBLTS.DAT          This file contains all of the information you
+                              enter when you configure bulletins.
+
+          HOSTPLUS.CFG        This file holds all of the other
+                              configuration information you enter when you
+                              customize Host+.
+
+          HOSTPLUS.KEY        This file holds all of the Macros you create.
+
+
+
+     Files created as an option, and which may be deleted if not needed
+     are:
+
+          ADDFILES.EXE        The ADDFILES program for addling files to the
+                              files base. It should be placed in the Telix
+                              directory.
+
+          HSHELL.BAT          This batch file is supplied in the Telix
+                              documentation. If in the Telix directory it
+                              will be run if a online user does a shell to
+                              DOS. It will override all other shell
+                              options. The order in which the shell options
+                              take precedence is:
+
+                              HSHELL.BAT
+                              DOORWAY.EXE
+                              CTTY COMx
+
+          TRASHCAN.DAT        If this ASCII text file is found in the Host+
+                              data directory it will determine if any name
+                              given by a new user is acceptable. (See
+                              Security and Legal)
+
+          *.ANS               These files are the BBS ANSI graphics files
+                              you create. You may make a LOGON, NEWUSER,
+                              BBSINFO, NEWS, and LOGOFF file.  (See
+                              Customizing Host+)
+
+
+     Telix v3.22 - Host+                                 Introductions    5
+
+
+
+          *.ASC               These are the ASCII versions of the ANSI
+                              graphics files you created.  Have these made
+                              for those users who don't have ANSI available
+                              to them.
+
+          HPLOGON.SLC         If this compiled Salt file exists in your
+                              Telix Script Directory, Host+ will run the
+                              script during the logon process just before
+                              the prompt for message check.  This script
+                              may call a quote of the day program, message
+                              to next caller door, or whatever your script
+                              writing abilities permits.
+
+
+     Telix v3.22 - Host+                               Getting Started    7
+
+
+
+
+
+     2.   Getting Started
+
+
+
+     2.1  Installing Host+
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     The proper way to run Host+ is to either have your Telix directory
+     listed in your DOS path statement or listed as an environment variable
+     (SET TELIX=C:\TELIX\) in your AUTOEXEC.BAT.  Make these changes and
+     reboot your computer.
+
+     If you have made the changes above, place the files HINSTALL.EXE and
+     HOSTPLUS.DAT in any directory on your hard drive and run HINSTALL. If
+     not, place the files in the directory that holds TELIX.EXE and run
+     HINSTALL.
+
+     HINSTALL will ask you if you wish \TELIX\HOST to be the directory
+     where Host+ will keep its data files. If you want to change this do it
+     now. HINSTALL will then expand and place the different files into
+     their correct directories.
+
+     If HINSTALL finds any data files from previous versions of HOST+
+     (Formerly Host Software Products' Host3, versions 4.1, 4.2, 4.3, 4.4,
+     or 5.0) it will convert them. It will then place the newly converted
+     data files into the data directory.  It will ask if you want to delete
+     the old files that are no longer needed by Host+ before deleting.
+
+     HINSTALL will not bother any key DOS files like CONFIG.SYS or
+     AUTOEXEC.BAT.
+
+     If you are upgrading from a previous version of Host+ from Host
+     Software Products, you will need to repack all the message, file, and
+     user data bases when you first start Host+.  To do this, press Alt-F
+     at the opening menu of Host+.  Then press F6 to pack all bases.
+     Should there be a problem in the conversion, you can run HPREPAIR.EXE
+     to fix the database.
+
+     Following the installation process, you may erase HINSTALL.EXE and
+     HOSTPLUS.DAT.
+
+     Configuration and customization of Host+ require that Host+ be loaded
+     and running.   To load and run Host+, type Alt-G from within Telix's
+     terminal mode and type "HostPlus" as the name of the script to
+     execute.   Host+ is now operating and waiting for a call.   Before you
+     may actually accept calls, you will want to modify some of the
+     defaults options of the Host+ configuration.
+
+
+     Telix v3.22 - Host+                               Getting Started    8
+
+
+
+     2.2  First Time Configuration
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     From the Host+ main menu, press Alt-O for the Configuration menu.  You
+     will be presented with a long column of options.  To select an option,
+     you may either move the cursor bar to the item or press the letter of
+     the alphabet that is listed out to the side.
+
+     Here are some of the things you may want to attend to when first
+     starting the program.  You will notice that the modem picks up the
+     line when you go into the configure menu. This is to keep Host+ from
+     answering a call while you are working.
+
+     Host+ comes configured to test archives that use the ARC, PAK, ZIP,
+     ARJ, and LZH archive methods. Your archive programs must be found on
+     the DOS path for this to work. If these files are not present on your
+     system, you may obtain them from the Telix Support BBS.
+
+     Under General Items you will want to put your own password in place of
+     the word "Password".  The system password allows callers who have co-
+     sysop access to shell to DOS. It also allows the sysop to shut  the
+     system down from a remote system.
+
+     You may wish to put your name in place of Sysop at selection F.  If
+     you plan to make local logons under your own name, then your name
+     needs to go here so you will get any mail addressed to the Sysop.
+
+     Under User Items, Item A asks if you want to log off new users.  This
+     is a good security practice to follow once you have your board in
+     normal operation.  It needs to be turned off now or the first test of
+     your system with a live caller will be very, very short.
+
+     User Item B sets the file ratio for your users.  Putting a zero (0)
+     means that no file ratio will be enforced.  Putting any other number
+     here means that the user will have to maintain a file ratio of uploads
+     to downloads.  For example, if you want to require that one file be
+     sent up for each 5 files taken, then put a 5 here.
+
+     User Item D sets the access level that you want new callers to have.
+     Items E-N set how much time each access level gets on line each day.
+
+     Under Upload Items, set item A to the name of the drive and directory
+     where you want uploads to go.  If you do not want to users to see the
+     uploads that are available, set item C to the level you want.
+
+     Host+ should now be ready to run under its minimal configuration.
+     Host+ is very powerful and may be completely customized.  Complete
+     details regarding customization of all options are in this reference.
+     First, however, you may wish to see Host+ in operation.
+
+
+     Telix v3.22 - Host+                               Getting Started    9
+
+
+
+     2.3  First Time Logon
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     Now you are ready to take a peek inside of Host+. From the main menu
+     of Host+ press Alt-L for a Local logon.  You will see the prompt  "Can
+     you support ANSI color graphics?"  answer with a Y and a carriage
+     return.
+
+     You will then be asked the familiar series of questions that are asked
+     of any person logging on to a BBS for the first time.  Your answers
+     are being stored in the user database.  When you are finished, you
+     will be asked if you wish to check for messages in the message base.
+     Press "Y" to see the display.
+
+     Now you are at the main user menu.  At the top of the screen will be a
+     status line showing your name, address, access level, and password.
+     Press Alt-Z to toggle that display. It will now show you the sysop
+     commands that are available. (See Sysop Commands for complete
+     description).
+
+     If you left the defaults in place, you will have four minutes
+     remaining online.  Press F4 a few times and watch your access level
+     raise on the status bar at the top of the screen.  Press enter and the
+     screen will recycle.  The user display should now show that have
+     increased time on line.
+
+     Keep pressing F4 until your access level is a 9. Host+ will ask if you
+     really want to raise to a Sysop level, say yes. Press enter to recycle
+     the page and you will see that you have more time.  You will also see
+     the higher access menu that is available to callers with access above
+     level 7.
+
+     Now you may experiment inside the program using the list of sysop and
+     menu commands listed on the next few pages.  To shell to DOS, just
+     press Alt-J.  You may try out the message menu by leaving a test
+     message.  You may wish to add a file (see the section on adding files
+     to Host+).
+
+     When you exit the local logon, press F2 for the user editor and edit
+     your listing to upgrade yourself to sysop level.  (see The User Editor
+     for more information).
+
+     You are now ready to have someone call and log on as a remote user to
+     test out your modem.  You are also ready to add files, screens,
+     bulletins and doors.  For complete information on these functions, see
+     Customizing Host+.
+
+
+     Telix v3.22 - Host+                             Program Features    11
+
+
+
+     3.   Program Features - Sysop Online
+
+     As sysop, you are in control of what happens in Host+ at all times.
+     At the top of the screen is a status box showing what is happening in
+     Host+.  You may toggle this box on and off by pressing Alt-8.  The
+     status box will show you the name of the person on line, their city
+     and state, password, access level, date last on the system, the baud
+     rate, chat mode status and if the person has requested a chat in your
+     absence.
+
+     You may toggle the Status Box into a help screen by pressing Alt-Z.
+     This will list some of the more commonly used sysop commands.
+
+
+     3.1  Fast Logon
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     You may skip the opening screen by entering the following information
+     at the "Can you support ANSI?" prompt:
+
+     Y{First and Last names{Password
+
+     "Y" is if you can support ANSI graphics; if not, use an "N" instead.
+     The brackets must be present with no spaces.  To speed up local
+     logons, you may create a macro that will hold all this information.
+     See the section on Macros to find out how.
+
+
+     3.2  Status Box Toggle
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     Alt-8:    Turns the status box of Host+ on or off. Having it off will
+               increase the size of the viewable area onscreen.
+
+
+     3.3  Help Screen Toggle
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     Alt-Z:    Allows the sysop to change between the status and help
+               boxes.
+
+
+     3.4  Chat Mode Toggle
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     F1:       This toggles the caller's ability to request chats.  If chat
+               is on, an alarm will sound when the user requests a chat.
+               When chat is off, no alarm will sound and the user will be
+               given the option of leaving a message.  You may force chat
+               on or off at any time by pressing F1.  When chat is forced
+               on, the status box at the top will show "chat on" in a
+               different color.
+
+          (See Customizing Host+ more detail on Chat Hours).
+
+
+     Telix v3.22 - Host+                             Program Features    12
+
+
+
+     3.5  User Control
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     F3:  Lower Access
+     F4:  Raise Access
+     F5:  Lower Time
+     F6:  Raise Time
+     F10: Chat with User
+
+     You may temporarily lower a user's access level by pressing F3 for
+     each level you wish to remove.  The new level will only be in effect
+     for that call only. Host+ will restore the old level at log off.
+
+     You may temporarily raise a user's access level by pressing F4 for
+     each level you wish to add.  The new level will be in effect for that
+     call only.  Host+ will restore the old level at log off.
+
+     You may temporarily lower the user's time on line by pressing F5 for
+     each five minutes you wish to remove.  The time you take away will be
+     in effect the entire day.  At midnight, Host+ will reset the time to
+     normal.
+
+     You may temporarily raise the user's time on line by pressing F6 for
+     each five minutes you wish to add.  The extra time you give will be
+     available to the user for that entire day.  At midnight, Host+ will
+     reset the time to normal.
+
+     Press F10 to initiate a chat with the user.  You may carry on a key
+     board conversation as long as you like without effecting the user's
+     time on line.  Press escape to exit chat.
+
+
+     3.6  Local shell to DOS
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     Alt-J:    You may shell to DOS at any time unless there is a file
+               transfer or door running.  The user will be prompted to wait
+               while the sysop is in DOS and Host+ will not accept any user
+               commands until you return.  The user will not lose any
+               online time while you are in DOS.
+
+
+     3.7  Screen Image
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     Alt-I:    You may capture an image of the screen to a file by pressing
+               Alt-I (just like you do in Telix).  The name of the text
+               file is HOSTPLUS.IMG.
+
+
+     Telix v3.22 - Host+                             Program Features    13
+
+
+
+
+     3.8  Capture Log Access
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     Alt-C:    When you turn on the capture log, it will capture everything
+               the user does to a capture file (HOSTPLUS.CAP).  This
+               capture file will become extremely large very quickly as it
+               contains all information printed to the screen.
+
+
+     3.9  Hangup
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     Alt-H:    If you wish to terminate a call in the middle of a session,
+               press Alt-H and the modem will hang up.
+
+
+     Telix v3.22 - Host+                             Program Features    15
+
+
+
+
+     4.   Program Features - Sysop Offline
+
+
+     4.1  Local Mode
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     Alt-L:    This allows you to run Host+ in local mode.  All the menu
+               commands will work for you (with some exceptions, see Menu
+               Commands below).
+
+
+     4.2  Configure Host+
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     Alt-O:    This runs the HPCONFIG program that sets up Host+ for
+               initial running and allows you to customize the program. See
+               Customizing Host+ for more on this program.
+
+
+     4.3  User Editor
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     F2:       This brings up the user editor.  Note that there must be at
+               least one user, otherwise the user editor will not work. If
+               you have already made your local logon (see First Logon) you
+               will have become the first user in the user database. (See
+               The User Editor for more information).
+
+
+     4.4  File Compressor
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     Alt-F:    This will run the database files compressor (HPCOMP.EXE) for
+               use on User, Message, and Files databases.  See The Files
+               Compressor for more information on running this program.
+
+
+     4.5  Text Editor
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     Alt-A:    This will run the Text Editor you have selected to use in
+               Telix.  If you have not selected a text editor in Telix,
+               this command will not work.
+
+
+     4.6  Exit Host+
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     Alt-X:    This allows you to Exit Host+ back to Telix.
+
+
+     Telix v3.22 - Host+                                User Commands    17
+
+
+
+
+     5.   User Commands
+
+
+     5.1  Access Levels
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     There are two sets of menus in Host+:  Lower and Higher access menus.
+
+     Users with access levels of 0-6 will see lower access screens for Main
+     Menu, and Files Menu.  Access levels of 7-9 will be shown the higher
+     access menus for Main Menu and Files Menu.  The Message Menu is the
+     same for all levels.
+
+     Registered Users of Host+ will receive the HPMENUS program. It allows
+     you to draw your own menus and set the access level to any menu
+     function. You may also change the letter that starts any function, and
+     add three external functions.  See the section on Registered Programs.
+
+
+     5.2  Message System
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     The (M)essage System option opens the Message Base menu for users with
+     access levels 0 and higher.  Here is the listing of all user commands
+     under the Message System menu.
+
+     (A)rea
+
+     This will show the list of message areas you have defined for Host+
+     and allow the user to choose one.   For more information on setting up
+     multiple message areas, see Customizing Host+
+
+     (R)ead
+
+     This shows the user a list of commands to use when reading the message
+     base.
+
+          (A)gain        :    Read current message again.
+          (N)ext         :    Read next message.
+          (P)revious     :    Read previous message.
+          (R)eply        :    Reply to current message.
+          (K)ill         :    Kill current message (allowed only
+                              to the sender, receiver, or level 9
+                              user).
+          (Q)uit         :    Quit reading messages.
+
+     The user may jump ahead or go back in the message base by entering the
+     number of the message they wish to access.  For instance, if there are
+     112 messages in the base and you are at #1, you can enter 112 and go
+     to the last message.  Then you can press "P" for previous and read the
+     messages in reverse order.
+
+     (W)rite Message
+
+
+     Telix v3.22 - Host+                                User Commands    18
+
+
+
+     This allows the user to write a message to another user (either Public
+     or Private).
+
+     How to Write Messages or Reply to Messages
+
+     Writing new messages or replying to existing messages calls the editor
+     in Host+.  Here is the step by step listing of functions:
+
+     Name
+
+     Host+ will first ask for the name of the person you are writing. To
+     abort the message at this point, just press a carriage return.  Sysops
+     may leave global messages that will appear with the user's name
+     instead of "all" by entering @user.
+
+     Title
+
+     Host+ will next ask for the title (or subject) of your message. To
+     abort at this point, press a carriage return and the message will
+     abort.
+
+     (P)ublic or (R)eceiver
+
+     If you want the message to be private, press "R" for receiver only.
+     Level 9 users (sysop) may read all messages.  You may wish to post
+     this information to your users.
+
+     Full Screen Editor
+
+     You are given three options for entering messages: Full Screen Editor,
+     Line Editor, and Upload message.
+
+     Uploaded Messages
+
+     If you wish to upload a prepared message, press "U" for upload. Local
+     logons will be asked for the path and name of the file on the hard
+     drive. On-line users will be asked to upload the message using an
+     ASCII upload.
+
+     Line Editor
+
+     If you do not want the full screen editor, press "N" for the line
+     editor.  You can then enter your message line by line.  You may only
+     edit a line when you are on it.  Once you have entered the line, it
+     cannot be edited.  Pressing enter twice will give you a menu with the
+     following options:
+
+          (A)bort        :    Kill the message
+          (S)ave         :    Save the message
+          (R)edraw       :    Redraws the screen
+          (C)ontinue     :    Continues the message at the point
+                              you left off
+          (O)riginal     :    Allows you to quote the message to
+                              which you are replying.
+
+
+     Telix v3.22 - Host+                                User Commands    19
+
+
+
+     Pressing "O" will cause the original message to be displayed with line
+     numbers to the left.  You will be asked what line number to start for
+     the quote.  When you enter that number, you will be asked for the line
+     number to end the quote.  If you want the whole message, press enter.
+
+     Full Screen Editor
+
+     Press "Y" for the Full Screen Editor. This allows you to move about
+     the message editing and writing as you wish.  Press Ctrl-Z at any time
+     to get a help screen displayed with the following information:
+
+          ^D Move one char left    ^F Move one character right
+          ^R Move one line up      ^C Move one line down
+          ^E Line beginning        ^X Line ending
+
+          ^Y Delete Line           ^V Overtype/Insert Mode
+          ^T Redraw Screen         ^O Original (quoting)
+
+     You may also use the cursor keys, the backspace, home, end, delete,
+     page up and down if you are using a 101 key enhanced keyboard.
+
+     Ctrl-O will call up the original message on the screen.  You may
+     select to quote the whole message and then edit the quote on screen
+     using your cursor controls.  Otherwise, you can just quote the portion
+     you want by telling Host+ what lines to include.
+
+     Pressing <ESC> will call up a menu along the bottom of the screen with
+     the following options (just like the line editor):
+
+          (A)bort             :    Kill the message
+          (S)ave              :    Save the message
+          (R)edraw            :    Redraws the screen
+          (C)ontinue          :    Continues a message at the
+                                   point you left off
+          (O)riginal          :    Allows you to quote the
+                                   message to which you are
+                                   replying.
+
+     (Q)uit to Main Menu
+
+     This allows the user to go back to the main menu.
+
+
+
+     5.3  File System
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+
+     The (F)ile System option opens the File Base menu for users with
+     access levels 1 or higher.  The following file commands are available
+     to users of the file menu.   Differences in access levels are
+     explained.
+
+     (A)rea
+
+
+     Telix v3.22 - Host+                                User Commands    20
+
+
+
+     This will show the list of file areas you have defined for Host+ and
+     allow the user to choose one.   For more information on setting up
+     multiple file bases, see Customizing Host+.   This command is
+     available to all users.
+
+     (F)iles List
+
+     This shows the user a listing of the files that are available for
+     users at their level.  The list includes file name, file size, file
+     date, and a two line description of the file.
+
+     (X)tended File list
+
+     This allows the user to see an expanded listing of the files available
+     that includes the all the information listed above plus the
+     approximate time for the transfer and the name of the person who
+     uploaded the file.
+
+     (U)pload
+
+     Allows user to upload a file (if not already in the file database) to
+     the system. The user may use any protocol (except for Bimodem) that
+     has been defined in Telix.
+
+     The user will be asked for the name of the file.  They do have to
+     include the file extension (ZIP, ARC, PAK, LZH, and etc).  If they
+     have not defined a protocol as their default (see main menu (Y)our
+     defaults), they will be shown a list of protocols available and asked
+     to choose one.
+
+     Local uploads inside Host+ are available to the sysop.  See Adding
+     Files to Host+.
+
+     (D)ownload
+
+     Lets the user Download files from Host+.  If you have specified it in
+     HPCONFIG, Level 1 users may only download a specified limit. (see
+     Customizing Host+) )
+
+     The user will be asked for the name of the file.  The default file
+     extension is .ZIP. If they have not defined a protocol as their
+     default (see main menu (Y)our defaults), they will be shown a list of
+     protocols available and asked to choose one.  They will then be asked
+     if they wish to hang up after the transfer.
+
+     Higher access users (above level 6) may download any file on any
+     drive.  This makes it easy to send a file that is not in the file
+     database to a user.  Just temporarily upgrade them to a level 7 or 8
+     and type in the full drive and path to the file.
+
+     (V)iew Archive
+
+     Lets the user look inside the archive file to see the list of all
+     compressed files and technical data.  Higher Level Access users may
+
+
+     Telix v3.22 - Host+                                User Commands    21
+
+
+
+     view any file on the system.  Lower Level Access users may only view
+     those files in the file listings.
+
+     (E)xtract Archive
+
+     Lets the user extract files from an archive.  The user is first asked
+     for the name of the archive.  Then they are asked if Host+ needs to
+     show the list of files in the archive.  The file is then extracted
+     from the archive and zipped (using PKZIP), into a temporary file
+     called TEMPARC.ZIP.  The user is given the filename for downloading.
+     The file is deleted when the user hangs up.
+
+     Higher Level Access users may extract any file on the system.  Lower
+     Level Access users may only extract those files in the file listings.
+
+     (S)how a Directory Listing (Higher Access Only)
+
+     Allows user to do a listing of the files in any directory on any
+     drive.  For instance, "\telix\*.cap" would show all the capture files
+     in the telix directory. Pressing enter at the directory prompt will
+     give you the file list for the upload directory.
+
+     (C)hange File (Higher Access Only)
+
+     This option allows the sysop to manually change the file information
+     in the database. (see Adding Files to Host+)
+
+     (R)emove File (Higher Access Only)
+
+     This option allows the sysop to remove a file from the database.  It
+     also allows the sysop to erase the file from the drive. (see Adding
+     Files to Host+)
+
+     (Q)uit to Main Menu
+
+     This allows the user to go back to the main menu.
+
+     5.4  Page the Sysop
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     The (P)age Sysop option will, if chat is on, ring a bell to alert you
+     that the user wants to chat. If chat is off, it will show a message
+     saying that you are not available and give them the option of leaving
+     a private message.   To answer a page, press the space bar and the
+     chat screen will come up.
+
+
+     5.5  Bulletin Listings
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     The (B)ulletin listings option sends the user to a list of bulletins
+     they can select to view.
+
+
+     Telix v3.22 - Host+                                User Commands    22
+
+
+
+     5.6  Your Settings
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     (Y)our Settings lets the user change their address, city, zip, state,
+     choose a default protocol, turn the pause function on or off, enable
+     disable ANSI, change password and change colors.
+
+
+     5.7  Comment to Sysop
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     (C)omments To Sysop will allow the user to write a private message to
+     the "Sysop" (If you have defined your name in place of the Sysop it
+     will be sent to you.  See either Start Up Configuration or Customizing
+     Host+ (Section: General Options, Comments Sent To).
+
+
+     5.8  Expert Mode
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     The (X)pert function allows the user to change their expertise level,
+     to one of three levels:
+
+     Novice              Gives a menu of commands.
+     Intermediate        Gives command letters on the input line.
+     Expert              No help whatsoever!
+
+
+     5.9  Run a Door
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     Run (D)oors sends the caller to a list of the doors that are available
+     to users in their access level.  They select the door to run from that
+     list.
+
+
+     5.10 Goodbye (Logoff)
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     (G)oodbye logs off the user from the system.
+
+
+     5.11 System Log
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     System (L)og shows the user the daily usage log. Ctrl-P will pause the
+     display, and Ctrl-X will abort.  The user may also select to continue
+     or abort at the "(Y/n):" prompt.
+
+     This command is only available from the higher access menus.
+
+
+     Telix v3.22 - Host+                                User Commands    23
+
+
+
+     5.12 Shell to DOS
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     (S)hell to DOS lets the user shell to DOS. They will be prompted for
+     the system password. If they fail to enter it, they will not be
+     allowed to shell. Host+ will either use CTTY or DOORWAY.EXE to control
+     the shell to DOS.
+
+                                   IMPORTANT!
+
+     There is no way for Host+ to check on the status of the carrier. If
+     the carrier is lost while a user is in DOS (via remote) then the
+     system will hang!. The only solution if this happens is to reboot the
+     computer.  You may avoid this problem by using the shareware program
+     DOORWAY.EXE (see Using Marshall Dudley's Doorway).
+
+
+     5.13 Shut down Host+
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     The (Z) command is not listed on the menu, and is available only to
+     level 9 users from the main menu.  It allows the system to be shut
+     down by remote.  The user will be prompted for the system password. If
+     they fail to give it, the program will continue running.
+
+
+     Telix v3.22 - Host+                            Customizing Host+    25
+
+
+
+     6.   Customizing Host+
+
+     Host+ allows you to customize its operations in many ways by running
+     HPCONFIG by pressing Alt-O from the main menu.  You can add bulletins,
+     different archive programs, doors, multiple conferences, and more.
+     The following is a listing of the configuration menu and how to
+     customize each item.
+
+     When you have changed an item in the configuration, remember to press
+     "X" at the main config menu to save your changes.
+
+
+     6.1  Configuring the Modem
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     A    Modem Answer String
+
+          This is the string which is sent to the modem when a RING is
+          detected. The default is "ATA^M" and should work for most modems.
+          If it does not work for your modem try turning on Modem Auto
+          Answer Mode.
+
+     B    Answer On Ring Number
+
+          This allows you to determine how many rings Host+ will wait
+          before answering an incoming call. You may choose from 1 to 9
+          rings. The default is set for 1 ring.
+
+     C    Modem Pickup String
+
+          This is the string which is sent to the modem when going offhook
+          (in conjunction with Pickup Modem in Local and Utils). This
+          string "ATM0H1^M" will make the modem pickup the line.
+
+     D    Pickup Modem In Local
+
+          This option decides if Host+ will pickup the phone (go offhook)
+          when doing a local log on. Having this turned on would cause any
+          callers to get a busy signal when you are in the local mode.
+
+     E    Pickup Modem In Utils
+
+          This option decides if Host+ should pickup the phone (go offhook)
+          when running any of the utility programs.
+
+          Some modems may go offhook and leave the speaker on.  The M0
+          command turns off the speaker on most modems.  If your speaker is
+          left on, check your manual for the proper command.
+
+
+
+     F    Modem Auto Answer Mode
+
+
+     Telix v3.22 - Host+                            Customizing Host+    26
+
+
+
+          This option uses your modem's Auto Answer Mode instead of letting
+          Host+ answer the incoming call.  The default is set to Off and
+          should only be changed to On if Host+ is unable to answer
+          incoming calls.
+
+
+     6.2  Configuring the Colors
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     This option allows you to configure the color of each screen element
+     used on the Sysop side in Host+.  You control the colors for boxes,
+     help and titles, options, highlights, items, Sysop Chat, and User
+     Chat.  Select the item you wish to change and you will be shown a
+     color palette box.  Use the Cursor keys to move to the color selection
+     you desire.  As you move the cursor, the screen element you are
+     changing will change colors on screen. When you find the color you
+     like, press enter.
+
+     You may go back to the Default Colors that came with Host+ by pressing
+     "H" for "Use default colors".  You may also set Host+ to work in
+     monochrome by pressing "I" for "Use Black & White color".
+
+
+     6.3  Configuring Bulletins
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     You may create Bulletin screens to be viewed by users.  Use this
+     section for news, board policies, game door standings, and any number
+     of things. Bulletins may be in either ASCII or ANSI formats.
+
+     A    Add a Bulletin
+
+          When you press "A", HPCONFIG will prompt you to input the full
+          path and filename of the bulletin file.  If you had the file
+          BULL1.ANS in the C:\TELIX\BLTS directory you would input
+          C:\TELIX\BLTS\BULL1.ANS as the filename. Once you have input the
+          filename press Enter.  You may abort the process by pressing
+          Escape at any time.
+
+          Now HPCONFIG will ask for the description you want shown to the
+          user when they view the bulletin list.  Put a brief description
+          of the bulletin here.
+
+          Next HPCONFIG will ask for the access level of the bulletin.  If
+          you wish to limit the users who may view that specific bulletin,
+          then you would put that access code here.  If you want it
+          available to all, put in a 0.
+
+          The bulletin is now in the system and available to be seen by
+          users.
+
+     B    Delete a Bulletin
+
+
+     Telix v3.22 - Host+                            Customizing Host+    27
+
+
+
+          When you press "B" you will be asked for the number of the
+          bulletin you wish to delete.  It will then ask you to confirm the
+          deletion with a Y/N prompt.  When you answer "Y", the bulletin
+          will be removed from Host+. The program will not remove the
+          bulletin file from your drive.  You will have to do that yourself
+          in DOS.
+
+     C    Edit a Bulletin
+
+          If you want to come back and make changes in an entry, you may do
+          that here.  The program will take you through each of the options
+          (filename, description, and access) and ask what you want to
+          change.  To abort the process just press Escape.
+
+     D    Jump to a Bulletin
+
+          This option will allow you to jump to specific bulletin by
+          entering its number.
+
+     X    Exit To Main Menu
+
+          This option will exit you back to the Main configuration menu.
+          Remember to press "X" at the Main configuration menu to save your
+          changes to disk.
+
+
+     6.4  Configuring Doors
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     A door is when a user is allowed to exit Host+ and run another program
+     on your computer.  It is as if a door is opened from Host+ allowing
+     the user access to other parts of your computer.
+
+     There are many doors available in the BBS world that do a multitude of
+     things:  Playing games, voting on questions, viewing ANSI screens,
+     storing time, and so forth.  In addition, there are door programs like
+     Marshall Dudley's DOORWAY.EXE that allow users to run IBM character
+     based business programs like spreadsheets, word processors, or
+     databases.
+
+     Host+ will accept four types of program files: EXE, COM, BAT, and
+     Telix's SALT SLC. It directly supports door programs written for
+     PCBoard 14.x, GAP, QBBS, RBBS, and Remote Access BBS programs. It will
+     also support Marshall Dudley's DOORWAY program.
+
+     Setting up doors require some patience because there is no standard
+     way of installing a door.  You have to figure out how to install a
+     door and then configure it with HPCONFIG.  In Appendix "A" are
+     outlined several examples of door installations.  You may also get
+     help from a local sysop who has doors on his board and has undergone
+     the same process.
+
+     Once you have followed the door's installation procedure you are ready
+     to configure the door for Host+.  Be sure to write down any command
+
+
+     Telix v3.22 - Host+                            Customizing Host+    28
+
+
+
+     line switches that you will need to start the program because you will
+     asked to supply them to HPCONFIG.
+
+     A    Add a Door
+
+          Once you press "A" HPCONFIG will prompt you for the full path and
+          filename to the door program.   For instance, a game door called
+          GOLF.EXE in the \DOOR\GAME directory would be entered as:
+
+          C:\DOOR\GAME\GOLF.EXE
+
+          When you have input the filename press Enter.
+
+          HPCONFIG will next ask you for the command line.  If you need to
+          pass parameters to the program put it here.  For instance,
+          GOLF.EXE requires the name of its configuration file called
+          GOLF.CFG to run.  You would put GOLF.CFG on the command line.
+          There are system variables that you can place on the command line
+          to pass current information to your door program:
+
+          %C   Comm Port Number    :    Current Comm Port Number
+          %P   Port Address        :    Current Comm Port Address
+          %I   IRQ Line            :    Current Comm Port IRQ
+          %B   Baud Rate           :    Current Baud Rate
+          %D   DTE Rate            :    Current DTE Rate
+          %M   Minutes Left        :    Minutes User Has Left
+          %S   Seconds Left        :    Seconds User Has Left
+          %L   Location Of File(s) :    Location the Door
+
+          When finished with the command line (or if there were not any
+          parameters needed) press Enter.
+
+          Now HPCONFIG will ask for the description you want shown to the
+          user in the list of available doors.  Put a brief description of
+          the door here.
+
+          Next HPCONFIG will ask for the access level you wish the door to
+          have.  If you wish to limit the users who may operate that
+          specific door then you would put that access code here.  If you
+          want it available to all, put in a 0.
+
+          The last thing HPCONFIG will ask is what (if any) converter is
+          needed for the door.   Each BBS door program requires its own
+          special system file. QBBS/RBBS doors need DORINFO1.DEF, PCBoard
+          14.x requires PCBOARD.SYS, Gap and Doorway want DOOR.SYS, and so
+          forth.
+
+          Host+ writes its own system file (called HOSTDOOR.SYS) and then
+          converts it to match the BBS program you chose.  It will then
+          write this system file into the directory with the door's program
+          file.  In our example above, it would write the file into the
+          C:\DOOR\GAME directory.
+
+
+     Telix v3.22 - Host+                            Customizing Host+    29
+
+
+
+          If the door is written for Host+ or does not require a system
+          file then choose the "No Converter" option.
+
+          Once you are through with configuring the door, remember to save
+          your changes by pressing "X" at the Main configuration menu.  You
+          will then want to log on to Host+ in local mode and test the door
+          out.  You are configuring two programs at once (the door and the
+          bbs) so, be prepared to repeat the process.
+
+          If you have made a mistake you can easily edit the information by
+          choosing the "Edit a Door" option. If it still doesn't work check
+          to make sure you have installed the door correctly.
+
+     B    Delete a Door
+
+          When you press "B" you will be asked for the number of the door
+          you wish to delete.  It will then ask you to confirm the deletion
+          with a Y/N prompt. When you answer "Y", the door will be removed
+          from Host+.  The program will not remove the door's program files
+          from your drive.  You will have to do that yourself in DOS.
+
+     C    Edit a Door
+
+          If you wish to come back and make changes in an entry you can do
+          that here. The program will take you through each of the options
+          (filename, description, access, and converter) and ask what you
+          want to change.
+
+     D    Jump to a Door
+
+          This option will allow you to jump to specific door entry.
+
+     X    Exit To Main Menu
+
+          This option will exit you back to the Main configuration menu.
+          Remember to press "X" at the Main configuration menu to save your
+          changes to disk.
+
+
+     Telix v3.22 - Host+                            Customizing Host+    30
+
+
+
+
+     6.5  Configuring Archives
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     When a user uploads a file, you will want to test the archive to make
+     sure that it has arrived in good condition.  Host+ also allows users
+     to view archives and extract files from archives while on line.
+
+     Host+ comes configured to work with  ZIP, PAK, ARC, LZH, and ARJ
+     archives.  If your favorite archive program is not on the list, you
+     may add it here.  Host+ will accept up to 10 archives at one time.
+
+     Before adding an archive program not covered by Host+, you will need
+     to know the three letter file extension that the program uses for the
+     files it has compressed.  You will also need the View, Extract, and
+     Test commands for the program.
+
+     To add an archive program, place the scroll bar (using Up/Down arrow
+     keys) on an open line and press return.  HPCONFIG will then allow you
+     to edit each of the options in turn. Pressing Escape will allow you to
+     keep that option unchanged.  Below is a list of the five options:
+
+          Extension      :    This is the acceptable extension
+                              for this archive.
+          Program name   :    This is the file to run to work
+                              with this archive; note that the
+                              file must be in your path.
+          Test Line      :    This is the command line sent to
+                              the file (Program) in order to run
+                              a test on the archives.
+          View Line      :    This is the command line sent to
+                              the file (Program) in order to view
+                              the files in the archives.
+          Extract Line   :    This is the command line sent to
+                              the file (Program) in order to
+                              extract files from the archives.
+
+
+     Test Uploaded Archives
+
+     Host+ will test the archives of newly uploaded files.  In most cases,
+     this switch should be left on.
+
+     Delete Bad Archives
+
+     If a file fails the archive test, Host+ will delete it.  Choosing to
+     turn this function Off will cause the file added to the database as a
+     private upload to the sysop.   The database will carry a warning
+     message for the sysop about the failed test.
+
+
+
+     External Script
+
+
+     Telix v3.22 - Host+                            Customizing Host+    31
+
+
+
+     You may substitute your own archive testing program for Host+'s
+     internal routines.  This program has to be called by a script. See
+     Appendix D for a script outline.
+
+
+     6.6  Configuring Macros
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     You may redefine any key in Host+.  The keys used by Host+ may be
+     reassigned to any other key by using the following Keywords:
+
+     Macro Keywords      Default Key
+
+
+
+               $TOGGLECHAT              F1
+               $USEREDIT                F2
+               $LOWERACCESS             F3
+               $RAISEACCESS             F4
+               $TOGGLESTATUS            ALT-8
+               $CHATMODE                F10
+               $EXITHOST                ALT-X
+               $DOSSHELL                ALT-J
+               $TEXTEDIT                ALT-A
+               $HOSTCONFIG              ALT-O
+               $HOSTHELP                ALT-Z
+               $HANGUP                  ALT-H
+               $FILECOMPRESS            ALT-F
+               $LOCALMODE               ALT-L
+               $LOWERTIME               F5
+               $RAISETIME               F6
+               $SCREENIMAGE             ALT-I
+               $CAPTURELOG              ALT-C
+
+
+     Display Key
+
+     When you press "A" HPCONFIG will ask you to press any key you wish to
+     have displayed.  If a macro is assigned to that key, it will be
+     displayed.  If not, there will be a no macro assigned message that
+     will let you know that the key is available to store a macro.
+
+     Edit Key
+
+     When you press "B" HPCONFIG will then ask you to press the key
+     combination you wish to edit.  Enter the information you wish the key
+     combination to carry and then press Enter.  Note that only ASCII
+     characters (no ALT keys) may be used in macro's. Control characters
+     may be used by placing a carat "^" in front of the character.  For
+     example, a Return would be "^M", a tab is "^I" etc. To save any macros
+     you have made, choose the Save Macros option by pressing "X".
+
+
+     Telix v3.22 - Host+                            Customizing Host+    32
+
+
+
+     Since you will be doing many local logons to test different parts of
+     Host+, here is a simple macro that will speed up the process using
+     Host+'s Quick Logon feature.
+
+     Press "B" for edit, and then press Alt-1.  Then enter the following
+     combination:
+
+     y{Your Name{your password^M
+
+     For example:  y{Jeff Woods{Hello^M
+
+     Save the macro by pressing "X".  The next time you make a local logon,
+     press Alt-L for the logon and then press Alt-1.  Host+ will print out
+     the quick logon and then skip the opening screen to take you directly
+     into the program.
+
+     The Quick Logon feature may be used by any user.  It is used it here
+     to give you a working example of a macro.
+
+
+     6.7  Configuring Events
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     Host+ will stop and run any program you choose at any time of your
+     choosing. This is called a timed event.  Up to 5 different events can
+     be programmed to be run by Host+.
+
+     You may use any program with an extension of EXE, COM, BAT, or SLC. In
+     addition, there are two internal programs that can be run as events:
+     EXITHOST and EXITTELIX.   EXITHOST will exit Host+ back into Telix.
+     EXITTELIX will exit Host+, exit Telix and return to DOS.
+
+     Persons who use Host+ with FrontDoor will have to be careful with
+     event scheduling.  Call the Telix Support BBS for special
+     documentation on attaching FrontDoor.
+
+     The easiest way to learn how to configure events is to configure
+     "EXITTELIX". Set it up to run and watch Host+ return to DOS.  There
+     are some sample event programs and batch files listed in Appendix B.
+
+     Configure Event
+
+     HPCONFIG will first ask for the time you wish the event to occur.
+
+     Host+ will either want time entered in 24 hour (military) or 12 hour
+     time depending on the format you have set in Telix. (In Telix see:
+     Alt-O, General Settings, Section L: Time Format)
+
+     To make an event happen each time a user logs off the system, type in
+     the word "EVERY" instead of an actual time.  Press Enter to move to
+     the next topic or press Escape to abort.
+
+     You will then be asked if you want the event to be sliding.  A sliding
+     event waits for the user to complete their call before the event is
+
+
+     Telix v3.22 - Host+                            Customizing Host+    33
+
+
+
+     run.  A non-sliding event occurs exactly at the time you specify. If a
+     caller is on line when a non-sliding event is due to occur, Host+
+     notifies them that their time is being shortened due to the event.
+     Host+ will hang up on them just before the event is due to occur.
+
+     Next you will be prompted for the program name.  Enter the full syntax
+     for the program file and any parameters that need to be passed to the
+     program. For instance, C:\BATCH\EVENT.BAT <argument>.  Press Enter and
+     your event will be logged.
+
+     Press "X" to exit to the main menu.  Remember to save your changes to
+     disk.
+
+
+     6.8  Configuring User Options
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     A    Log Off New Users
+
+          The default (on) will log off all new users after they finish
+          filling out the questionnaire.  Turn off this switch to give
+          access to all users on first call.
+
+     B    Number Of Downloads
+
+          This is the ratio of downloads to uploads that a user must
+          maintain.  For example, if you wish users to maintain a 5:1 files
+          ratio, place a 5 here.  If you set the number to a '0', then
+          there will be no upload/download ratio enforced.
+
+     C    Access 1 Download Limit
+
+          This is the limit (in Kilobytes) that users with access level 1
+          may download per logon.  This does not effect the other user
+          levels.
+
+     D    New User Access Level
+
+          Here you can choose the access level that you will give to new
+          users to your system.  If you are logging off new users, your
+          choice should be "0".
+
+
+
+     E    Time per access level 0
+
+          This is the amount of time you allow level 0 users to have on the
+          board. This should be set at 0 if you are hanging up after the
+          initial questionnaire is filled out.  The old default on Host44
+          from Host Software Products was 4 minutes.
+
+     F-N  Time per access level 1-9
+
+
+     Telix v3.22 - Host+                            Customizing Host+    34
+
+
+
+          Here you may set the number of on line minutes allotted to each
+          access level. The defaults are set in 10 minute increments, but
+          you may choose any time limits you like.
+
+     X    Exit To Main Menu
+
+          This option will exit you back to the Main configuration menu.
+          Remember to press "X" at the Main configuration menu to save your
+          changes to disk.
+
+
+     6.9  Configuring the File Bases
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     You have one default file base called the Main File Base.  You can add
+     an additional 9 bases in the shareware version and 999 bases in the
+     registered version.  The shareware version can hold up to 99 files per
+     base while the registered version allows 999.
+
+     A file base is a data base of files available on your system.  The
+     files for a certain database do not have to be placed in the same
+     drive or directory; however, doing so will keep things organized.
+
+     A    Add a File Base
+
+          When you press "A" you will be asked to name the new files base.
+          Type in the name and press Enter.  You will then be asked what
+          level of users will be allowed access to that files base.  If
+          all, enter 1, otherwise enter the access level you desire.
+          Default menus do not allow users with an access level of 0 to go
+          to the files base.
+
+     B    Delete a File Base
+
+          When you press "B" you will be prompted for the name of the files
+          base to delete.  You then will be requested to confirm the
+          deletion.  Please note that the files in that data base are not
+          removed from your drive by this operation. You will have to do
+          that using DOS or a DOS shell.
+
+     C    Edit a File Base
+
+          If you wish to come back and make changes in an entry later you
+          can do that here.  Press "C" and you will be allowed to edit the
+          information.
+
+     D    Jump to a File Base
+
+          This option will allow you to jump to specific file base entry.
+
+     X    Exit To Main Menu
+
+
+     Telix v3.22 - Host+                            Customizing Host+    35
+
+
+
+          This option will exit you back to the Main configuration menu.
+          Remember to press "X" at the Main configuration menu to save your
+          changes to disk.
+
+
+     6.10 Configuring the Message Areas
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     You have one default message base called the Main Message Base.  You
+     may add an additional 9 bases in the shareware version and 999 bases
+     in the registered version.  The shareware version will hold 90
+     messages while the registered version will hold 29,999 messages.
+
+     A message base is a data base that tracks messages that are available
+     to be read on your system.
+
+     A    Add a Message Base
+
+          When you press "A" HPCONFIG will ask for a description.  Enter
+          here the name of the new message base and press Enter.  You will
+          then be asked for the access level to the message base.  If you
+          want all users to have access to the messages, enter 1.
+          Otherwise, enter the access level you desire and press Enter.
+          Access level 0 users are not allowed into the message bases by
+          the default menus.
+
+          You will then be asked if you want to echo the messages.  An echo
+          is when you send messages written on your system to another
+          system or a network of systems.  Host+ has been written to be
+          compatible with echo networks like FidoNet, RIME, ILink, etc.
+          The required UTI (Universal Text Interface) programs to allow
+          Host+ to interface with networks will be released as separate
+          programs and will be available from the Telix Support BBS.  When
+          you are set up for echoes, press "Y" otherwise enter "N" for no
+          and press Enter.
+
+     B    Delete a Message Base
+
+          When you press "B" HPCONFIG will ask for the number of the
+          message base to be deleted.  Enter the number and you will be
+          prompted to confirm the deletion.  The messages in that message
+          base will be deleted from your hard drive.
+
+     C    Edit a Message Base
+
+          If you wish to edit the name, access, or echo flag of a message
+          base, press "C" and you will be presented with those choices for
+          changing.
+
+     D    Jump to a Message Base
+
+          This option will allow you to jump to specific message base
+          entry.
+
+
+     Telix v3.22 - Host+                            Customizing Host+    36
+
+
+
+     X    Exit To Main Menu
+
+          This option will exit you back to the Main configuration menu.
+          Remember to press "X" at the Main configuration menu to save your
+          changes to disk.
+
+
+     6.11 Configuring the Upload Items
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     A    Host Upload Directory
+
+          Press "A" and HPCONFIG will ask for the full path name to the
+          drive and directory where uploaded files from users will be
+          stored.  For example, C:\TELIX\UPLOADS.  It is a good idea to set
+          aside a directory just for uploads to ease the process of
+          scanning the files for virus and processing. Registered Users can
+          use HPFEDIT (files editor) to later move the files from the
+          upload directory to another files base and directory.  Shareware
+          Users will have to make the transfer manually (See Manually
+          Adding Files)
+
+     B    Upload File Base
+
+          Press "B" and HPCONFIG will ask for the number of the files base
+          where you wish Uploads to be listed.
+
+          Shareware Users should enter a 0.  This adds uploaded files to
+          the file database where the user is located at the time of the
+          upload.  For a complete discussion of this, see Manually Adding
+          Files under the heading Adding Files to Host+.
+
+          Registered users can follow the common BBS practice of having a
+          separate file base for new uploads.  Enter an unused number for
+          the Uploads Data Base.  Use the Files Editor to move files from
+          the upload file base to other bases. (See Registered Programs).
+
+     C    Level of Uploads
+
+          This is the access level to which a file is set when uploaded by
+          a user. If set to a 1 then all access levels will be able to see
+          newly uploaded files.  If you want to limit access to new
+          uploads, set this level to a higher number.
+
+     X    Exit To Main Menu
+
+          This option will exit you back to the Main configuration menu.
+          Remember to press "X" at the Main configuration menu to save your
+          changes to disk.
+
+     6.12 Configuring General Info
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     A    System Password
+
+
+     Telix v3.22 - Host+                            Customizing Host+    37
+
+
+
+          This is the password that allows the sysop to shell to DOS and do
+          a system shutdown when calling in from a remote.  Pick a good
+          password and don't give it to anyone!
+
+     B    Screen Blank Time Limit
+
+          This option allows you to set the number of minutes Host+ will
+          wait before blanking the main call screen.
+
+     C    Time Chat is to come on
+
+          This is the time that you would like the "Chatting Times" to
+          start. Chat will come on at this time. (Chat may also be forced
+          on or forced off at any time by pressing F1).   When you press
+          "C" you will be prompted for the time you wish this function to
+          be enabled.  The time format will depend on how you have time set
+          in Telix.  Telix may be configured for 24 hour (military) time or
+          12 hour time.
+
+     D    Time Chat is to go off
+
+          This is the time that you would like the "Chatting Times" to end.
+          When you press "D" you will be prompted for the time you wish
+          chat to end.
+
+     E    User Logon Alarm
+
+          If you would like an alarm to sound when someone logs on to your
+          system, choose On.  If you like to sleep at night, choose Off.
+
+     F    User Comments Sent To
+
+          This is the name of the person who will receive any user
+          comments.  The default is Sysop. Changing this to your name will
+          allow you to logon to the board using your name and receive the
+          comments.  If you leave the setting at the default, then you will
+          have to log on to Host+ under the name of Sysop in order to read
+          user comments.
+
+     G    DOORWAY Command Line
+
+          This is the command line string sent to DOORWAY.EXE (if used)
+          when a user does a online shell to DOS. Note that the option can
+          contain any of the System Variables. See Appendix B, System
+          Variables for more information. This default setting will work
+          fine for simple shells to DOS.  (See Using Doorway)
+
+     H    Telix Config File
+
+          This option contains the name of the TELIX configuration file
+          being used. This should be changed only if you are using Host+
+          with a separate Telix configuration file. Since Host+ uses
+          information found in the file it is important that this is set
+          correctly.
+
+
+     Telix v3.22 - Host+                            Customizing Host+    38
+
+
+
+     X    Exit To Main Menu
+
+          This option will exit you back to the Main configuration menu.
+          Remember to press "X" at the Main configuration menu to save your
+          changes to disk.
+
+     6.13 Configuring BBS Data
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     This is where you enter information about the BBS you will create.
+     The information will be used by Host+ and any QWK mail packet door
+     that you use.
+
+     A    BBS Name
+
+          The name of your BBS (40 character limit)
+
+     B    BBS Telephone
+
+          The phone number of your BBS
+
+     C    BBS City/State
+
+          The Location of your BBS
+
+     D    BBS Net/Node
+
+          Your QWK door ID for hookup with E-mail networks
+
+     E    BBS Sysop Name
+
+          Your Name
+
+
+     6.14 Restoring and Saving Configs
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     Reset Default Options
+
+     If chosen this option will reset all of the configuration options to
+     their original default values.
+
+     Save changes to disk
+
+     After you have finished making your changes in HPCONFIG, press "X" to
+     save those changes to disk before exiting the program.
+
+     Exit Config Program
+
+     Press "Z" to leave HPCONFIG.  Make sure you save your changes before
+     exiting.  "Z" will not save changes by itself.
+
+
+     Telix v3.22 - Host+                            Customizing Host+    39
+
+
+
+     6.15 Creating Colorful Screens
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     You can create colorful screens for use in Host+ by using TheDraw or
+     other ANSI drawing programs.  You can greet the user at Logon, give
+     the latest news, greet new users with the board policies, and say
+     goodbye.  You need to follow the following guidelines when making
+     screens:
+
+     Input Buffer
+
+     The input buffer for these files is set at 255 characters per line.
+     Screen writes will be smoother if the input buffer is evenly divisible
+     by 80. (E.G. 80, 160, or 240.)  This is because most screens are 80
+     columns wide.  A buffer of 240 writes fairly quickly even on XT
+     machines.
+
+     Screen Size
+
+     You really don't have all 25 lines of the screen available to you. It
+     is best to draw your screen from Line 2 Column 2 to Line 21 column 79.
+     Line 25 is taken up by most comm program's status line.  Lines 23 and
+     24 holds the prompts for the next action. The last column sometimes
+     holds screen information that would interfere with your graphic.
+
+     Block save your screen from position 1,1 to 21,80 and it should work
+     perfectly.
+
+     ANSI/ASCII
+
+     Save your screens in both ANSI and ASCII. This way users who do not
+     have ANSI enabled may still see a screen.
+
+     The File Names
+
+     Use the following file names for your screens and place them in your
+     \TELIX\HOST directory. Note that *.ANS files are ANSI and *.ASC files
+     are ASCII:
+
+          LOGON     This file is displayed when a user logs on
+                    the system.
+
+          NEWS      This file is displayed after the user has logged on the
+                    system for the first time each day.  See The NEWS.*
+                    File for tips on making this file.
+
+          BBSINFO   This file is displayed every time the user logs on to
+                    the system.  It follows the news screen and may be used
+                    for any number of things.
+
+          LOGOFF    This file is displayed when the user logs off the
+                    system.
+
+
+     Telix v3.22 - Host+                            Customizing Host+    40
+
+
+
+          NEWUSER   This file is displayed to all new users.  Its a good
+                    idea to put board policies here.
+
+     Examples: LOGON.ANS, NEWS.ASC, NEWS.ANS, or LOGOFF.ASC.
+
+     The NEWS.* File
+
+     The news file may be made in an ASCII editor.  If you want color, you
+     may construct separate pages in TheDraw and then concatenate the files
+     using DOS's copy command. (e.g. COPY FILE1 + FILE2 NEWS.ANS). The
+     easiest method is using a program written for BBS's that construct
+     bulletin screens. One well known program of this type is FLASH30 by
+     Qsoft.  News files may be made many pages long.  Host+ will pause the
+     screen after a page of lines has been sent and wait for the user to
+     ask Yes or No before proceeding.
+
+
+
+
+
+     Global Variables
+
+     Host+ has several global variables that may be inserted into any user
+     created screen, bulletin, or message.  Global variables are preceded
+     by the "at" symbol (@).  The three text variables are:
+
+          @user     displays the current user's full name
+          @frst     displays the current user's first name
+          @mins     displays the current user's number of minutes remaining
+                    online
+
+     There are also six global color codes based on the colors set by the
+     user in the Your Defaults area:
+
+
+          @C1  :    Displays the first color defined by the user
+          @C2  :    Displays the second color defined by the user
+          @C3  :    Displays the third color defined by the user
+          @C4  :    Displays the fourth color defined by the user
+          @C5  :    Displays the fifth color defined by the user
+          @C6  :    Displays the sixth color defined by the user
+
+     For example: @C1Would display this line of text in color.
+
+     In making your design, you should realize that anything positioned to
+     the right of a text variable will change position depending upon the
+     number of characters that replace the variable.  For instance,
+     "Tristin Andrew" uses many more character spaces than "Joe Blow", so
+     the line of text would look differently for each.  This is how the
+     lines of text would look:
+
+     @user     the Global Variable
+
+     Joe Blow     the Global Variable
+
+
+     Telix v3.22 - Host+                            Customizing Host+    41
+
+
+
+     Tristin Andrew     the Global Variable
+
+     You can experiment with these variables in the message base.  Just
+     write a message using the global variables, save it, and read the
+     message.
+
+     Note that the color variables are for use on ANSI screens only.  You
+     will need to edit them out of ASCII versions of the same screen
+     because the codes can be seen by ASCII viewers.  Users of the
+     registered HPMENUS.EXE program should use their ANSI editor for colors
+     and not color variables as ASCII versions of the menu are created by
+     the program and would display the codes to ASCII users.
+
+
+     Telix v3.22 - Host+                              File Management    43
+
+
+
+
+     7.   Adding Files to Host+
+
+     A files data base is a collection of information about files available
+     to your users.  You may define up to 10 files data bases in the
+     shareware version and 999 files data bases in the registered version.
+     In addition, you are limited to 99 files per files base in the
+     shareware version and 999 files in the registered version.
+
+     Its possible to have both A:\FILE1.ZIP and C:\TELIX\UPLOAD\FILE2.ZIP
+     in the same files database; however, it is a good idea to group your
+     files together in one directory and database if you plan to offer a
+     lot of files.
+
+     You may have databases available to one set of users and not another.
+     For instance, special files could be kept in an area defined for
+     access level 6 and above.  Users below level 6 would never see the
+     area from the menu. (See Customizing Host+)
+
+     You may also set access levels for each file.  A file with access
+     level 6 could be in the same files database with a file set at access
+     level 0. A user with an access level of 5 would not see the access 6
+     file.
+
+     Files may be password protected so that only special users can get a
+     certain file.
+
+     Host+'s ADDFILES.EXE program will allow you to add files to any
+     database while off line.  You may also add files manually while in
+     local logon mode.  Registered Users can easily edit database entries
+     off line with the Files Editor.
+
+
+     7.1  Adding Files with ADDFILES.EXE
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     ADDFILES.EXE allows you add files from any drive or directory to any
+     files database.  You view all files available and tag the ones you
+     want added.
+
+     ADDFILES.EXE should be in your Telix directory. If the Telix directory
+     is in your DOS path statement, ADDFILES.EXE may be run from any
+     directory. Otherwise, you will have to start the program from the
+     Telix directory each time.  This external program should not be run
+     when shelled to DOS from a local logon of Host+.
+
+     Choosing the Drive and Directory
+
+     Addfiles opens with a window on the left side of the screen that shows
+     all of the files and sub-directories located in your current
+     directory.  To change directories, move the cursor bar to the
+     directory you want and press the enter key or use the left button of
+     your mouse.  To change drives, press F2, and you will be presented
+     with a prompt for the name of the drive.
+
+
+     Telix v3.22 - Host+                              File Management    44
+
+
+
+     Choosing Files
+
+     Once you are in the proper drive and directory, move the cursor bar to
+     the file you want to add and press the spacebar or the right button of
+     the mouse. A check (û) will appear next to the file.  Move through the
+     directory checking all the files you want.  You may change drives and
+     directories anytime during this process and Addfiles will remember all
+     file tags.
+
+     Adding Files
+
+     When you have tagged all the files you wish to add, press F1 to begin
+     adding files.  You will be presented with a new screen and menu. The
+     bottom half of the menu is for entering information about the file.
+     The top half of the menu lists your menu choices and the current data
+     base.  Be sure you are in the right file data base before you starting
+     saving files.  It is not easy to correct an addition to the wrong
+     database if you don't have a copy of the Files Editor.
+
+     F3  Change Current File Base
+
+     Press F3 and you will be presented with a window to change the
+     database by entering the database's number.  If you do not remember
+     the number of the database, press F1 at this window and a listing of
+     the files databases will be presented to you.  You may change data
+     bases at any time in your Addfiles session.
+
+     Here is the information you are asked to provide ADDFILES.EXE on each
+     file:
+
+          File Name
+
+          This is the complete drive, path, and filename of the file.  It
+          should already be in place.
+
+          File Description
+
+          You are given two lines to describe what the files does.
+
+          File Uploader
+
+          This defaults to sysop.  You may change the name to any name you
+          wish.
+
+          File Access
+
+          This is the access you wish the file to have.  If you want all
+          users to have access to the file, enter "1".
+
+          File Password
+
+          If you want the file protected by a password, enter that word
+          here.
+
+
+     Telix v3.22 - Host+                              File Management    45
+
+
+
+          File Date
+
+          Addfiles will put today's date in this field.  You can change it
+          if you wish.
+
+     F1  Add file to the data base
+
+     Once you have entered all the information about the file, double check
+     it to make sure it is correct.  Make sure you are adding it to the
+     correct database. Press F1 to save this data to the database and
+     advance to the next file.
+
+     When you have saved all the files you had checked, ADDFILES will
+     return you to the opening menu.
+
+     Once the data is saved, you can change your entries by making a local
+     logon and using (C)hange File from the files menu (See Manually
+     Changing Files). Registered users can use the wonderful Files Editor.
+
+     F2  Skip to next file
+
+     Pressing F2 will skip to the next file that you have chosen to be
+     added.  You will not save the current file to disk, but ADDFILES will
+     hold it for you during the session should you want to come back.
+
+     F10 Exit
+
+     Exits ADDFILES.EXE.
+
+
+
+     It is possible to add files, change file listings, and remove files
+     from any files database while in local logon.  This is best used by
+     Shareware users of Host+.  Registered users have the Files Editor for
+     these functions.
+
+     SPECIAL NOTE: Shareware Users should not have a Special Upload Files
+     Base defined or they will have problems when manually adding and
+     moving files.  Any file you manually add will go to the Upload files
+     base and not the files base you are in at the time.
+
+     For example, you are in the Main File Base and manually add FILE.ZIP.
+     After you are through, you will *not* find the file listed in the Main
+     File Base.  It will be found in the Uploads File Base.  The only way
+     to move the file to into the Main File Base back would be to add it
+     with ADDFILES or using the Files Editor program available to
+     Registered Users.  Simply put, if you define an Uploads Files Base,
+     you will have to make all of your file additions with ADDFILES.EXE.
+     You will not be able to add files manually unless you want them to be
+     in the Uploads File Base.
+
+     To move user uploads from the Upload File Base to another Base you
+     will have to move the files out of the Upload Directory to another
+     directory and then run ADDFILES to add the files to another file base.
+
+
+     Telix v3.22 - Host+                              File Management    46
+
+
+
+     Then run the Files Compressor on the Upload File Base with the Kill
+     Files Not Found option. You may not wish to put up with all of this to
+     have an Upload File Base.  It is up to you.
+
+
+     7.2  Manually Changing Files
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     To Add A File Manually
+
+     Select the file database to which you want to add files by pressing
+     "A" for Area change.
+
+     Select "U" for upload.  At the prompt asking what file to upload,
+     enter the full drive, path, and filename of the file.  Entering just
+     the filename with no path will cause Host+ to act like you are making
+     a remote upload and ask for your protocol.  If this happens, press "N"
+     for None to abort.
+
+     If you have defined a special uploads directory (not a files base, a
+     directory), you can add files from there without entering the complete
+     drive and path.  A very simple files setup is just one directory that
+     has been defined for uploads and holds all your host zip files.
+
+     You can add multiple files to the database at one time. If you have
+     several files to upload, just enter the drive, directory and "*.*",
+     like so:
+
+          C:\DOS\ZIPS\*.*
+
+     Host+ will then process each file one at a time and prompt you for
+     information.
+
+
+
+
+
+     Testing
+
+     If you have Host+ configured to test all new archive files (the
+     default setting), Host+ will first test the archive to see if it has
+     CRC errors.
+
+     Description
+
+     Host+ will ask you to supply a two line description of the file.
+
+     Access level
+
+     You cannot set the access level for an individual file while making a
+     manual file addition.  You have to use ADDFILES for this.  Registered
+     Users can add an access level later using the Files Editor.
+
+     Password Protect
+
+
+     Telix v3.22 - Host+                              File Management    47
+
+
+
+     To require a password for the file, select yes and enter the password.
+
+     To change the listing for a particular file, press "C" from the files
+     menu and then supply the name of the file.  You do not need to give
+     the full path and name of the file as it is in the database.
+
+     You will then be taken through a series of prompts asking if you wish
+     to change the drive\path\filename of the file, the description, and
+     the password of the file (if any).
+
+
+     7.3  Manually Moving/Removing Files
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     You may remove a file by pressing R from the files menu and then
+     supplying the name of the file.  Host+ will prompt you to confirm that
+     you wish to delete the file from the data base.  Answer yes and the
+     file will be removed.
+
+     You will then be given the option to erase the file from the directory
+     on your drive.  To erase the file, press y and it will be removed.
+
+     To change the file to another file database you must first remove the
+     file from the existing data base, change to another files area, and
+     then add the file to the new file data base.  You may wish to shell to
+     DOS and physically move the file to another directory on your drive.
+
+
+     Telix v3.22 - Host+                              User Management    49
+
+
+
+
+     8.   The User Editor
+
+     After someone has logged on to your board, information about their
+     account is stored in the user file HPUSER.DAT.  To edit that
+     information you turn to the User Editor.
+
+     There are two user editors.  One is available to shareware users and
+     is located inside of HPUTILS.SLC.  The other is available only to
+     registered users and is called HPUEDIT.EXE. (See 'Registered
+     Programs'). The following are instructions for using the shareware
+     version:
+
+     You may access the user editor in two different ways.  In Host+, you
+     can start the user editor from the sysop menu by pressing F2.  In
+     Telix, you can run the script HPUTILS.SLC and choose the user edit
+     option.
+
+     To open a new user account, the user has to logon and fill out the
+     questionnaire. You may also make a local logon and enter the
+     information about the user yourself.  Registered users can pre-
+     register new users with HPUEDIT.EXE.
+
+     Here is how you move around the USER EDITOR:
+
+          Page Down      : This moves you to the next user
+          Page Up        : This moves you to the previous user.
+          Home           : This moves you to the top of the page.
+          End            : This moves you to the bottom of the page.
+          Up Arrow       : This will move you up one field.
+          Down Arrow     : This will move you down one field.
+
+     To Edit A Field
+
+     You may select a field to edit by either moving the cursor or by
+     selecting the letter out to the left hand column.  Press Enter to edit
+     the field.  When you are through, press Enter again.  To abort the
+     process, press Escape.  To save your changes, press "X" for Save User.
+     To exit the editor, press "Z".  Be sure you have saved any changes
+     before exiting the editor.
+
+
+     8.1  User Fields you Can Edit
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     User Fields you can Edit
+
+     You can move around the editor screen and edit any of the following 9
+     fields:
+
+
+
+     User's Full Name
+
+
+     Telix v3.22 - Host+                              User Management    50
+
+
+
+     This is the user's full name.  When editing, be sure that you do not
+     leave any extra spaces after the last name or Host+ will want those
+     spaces given as part of the last name.
+
+     User's Password
+
+     The user fields are sensitive to open spaces. If you change a users
+     password, be careful that there are no spaces following the password.
+     Otherwise, the user will have to input a space following the password.
+
+     User's Access
+
+     Most of the time, you will be editing the new user's access level
+     after verifying their application to the board.  Just enter their new
+     access level here and press "X" to save.
+
+     User's Status Flag
+
+     The three legal entries for this field are:  "A" (active), "D"
+     (delete), and "B" (blacklist).
+
+     Putting a Status Flag of "D" for delete will remove the User's Account
+     from active status.  The user will be unable to logon.  The file will
+     remain visible to you in the user editor until the next time the Files
+     Base Compressor is used. (See Files Base Compressor, below)
+
+     Putting a Status Flag of "B" for blacklist will temporarily place the
+     User's Account on inactive status until you choose to change it.
+
+     User's Phone Number
+
+     This is the user's phone number.
+
+     User's Street Address
+
+     This is the user's street address.
+
+     User's Location
+
+     This is the user's city and state.
+
+     User's Zip
+
+     This is the user's zip code.
+
+     Comment About User
+
+     This is a place to put in a comment.
+
+
+     Telix v3.22 - Host+                              User Management    51
+
+
+
+     8.2  User Fields you Cannot Edit
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     Here is a listing of information shareware users can see but not edit.
+     Editing of this information is limited to registered users with the
+     program HPUEDIT.EXE.
+
+     Date User Last on
+
+     This shows when the user was last on
+
+     Users Total Downloads
+
+     Shows how many downloads the user has made
+
+     Users Total Uploads
+
+     This shows how many uploads the user has made **
+
+     *Users ANSI Status
+
+     Shows if ANSI is turned on
+
+     *Users Pause Status
+
+     This shows if screen pause is activated
+
+     +Users Experience Level
+
+     Shows the level of menus the user has chosen
+
+
+
+
+
+
+
+
+
+     (*) can be edited by the user at the Main Menu prompt (Y)our Defaults.
+
+     (+) can be edited by the user at the Main Menu prompt (X)pert Menus.
+
+     (**) an edit here can award a specific user more downloads or require
+     more uploads!
+
+
+     Telix v3.22 - Host+                                  Maintenance    53
+
+
+
+
+     9.   The Files Compressor
+
+     The Files Compressor (HPCOMP.EXE) should be in your Telix Directory.
+     If the directory is in the DOS path you may start the program from any
+     directory. The program can be run from the Sysop Commands Menu by
+     pressing Alt-F or as an event from a batch file using command line
+     switches for automatic operation.  Do not run when shelled to DOS from
+     a local logon in Host+
+
+     Here is a what the Files Compressor does:
+
+          Resorts Files: After you have made changes in your files base, or
+                         user base they will not be in order.  Running the
+                         compressor will resort them.
+
+          Delete Record: When you delete a file, message, or user in one of
+                         the bases, the record still remains.  Running the
+                         compressor removes record from the chain and
+                         rebuilds the data base.
+
+          Packs Bases:   Deletes users who have allowed their accounts to
+                         lapse by being inactive on the board.  Deletes old
+                         messages and private messages that have been read.
+                         Removes file listings for files that are no longer
+                         on the drive.
+
+
+     9.1  Compressing the User File
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     To pack the user base, press F1 from the main menu.  You will be asked
+     if you wish to delete users who haven't connected in a number of days.
+     The program default is 30, but you can change that by typing in
+     another number.
+
+     The program will then delete records of users who haven't called and
+     users that you have marked for deletion.  It will resort the file
+     alphabetically and write a new file to disk.  If any problems are
+     encountered, you will be prompted to run HPREPAIR.EXE (see below)
+
+
+     9.2  Compressing the File Base
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     You have a choice of two actions when packing the file bases.  You can
+     either compress a single file base by pressing F2 or you can pack all
+     files bases by pressing F3.  Here are your options:
+
+     Sort By Date or Name
+
+     To sort the files alphabetically, choose "N" for name.  To sort by
+     date press "D" and the files will be sorted in ascending order with
+     the oldest file first.
+
+
+     Telix v3.22 - Host+                                  Maintenance    54
+
+
+
+     Reverse Sort
+
+     This switch reverses the sort routine making it sort in descending
+     order. If you have chosen a name sort, then choosing reverse will sort
+     the files from Z-A.  If you have chosen a Date sort the files will be
+     sorted from the newest to the oldest files.
+
+     Kill files not found
+
+     This switch causes the program to run a check on each file to see if
+     it is actually on the drive and in the directory. If the file is not
+     found, then it will be removed from the database.
+
+
+     9.3  Compressing the Message Bases
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     You have a choice of two actions when packing the message bases.  You
+     can either compress a single message base by pressing F4 or you can
+     pack all message bases by pressing F5.   You will be given two
+     options:
+
+     Kill Private
+
+     This option will delete all private mail which has been read.
+
+     Days to allow
+
+     This option will delete all messages (x) days old. The default setting
+     is 30 days, but you can change it to whatever you like.
+
+
+     9.4  Running from a Batch File
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     You can set up HPCOMP to run from a batch file using command line
+     switches.  Host+ can be set to run that batch file at a certain time
+     as an event.  For instance:
+
+          HPCOMP /U D:90
+
+     Would run HPCOMP.EXE and compress the User Base, deleting all users
+     who haven't called in 90 days.  You can only run either a User Base,
+     Files Base or Message Base compression at one time.  HPCOMP will not
+     let you combine operations.  Here are the command line switches:
+
+          U         Compress User File
+                    M:(x)     (X) Days since last call
+
+
+          F         Compress Message Base
+                    K         Kill Private
+                    D:(x)     (X) Days to allow
+                    B:(x)     (X) Message Base To Compress
+
+
+     Telix v3.22 - Host+                                  Maintenance    55
+
+
+
+
+          F         Compress File Database
+                    D         Sort by Date
+                    R         Reverse Sort
+                    K         Kill files not found
+                    B:(x)     (X) File Base To Compress
+
+     B:(x) switches determine the number of the base that is to be
+     compressed. If the B switch is left out or set to 0 then HPCOMP will
+     compress all bases. If B is set to a number then it compresses only
+     that base.
+
+     Here are some command line examples:
+
+     HPCOMP /M K D:30              Compress all message bases, kill private
+                                   messages that have been read and
+                                   messages over 30 days old.
+
+     HPCOMP /F K B:4               Compress file base #4 and kill all files
+                                   not found
+
+     HPCOMP /U D:90 /M K D:30 /F K You cannot combine switches on a command
+                                   line.  This example would only compress
+                                   the user base, the switches for message
+                                   base and files base would be ignored.
+
+     9.5  Repairing Damaged Files
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     The Files Compressor monitors the integrity of your data bases.
+     Should it find a corrupted database, it will write a file for that
+     data base with a .REP extension.  HPCOMP will then tell you to run a
+     program called HPREPAIR.EXE.  Exit the Files Compressor and run it
+     immediately.
+
+     HPREPAIR will attempt to repair HPUSER.REP (the user base),
+     INDEXxxx.REP (the message and file pointers for each user),
+     HPMSGxxx.REP/HEADERxx.REP (the messages) and FILESxxx.REP (the files
+     base).
+
+     It is a good idea to run daily backups of all your Host+ files in case
+     HPREPAIR is unable to fix them.  Many sysops run backups of their
+     systems automatically as part of a daily event.  Use several different
+     sets of backup diskettes so that you will be assured of having a good
+     set.
+
+     Troubleshooting
+
+     Note -- This is a worst case scenario.  We include this here as a
+     backup to HPREPAIR and to save you a call to the Telix Support BBS.
+
+     Should HPREPAIR be unable to fix a message base, there is another way
+     to fix it:
+
+
+     Telix v3.22 - Host+                                  Maintenance    56
+
+
+
+     Go to the message base configuration menu and print screen the
+     description of all your bases.  Exit Host+.
+
+     Backup all your HPINDEX.*, HPMSG.*, AND HPHEADER.* files from your
+     host directory to another diskette *or* use a better set from a backup
+     diskette. Delete those files from your hard drive along with
+     HPMBASE.DAT.
+
+     Restart Host+ and you will see HPMBASE created on the start up.  Open
+     the configuration program and reinstall your bases using that printout
+     from the print screen.  Shell to dos and restore the files you backed
+     up.
+
+     Run HPCOMP.  It may crash on the index, requiring HPREPAIR.  After
+     that, it should work in most cases.
+
+     If not, delete the HPINDEX.* files, and run HPCOMP again.  It will
+     crash because there aren't any index files.  Run HPREPAIR and it will
+     create new ones from the *.rep files created by HPCOMP.  Compact once
+     more.  Your bases will be restored, but your users will have had their
+     message read pointer reset to 0.
+
+
+     Telix v3.22 - Host+                                Using DOORWAY    57
+
+
+
+
+     10.  Using Doorway.EXE
+
+     DOORWAY.EXE, by Marshall Dudley, is a shareware program that allows an
+     online user to Shell to DOS and not only run all of the DOS commands
+     but also to run almost any IBM character based program online.
+     DOORWAY redirects the input and output of the program to the comm port
+     as well as to the console allowing the user and the sysop to control
+     the program.
+
+     Without DOORWAY.EXE in your Telix directory, Host+ will use DOS's CTTY
+     for the shell.  Many programs will not run in CTTY and CTTY does not
+     feed screens to the console so that you can see what the remote user
+     is doing.
+
+     When running DOORWAY.EXE under Telix/Host+ there might not be enough
+     RAM  to allow certain programs to run.  To find out your available RAM
+     from the local mode, press Alt-J to shell to DOS and then run Doorway
+     in local. The command line for this operation is:
+
+          Doorway Local /s:* /c:dos.
+
+     Once doorway is up, run DOS's CHKDSK command.  This will tell you the
+     available RAM.  Remember to type exit to return to your original
+     prompt.
+
+     Do not run CHKDSK from a remote!  Do this only in local mode.
+
+     Note that beginning with Telix v. 3.22, much of the used RAM can be
+     swapped out to EMS, XMS, or disk, to free it up for use in the DOS
+     shell.   If you need more available memory, turn on swapping in Telix,
+     under ALT-O/General.
+
+     To use DOORWAY.EXE with Host+, you must be running ANSI.SYS (Or any
+     ANSI program with the exception of FANSI-Console) and you need to
+     place the DOORWAY.EXE program in your Telix directory. Once a user
+     shells to DOS then DOORWAY.EXE will run using the default command line
+     that is already installed in Host+'s configuration.
+
+     The user can now use any DOS commands they want. To keep their
+     communications program from interfering with certain commands (Like
+     the function keys and ALT-key combinations) they will need to activate
+     the DOORWAY mode on their end.   Doorway is supported by many
+     communication programs.  Telix users can turn on Doorway mode by
+     pressing Alt-= (by holding down Alt and pressing Equal).
+
+     With Doorway activated on the user end, all the keyboard output will
+     go directly out the comm port to the remote computer.
+
+     Once finished in DOS the user types "EXIT" to return to Host+.  If
+     they have invoked their terminal into DOORWAY mode they will need to
+     turn it off once they have returned to Host+.
+
+
+     Telix v3.22 - Host+                                Using DOORWAY    58
+
+
+
+     Doorway monitors the carrier. If the carrier is lost it will either
+     reboot or return to the Host+ program. Which option depends on how you
+     have set the Doorway command line.  The default is set to return to
+     Host+.
+
+
+     Telix v3.22 - Host+                        Security/Legal Issues    59
+
+
+
+     11.  Security and Legal Issues
+
+     Host+ provides you with several features to help maintain security for
+     your computer.  If your host is strictly private, you can put that
+     message on your welcome screen and use the log off feature to bump the
+     caller off the board.
+
+     If you are using Host+ as a general purpose BBS, you may  occasionally
+     have someone violate your BBS rules.  You can temporarily remove their
+     account from service by changing their account flag in the User Editor
+     from Active to Blacklist.
+
+     You may have the misfortune to come in contact with a person so
+     laboriously vile that you wish to never see them on your board again.
+     To ban their name for all time, put them in the trashcan file.
+
+     Create an ASCII file called TRASHCAN.DAT with your favorite editor.
+     Place one name per line.  Here is an example format:
+
+     Joe Blow
+     Jiminy Cricket
+     John Hacker
+
+     When that person calls back and inputs their name, Host+ will post a
+     message that their name is not acceptable on the board.  Persons who
+     try to "hack" your board by entering it illegally or causing damage to
+     your computer are in violation of The Electronics and Communications
+     Privacy Act of 1986.  Copies of this act are available from most
+     Bulletin Boards.
+
+     The act also holds that you may be held liable by someone who thinks
+     they are leaving a private message on your board only to have it read
+     (by accident or otherwise) by others.  To protect yourself, you need
+     to post a warning that messages are not private on your board.  Below
+     is an example of boiler plate legal language in use on some BBS's.
+     This is shown as an example only and not as legal advice. Consult your
+     lawyer for language suitable to your situation.
+
+     NO PRIVACY WARNING
+
+     Pursuant to the Electronic and communications privacy Act of 1986, 18
+     USC 2510 et seq., notice is hereby given that there are no facilities
+     provided by this system for sending or receiving private or
+     confidential communications.  All messages shall be deemed readily
+     accessible to the general public.
+
+
+     Telix v3.22 - Host                          Registered Utilities    61
+
+
+
+
+     12.  Registered Utilities
+
+     The following utilities do not come with the shareware evaluation copy
+     of Telix.   They are supplied on the registered disk you are sent when
+     you purchase Telix.
+
+
+     12.1 The Files Editor
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     Once you have added files with ADDFILES.EXE or manually, you can make
+     changes quickly with the files editor. This program allows you to edit
+     your file entries, copy or move file entries among files bases, or
+     move files from one directory to another.
+
+     The filename for the program is HPFEDIT.EXE and it should be located
+     in your Telix directory.
+
+     The opening screen looks like the ADDFILES.EXE program.  The top of
+     the menu shows the current database name and number, plus the current
+     record number of the file.   The bottom of the menu holds all the
+     different information fields for the file.  A complete listing of
+     actions can be obtained by pressing F1 for help.
+
+     To edit a file, change to the files database you wish to work in by
+     pressing F3 and the database number.  If you don't remember the
+     database number, press F1 for help.  A screen showing all the database
+     files will come up and you will be prompted again for the data base
+     number.
+
+     Once you are in the proper file database, you can scroll through the
+     base by pressing page up and page down.  Once you are at your file,
+     use the enter key to jump from field to field. You can change
+     everything: File Name, File Description, File Uploader, File Access,
+     File Password, and File Date.  When you are finished with your
+     changes, press F2 to save the file info.
+
+     Here is a listing of all the actions available to you in the FILES
+     EDITOR:
+
+     F1  Help Screen
+
+     The help screen listing these commands.
+
+     F2  Save File Info
+
+     Once you are through editing a listing, press F2 to save it before you
+     move to the next file.
+
+
+
+     F3  Change File Base
+
+
+     Telix v3.22 - Host                          Registered Utilities    62
+
+
+
+     Press F3 and you will be presented with a window to change the
+     database by entering the database's number.  If you do not remember
+     the number of the database, press F1 at this window and a listing of
+     the files databases will be presented to you.
+
+     F5  Copy File to Another Base
+
+     To copy the current record to another files base, press F5 and you
+     will be prompted for the number of the files base.  If you cannot
+     remember it, press F1 for a listing of files bases.
+
+     F6  Move File to Another Base
+
+     To move the current record to another files base, press F6 and you
+     will be prompted for the number of the files base. If you cannot
+     remember it, press F1 for a listing of the files bases.
+
+     If you are also moving the actual file to another directory at the
+     same time, make the move with Alt-M first and then move the record.
+
+     Alt-M   Move File to Another Directory
+
+     To move the actual file from its current directory to another
+     directory, press Alt-M.  You will be prompted for a full drive and
+     path to the new directory. To aid in multiple file moves, the drive
+     and path you enter are saved for the session.
+
+     F7  Delete File from Base
+
+     Pressing F7 will cause the File Access level to be changed to "D" for
+     Deleted.  You will still see the record in the files editor, but it
+     will not be visible to your users.  The record will remain until the
+     files database has been compressed using the Files Compressor (See
+     Using the Files Compressor).
+
+     F10  Exit File Base Editor
+
+     Exits the program.
+
+
+     12.2 The Menu Editor
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     HPMENUS.EXE should be found in your Telix directory. If the Telix
+     directory is in the DOS path, you can start this program from any
+     directory. Do not run the program when shelled to DOS during a local
+     logon of Host+.
+
+     HPMENUS lets you personalize all Host+ menus. You can limit the access
+     to each menu function, personalize the menu keys, add up to three
+     different external functions for each menu, and replace all internal
+     functions with external ones.
+
+
+     Telix v3.22 - Host                          Registered Utilities    63
+
+
+
+     You can also change the look of the menus by creating new ANSI screens
+     and importing them into HPMENUS.
+
+     Here is the listing for all command keys in HPMENUS.  It is followed
+     by instructions on making new Menu Screens and customizing Menu
+     Commands.
+
+     F1: Help Screen
+
+     The Help Screen listing these commands.
+
+     F2: Load Default Menu
+
+     This pulls up the default menu that came with Host+.  You can
+     reinstall it to Host+ by pressing F5.  You can copy it to disk by
+     pressing F4.
+
+     F3: Load Menu From File
+
+     Pressing F3 brings up a window for you to enter the name of the file
+     you wish to load into HPMENUS.  For instance, you have drawn a new
+     Lower Access Main Menu screen in a file C:\TDRAW\PICS\MAINLOW.ANS. You
+     would enter the entire file name and press enter. The file will come
+     up on screen.  For less typing, open HPMENUS in the directory with
+     your menu screens and enter only the filename and extension.
+
+     F4: Save Menu to A File
+
+     This action will save the menu on your screen to a data file so that
+     you can edit it.
+
+     F5: Save Menu to Data File
+
+     This installs the new screen or the default screen into Host+.
+
+     F7: Switch Menu Types
+
+     Pressing F7 will bring up a choice of menu areas for editing. (Main,
+     Message, or Files).
+
+     F8: Switch Menu Level
+
+     Pressing F8 will bring up a choice of high or low access menu areas.
+
+
+
+     F9: Configure Menu Keys
+
+     This will take you to the key editor for the current menu. Here you
+     can personalize the menu keys, limit the access to each menu function,
+     add up to three different external functions for each menu, and
+     replace all internal functions with external ones.  The Menu Key area
+     has its own Command Set:
+
+
+     Telix v3.22 - Host                          Registered Utilities    64
+
+
+
+               F1   The Help Menu
+               F2   Load Default Menu
+               F3   Save Menu to Host+
+               F10  Quit
+
+     F10: Exit Program
+
+     Be sure you have saved any changes before exiting.
+
+
+     12.2.1   Making New Menu Screens
+
+     You can create your own menu screens for Host+ using any ANSI editor
+     such as TheDraw, ANSI Write, or others. You are limited to a screen
+     display of 16 lines and 8000 characters; however, it is recommended
+     that you limit the screen to 11 lines for faster screen rights and
+     better fit on the screen.
+
+     Creating new menus follows a three step process:
+
+     1.  Saving Default Menus to disk files for editing
+     2.  Editing Default Menus to create new screens
+     3.  Importing the new designs into Host+ via HPMENUS
+
+     1. Saving Default Menus
+
+     Open HPMENUS and you will be presented with the Lower Access Main
+     Menu.  Press F4 to save this screen to a file for editing.  You will
+     be asked to supply a file name (e.g.  C:\TDRAW\PICS\MENULOW.ANS)>
+
+     To see the High Access Main Menu screen, press F8.  You will be given
+     two choices: Higher Access Menu and Lower Access Menu.  Choose the
+     Higher Access Menu.  The Higher Access Main Menu will come up on the
+     screen. Press F4 to save this screen to another file.
+
+     To see the File Menu or the Message Menu, press F7.  You will be given
+     three choices: Main Menu, File Menu and Msg Menu. Move the cursor to
+     your choice and press enter.  Save those menus to separate files using
+     the F4 key.  Remember to save both the Higher and Lower Access
+     versions to files. Then exit HPMENUS by pressing F10.
+
+
+
+     2. Create New Menus
+
+     Now, open your favorite ANSI editor and load one of the files you just
+     saved from HPMENUS.  Create your new design around the Menu Commands.
+     Your design does have to fit in a special limited space. Users who
+     have screen pausing in effect will get (Y/n)? prompts if your screen
+     scrolls over 24 lines.  Host+ will insert three lines at the top of
+     your design, so move the menu to the top of the screen when editing.
+     Although you are allowed 16 lines by the program, practice has shown
+     that 11 lines fits the screen better. If possible, leave line 11 blank
+     so that there will be a space between the menu and the Host+ prompt.
+
+
+     Telix v3.22 - Host                          Registered Utilities    65
+
+
+
+     When you are finished, block save the new menu screen saving no more
+     than 16 lines.  Select no screen preparation,  240 characters per
+     line, and the fastest screen write.  You can experiment with other
+     options later.
+
+     When you use Clear Screen, HPMenus will not create an ASCII version of
+     your menu for your ASCII users.  If that is not a problem, Clear
+     screen will provide a cleaner look; but, it does erase the status
+     window at the top of the screen.  You must leave 5 lines clear at the
+     top of the design if you use Clear Screen.  Host+ wants those lines
+     for the status window and will hold them there, scrolling other lines
+     under it. To bring the status window back up, Hit Chat (F1) twice.
+     When the user calls up another menu, the status window will be erased
+     again.
+
+     Characters per line that are evenly divisible by 80 are best for
+     smooth screen writes. This is because screens are usually 80 columns
+     wide.  Fastest writes are from buffers of 240 characters per line.
+
+     Animation is tricky with the limitations of 8000 characters per
+     screen. Animation uses lots of control characters.  If you do try
+     animation, keep it very simple.  A slow screen write can be irritating
+     to users.
+
+     Use your imagination and have fun!  Personalized menus make a board
+     truly "yours".  For more help, download the file HPMENUS.ZIP from the
+     Telix Support BBS for a collection of sample menu files.
+
+     3. Importing New Screens
+
+     Exit your ANSI editor and reopen HPMENUS.  Call up the menu type that
+     you are going to replace using the F7 key.  Call up the menu access
+     level you want with the F8 key.
+
+     Now, Press F3 to load your new menu.  Give the filename and press
+     Enter. The file will be loaded.  Check to make sure it has written
+     cleanly to the screen.  If there are problems, exit and re-edit the
+     file.
+
+     If the screen looks good, press F5 to save it to Host+.  Your new menu
+     screen is now installed.  You may want to run Host+ now and see how
+     the menu works.
+
+     12.2.2   Customizing Menu Commands
+
+     This area will allow you to change all the allowable keys that are
+     used in Host+.  By changing the key to a different one you can
+     completely redesign the Host+ "Look and Feel".  You can input any
+     standard letter character as long as the letter is not already be in
+     use in the current menu.
+
+     To enter the Key Editor, press F7 for the selection of Menu Types and
+     choose the Menu (Main, Files, or Message) that you wish to edit. Once
+     that menu appears on the screen, press F9 to edit its keys.
+
+
+     Telix v3.22 - Host                          Registered Utilities    66
+
+
+
+     You will be presented with all the Menu Commands available for the
+     menu you have selected.  Each command is listed first by its
+     description and then the key that activates the command.  Out to the
+     side is the access level for that command and a script that may be run
+     instead of the command.  Using cursor keys, move down the list to the
+     item you wish to change.
+
+     Here is the list of Commands in the Key editor:
+
+               F1:  Brings up the Help Screen.
+               F2:  Load default key assignments.
+               F3:  Save key assignments to Host+.
+               F10: Quit to Menu Configuration.
+
+     You can do the following in the Key Editor:
+
+     Change the letter that activates the Menu Command
+
+     You can change any letter on any menu.  Just make sure that you don't
+     use the same letter for two functions in the same menu.  Here is an
+     example of a letter change:
+
+     To change (A)rea Change in the Files Menu to (O)ther File Areas you
+     would first press enter until your cursor was over the "A".  Press the
+     letter "O".  Now press F3 to save your change.
+
+     You will have to edit your Files Menus (both Lower and Higher Access)
+     to reflect the change from "A" to "O" and then install them into Host+
+     with Menu Edit.
+
+     If you wish to restore the Default Menu Commands, press F2 to load the
+     commands and then F3 to save them to disk.
+
+     Turn off a Menu Command
+
+     You can completely remove a function from use by replacing the key
+     assignment with a space (blank).  Here is an example:
+
+     The System Shutdown command is "Z".  It is not listed on any menu, but
+     it is an active command.  A person with the system password can press
+     "Z", enter the password, and turn off the system from remote.  To
+     remove the "Z" command: move the cursor to the letter "Z" on the Main
+     Menu and press delete, then press F3 to save your change to disk.
+
+     If you wish to restore the Default Menu Commands, press F2 to load the
+     commands and then F3 to save them to disk.
+
+     Change the access to a Menu Command
+
+     You can change the access to any Menu Command.  Here is an example:
+
+     The co-sysop levels (7 and 8 access code) have access to nice features
+     like *.* downloads and directory listings.  They also have access to
+     the Shell to Dos.  To move that access up to Level 8 only, move the
+
+
+     Telix v3.22 - Host                          Registered Utilities    67
+
+
+
+     cursor to the access code for Shell to DOS.  Enter an "8" and press
+     enter. Then press F3 to save your change to disk.
+
+     If you wish to restore the Default Menu Commands, press F2 to load the
+     commands and then F3 to save them to disk.
+
+     Replace a menu command with a SCRIPT to call another function
+
+     You can replace any Menu Command with a SALT Script to call another
+     function.  This does require considerable skill in the writing of SALT
+     script.  Most BBS add-on programs require a system file (DORINFO.DAT,
+     PCBOARD.SYS, DOOR.SYS and others) in order to operate.
+
+     Host+ does write the file HOSTDOOR.SYS when it calls a script.  If you
+     know how to write a converter, you can convert HOSTDOOR.SYS into the
+     system file your door needs.  A format for serious programmers is
+     provided in the Appendices.
+
+     Add up to three extra functions to each menu
+
+     You can also add simple doors to your menus with the external
+     functions. Just enter the Letter for the command and the SALT Script
+     that you want run.  Host+ will write the HOSTDOOR.SYS file when an
+     external function is called.  Serious programmers can convert this
+     file into a system file for use with other bbs doors.
+
+     Here is a very simple, but necessary, function you can add to the
+     message menu.  Registered users can get the file HTYPEF.SLC from the
+     Telix Support BBS to do the following exercise instead of using
+     DOORWAY.
+
+     In the security and legal section above, we discussed the need for a
+     privacy statement to be posted prominently for users to read.  Using
+     Marshall Dudley's DOORWAY, we can allow users to call that statement
+     for viewing from the Message Menu.
+
+     First, compile this SALT script using Telix's CS.EXE.  Call the script
+     PRIVACY.SLT.
+
+     Main()
+     {
+      Dos("C:\TELIX\DOORWAY.EXE local /s:* /i:C:\PRIVATE", 0);
+     }
+
+     Inside the quotes is a DOORWAY command line.  Any DOS command would
+     work inside the "quotes".  Here is what the command line does:
+
+     Local is for running doorway in local mode so you can test it with a
+     local logon.  Once you test this out, change this command to either
+     COM1 or COM2 and recompile.
+
+     /s:* is for running doorway without a sys file
+
+
+     Telix v3.22 - Host                          Registered Utilities    68
+
+
+
+     /i:C:\PRIVATE is for showing a text file. You do not have to give the
+     full path if the file is located in the same directory with DOORWAY.
+
+     The PRIVATE file contains the privacy warning text.  At the bottom of
+     the file you should add the line:
+
+     $:PRESS [ENTER] TO RETURN
+
+     Be sure that the $ sign is in the first column on the left hand side.
+     You can color the text in TheDraw, but you must then edit the file
+     with a text editor to insure that the $ is on the extreme left of the
+     screen; Otherwise, DOORWAY will not recognize the $ command.
+
+     Now, enter the HPMENUS program and call up the MESSAGE MENU. Press F9
+     to edit the keys.  Using the cursor keys, move to the first external
+     function and enter the letter "P" for Privacy Statement.  Enter the
+     file name PRIVACY.SLC for the name of the script.  You will also want
+     to edit your menu screens to include the (P)rivacy Warning command.
+
+     Make a local logon and press P at the message menu.  DOORWAY should
+     run in local mode and call up the text of your message.  When you
+     press a carriage return, DOORWAY returns control to Host+.  Now re-
+     edit your PRIVACY.SLT script to replace the LOCAL command with the
+     appropriate comm port command (COM1 or COM2) and you are done.
+
+     12.3 The External User Editor
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     The HPUEDIT.EXE program should be in your Telix directory; you can
+     start it from anywhere if that directory is in the path. When you call
+     the user editor from Host+ (F2) you will get this registered version
+     instead of the shareware version.
+
+     HPUEDIT.EXE is the full screen external user editor program that lets
+     you to edit all of the information that is available on a user.  That
+     includes information the shareware version would not allow you to
+     edit. The following keys have functions in HPUEDIT.EXE:
+
+     F1 Help Screen
+
+     Brings up a the listing of menu commands
+
+     F2 Saves the current user
+
+     Before moving to the next record, you must save the changes you have
+     made by pressing F2.
+
+     F3 Print user information
+
+     When you press F3 you are prompted to print the information for the
+     current user or all users.
+
+     F4 Search Users
+
+
+     Telix v3.22 - Host                          Registered Utilities    69
+
+
+
+     To find a particular user, press F4 and enter their name.  HPUEDIT
+     will advance to the first listing holding that name.
+
+     F5  Create New User
+
+     You can pre-log new users by pressing F5 and then entering all the
+     information.  You primarily need the user's name, password, access,
+     and activity flag for the account to work.  Information on address and
+     the like is optional.
+
+     F10 Exit Program
+
+     Before exiting the program, make sure you have saved the changes by
+     pressing F2 on the user's record.
+
+
+     Telix v3.22 - Host+                              Installing Doors   71
+
+
+
+
+     13.  Appendix A - Installing Doors
+
+     A.1  Simple Setup
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     Here's an example of the simplest setup for a PCBoard door such as
+     HiDice.
+
+          Your filename is:        C:\DOORS\HIDI\HIDICE.EXE
+          The command line is:     HIDICE.CFG
+          The converter is:        PCBoard 14.x
+
+     Many doors want some type of configuration file.  Here is what a
+     typical one looks like:
+
+     C:\DOORS\HIDI\PCBoard.sys
+     Jeff Woods
+     deltaComm Online
+     000000
+
+     The first line is where the PCBOARD.SYS file will be found. Host+ will
+     write the PCBOARD.SYS file into the directory given in the filename,
+     in this case: C:\DOORS\HIDI\.  Getting the directory wrong is a common
+     mistake.
+
+     When the door is called, Host+ writes PCBOARD.SYS to C:\DOORS\HIDI. It
+     then changes to that directory and starts the program by issuing the
+     line:
+
+     C:\DOORS\HIDI\HIDICE.EXE HIDICE.CFG.
+
+     A.2  Using a Fossil Driver
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     Some doors need a fossil driver active in RAM before they can operate.
+     Fossil drivers are used by most BBS programs to monitor the
+     communications interrupt in memory and are available from almost any
+     BBS.  The two main programs in use are called BNU and X00. You put the
+     fossil driver in memory before you start your door and remove it when
+     you are through by calling your door from a batch file.
+
+     Locate the batch file in the same directory as the door program.  This
+     way, Host+ will send the system file to the same directory as the
+     program.  Be sure and use full path and filenames in your batch file
+     to avoid DOS calling another copy of COMMAND.COM and eating up memory.
+
+     Here is a sample Host+ configuration:
+
+     Filename    :  C:\DOORS\CARDS\BLACKJAK.BAT
+     Command Line:  Blank
+     Converter   :  RBBS
+
+     Here is the batch file:
+
+
+     Telix v3.22 - Host+                              Installing Doors   72
+
+
+
+     rem This is Blackjak.bat
+     rem Starting fossil driver
+     C:\MISC\BNU.COM /F
+     rem now start the program
+     C:\DOORS\CARDS\JACK.EXE JACK.CFG
+     rem when the program is over, remove fossil driver
+     C:\MISC\BNU.COM /U
+     :end
+
+     A.3  Using Scripts as Doors
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     You can run Telix scripts as doors and even pass them parameters.
+
+     For instance, there is a script available to registered users of Host+
+     on the Telix Support BBS called HTYPEF.SLC.  This script will type a
+     file on the screen of the local and the remote.  This is how you would
+     configure it in Host+ to show a file called AFILE.ANS:
+
+     Filename :          C:\TELIX\SCRIPT\HTYPEF.SLC
+     Command Line:  C:\TELIX\HOST\AFILE.ANS
+     Converter:          none
+
+     Script writers need to know that anything you put in the command line
+     is sent to the script as a SINGLE string.  A door with the command
+     line as:
+
+     "THIS IS A TEST"
+
+     would be passed to a script as a single string.  A script can use this
+     string by having it's main function set up like so:
+
+     main(str commandline)
+     {
+     ...
+     }
+
+     The string commandline could be set to use one of the internal
+     parameters. For instance, %C will expand to tell the Comm port in use:
+
+     "THIS IS A TEST %C"
+
+     Could expand to:
+
+                 "THIS IS A TEST 1"
+
+
+     Telix v3.22 - Host+                               Example Events    73
+
+
+
+
+     14.  Appendix B - Example Events
+
+     Most sysops run events to do maintenance on their BBS files.  They run
+     batch files to backup their drive, run maintenance programs for the
+     various game doors, scan new files for virus, pack data bases, and any
+     number of things.
+
+     It is a good idea to run your event at some time other than midnight
+     because this is one of the busier times for callers.  An event time
+     like 4am is not likely to inconvenience users.
+
+     Listed here are some sample events and batch files.
+
+     B.1  Checking Uploads for Virii
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     You will want to check all new files that have been uploaded to your
+     board before you make them available for users.  This set of batch
+     files uses PKzip and McAfee's ViruScan to do just that. The file
+     assumes that all uploads are sent to a directory called C:\BBS\UPLOAD;
+     that there is an empty directory called \TEMP; that you have a zip
+     comment file called ziphead.asc. The batch files are called EVENT.BAT
+     and SCANNER.BAT.  These batch files are set to run every time someone
+     logs off your board.  This is written for ZIP files only.  You can
+     modify it to work with Archive programs popular in your area.
+
+     rem This is EVENT.BAT
+     rem
+     if exist C:\BBS\UPLOAD\*.ZIP goto send
+     goto end
+     :send
+     XCOPY C:\BBS\UPLOAD\*.ZIP \TEMP /m
+     if not exist C:\TEMP\*.ZIP goto end
+     md \TEMP\$$$
+     cd \TEMP
+     for %%a in (*.zip) do call SCANNER.BAT %%a
+     rd \TEMP\$$$
+     for %%a in (*.zip) do PKZIP %%a -z < \TELIX\HOST\ZIPHEAD.ASC
+     COPY C:\TEMP\*.ZIP C:\BBS\UPLOAD
+     DEL C:\TEMP\*.* < ECHO Y
+     ATTRIB -A C:\BBS\UPLOAD\*.ZIP
+     HPCOMP /F K B:4
+     cd \TELIX
+     :end
+
+     Line 3 checks to see if there are any files in your upload directory.
+     If there are no files, the batch file ends.
+
+     Line 6 uses XCOPY to send all files that have not had the archive bit
+     set on to a sub-directory called TEMP.
+
+     Line 7 is a test to see if there are any new files; if TEMP is empty
+     the batch file ends.
+
+
+     Telix v3.22 - Host+                               Example Events    74
+
+
+
+     Line 8 creates a new directory for use by SCANNER.BAT. Line 10 sends
+     each new file in turn to SCANNER.BAT for processing.
+
+     Line 12 inserts your own zip comment file in the place of any file
+     that was present.  If you don't want to have a zip comment, create a
+     blank file called ZIPHEAD.ASC and this will serve to wipe out the
+     comment.
+
+     Line 13 copies all the files back to \BBS\UPLOAD.  Line 14 deletes all
+     the files in \TEMP.
+
+     Line 15 sets the archive bits of all the files in \BBS\UPLOAD to off.
+
+     Line 16 starts up the Files Compressor and resorts all the files to
+     include the new ones.  If you are a registered user, you may want to
+     have it compress only the Uploads file base.
+
+     Here is SCANNER BAT:
+
+     PKUNZIP %1 *.COM *.EXE *.OVL C:\TEMP\$$$\
+     if errorlevel 1 goto end
+     SCAN C:\TEMP\$$$
+     if errorlevel 1 goto bad
+     if errorlevel 0 goto end
+     :bad
+     md C:\XXX
+     copy %1 C:\XXX
+     del %1
+     del C:\BBS\UPLOAD\%1
+     echo ** %1 carries virus ** >>C:\TELIX\HOST\HOST.LOG
+     echo ** File removed!!!  ** >>C:\TELIX\HOST\HOST.LOG
+     :end
+     del C:\TEMP\$$$\*.* < ECHO Y
+
+     Line 1 unzips the file name passed to it by EVENT.BAT.  It unzips
+     files that commonly hold virus into the directory C:\TEMP\$$$ that was
+     created by EVENT.BAT
+
+     Line 2 checks to see if any of those files existed in the archive.
+     PKzip gives an error level of 1 if no files are found. If the files
+     aren't found, the batch file ends.
+
+     Line 3 calls VIRUSCAN to scan the files.  An error level of 1 or
+     higher means bad files were found.  An error level of 0 means the
+     files are ok and the batch file branches to the end where the files
+     are deleted and control is passed back to EVENT.BAT.
+
+     Lines 7 - 12 create a directory called \XXX and moves the bad files to
+     it. The bad files are also erased from \TEMP and \BBS\UPLOAD. A
+     warning is inserted in the HOSTPLUS.LOG file.
+
+     We have included these batch files so that you can get started with an
+     important event right off the bat.  Later, you may wish to find a file
+     on the BBS's called CHECKOUT.  This program does essentially the same
+
+
+     Telix v3.22 - Host+                               Example Events    75
+
+
+
+     functions as the batch file, but does it much faster.  It also handles
+     all kinds of archive formats.
+
+     B.2 Backing up the BBS Files
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     You can back up all of your important BBS files each day on to a
+     diskette. This is good for saving your Users list and other databases
+     against corruption. It is a good idea to rotate the disks out of your
+     floppy each day and have several sets.
+
+     An easy batch file line for this event is:
+
+     XCOPY C:\TELIX\HOST\*.* A:
+
+     You can combine this with other actions in a once per day event
+
+     B.3 Compressing the Data Bases
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     After you back up your data, its a good idea to compress the files.
+     You may be already compressing the Filebases in EVENT.BAT whenever a
+     new upload is made.  Since you may go a day or two without an upload,
+     its a good idea to compress them at least once a day.
+
+     Here are some sample batch lines:
+
+     HPCOMP U D:90
+     HPCOMP M D:30 B:0 K
+     HPCOMP F B0 K
+
+     Line 1 compresses the User base and deletes all callers who haven't
+     logged on in 90 days.  Line 2 compresses all the Message bases, kills
+     all messages over 30 days old, and kills all private messages that
+     have been read.  Line 3 compresses all Files bases in alphabetical
+     order and kills any entries where the files are not present.
+
+
+     Telix v3.22 - Host+                              Product Support    77
+
+
+
+
+     15.  Appendix C - Product Support
+
+
+     Host+ is a relatively large and complicated program. In order to
+     support Telix, Host+, and to provide a means of distribution, a BBS
+     (Bulletin Board System) for Telix support has been set up.
+
+     The Telix Software Support BBS is available 24 hours a day at 919-481-
+     9399. The Support BBS accepts calls from 300 baud to 9600 baud and
+     beyond, including v.32/v.32bis calls, and HST calls at 14,400 baud. If
+     you have a Host+ question or problem, or have found a bug in Host+,
+     give the support BBS a call. The latest versions of Telix and Host+
+     may also be found on the support BBS.
+
+     If you're calling about a problem, try to be as specific as possible
+     when describing the problem. Include any relevant details, such as
+     your machine's configuration, Telix version number, Host+ version
+     number, resident software installed, steps taken before the problem
+     happens, and any other things you feel are important. It is very hard
+     to answer vague questions such as, "Host+ doesn't work on my PC. Do
+     you know why?".
+
+     At the current time, the support BBS is open to all callers. Since it
+     is extremely busy, it is almost certain that in the future it will be
+     restricted to registered users of Telix. Registered users will also
+     receive mailed notices of major updates to the program.
+
+
+     Telix v3.22 - Host+                                 File Formats    79
+
+
+
+
+     16.  Appendix D - File Formats
+
+     D.1  HOSTDOOR.SYS
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     This file is written out when Host+ runs a door program. It contains
+     information pertaining to both the user's status and also to the
+     status of certain variables in Host+.  This information is intended
+     for people who are able to program in SALT to help them customize door
+     converters and attach programs to the menus.
+
+     The following is the file format of the HOSTDOOR.SYS file and then a
+     short description of the different variables and their use.
+
+     NOTE:  Each of the Positions given are actual locations in the data
+     file, as referenced by the Fseek() function in SALT. These positions
+     might not be exactly the same (but should be) in any other language.
+
+     The following is information on the data type formats used in the
+     HOSTDOOR.SYS file.
+
+          Str  String of [Total] size, can be read in with the FREAD()
+               function, and written with FWRITE().
+
+          Chr  String of 1 character size, can be read in with the FREAD()
+               function, and written with FWRITE().
+
+          Uint Unsigned integer stored in the Intel format, that is Low
+               Byte/High Byte format.  Unsigned integers can be read in as
+               a string and the converted to a integer variable using the
+               following code:
+
+               (Unsigned Char [Total = 1] integers)
+               x = SubChr(temp, 0);
+               (Unsigned Integer [Total = 2] integers)
+               x = SubChr(temp, 0) + SubChr(temp, 1) * 256;
+               (Unsigned Long Int [Total = 3] integers)
+               x = SubChr(temp, 0) + SubChr(temp, 1) * 256 + SubChr(temp,
+               2) * 65536;
+
+          Sint Signed integer stored in the Intel format, that is Low
+               Byte/High Byte format.  Signed integers can be read in as a
+               string and the converted to a integer variable using the
+               following code:
+
+               (Signed Integer [Total = 2] integers)
+               x = SubChr(temp, 0) + SubChr(temp, 1) * 256;
+               if (x > 32767)
+               x = x - 65536;
+
+
+     Telix v3.22 - Host+                                 File Formats    80
+
+
+
+     HOSTDOOR.SYS
+
+     Position  Total     Type Data Name
+     ÄÄÄÄÄÄ         ÄÄÄÄ ÄÄÄÄ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+     0         2    Str  Host Version Number
+     2         64   Str  Host Data Directory
+     66        1    Uint Status Bar Location
+     67        1    Uint System Color 1
+     68        1    Uint System Color 2
+     69        1    Uint System Color 3
+     70        1    Uint System Color 4
+     71        1    Uint System Color 5
+     72        1    Uint Auto Baud Detect
+     73        1    Uint Local Mode
+     74        5    Str  Baud Rate
+     79        5    Str  DTE Rate
+     84        1    Uint Com Port
+     85        2    Uint Com Port Base
+     87        1    Uint Com Port IRQ
+     88        1    Uint Error Correcting Connection
+     89        6    Str  User Log On Time (Seconds)
+     95        6    Str  Seconds Remaining This Call
+     101       3    Str  User Number
+     104       1    Chr  User Access Level
+     105       20   Str  User Name
+     125       35   Str  User Location
+     160       18   Str  User Phone
+     178       10   Str  User Password
+     188       10   Str  User LastOn
+     198       1    Uint User ANSI
+     199       1    Uint User Pause
+     200       1    Uint User Experience
+     201       1    Str  User Protocol
+     202       3    Uint User Uploads
+     205       3    Uint User Downloads
+     208       1    Uint User ANSI 1
+     209       1    Uint User ANSI 2
+     210       1    Uint User ANSI 3
+     211       1    Uint User ANSI 4
+     212       1    Uint User ANSI 5
+     213       1    Uint User ANSI 6
+     214       2    Sint Minutes Credited/Removed from time
+     216       2    Uint Current Message Base Number
+     218       2    Uint Current File Base Number
+
+
+     Telix v3.22 - Host+                                 File Formats    81
+
+
+
+     This is a list of all information in the data file and a brief
+     description of each:
+
+          Host Version   A string (of 2 length) that contains the version
+                         number of Host+.  It's a constant (it will only
+                         change when a new version is released) and for
+                         Host+ is set to 10.
+
+          Host Data Dir  The name of the directory where Host+ keeps all of
+                         its data files (such as HPUSER.DAT, HPFILES.1,
+                         etc).  This is for doors that have their own data
+                         files and wish to keep them in the data directory
+                         (which they really should, just keeps everything
+                         orderly).
+
+          Status Bar     This is an integer showing the current position of
+                         the Host+ status bar. If the status bar is off,
+                         this will be '1', if on this will be '4'. This is
+                         given so that any script doors may be able to
+                         write to the screen without disturbing the status
+                         information.
+
+          Color1
+          Color2
+          Color3
+          Color4
+          Color5         These 5 integers are the five system colors that
+                         have been chosen by the sysop for the system sided
+                         options. These colors are provided only for the
+                         ability for the door programs to make themselves
+                         "Blend" into Host+ in operation and to provide a
+                         more constant interface of the doors and Host+.
+
+          Com Port       A integer that gives the actual port number
+                         (1,2,3,4 and etc)
+
+          Com Port Base  The actual address base for the com port given in
+                         an decimal form. For instance, 3f8 would be 1016.
+
+          Com Port IRQ   The IRQ number for the Com Port in use.
+
+          AutoBaud       This is an integer that indicates if Host+ should
+                         change the baud rate on a call (Locked DTE Rate).
+                         If a '0', Host+ leaves the baud rate alone (the
+                         DTE is locked), a '1' tells Host+ to change the
+                         rate.
+
+          Local Mode     A '1' means that Host+ is in a Local Test Mode
+                         (sysop has done a local logon). A '0' means there
+                         is a user online.
+
+          Baud Rate      This is the baud rate that the caller is using.
+                         In the case of high speed modems like the
+                         USRobotics HST, this rate may not match the rate
+
+
+     Telix v3.22 - Host+                                 File Formats    82
+
+
+
+                         that the local modem is running.  If a door makes
+                         a baud change, the DTE Rate should be the rate
+                         that is used.  Any attempt to change the baud rate
+                         of a High Speed modem to a rate that is different
+                         from the DTE Rate will cause a loss of the
+                         carrier.
+
+          DTE Rate       This is the actual operating speed of the modem.
+                         It  should always be given preference over the
+                         Baud Rate  See above for more details.
+
+          Error Correct  This is an integer that indicates if there is an
+                         MNP (Error Correction) connection established.
+
+          Logon Time     This is an integer containing the time the user
+                         logged on the system. The integer is given in
+                         seconds from midnight.
+
+          Seconds Left   This is the time the user has left on the system
+                         based in seconds.
+
+          User Number    This is the current caller's User Number held in
+                         the user data file. It is used to locate the user
+                         information quickly.  This is NOT an actual
+                         location in the data file, but is a reference
+                         number that is used to calculate the data's true
+                         location in the file.
+
+          Access Level   This is an integer which represents the users
+                         access on Host+. It can be a number between 0 and
+                         9.
+
+          User Name      This is the user's full name.
+
+          User Location  This is a combination of the user's city and state
+                         and State  they are calling from in the format
+                         "CITY, STATE".
+
+          User Phone     This is the user's phone number. There is no
+                         special format for the phone number. It is input
+                         as a string of 18 characters in length.
+
+          User Password  This is the user's password.
+
+          User LastOn    This is the date the user was laston. The format
+                         of the date is "MM-DD-YY".
+
+          User ANSI      This is an integer representing the user's current
+                         ANSI status. A '1' means ANSI is on, and a '0'
+                         means that ANSI is off.  The ANSI_x variables will
+                         contain the ANSI color the user has chosen
+                         regardless of this line's status. This variable
+                         should always be checked before using ANSI color.
+
+
+     Telix v3.22 - Host+                                 File Formats    83
+
+
+
+          User Pause     This is an integer representing the status of the
+                         pause function. If it is a '1' then Pause is on
+                         and the screen should be paused every 23 lines.  A
+                         '0' is off and the screen should not be paused.
+
+          User Exper.    This is an integer representing the user's current
+                         help level. A '0' is the Novice level, '1' is
+                         Intermediate, and '2' is Expert.
+
+          User Protocol  This is the user's current default protocol.
+
+          User Uploads   This is an string which contains the total number
+                         of uploads the user has made to the system.
+
+          User Downloads This is an integer which contains the total number
+                         of downloads the user has made from the system.
+
+          ANSI_1
+          ANSI_2
+          ANSI_3
+          ANSI_4
+          ANSI_5
+          ANSI_6         These six integers contain the colors chosen by
+                         the user as their default color. They should be
+                         used where a specific color is not required. Note
+                         that these will contain the color number even if
+                         the User has specified ANSI to be off. The program
+                         should ALWAYS reference the User ANSI variable to
+                         check if ANSI is on or off!
+
+          Mins. Cred/Rem A Signed Integer in the amount of minutes that
+                         should be credited or removed from the users time.
+                         Credited time numbers from 1 to +32,767 and
+                         Removed time numbers from -1 to -32,768
+
+          Msg Base #     An integer that holds the number for the current
+                         Message Base.
+
+          File Base #    An integer that holds the number for the current
+                         File Base.
+
+
+
+
+     D.2  Custom Converters
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     This section gives a brief listing of the "Special" format for a Host+
+     Door converter.  It is given for those of you who would like to write
+     your own converter.
+
+     The converters are standard Telix scripts with a few "Extra" specific
+     details about the script. Following the description is a small example
+     (no actual code) for a converter script. The compiled script must have
+
+
+     Telix v3.22 - Host+                                 File Formats    84
+
+
+
+     a extension of HP, and should be placed in the HOST data directory. If
+     you have a converter you have written please share it with us!
+
+     1.   The first (not counting notes) compilable line must be a string              _____
+          definition (global) of 12 characters in length giving the name of
+          the BBS system the door was written to serve.  Here is the
+          format:
+
+          STR ConverterName[12] = "PCBOARD";
+
+          It is not necessary for the actual string to have an exact 12
+          characters but it must not be more than 12 characters.
+
+     2.   The script must have two passed variables declared in main(). The
+          first variable is a string that contains the path where the
+          converted data file will be placed.  The second variable is an
+          integer defining if the data file should be created, or should be
+          erased. Since the converter must do both it is important that it
+          knows which to do. Here is an example:
+
+          main(Str Path_Name, Int EraseFiles)
+
+          If you attempt to run the converter from outside of Host+ it will
+          not run.
+
+     3.   The converter must create / erase the data file based upon the
+          value of the passed integer.  If the integer is a '0' then the
+          script must create the data file. If the integer is a '1' it must
+          erase it.
+
+          The following page holds a short template for a script. It does
+          not have any specific code except for the initial variable
+          declaration and the branching based on EraseFiles. This example
+          is to show the initial variables and the Main() variable
+          declarations.
+
+
+     Telix v3.22 - Host+                                 File Formats    85
+
+
+
+     ////////////////// EXAMPLE CONVERTER //////////////////////
+
+     Str ConverterName[12] = "EXAMPLE";
+                              // define all other needed global
+                              // variables here
+
+     Main(Str Path_Name, Int EraseFiles)
+     {
+                              // define all needed local vars here
+      If(EraseFiles)
+       {
+        EraseTheFile();            // run user function to delete data file
+        Return;                    // return to Host+
+       }
+      GetData();                   // run user function, get data from .SYS
+     file
+
+      WriteData();            // run user function, write data to .SYS file
+
+      Return;                 // return to Host+
+     }
+
+     ///////////////// END OF EXAMPLE CONVERTER ////////////////
+
+
+
+
+
+     NOTE: This is not intended to be a lesson in writing scripts. If you
+     are not proficient at writing scripts then please do not attempt to
+     write your own converter. It is possible to destroy important
+     information if you make a mistake.
+
+     This information is intended solely for those people who are
+     programmers. If you want/need a converter and are not able to write
+     your own, we will be more then happy to help you out!
+
+
+     Telix v3.22 - Host+                      External Archive Testing   87
+
+
+
+
+     17.  Appendix E - External Archive Testing
+
+     There are several attractive archive testing programs on the BBS
+     market. We have left an option open to substitute one of those for
+     Host+'s internal archive test routines.  During Beta test, several
+     Beta users started work on scripts to mesh with their favorite archive
+     program.  None were finished by release date, but you should be able
+     to find them soon on the Host Software Products Support BBS.
+
+     If you are a script writer, here are some tips for writing your own.
+     Be sure an upload any successful script you write to share with
+     others!
+
+     You must start this function with a SALT script.  The script requires
+     a single parameter, and MUST return a integer value of -1, 0, or 1.
+     An example of the main entrance code would be:
+
+     main(str filename)
+     {
+     ...
+     return(xxx);
+     }
+
+
+     Filename would contain the name of the file just uploaded and ready
+     for testing.  You could then use SALT's RUN function to start the
+     program and pass the string FILENAME as the parameter.  Your archive
+     test program must exit with a DOS ERRORLEVEL that gives the result of
+     the test.  You must then translate that ERRORLEVEL to one of three
+     return codes to pass back to Host+.
+
+     Here are the codes:
+
+          -1   Archive failed the test. Erase if Host+ is set to erase bad
+               archives.
+
+          0    Archive Can't Be Tested, save and notify sysop with message.
+
+          1    Archive Tests Ok.
+
+
+     Telix v3.22 - Host+                                        Index    89
+
+
+
+                                          Chat with User..............12
+     18.  Index                           Checking Uploads for Virii..73
+                                          Co-sysop access..............8
+     *.HP.........................3       Colors......................26
+     @frst.......................40       Comment to Sysop............22
+     @mins.......................40       Comments Sent To............37
+     @user.......................40       Compress a single file base.53
+     Access level, files.........46       Compress a single message base     
+     Access Levels...............17           54
+     Add a Bulletin..............26       Compressing the File Base...53
+     Add a Door..................28       Compressing the Message Bases54
+     Add a File Base.............34       Compressing the User File...53
+     Add a Message Base..........35       Configure Event.............32
+     ADDFILES.EXE.............4, 43       Configure Host+.............15
+     Adding an archive program...30       Configuring Archives........30
+     Adding Files................43       Configuring BBS Data........38
+     Adding menu commands........67       Configuring Bulletins.......26
+     Alarm.......................37       Configuring Doors...........27
+     Alt-=.......................57       Configuring Events..........32
+     Alt-8.......................11       Configuring General Info....36
+     Alt-A.......................15       Configuring Macros..........31
+     Alt-C.......................13       Configuring the Colors......26
+     Alt-F................7, 15, 53       Configuring the File Bases..34
+     Alt-G........................7       Configuring the Message Areas35
+     Alt-I.......................12       Configuring the Modem.......25
+     Alt-J................9, 12, 57       Configuring the Upload Items36
+     Alt-L................9, 15, 32       Configuring User Options....33
+     Alt-O................8, 15, 25       Copying files...............62
+     Alt-X.......................15       Create New User.............69
+     Alt-Z....................9, 11       Creating Colorful Screens...39
+     Alt-I.......................12       Ctrl-O......................19
+     ANSI........................39       Ctrl-Z......................19
+     ANSI drawing programs.......39       Ctrl-P......................22
+     ANSI editor.................64       Ctrl-X......................22
+     ANSI graphics................5       CTTY.....................4, 23
+     ANSI.SYS....................57       Custom Converters...........83
+     Answer On Ring Number.......25       Customizing Menu Commands...65
+     Archive testing..............8       Data directory...............7
+     ASCII.......................39       Default colors..............26
+     AUTOEXEC.BAT.................7       Default file base...........34
+     Backing up..................75       Default message base........35
+     BBS City/State..............38       Delete a Bulletin...........26
+     BBS Name....................38       Delete a Door...............29
+     BBS Net/Node................38       Delete a File Base..........34
+     BBS Telephone...............38       Delete a Message Base.......35
+     Black & White...............26       Deleting bad archives.......30
+     Blacklist...................59       Deleting files..............62
+     BNU.........................71       Disabling a command.........66
+     Bulletin Listings...........21       Door converter..............83
+     Bulletins...................26       Doors.......................27
+     Capture Log.................13       DOORWAY Command Line........37
+     Changing menu letters.......66       DOORWAY mode................57
+     Chat hours..................37       DOORWAY.EXE..4, 23, 27, 37, 57
+     Chat Mode Toggle............11       Download....................20
+
+
+     Telix v3.22 - Host+                                        Index    90
+
+
+
+     Download limits.........20, 33       Host+ Files..................2
+     Echo........................35       HOSTDOOR.SYS............28, 79
+     Echo networks...............35       HOSTPLUS.CAP................13
+     Echomail....................35       HOSTPLUS.CFG.................4
+     Edit a Bulletin.............27       HOSTPLUS.DAT.................2
+     Edit a Door.................29       HOSTPLUS.IMG................12
+     Edit a File Base............34       HOSTPLUS.KEY.................4
+     Edit a Message Base.........35       HOSTPLUS.LIB.................3
+     Enhanced keyboard...........19       HOSTPLUS.LNG.................3
+     Environment variable.........7       HOSTPLUS.LOG.................3
+     Events......................32       HOSTPLUS.OVL.................2
+     EVERY event.................32       HOSTPLUS.SLC.................2
+     Example Events..............73       HPBLTS.DAT...................4
+     Exit........................15       HPCOMP.EXE...............3, 15
+     Exit To Main Menu...........29       HPCONFIG................15, 25
+     EXITTELIX event.............32       HPDOORS.DAT..................4
+     Expert......................22       HPFBASE.DAT..................3
+     Expert Mode.................22       HPFILES.*....................3
+     Extracting an archive.......21       HPHEADER.*...................4
+     F1......................11, 53       HPINDEX.*....................4
+     F10.........................12       HPLOGON.SLC..................5
+     F2...............9, 15, 49, 53       HPMBASE.DAT..................3
+     F3......................12, 53       HPMENUS.....................17
+     F4...................9, 12, 54       HPMENUS.DAT..................3
+     F5......................12, 54       HPMENUS.EXE.............41, 62
+     F6..........................12       HPMSG.*......................4
+     FidoNet.....................35       HPMSGED.OVL..................3
+     File areas..................20       HPREPAIR....................55
+     File Compressor.............15       HPREPAIR.EXE.............7, 53
+     File Description............44       HPUEDIT.EXE.................68
+     File Formats................79       HPUSER.DAT...................3
+     File management.............43       HPUTILS.SLC..............2, 49
+     File ratio...............8, 33       HSHELL.BAT...................4
+     File System.................19       Installing Doors............71
+     Files Compressor............53       Installing Host+.............7
+     Files Editor............43, 61       Intermediate................22
+     Files included...............2       Jump to a Bulletin..........27
+     Fossil drivers..............71       Jump to a Door..............29
+     FrontDoor...................32       Jump to a File Base.........34
+     Full Screen Editor......18, 19       Jump to a Message Base......35
+     Full screen external user editor     Legal Issues................59
+         68                               Level of Uploads............36
+     Getting some sleep..........37       Line Editor.................18
+     Global color codes..........40       Listing of files............20
+     Global messages.............18       Listing of files, expanded..20
+     Global Variables............40       Local logon...............8, 9
+     Goodbye.....................22       Local Mode..................15
+     Hangup......................13       Local uploads...............20
+     Hardware.....................2       Log Off New Users...........33
+     Help screen.................11       Logoff......................22
+     Help Screen Toggle..........11       Lower Access................12
+     Higher access menus.........17       Lower access menus..........17
+     HINSTALL.EXE.................2       Lower Time..................12
+     Host Upload Directory.......36       Machine Requirements.........2
+
+
+     Telix v3.22 - Host+                                        Index    91
+
+
+
+     Macros......................31       Security, file..............47
+     Mail doors..................38       SET TELIX....................7
+     Making New Menu Screens.....64       Shell to DOS8, 9, 12, 23, 37, 57
+     Manually Changing Files.....46       Shut down Host+.............23
+     Memory requirements..........2       Sliding events..............32
+     Menu Editor.................62       Sorting, file bases.........53
+     Menus.......................17       Sorting, file lists.........53
+     Message areas...............35       Status box..................11
+     Message Base menu...........17       Status Box Toggle...........11
+     Message System..............17       Status line..................9
+     Modem Answer String.........25       Support.....................77
+     Modem Auto Answer Mode......25       Swapping....................57
+     Modem Pickup String.........25       Sysop commands...........9, 11
+     Monochrome..................26       Sysop level..................9
+     Moving files................62       Sysop Name..................38
+     Netmail.....................35       System hangs................23
+     New callers..................8       System Log..................22
+     New User Access Level.......33       System password......8, 23, 36
+     New user account............49       System shutdown..........8, 37
+     News file...................40       Telix Config File...........37
+     Novice......................22       Telix Software Support BBS..77
+     Pack all files bases........53       TEMPARC.ZIP.................21
+     Pack all message bases......54       Testing archives.............8
+     Packing.....................53       Text Editor.................15
+     Packing the file bases......53       TheDraw.................39, 64
+     Packing the message bases...54       Time limits.................33
+     Packing the user file.......53       Time per access.............33
+     Paging the sysop............21       Timed event.................32
+     Passwords, file.............47       Trashcan file...............59
+     Pickup Modem In Local.......25       TRASHCAN.DAT.................4
+     Pickup Modem In Utils.......25       Turning off a command.......66
+     Previous versions............7       Universal Text Interface....35
+     Print user information......68       Upgrading from Host3.........7
+     Privacy Act.................59       Upload......................20
+     Private mail............18, 59       Upload File Base............36
+     Quoting a message.......18, 19       Upload limitations..........36
+     Raise Access................12       Uploading a message.........18
+     Raise Time..................12       Uploads, access to..........36
+     RAM requirements.........2, 57       User Commands...............17
+     Reading messages............17       User editor......9, 15, 49, 68
+     Redefining keys.............31       User Fields.................49
+     Repairing Damaged Files.....55       User options................33
+     Reset Default Options.......38       User records, deleting......53
+     Restoring and Saving Configs38       User settings...............22
+     RIME........................35       User status.................50
+     Running a door..............22       Using a Fossil Driver.......71
+     Saving a message........18, 19       Using Doorway.EXE...........57
+     Screen Image................12       Using Scripts as Doors......72
+     Screen input................39       UTI.........................35
+     Screen saver................37       Viewing an archive..........20
+     Screen Size.................39       Virus checking..............73
+     Scripts as doors............72       Writing messages............18
+     Search Users................68       X00.........................71
+     Security.................8, 59

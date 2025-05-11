@@ -1,0 +1,7 @@
+//Script that calls ICEX203...I assign it to an "F" key (@ice^M)
+//
+main()
+{
+run("c:\telix\icex203","-d",0);
+cputs("^M");
+}

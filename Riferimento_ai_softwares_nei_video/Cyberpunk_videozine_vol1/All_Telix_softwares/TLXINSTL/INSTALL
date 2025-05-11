@@ -1,0 +1,31 @@
+
+
+install.obj:	 install.asm
+	ml -c -Zi -W2  install.asm
+
+errhand.obj:	 errhand.asm assembly.mac
+	ml -c -Zi -W2  errhand.asm
+
+border.obj:	 border.asm assembly.mac
+	ml -c -Zi -W2  border.asm
+
+getkey.obj:	 getkey.asm assembly.mac
+	ml -c  -Zi -W2	  getkey.asm
+
+makelogo.obj:	 makelogo.asm assembly.mac
+	ml -c  -Zi -W2	  makelogo.asm
+
+welcome.obj:	 welcome.asm assembly.mac
+	ml -c  -Zi -W2	   welcome.asm
+
+seqseg.obj:	 seqseg.asm
+	ml -c -Zi -W2  seqseg.asm
+
+lastseg.obj:	 lastseg.asm
+	ml -c -Zi -W2  lastseg,lastseg.asm
+
+
+install.exe: install.obj errhand.obj border.obj makelogo.obj \
+getkey.obj welcome.obj
+link /co /cparm:1 install border errhand makelogo getkey welcome,install,install;
+

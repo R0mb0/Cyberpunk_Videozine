@@ -1,0 +1,278 @@
+//-----------------------------------------------------------
+// QDIAL.SL? Quick Dial or (if online) option setting.
+//
+// Hint: Define a softkey to trigger this file (use ALT-K).
+
+
+// Please look at the comments through the whole file, and modify to
+// suit your needs, BEFORE you use it. Then recompile with CS QDIAL.
+
+// If you have suggestions for improving this script, please suggest
+// improvements to me via old-fashioned snail-mail to:
+
+//   Inge Vabekk
+//   Hamangskogen 108
+//   N-1300 SANDVIKA
+//   NORWAY                   
+//-----------------------------------------------------------
+
+str line [80]       
+   ,name [64]       
+   ,version[]="Telix_Square 1.5"
+   ,display[]="DISPLAY"      // Display script.
+   ,global []="GLOBAL"
+   ,logon  []="LOGON"        // Logon script.
+   ,passw  []="PASSWORD"     // Password script.
+   ,join   []="JOINCONF"     // Join Conference script.
+   ,ring   []="RING"         // Script to do the actual calling.
+   ,exit   []="EXIT"         // Name of EXIT script.
+   ,ssl    []="SSL"          // Name of SSL script.
+   ,bbsname[]="BNAME"        // Global for
+   ,prompt []="PROMPT"       // Command prompt.
+   ,cprot  []="CPROT"        // Current protocol
+   ,maxup  []="MAXUP"        // Max no. of upload files.
+   ,maxdn  []="MAXDN"        // Max no. of download files.
+   ,graph  []="GRAPH"        // Graphics Y/N.
+   ,logof  []="LOGOF"        // Auto logoff Y/N
+   ,logoff []="LOGOFF"       // Script for auto logoff toggle
+                             // (Note the difference!)!
+   ,Aexit  []="EXIT"         // Auto Exit Y/N
+   ,change []="CHANGE"       // Defined if status display changed.
+   ,startime [ 6]            // Start time.
+   ,temp     [12]            // Help string.
+   ;
+
+int lines;  
+
+//-----------------------------------------------------------
+// Script starts here.
+//-----------------------------------------------------------
+
+main()
+{
+int i, col;
+
+  entry();
+
+  newdir (_telix_dir); // Make sure we're in the TELIX main directory.
+
+  keyset (0x2d00,0,"@Exit");             // Alt-X is Toggle Exit flag.
+  keyset (0x1000,0,"@Logoff");           // Alt-Q is Toggle Logoff flag.
+
+  if (!is_loaded(global))                // Load "Global" script
+  { load_scr (global);                   // permanently.
+    if (!is_loaded(global))              // Loaded?
+    { i = nosuccess(global);             // No success:
+      goto quit;
+    }
+  }
+
+  if (!is_loaded (ssl))                  // Load "SSL" script
+  { load_scr (ssl);                      // permanently.
+    if (!is_loaded(ssl))                 // Loaded?
+    { i = nosuccess(ssl);                // No success:
+      goto quit;
+    }
+  }
+
+  call (global,"W",Change,"NO");         // Show changes now.
+  run ("CRDIR","LOG",2);                 // Try to create logfile dir.
+  run ("CRDIR","CAT",2);                 // and catalog dir.
+  if (call (global,"R",prompt,temp) <=0) // Check for first time in script.
+  { getenv ("BBSNAME",name);             // Get name of BBS to call.
+    if (name > " ")                      // Auto logoff if name given.
+      call (global,"W",logof,"YES");
+    else
+      call (global,"W",logof,"NO");
+    call (global,"W",prompt,"Command");  // Set some defaults.
+    call (global,"W",cprot,"Z");         // Protocol: Zmodem.
+    call (global,"W",maxup,"10");        // Max no. for upload.
+    call (global,"W",maxdn,"10");        // Max no. for download.
+    call (global,"W",graph,"NO");        // Graphics
+    call (global,"W",Aexit,"NO");        // Auto Exit.
+    if (call ("GETNAME"))
+    { tone (80,80);                      // No success:
+      clear_scr();
+      box (17,7,58,14,176,1,15);
+      box (19,8,56,13,177,1,15);
+      box (21,9,54,12,178,1,15);
+      pstraxy (" USER DATA OR SCRIPT NOT FOUND! ",22,10,79);
+      pstraxy (" Edit user data file and retry! ",22,11,79);
+      gotoxy (0,24);
+      i = -1;
+      goto quit;
+    }
+    lines = call(ssl);                   // Save status line, get line number.
+
+    if (!is_loaded(logon))               // Load "logon" script
+    { load_scr (logon);                  // permanently.
+      if (!is_loaded(logon))             // Loaded?
+      { i = nosuccess(logon);            // No success:
+        goto quit;
+      }
+    }
+
+    if (!is_loaded(passw))               // Load password script
+    { load_scr (passw);                  // permanently.
+      if (!is_loaded (passw))            // Loaded?
+      { i = nosuccess (passw);           // No success:
+        goto quit;
+      }
+    }
+
+    if (!is_loaded(join))                // Load join conference script
+    { load_scr (join);                   // permanently.
+      if (!is_loaded (join))             // Loaded?
+      { i = nosuccess (join);            // No success:
+        goto quit;
+      }
+    }
+
+    if (!is_loaded(display))             // Load display script 
+      load_scr (display);                // permanently.
+    if (!is_loaded(logoff))              // Load "logoff" script 
+      load_scr (logoff);                 // permanently.
+  }
+
+  lines = call (ssl);                    // Restore status line.
+  call (display);                        // Update status.
+
+// If no BBS name, get it.
+
+  while (!name)
+  { _back_color = 0;
+    _fore_color = 14;
+    col = _back_color+1;
+    clear_scr();
+    pstraxy ("²²²²²²²²  ²²²²²²²²  ²²        ²²  ²²²     ²²²",1,1,col);
+    pstraxy ("   ²²     ²²        ²²        ²²    ²²   ²²  ",1,2,col);
+    pstraxy ("   ²²     ²²²²²²    ²²        ²²     ²²²²²   ",1,3,col);
+    pstraxy ("   ²²     ²²        ²²        ²²    ²²   ²²  ",1,4,col);
+    pstraxy ("   ²²     ²²²²²²²²  ²²²²²²²²  ²²  ²²²     ²²²",1,5,col);
+                                                                          
+    pstraxy (" ²²²²²²   ²²²²²²   ²²    ²²   ²²²²²²   ²²²²²²    ²²²²²²²",19,18,col);
+    pstraxy ("²²       ²²    ²²  ²²    ²²  ²²    ²²  ²²   ²²   ²²     ",19,19,col);
+    pstraxy (" ²²²²²²  ²²    ²²  ²²    ²²  ²²²²²²²²  ²²²²²²    ²²²²²  ",19,20,col);
+    pstraxy ("      ²² ²²   ²²²  ²²    ²²  ²²    ²²  ²²   ²²   ²²     ",19,21,col);
+    pstraxy (" ²²²²²²   ²²²²² ²²  ²²²²²²   ²²    ²²  ²²    ²²  ²²²²²²²",19,22,col);
+    
+    box (64,1,75,5,2,0,64);
+    box (4,18,15,22,2,0,64);
+    box (20,7,63,16,2,0,31);
+    box (18,8,61,15,2,0,31);
+    box (16,9,59,14,2,0,31);
+    pstraxy (version,22,8,23);
+    pstraxy ("by Inge Vabekk",44,15,23);
+    pstraxy ("Type (part of) BBS name to dial or",21,10,31);
+    pstraxy ("'@list' ('list' contains names) or",21,11,31);
+    pstraxy ("'!' (alone) for dialing directory:",21,12,31);
+    pstraxy (".........................",25,13,87);
+    gotoxy(25,13);
+    _back_color = 4;
+    _fore_color = 15;
+    update_term();
+
+    gets(name,25);                       // Get the name. 
+    for (i=strlen(name)-1; i>=0; --i)
+    { if (subchr(name,i) > ' ') break;   // Strip off spaces.
+      setchr(name,i,0);
+    }
+    blue();
+
+    if (name=="!")                       // Abort requested?
+    { _qdbar_on = 0;                     // So 
+      dial ("",5,0);                     // display dialing directory.
+      i = 0;                             // Abort requested.
+      goto quit;
+    }
+  }
+  call (global,"W",bbsname,name);        // Set name of BBS to call.
+
+  if (getenv ("SQRTIME",startime))       // Get start time for calling.
+  { _scr_chk_key = 0;                    // Check that time string is legal.
+    if (!isdigit(subchr(startime,0))) goto dcall;
+    if (!isdigit(subchr(startime,1))) goto dcall;
+    if (subchr(startime,2)!=':') goto dcall;
+    if (!isdigit(subchr(startime,3))) goto dcall;
+    if (!isdigit(subchr(startime,4))) goto dcall;
+    setchr(startime,5,0);
+    pstraxy ("  Waiting till clock strikes 00.00.00 ...  ",13,10,116);
+    pstraxy (startime,42,10,116);
+    do
+    { time (curtime(),temp);             // Get the time.
+      pstraxy (temp,30,11,113);
+      pstraxy ("",0,0,17);
+      delay(5);                          // Wait 1/2 sec.
+      if (inkey()==27) break;
+      setchr(temp,5,0);
+    } while (startime != temp);          // Not ready yet?
+  }
+
+dcall:
+  call (ring);
+  call (global,"R",Aexit,line);
+  if (strposi (line,"YES",0) >= 0)
+    exittelix (0,1);                     // Exit.
+
+quit:
+  call (ssl);                            // Restore status line.
+  message();                             // Write message in it.
+  keyset (0x1000,0,"@Qdial");            // Restore the Alt-Q key.
+  return (i);
+}
+
+//-----------------------------------------------------------
+// This routine writes a string to the screen (in color).
+//-----------------------------------------------------------
+
+message ()
+{ pstraxy (" Alt-Q to quick-dial again. ",0,lines,15);
+  gotoxy (0,1);
+}
+
+//-----------------------------------------------------------
+// Routine to clear the screen.
+//-----------------------------------------------------------
+
+blue ()
+{
+  entry();
+  clear_scr();
+}
+
+//-----------------------------------------------------------
+// Routine to update colors and status bar.
+//-----------------------------------------------------------
+
+entry ()
+{
+  _back_color = 1;
+  _fore_color = 14;
+  update_term();
+}
+
+//-----------------------------------------------------------
+// No success in loading script.
+//-----------------------------------------------------------
+
+nosuccess (str script)
+{
+int i;
+
+  tone (80,80);                      // No success:
+  clear_scr();
+  name = " Couldn't find the ";
+  strcat (name,script);
+  for (i=strlen(name)-1; i>=20; --i)
+  { if (subchr(name,i) > ' ') break;
+    setchr (name,i,0);
+  }
+  strcat (name,".SLC script!");   
+  i = strlen(name);
+  box (15,7,24+i,13,176,1,15);
+  box (17,8,22+i,12,177,1,15);
+  box (19,9,20+i,11,178,1,15);
+  pstraxy (name,20,10,79);
+  gotoxy (0,23);
+  return (-1);
+}

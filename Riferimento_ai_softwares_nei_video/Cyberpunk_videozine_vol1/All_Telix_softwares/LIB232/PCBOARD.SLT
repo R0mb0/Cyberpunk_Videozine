@@ -1,0 +1,180 @@
+////////////////////////////// PCBOARD.SLT ///////////////////////////////////
+//
+//  PCBBOARD.SLT Copyright (C) 1990 Liberation Enterprises.
+//
+//  DESCRIPTION:  This Telix script is designed to logon to a PCBoard v14
+//  based BBS system.  It will take you from the initial PCBoard connection
+//  to the main menu (or conference main menu, if defined below).
+//
+//  INSTRUCTIONS:  Simply change the variables below to the desired values and
+//  compile for use with Telix with the command CS PCBOARD.  The script
+//  should also be linked to your Telix dialing directory.  Enter PCBOARD.SLC
+//  in the 'Linked Script' item of PCBoard directory entries to do so.
+//  Telix will then automatically run PCBOARD.SLC when you connect to the BBS.
+//  Your PCBoard password must also be placed in each directory entry, near
+//  the bottom.
+////
+
+int d = 0,      // response delay... 10ths/sec same as in The Liberator.
+                // Increase to 5 or 10 if the script responds to questions
+                // too quickly.
+    pager = 0;  // Change the 0 to a 1 to have an alarm sound when the
+                // logon completes.
+                
+str user_name[] =  "Wayne Duff", // Place your PCBoard user name here.
+    lang_num[] =   "1",          // Ignore if only one language on the board.
+    ansi_graph[] = "N",          // ANSI Color?  Y = Yes, N = No.
+    conference[] = "";           // Conference to join at logon: "" = None.
+
+////
+//
+//  Everything from this point on may be ignored.  See the track() statements
+//  below to modify prompts if necessary...  Make sure you compile this script
+//  whenever any changes are made.  
+//
+//////////////////////////////////////////////////////////////////////////////
+main()
+{
+ int timeout,                    // int for a timer handle
+     success = 0,                // set to FALSE (0)--TRUE if successful logon
+     pass_tries = 3,             // in case of a bad password... when 0 give up
+     prompt,                     // stores track handles found by track_hit()
+     language,                   // ints used as track() handles
+     graphics,
+     name,
+     correct,
+     password,
+     more,
+     scan_msg,
+     pause,
+     pcb_main,
+     pcb_conf;
+ str s[10];                      // general purpose string
+ 
+ clear_scr();
+ 
+ if (not _entry_pass)          // can't log on without a password
+  {
+   prints("Password Unknown.  Please put it in your dialing directory and try again.");
+   return(6);
+  }
+
+ // Define which prompts to look for.  Each string being 'tracked' will be
+ // assigned a number (from 1-16), and the number is used to refer to the
+ // string being tracked, instead of using the actual string each time.  So,
+ // 'language' will equal 1, and will refer to the first string being track()ed
+ // (the language prompt).  'graphics' will be assigned the number 2, and will
+ // refer to whatever the second track() is outlined to watch for, etc.  The
+ // values assigned by track() are known as track 'handles', since they are
+ // a shortform (handle) used to refer to another item (the string being
+ // tracked).
+
+ language = track("(Enter)=no change? ", 1); // Language # to use
+ graphics = track("(Enter)=no? ", 1);        // Graphics prompt
+ name     = track("first name? ", 1);        // Name prompt
+ correct  = track("Is this correct", 1);     // silly prompt used by some
+ password = track("Password", 1);            // Password prompt
+ more     = track("More? ", 1);              // Bulletin pause prompt
+ scan_msg = track("(Enter)=yes? ", 1);       // Scan Message Base
+ pause    = track("(Enter) to continue", 1); // Press (Enter) to continue?
+ pcb_main = track("Main Board Command? ", 1);
+ pcb_conf = track("Conference Command? ", 1);
+
+ timeout  = timer_start(1800);  // 3 min. maximum for logon... give up if time
+                                // expires. 'timeout' is another 'handle'
+                                // (separate from track handles) used to refer
+                                // to this specific timer (up to 10 timers can
+                                // be running at once... each with its own
+                                // 'handle').
+
+
+ while (not time_up(timeout) and carrier())
+  {
+
+ // while time_up(timeout) is 'not TRUE' (false) and carrier() is TRUE...
+ //  do what's between while's braces ({})
+
+   terminal();                // if you don't use this, Telix won't be
+                              // able to see any characters, and to nothing
+                              // gets displayed on your screen.
+
+   prompt = track_hit();      // check which prompt (if any) was found.  If one
+                              //  was, its handle number is stored in 'prompt'
+                              // if not, prompt == 0 (is equal to 0)
+
+   if (prompt == language)    // if prompt 'is equal to' the language handle
+    cputs_cr(lang_num);       // (the number 1, since it's the first track())
+
+   else if (prompt == graphics)
+    {
+     s = ansi_graph;          // put ansi_graph (defined above) in 's'
+     strcat(s, " Q");         //  then strCAT (concatenate... add) " Q" to 's'
+     cputs_cr(s);             //  for a 'Q'uiet logon (no welcome screen)
+    }
+
+   else if (prompt == name)
+    cputs_cr(user_name);
+
+   else if (prompt == correct)
+    cputs_cr("Y");
+
+   else if (prompt == password)
+    {
+     if (not pass_tries)      // a little extra protection... in case
+      break;                  //  you enter the wrong password in your
+     cputs_cr(_entry_pass);   //  dialing directory, it will only be tried
+     --pass_tries;            //  3 times before the script gives up.
+    }                         //  '--pass' is the same as 'pass = pass - 1'
+
+   else if (prompt == more or prompt == scan_msg)  // note use of 'or'
+    cputs_cr("N");
+
+   else if (prompt == pause)
+    cputs_cr("");
+        
+   else if (prompt == pcb_main)
+    {
+     if (conference)          // if conference isn't empty ("")
+      {
+       s = "J ";
+       strcat(s, conference);
+       strcat(s, " Q");
+       cputs_cr(s);
+       conference = "";      // clear in case we can't join, so we don't try
+      }                      //  forever
+     else
+      {
+       success = 1;           // made it to the main menu... and not J)oining
+       break;                 // a conf.  All done... exit (break from) loop
+      }
+    }
+
+   else if (prompt == pcb_conf)
+    {
+     success = 1;             // made it to the conf. menu
+     break;                   // all done... exit loop
+    }
+  }                           // here's the closing } for while 'loop'
+
+ track_free();                // tell Telix to stop tracking everything
+ timer_free(timeout);         // and to release the timer.
+
+ if (pager)                   // if the variable 'pager' is not FALSE (0)
+  alarm(3);                   //  sound a pager to get the operator
+ 
+ if (success)                 // if 'success' is TRUE (not zero), then
+  return(0);                  //  we made it, return zero
+
+ return(29);                  // otherwise, send bad logon abort code
+}              
+
+//////////////////////////////////////////////////////////////////////////////
+cputs_cr(str response)
+{
+ delay_scr(d);     // response delay... set at beginning of script
+ if (response)
+  cputs(response);
+ cputc('^M');
+}
+
+/////////////////////////////// End of File //////////////////////////////////

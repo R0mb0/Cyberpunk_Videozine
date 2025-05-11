@@ -1,0 +1,418 @@
+//
+//  Module:       slearn.slt
+//                Part of SLEARN  (SALT learn utility)  v2.00
+//                Copyright (C) 1989-1992 Paul Roub.  All rights reserved.
+//  Version:      2.00
+//  Description:  SALT script to invoke SLEARN.EXE from Telix.
+//
+//                Recommended usage:  using TFE, set up a dialing directory
+//                entry for the BBS you wish to learn a script for.  Include
+//                'slearn' as the Script field for that system.
+//
+//  NOTES:        This script assumes that CS.EXE and SLEARN.EXE are both
+//                available from the script directory.  This means they must
+//                either be IN the script directory itself, or on the DOS
+//                PATH.
+//
+//                Whenver possible, this script uses the run() function to
+//                run other programs , as it is faster and uses less memory.
+//                However, we do occasionally have to call some DOS commands,
+//                so dos() is used there.  This is a bit inconsistent, but it
+//                is important, especially when calling SLEARN.EXE.  If that
+//                takes too long, we could lose characters, thus rendering
+//                SLEARN all but useless.
+//
+//  Author:       Paul Roub
+//
+//<f>
+
+
+//  various strings used by this script
+//
+str       CmdLine [128];              //  SLEARN command line
+str       fn      [ 12];              //  name of script file to create
+str       Deffn   [ 12];              //  'best guess' script file name
+
+str       tmpfn   [] = "slearn.$$$";  //  name of temporary SALT file
+
+                                      //  comm parameters:
+str       BaudStr [  6];              //    baud rate
+str       SetStr  [  3];              //    settings (e.g. E71)
+
+
+//  Change these if you hate the colors this script asks questions in.
+//
+int       AnswerColor   = 112;        //  default: black on grey
+int       BoxColor      = 7;          //  default: grey on black
+int       QuestionColor = 15;         //  default: white on black
+
+
+//  Set UseSetScr = 0 if you don't want SLEARN to add the new script's name
+//  to TELIX.FON, or if you use more than one dialing directory.
+//  Remember that even if UseSetScr == 1, SLEARN will still ask your
+//  permission before adding the script to TELIX.FON.
+//
+int       UseSetScr    = 1;           // default: add new script to TELIX.FON
+
+
+//<f>
+main()
+{
+  int       result;
+  int       SaveFile;
+  str       numstr[5];
+  str       dummy[81];
+  int       fonfile;
+  int       EntryPos;
+  str       entname[25];
+
+  itos(get_baud(), BaudStr);          // get comm. parameters  (baud)
+
+  if      (get_parity() == 0)         //                       (parity)
+    SetStr = "N";
+  else if (get_parity() == 1)
+    SetStr = "E";
+  else // (get_parity() == 2)
+    SetStr = "O";
+
+  if (get_datab() == 7)               //                       (data bits)
+    strcat(SetStr, "7");
+  else
+    strcat(SetStr, "8");
+
+  if (get_stopb() == 1)               //                       (stop bits)
+    strcat(SetStr, "1");
+  else
+    strcat(SetStr, "2");
+
+  if (_script_dir)                    // change to script dir, if any
+    newdir(_script_dir);
+  else
+    newdir(_telix_dir);
+
+  if (! filefind("slearn.cfg", 0, dummy))
+  {
+    call("slconfig");
+    if (_script_dir != "")            // change to script dir, if any
+      newdir(_script_dir);
+    else
+      newdir(_telix_dir);
+  }
+
+                                      // build the command line:
+  CmdLine = "-b";                     //   baud
+  strcat(CmdLine, BaudStr );
+  strcat(CmdLine, " -s"   );          //   settings
+  strcat(CmdLine, SetStr  );
+  strcat(CmdLine, " "     );
+
+  if (_strip_high)
+    strcat(CmdLine, "-h ");
+
+  if (_entry_name != "")
+  {
+    strcat(CmdLine, "-n ^"");         //   entry name, if any
+    strcat(CmdLine, _entry_name);
+    strcat(CmdLine, "^" ");
+  }
+
+  if (_entry_pass != "")              // _entry_pass, perhaps
+  {
+    strcat(CmdLine, "-w ^"");
+    strcat(CmdLine, _entry_pass);
+    strcat(CmdLine, "^" ");
+  }
+
+  strcat(CmdLine, tmpfn   );          //   and the file to create
+
+  result = run("slearn.exe", CmdLine, 0); // and run slearn
+
+  clear_scr();
+
+  if (result < 0)                   // Couldn't run it
+  {
+    prints("");
+    prints("Error: Couldn't find or run SLEARN.EXE.  SLEARN.EXE must either be in the");
+    prints("       TELIX script directory, or in a directory specified in the PATH");
+    prints("       environment variable.");
+    prints("");
+
+    return;
+  }
+
+  SaveFile = YesOrNo("Save the new script file?", "y");
+
+  if (SaveFile)
+  {
+    DefSLTname(Deffn);                // get default SALT file name
+
+    //  see what the user wants to call it
+    //
+    if (ask("Save with what name?", Deffn, fn, 12) == -1)
+      fn = Deffn;
+
+    if (strpos(fn, ".", 0) == -1)     // tack on SLT extension if necessary
+      strcat(fn, ".slt");
+
+    prints("");
+
+    CmdLine = "copy ";                // copy temp file to permanent file
+    strcat(CmdLine, tmpfn);
+    strcat(CmdLine, " "  );
+    strcat(CmdLine, fn   );
+    dos(CmdLine, 0);
+
+    CmdLine = "del ";                 // delete temp file
+    strcat(CmdLine, tmpfn);
+    dos(CmdLine, 0);
+
+    SaveFile = YesOrNo("Compile the new script file?", "y");
+
+    if (SaveFile)
+    {
+      result = run("cs.exe", fn, 0);  // and compile the new file
+
+      if (result == -1)               // Couldn't run it
+      {
+        prints("");
+        prints("Error: Couldn't find or run CS.EXE.  CS.EXE must either be in the");
+        prints("       TELIX script directory, or in a directory specified in the PATH");
+        prints("       environment variable.");
+        prints("");
+      }
+    }
+  }
+  else
+  {
+    CmdLine = "del ";                 // otherwise, just trash the temp
+    strcat(CmdLine, tmpfn);
+    dos(CmdLine, 0);
+    result = 0;
+  }
+
+  if (_telix_dir != "")               // get back where we started
+    newdir(_telix_dir);
+
+  if (SaveFile && UseSetScr && (result == 0))
+    if (YesOrNo("Install this script in TELIX.FON?", "y"))
+    {
+      if (! filefind("zzz.fon", 0, dummy))
+      {
+        dos("copy telix.fon zzz.fon", 0);
+        status_wind("Dummy FON file ZZZ.FON was created.", 30);
+      }
+
+      if (! filefind("zzz.fon", 0, dummy))
+        status_wind("Dummy FON file ZZZ.FON does not exist!  Can't write to TELIX.FON", 30);
+      else
+      {
+        loadfon("zzz.fon");
+
+        dummy = "Setting script for entry ";
+        itos(_entry_enum, numstr);
+        strcat(dummy, numstr);
+        strcat(dummy, " (");
+        strcat(dummy, _entry_name);
+        strcat(dummy, ") to ^"");
+        strcat(dummy, fn);
+        strcat(dummy, "^"");
+
+        status_wind(dummy, 20);
+
+        fonfile = fopen("telix.fon", "r+");
+        if (fonfile <= 0)
+          status_wind("Error opening TELIX.FON", 20);
+        else
+        {
+          EntryPos = 64 + (86 * (_entry_enum - 1));
+          fseek(fonfile, EntryPos);
+          fread(entname, 25, fonfile);
+          setchr(entname, 25, 0);
+
+          if (entname != _entry_name)
+            status_wind("Entry name does not match _entry_name.  Can't write to TELIX.FON");
+          else
+          {
+            setchr(fn, strpos(fn, ".", 0), 0);
+            fseek (fonfile, EntryPos + 46);
+            fwrite(fn, 12, fonfile);
+          }
+
+          fclose(fonfile);
+        }
+
+        loadfon("telix.fon");
+      }
+    }
+
+  status_wind("Thank you for using SLEARN -- support shareware!", 15);
+
+  return;
+}
+
+
+//<f>
+//
+//  Function:     DefSLTname
+//  Description:  Try to guess a default SALT script name from the Telix
+//                script directory and entry name.  We use the first 8
+//                alphanumeric characters in _entry_name, plus .SLT.  If
+//                _entry_name is blank (or devoid of alphanumerics), then we
+//                use the name 'new.slt' instead.
+//  Parameters:   str name - default name (returned)
+//  Returns:      nothing
+//
+DefSLTname(str name)
+{
+  int     DstCount, SrcCount;         // indices of source and dest strings
+
+  DstCount = 0;
+  SrcCount = 0;
+
+  while ((DstCount < 8) && (SrcCount < 25))
+  {
+    if (isalnum(subchr(_entry_name, SrcCount)))
+    {
+      setchr(name, DstCount, subchr(_entry_name, SrcCount));
+      DstCount = DstCount + 1;
+    }
+
+    SrcCount = SrcCount + 1;
+  }
+
+  setchr(name, DstCount, 0);
+
+  if (strlen(name) == 0)
+    name = "new.slt";
+  else
+    strcat(name, ".slt");
+
+  strlower(name);
+
+  return;
+}
+
+
+//<f>
+//
+//  Function:     ask
+//  Description:  prompt the user for a string
+//  Parameters:   str question - prompt
+//                str default  - default value for answer
+//                str answer   - answer (returned)
+//                int max      - maximum length of answer
+//  Returns:      -1 if ESC hit
+//                length of answer otherwise
+//
+ask(str question, str default, str answer, int max)
+{
+  int       left, right;              // left and right sides of box
+  int       len;                      // length of longest string to display
+  int       result;                   // return code
+  int       SaveHandle;               // handle of saved screen area
+  int       top, bottom;              // top and bottom sides of box
+  int       x, y;                     // used to save/restore cursor position
+
+  top    = 9;
+  bottom = 9 + 6;
+
+  len = strlen(question);
+  if (len < strlen(default) + 9)
+    len = strlen(default) + 9;
+  if (len < max)
+    len = max;
+
+  left = (80 - (len + 4)) / 2;
+  right = left + len + 3;
+
+  x = getx();
+  y = gety();
+  SaveHandle = vsavearea(left, top, right, bottom);
+  box(left, top, right, bottom, 3, 0, BoxColor);
+
+  pstraxy(question,    left + 2,  top + 2, QuestionColor);
+  pstraxy("Default: ", left + 2,  top + 3, BoxColor     );
+  pstraxy(default,     left + 11, top + 3, BoxColor     );
+
+  //  Draw an 'input field' so the user can see right off the bat how long
+  //  'answer' is allowed to be.
+  //
+  pstraxy("            ", left + 2, bottom - 2, AnswerColor );
+
+  result = getsxy(answer, max, left + 2, bottom - 2, AnswerColor);
+
+  vrstrarea(SaveHandle);
+  gotoXY(x, y);
+
+  if (result == 0)
+  {
+    answer = default;
+    result = strlen(answer);
+  }
+
+  return(result);
+}
+
+
+//<f>
+//
+//  Function:     YesOrNo
+//  Description:  asks yes or no questions, with default
+//                displays question and default, and accepts one character
+//                if this character is CR or ESC, then default[0] is used
+//                keeps receiving characters until char is 'y' or 'n'
+//  Parameters:   str question - question to ask
+//                str default  - default string - "y" or "n"
+//  Returns:      1 if 'y' was entered
+//                2 if 'n' was entered
+//
+YesOrNo(str question, str default)
+{
+  int       ch;                       // user's input character
+  int       left, right;              // left and right sides of box
+  int       len;                      // length of question
+  int       SaveArea;                 // handle of saved screen area
+  int       top, bottom;              // top and bottom sides of box
+  int       x, y;                     // used to save/restore cursor position
+
+  if (strlen(default) > 1)
+    setchr(default, 1, 0);
+
+  strlower(default);
+  if ((default != "y") && (default != "n"))
+    default = " ";
+
+  len = strlen(question);
+
+  top = 10;
+  bottom = top + 4;
+  left = (80 - (len + 6)) / 2;
+  right = left + len + 5;
+
+  x = getx();
+  y = gety();
+
+  SaveArea = vsavearea(left, top, right, bottom);
+  box(left, top, right, bottom, 3, 0, BoxColor);
+
+  pstraxy(question, left + 2,           top + 2, QuestionColor);
+  pstraxy(default,  left + 2 + len + 1, top + 2, AnswerColor);
+  gotoxy (left + 2 + len + 1, top + 2);
+
+  do
+  {
+    ch = inkeyw();
+
+    if ((ch == 13) || (ch == 27))
+      ch = subchr(default, 0);
+
+    ch = tolower(ch);
+  } while ((ch != 'y') && (ch != 'n'));
+
+  vrstrarea(SaveArea);
+
+  gotoxy(x, y);
+
+  return(ch == 'y');                  // true if 'y', false if 'n'
+}
+

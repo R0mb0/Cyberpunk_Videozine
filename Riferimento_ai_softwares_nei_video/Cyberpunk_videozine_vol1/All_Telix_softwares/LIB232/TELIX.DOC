@@ -1,0 +1,143 @@
+
+
+
+
+
+               TELIX.DOC Copyright (C) 1990 Liberation Enterprises.
+                 Telix/modem setup instructions for The Liberator.
+
+
+     Telix comes with its own documentation, so the entire Telix setup will
+     not be duplicated here.  However, there are certain things which must be
+     defined properly in Telix for The Liberator, and some of your other
+     Telix scripts to operate properly.
+
+     Obtaining Telix v3.12
+
+      First and foremost, you must be using Telix v3.12 or greater, since The
+      Liberator takes advantage of some new SALT features in this release. 
+      The installation program checks the date of your TELIX.EXE file to
+      confirm the proper version, and will notify you if you have an earlier
+      release of Telix.  If you do, you must get v3.12 and install it as per
+      Telix's instructions, then continue here.  You should be able to find
+      Telix v3.12 on your favorite local BBS.  The Telix files are normally
+      called TLX312-1.ZIP, TLX312-2.ZIP and TLX312-3.ZIP, though the ZIP
+      extension may vary.  Try a L)ocate command of "L TLX312*.*" (no
+      quotes).  If you cannot locate Telix v3.12 in your area, the Telix
+      Support BBS in Toronto always has the latest release available for
+      downloading.  The phone number is (416) 439-8293.
+
+     Configuring Telix
+
+      To configure the various options outlined below, you must get to the
+      Telix Configuration menu by typing <Alt-O> from Telix terminal mode.
+
+     Turning On The Status Line
+
+      The Telix status line is a line on the bottom or top of the screen,
+      which starts with 'Alt-Z for help', then lists some other information. 
+      If you already see this line, skip to the next section.
+
+      If The Liberator aborted due to the fact that your modem was forcing on
+      the 'carrier detect', you must turn the Telix status line on until we
+      get this problem fixed (you may turn it back off afterwards, if
+      desired).  The Liberator also makes use of the status line, if turned
+      on, by placing the name of the Command File currently running where the
+      'Alt-Z for help' would normally be, so you may want to leave it turned
+      on anyway.  Select 'Terminal Options' from the configuration menu, then
+      item 'D - Status line', then 'Top' or 'Bottom' as you prefer, to turn
+      it on.  Hit <Enter> or <Esc> to return to the main configuration menu
+      when done, then exit this menu as well.
+
+     Setting Up Your Modem
+
+      Now, check the right hand side of the status line.  It should have the
+      word 'Offline' displayed.  If it states 'Online', your modem has not
+      been initialized properly (assuming you are not connected to another
+      modem.  If you are, please log off and re-check the status line).  If
+      you are using a 1200 baud modem, most likely you will have to change
+      the 'DIP' switch (a small bank of switches, sometimes located inside
+      the modem case) that controls the 'carrier detect'.  See your modem
+
+
+
+
+     The  L i b e r a t o r  v2.32                         TELIX.DOC - Page 2
+     
+     
+     
+
+      manual for the correct switch.  If you don't have a manual, usually
+      switch #6 is used to enable carrier detect.  If switch 6 doesn't do the
+      trick, try each switch (returning it to its original position when
+      done) until you see 'Offline' displayed.  Once you find the correct
+      switch, leave it set to the position where 'Offline' is displayed.
+
+      If you are using a 2400 baud modem or greater, normally you must add a
+      special command to your Telix modem init string.  'Modem and dialing', 
+      option 'A - Init string' is where we place this command, so select it
+      and add '&C1' to the end of the string (e.g.  ATZ^M~~~ATV1 X4 &C1).
+
+      Now, exit from the Configuration menu and check the status line again
+      to ensure that it displays 'Offline'.  If you defined a new Init
+      string, type <Alt-M> and select 'M' to re-initialize your modem.  If
+      the status line still doesn't, display 'Offline' please refer to your
+      modem documentation, and look up 'Carrier detect enable' or something
+      similar.  If you don't have a manual for your modem, please see the
+      section on 'Getting help from your BBS' in the file LIBERATE.DOC. 
+      Someone else is bound to be using the same modem and can help you out. 
+      The Liberator (and most other Telix scripts, including the Host Mode)
+      will not operate properly while carrier is being forced on.
+
+     Setting The Proper Directories
+
+      Another common Telix script problem is that no script directory is
+      defined.  To check this, select 'Filenames and paths' from the con-
+      figuration menu.
+
+      From here, you should first define the drive and/or directories where
+      Telix should place files you receive (download) from BBS's and where
+      Telix should look for files that you want to send (upload) to the BBS. 
+      If you are using floppy drives, you may want to set both to B:. 
+      Otherwise, set them to whatever directories you wish (make sure the
+      defined directories exist, and remember to create them before use if
+      they don't).
+
+      The Liberator allows you to define separate upload/download directories
+      for each PCBoard, but will offer the directories defined here as the
+      default.  A trailing backslash is also required by some scripts, but
+      The Liberator adds one when necessary if you forget.  You may want to
+      use one anyway, just to be on the safe side for other scripts (e.g.
+      C:\DOWNLOAD\, C:\TELIX\UPLOADS\, etc).
+
+      Next, define your Script directory by selecting option 'C'.  The script
+      directory refers to where Telix should look for your compiled scripts
+      (*.SLC), and likewise The Liberator.  Even if you have your scripts in
+      the same directory as the Telix program, please define the directory
+      anyway (e.g. C:\TELIX\ or C:\TELIX\SCRIPTS\, etc).
+
+      The default usage and capture names are not used by The Liberator, but
+      the drive/directory of the default usage log/capture file is extracted
+      when offering defaults.  If you prefer to keep your capture files in a
+      directory called C:\TEMP, then simply add this directory to you Telix
+      capture name (e.g. C:\TEMP\TELIX.CAP), and The Liberator will also
+      create capture files in the C:\TEMP directory.
+
+
+
+
+     The  L i b e r a t o r  v2.32                         TELIX.DOC - Page 3
+     
+     
+     
+
+      Option 'H' is offered as your default Liberator Text editor, but you
+      may also define a separate editor in The Liberator if desired.
+
+     Saving Your Setup
+
+      That's it for the Telix setup, as far as most scripts are concerned, so
+      please hit <Enter> to get back to the main configuration menu, if
+      necessary, then select 'Write setup to disk' so that you don't lose the
+      changes when you exit Telix.
+

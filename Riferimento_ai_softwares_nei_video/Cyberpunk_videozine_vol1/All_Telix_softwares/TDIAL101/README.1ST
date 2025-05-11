@@ -1,0 +1,19 @@
+TDIAL101
+
+Please read the doc file before trying to use. If it looks intresting and
+you have a printer available it would be advisable to print out before
+trying to install.
+
+Since the net has been having so many problems of late. I have enabled
+flow control using set? 5:1<ret> in the script. Under some conditions
+this will slow transfers. If things improve you may be able to speed up
+transfers by disabling flow control as per the following:
+
+<ctrl><end>         /* sends telenet a break */
+set? 5:0<ret>       /* turn flow control off */
+cont<ret>           /* continue              */
+
+
+If you are entering PC Pursuit at 2400 and are connected to a remote
+city and are using Zmodem you must leave flow control enabled.
+

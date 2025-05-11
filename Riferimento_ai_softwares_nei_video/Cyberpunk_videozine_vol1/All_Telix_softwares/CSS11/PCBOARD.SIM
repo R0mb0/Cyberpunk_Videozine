@@ -1,0 +1,22 @@
+/////////////////////////////  PCBOARD.SIM  /////////////////////////////////
+//                                                                         //
+// This is a sample SIMPLE script for logging on to a PCBoard based        //
+// system. The logon questions are handled in any order, and optional      //
+// prompts are ok.                                                         //
+//                                                                         //
+// Put your name in the line that says ASSIGN STRING1.  The script will    //
+// get the proper password from the dialing directory, CSS puts the        //
+// password in the variable BBSPASSWORD.                                   //
+//                                                                         //
+/////////////////////////////////////////////////////////////////////////////
+
+ASSIGN STRING1, "John Smith"     // Put your name (in Quotes!) here.
+
+ALARM 1
+STARTWHEN
+  WHENEVER "Language # to use" THENDO SEND HITENTER
+  WHENEVER " graphics" THENDO SEND "y q" HITENTER
+  WHENEVER "first name?" THENDO SEND STRING1 HITENTER
+  WHENEVER "Password" THENDO SEND BBSPASSWORD HITENTER
+ENDWHEN
+

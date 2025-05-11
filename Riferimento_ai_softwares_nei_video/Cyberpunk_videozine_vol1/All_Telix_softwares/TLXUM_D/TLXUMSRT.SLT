@@ -1,0 +1,8 @@
+main()
+{
+  str command_line[76];
+
+  command_line = "en ";
+  strcat(command_line, _up_dir);
+  run ("ds.exe", command_line, 0);
+}

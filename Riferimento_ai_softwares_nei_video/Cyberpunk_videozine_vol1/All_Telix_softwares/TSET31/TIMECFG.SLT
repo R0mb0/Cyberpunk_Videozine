@@ -1,0 +1,73 @@
+main()
+{
+    int cfg,
+	n;
+    str str_ent[25],
+	dial_str[25]="1-202-653-0351",
+	time_adj_str[3]="6",
+	script_path[78];
+
+    copystr(_script_dir,script_path,0,65);
+    strcat(script_path,"timeset.cfg");
+
+    cfg=fopen(script_path,"r");
+    if(cfg)
+    {
+	fgets(dial_str,25,cfg);
+	fgets(time_adj_str,2,cfg);
+    }
+    fclose(cfg);
+
+    cfg=fopen(script_path,"w+");
+    while(1)
+    {
+	clear_scr();
+	prints("Timeset configuration routine!");
+	prints(" ");
+	prints("Initial values:");
+	prints("    Dial String:      1-202-653-0351");
+	prints("    Time Adjustment:  6");
+	prints(" ");
+	prints("These are the current values:");
+	printsc("A.  Dialing String:  ");
+	prints(dial_str);
+	printsc("B.  Time adjustment value:  ");
+	prints(time_adj_str);
+	prints(" ");
+	prints("Which do you want to change? <C=No changes desired!>");
+	prints(" ");
+	_scr_chk_key=1;
+	n=inkeyw();
+	if(n=="A"|n=="a")
+	{
+	    printsc("The current dialing string is:  ");
+	    prints(dial_str);
+	    prints("Change it to?  <Esc aborts entry!>");
+	    if(gets(str_ent,25)!=-1)
+	    {
+		copystr(str_ent,dial_str,0,20);
+	    }
+	}
+	if(n=="B"|n=="b")
+	{
+	    printsc("The current time adjustment value is:  ");
+	    prints(time_adj_str);;
+	    prints("Change it to?  <Esc aborts entry!>");
+	    if(gets(str_ent,3)!=-1)
+	    {
+		copystr(str_ent,time_adj_str,0,2);
+	    }
+	}
+	if(n=="C"|n=="c")
+	{
+	    fputs(dial_str,cfg);
+	    fputc(0x0a,cfg);
+	    fputs(time_adj_str,cfg);
+	    fputc(0x0a,cfg);
+	    fclose(cfg);
+	    clear_scr();
+	    prints("Timeset configuration file created!");
+	    return;
+	}
+    }
+}

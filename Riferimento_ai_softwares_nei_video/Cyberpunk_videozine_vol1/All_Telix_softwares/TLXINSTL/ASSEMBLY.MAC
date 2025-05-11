@@ -1,0 +1,721 @@
+
+;******************************   MACROS   ***********************************
+
+INPUT   MACRO   field,dlen,mrow,mcol,mscrn
+local key,next_key,get_key,exit_bridge,unprintable,bsp,_cr,exit,help,restore,_23,_71,_3f,next_key_bridge,_0f,_1e,_44,_49,_51
+        mov   field_start,di
+        calc_addr mrow,mcol
+        cursor       ;;position cursor and return attribute and character in bx
+        push    ax
+        mov     ax,dlen
+        mov     cx,col
+        add     ax,cx
+        mov     cx,ax          ;;get absolute column for end of field
+        pop     ax
+next_key:
+        CALL    GETKEY          ;;READ CHARACTER FROM KEYBOARD
+        cmp     ah,0DH         ;;if carriage return go get next field
+        jne     _0f
+        jmp     _cr
+_0f:
+        cmp     ah,0FH         ;;if left tab go back to previous field
+        jne     _44
+        jmp     _cr
+_44:
+        cmp     ah,44H          ;;if F10
+        jne     _51
+        jmp     help
+_51:
+        cmp     ax,51feh        ;;if Page down
+        jne     _49
+        je      exit_bridge
+_49:
+        cmp     ax,49feh        ;;if Page up
+        jne     _71
+        je      exit_bridge
+_71:
+        cmp     ah,71H          ;;if AF10
+        jne     _3f
+        jmp     exit_bridge
+next_key_bridge:
+        jmp     next_key
+_3f:
+        cmp     ah,3FH          ;;if F5
+        je      next_key_bridge
+        cmp     ah,40H          ;;if F6
+        je      next_key_bridge
+        cmp     ah,41H          ;;if F7
+        je      next_key_bridge
+        cmp     ah,42H          ;;if F8
+        je      next_key_bridge
+        cmp     ah,43H          ;;if F9
+        je      next_key_bridge
+        cmp     ah,3BH          ;;if F1
+        je      exit_bridge
+        cmp     ah,3CH          ;;if F2
+        je      exit_bridge
+        cmp     ah,3DH          ;;if F3
+        je      exit_bridge
+        cmp     ah,3EH          ;;if F4
+        je      exit_bridge
+        cmp     al,0            ;;al = 0 if printable character
+        jne     unprintable
+        cmp     col,cx
+        jne     key            ;;go get next character
+        dec     col
+        jmp     next_key_bridge
+key:
+        jmp     next_key_bridge
+exit_bridge:
+        jmp     _cr
+help:
+        push    dx
+        mov     dx,offset mscrn
+        call    wakevid                 ;;macro call
+        pop     dx
+        jmp     next_key_bridge
+unprintable:
+        jmp     next_key_bridge
+;
+_CR:
+        push    ax
+        mov   field_stop,di
+        mov   row,mrow
+        mov   col,mcol
+        cursor
+        STORE_FIELD  field,dlen
+        pop     ax
+exit:
+        func_key
+        endm
+
+dsklf   macro
+        mov     dx,offset linefd      ;;writeline feed to file
+        mov     cx,1
+        mov     bx,outfile_handle
+        mov     ax,4000H
+        int     21H                    ;;write to file
+        endm
+
+dskcrlf macro
+        mov     dx,offset crlf          ;;load carriage return,line feed
+        mov     cx,2
+        mov     bx,outfile_handle
+        mov     ax,4000H
+        int     21H                     ;;write to file
+        endm
+
+open            macro   fcb                     ;;open file
+                mov     dx,offset fcb
+                mov     ax,0F00H
+                int     21H
+                endm
+
+close           macro   fcb                     ;;open file
+                mov     dx,offset fcb
+                mov     ax,1000H
+                int     21H
+                endm
+
+set_dta         macro   buffer                  ;;set disk transfer area
+                mov     dx,offset buffer
+                mov     ax,1A00H
+                int     21H
+                endm
+
+read_ran        macro   fcb                     ;;random read
+                mov     dx,offset fcb
+                mov     ax,2100H
+                int     21H
+                endm
+
+write_ran       macro   fcb                     ;;random write
+                mov     dx,offset fcb
+                mov     ax,2200H
+                int     21H
+                endm
+
+size_file       macro   fcb
+                mov     dx,offset fcb
+                mov     ax,2300H
+                int     21H
+                endm
+
+set_relatice_record     macro   fcb
+                mov     dx,offset fcb
+                mov     ax,2400H
+                int     21H
+                endm
+
+set_vector      macro   interrupt,handler_start
+                mov     al,interrupt
+                mov     dx,offset handler_start
+                mov     ax,2500H
+                int     21H
+                endm
+
+ran_block_read  macro   fcb,count,rec_size
+                mov     dx,offset fcb
+                mov     cx,count
+                mov     word ptr fcb[14],rec_size
+                mov     ax,2700H
+                int     21H
+                endm
+
+ran_block_write macro   fcb,count,rec_size
+                mov     dx,offset fcb
+                mov     cx,count
+                mov     word ptr fcb[14],rec_size
+                mov     dx,offset fcb
+                mov     ax,2800H
+                int     21H
+                endm
+
+parse           macro   string,fcb
+                mov     si,offset string
+                mov     di,offset fcb
+                push    es
+                push    ds
+                pop     es
+                mov     ax,290FH        ;;bits 0, 1, 2, 3 on
+                int     21H
+                pop     es
+                endm
+
+get_date        macro
+                mov     ax,2A00H
+                int     21H
+                endm
+
+set_date        macro   year,month,day
+                mov     cx,year
+                mov     dh,month
+                mov     dl,day
+                mov     ax,2B00H
+                int     21H
+                endm
+
+get_time        macro
+                mov     ax,2C00H
+                int     21H
+                endm
+
+set_time        macro   hours,minutes,seconds,hundredths
+                mov     ch,hour
+                mov     cl,minutes
+                mov     dh,seconds
+                mov     dl,hundredths
+                mov     ax,2D00H
+                int     21H
+                endm
+
+verify          macro   switch
+                mov     al,switch
+                mov     ah,2EH
+                int     21H
+                endm
+
+get_dta         macro
+                mov     ah,2F00H
+                int     21H
+                endm
+
+get_version     macro
+                mov     ax,3000H
+                int     21H
+                endm
+
+ctrl_c_ck       macro   action,state
+                mov     al,action
+                mov     dl,state
+                mov     ax,3300H
+                int     21H
+                endm
+
+get_vector      macro   interrupt
+                mov     al,interrupt
+                mov     ax,3500H
+                int     21H
+                endm
+
+get_disk_space  macro   drive
+                mov     dl,drive
+                mov     ax,3600H
+                int     21H
+                endm
+
+make_dir        macro   path
+                mov     dx,offset path
+                mov     ax,3900H
+                int     21H
+                endm
+
+rem_dir         macro   path
+                mov     dx,offset path
+                mov     ax,3A00H
+                int     21H
+                endm
+
+change_dir      macro   path
+                mov     dx,offset path
+                mov     ax,3B00H
+                int     21H
+                endm
+
+create_handle   macro   path,attrib
+                mov     dx,offset path
+                mov     cx,attrib
+                mov     ax,3C00H
+                int     21H
+                endm
+
+open_handle     macro   path,access
+                mov     dx,offset path
+                mov     al,access
+                mov     ah,3DH
+                int     21H
+                endm
+
+close_handle    macro   handle
+                mov     bx,handle
+                mov     ax,3E00H
+                int     21H
+                endm
+
+read_handle     macro   handle,buffer,bytes
+                mov     bx,handle
+                mov     dx,buffer
+                mov     cx,bytes
+                mov     ax,3F00H
+                int     21H
+                endm
+
+write_file      macro   handle,buffer,bytes
+                mov     bx,handle
+                mov     dx,buffer
+                mov     cx,bytes
+                mov     ax,4000H
+                int     21H
+                endm
+
+get_dir         macro   drive,buffer
+                mov     dl,drive
+                mov     si,offset buffer
+                mov     ax,4700H
+                int     21H
+                endm
+
+mov_ptr         macro   handle,high,low,method
+                mov     bx,handle
+                mov     cx,high
+                mov     dx,low
+                mov     al,method
+                mov     ah,42H
+                int     21H
+                endm
+
+alloc_memory    macro   paragraphs
+                mov     bx,paragraphs
+                mov     ax,4800H
+                int     21H
+                endm
+
+free_memory     macro   seg_addr
+                push    es
+                mov     ax,seg_addr
+                mov     es,ax
+                mov     ax,4900H
+                int     21H
+                pop     es
+                endm
+
+set_block       macro   last_byte
+                mov     bx,offset last_byte
+                mov     cl,4
+                shr     bx,cl
+                inc     bx
+                mov     ax,4A00H
+                int     21H
+                endm
+
+exec            macro   path,command,parms,function
+                mov     dx,offset path
+                mov     bx,offset parms
+                mov     dx,low
+                mov     word ptr parms[02H],offset command
+                mov     word ptr parms[04H],cs
+                mov     word ptr parms[06H],5CH
+                mov     word ptr parms[08H],es
+                mov     word ptr parms[0AH],6CH
+                mov     word ptr parms[0CH],es
+                mov     al,function
+                mov     ah,4BH
+                int     21H
+                endm
+
+end_process     macro   return_code
+                mov     al,return_code
+                mov     ah,4CH
+                int     21H
+                endm
+
+find_first_file macro   path,attrib
+                mov     dx,offset path
+                mov     cx,attrib
+                mov     ax,4E00H
+                int     21H
+                endm
+
+find_next_file  macro
+                mov     ax,4F00H
+                int     21H
+                endm
+
+
+FUNC_KEY        MACRO
+LOCAL   NEXT,INPUT_END,FUNC_END
+        CLC                     ;;clear carry flag
+        cmp     ah,15
+        jne     NEXT
+        mov     al,1
+        jmp     INPUT_END
+NEXT:
+        cmp     ah,71H          ;;if AF10
+        je      input_end
+        cmp     ah,3BH          ;;if F1
+        je      input_end
+        cmp     ah,3CH          ;;if F2
+        je      input_end
+        cmp     ah,3DH          ;;if F3
+        je      input_end
+        cmp     ah,3EH          ;;if F4
+        je      input_end
+        cmp     ah,44H          ;;if F10
+        je      input_end
+        cmp     ah,49H          ;;if Page up
+        je      input_end
+        cmp     ah,51H          ;;if Page down
+        je      input_end
+        CLC
+        JMP     func_end
+INPUT_END:      STC             ;;set carry flag
+FUNC_END:
+                ENDM
+
+STORE_FIELD     MACRO   NAME,DLEN
+local           store_f,end_store
+     mov        di,offset name
+     mov        cx,dlen                 ;;load count into register cx
+     dec        cx
+     push       es
+     mov        ax,ds           ;;make di point to data instead of screen
+     mov        es,ax
+     mov        ax,0
+STORE_F:
+     cursor
+     cmp        bl,20h
+     je         end_store
+     mov        [di],bl
+     inc        di
+     inc        col
+     dec        cx
+     cmp        cx,0
+     jne        store_f
+end_store:
+     mov        bl,0            ;; make last space = 0
+     mov        [di],bl
+     pop        es              ;;restore di to point at screen
+                ENDM
+
+field   macro   nfield,dfield,nlen,dlen,mrow,mcol
+local   wb,end_field
+     calc_addr mrow,mcol
+     mov   si,offset nfield
+     mov   cx,nlen
+     w_f_scr            ;;write field name to screen
+
+     mov   si,offset dfield
+     mov   cx,dlen
+     mov   al,[si]
+     w_i_scr            ;;write inverted memory data to screen
+     endm
+
+CALC_ADDR       MACRO  mrow,mcol
+                push    si
+                push    ax
+                mov     al,mrow
+                mov     row,al
+                mov     ax,mcol
+                mov     col,ax
+                mov     ah,0
+                mov     al,row
+                shl     ax,1    ;;*2
+                shl     ax,1    ;;*4
+                shl     ax,1    ;;*8
+                shl     ax,1    ;;*16
+                mov     di,ax   ;;save partial result
+                shl     ax,1    ;;*32
+                shl     ax,1    ;;*64
+                add     di,ax   ;;di = line * 80
+                mov     ax,col  ;;add in column
+                add     di,ax
+                shl     di,1    ;;adjust for attribute bytes
+                pop     ax
+                pop     si
+                ENDM
+
+CURSOR  MACRO
+        push    si
+        push    ax
+        XOR     BX,BX
+        mov     bx,col
+        mov     dh,row        ;;row
+        mov     dl,bl         ;;col
+        MOV     AH,2            ;;SET CURSOR
+        INT     10H
+        XOR     BX,BX
+        MOV     AH,8           ;;RETURN CHARACTER AND ATTRIBUTE AT CURSOR
+        INT     10H
+        MOV     BX,AX
+        pop     ax
+        pop     si
+        ENDM
+
+W_F_SCR         MACRO   ;;write field to screen
+LOCAL           W_LOOP
+w_loop:
+     movs  es:byte ptr [di],[si]
+     mov   al,screen_attr
+     mov   es:[di],al
+     inc   di
+     loop  w_loop
+     ENDM
+
+W_I_SCR         MACRO   ;;write inverted field to screen
+LOCAL           W_LOOP
+w_loop:
+     mov   al,[si]
+     inc   si
+     mov   es:[di],al
+     inc   di
+     mov   al,inv_screen_attr
+     mov   es:[di],al
+     inc   di
+     inc   col
+     loop  w_loop
+     ENDM
+
+W_B_SCR         MACRO   ;;write blank inverted field to screen
+LOCAL           I_LOOP
+i_loop:
+     mov   al,20H
+     mov   es:[di],al
+     inc   di
+     mov   al,inv_screen_attr
+     mov   es:[di],al
+     inc   di
+     loop  i_loop
+     ENDM
+
+MAKE_CMD_LINE   macro
+     mov        ax,field_stop
+     mov        bx,field_start
+     sub        ax,bx                   ;;get length of string
+     shr        ax,1                    ;;divide by 2 to remove attribute count
+     mov        cx,ax                   ;;load count into register cx
+
+     push       es              ;;save segment
+     mov        ax,cs           ;;make di point to code instead of screen
+     mov        es,ax
+     assume     es:lse_main
+
+     mov        di,offset es:cmd_line
+     mov        es:[di],cl         ;;move length of string
+     inc        di
+     mov        si,offset filename ;;copy filename as editor parameter
+     rep        movsb
+     inc        di
+     mov        al,0DH
+     mov        es:[di],al         ;;insert cr at end of string
+
+     pop        es
+     assume     es:screen
+     endm
+
+CLR     MACRO
+        CLD             ;;SET DIRECTION FLAG >
+        MOV     AX,SEG SCREEN   ;;SEGMENT FOR DISPLAY MEMORY
+        MOV     ES,AX
+        MOV     DI,0
+        MOV     AL,' '
+        MOV     AH,screen_attr
+        MOV     CX,4000
+        REP     STOSW           ;;MOVE 2000 BLANKS TO SCREEN
+        MOV     ROW,0
+        MOV     COL,0
+        CURSOR
+        ENDM
+
+MAKEBOX MACRO   startl, startc,stopl,stopc
+local   tl,tr,botl,br,top,bottom,left,leftloop,right,rightloop
+        push      bx
+        push      ax
+        push      di
+        push      si
+        calc_addr startl,startc     ;;location of top left
+        mov       boxtl,di
+        calc_addr startl,stopc      ;;location of top right
+        mov       boxtr,di
+        calc_addr stopl,startc      ;;location of bottom left
+        mov       boxbl,di
+        calc_addr stopl,stopc       ;;location of bottom right
+        mov       boxbr,di
+        xor       ax,ax
+        xor       bx,bx
+        mov       ax,stopl
+        mov       bx,startl
+        sub       ax,bx
+        mov       linecnt,ax        ;;vertical size of box
+        xor       ax,ax
+        xor       bx,bx
+        mov       ax,stopc
+        mov       bx,startc
+        sub       ax,bx
+        mov       colcnt,ax         ;;horizonal size of box
+TL:
+        MOV     DI,BOXTL
+        MOV     AL,201              ;;top left corner
+        MOV     AH,screen_attr
+        MOV     CX,1
+        REP     STOSW
+TR:
+        MOV     DI,BOXTR
+        MOV     AL,187              ;;top right corner
+        MOV     AH,screen_attr
+        MOV     CX,1
+        REP     STOSW
+BOTL:
+        MOV     DI,BOXBL
+        MOV     AL,200              ;;bottom left corner
+        MOV     AH,screen_attr
+        MOV     CX,1
+        REP     STOSW
+BR:
+        MOV     DI,BOXBR
+        MOV     AL,188              ;;bottom right coner
+        MOV     AH,screen_attr
+        MOV     CX,1
+        REP     STOSW
+TOP:
+        MOV     DI,BOXTL
+        ADD     DI,2
+        MOV     AL,205              ;;horizonal line to connect corners
+        MOV     AH,screen_attr
+        MOV     CX,colcnt            ;;TR - TL
+        DEC     CX
+        REP     STOSW
+BOTTOM:
+        MOV     DI,BOXBL
+        ADD     DI,2
+        MOV     AL,205              ;;horizonal line to connect corners
+        MOV     AH,screen_attr
+        MOV     CX,colcnt             ;;BR - BL
+        DEC     CX
+        REP     STOSW
+LEFT:
+        MOV     DI,BOXTL
+        add     di,160
+        mov       bx,linecnt          ;;BL - TL
+        sub       bx,1
+leftloop:
+        MOV     AL,186              ;;vertical line to connect corners
+        MOV     AH,screen_attr
+        MOV     CX,1
+        REP     STOSW
+        add       di,158
+        dec       bl
+        cmp       bl,0
+        jne       leftloop
+RIGHT:
+        CLD
+        MOV     DI,BOXTR
+        add     di,160
+        mov       bx,linecnt          ;;BR - TR
+        sub       bx,1
+RIGHTLOOP:
+        MOV     AL,186              ;;vertical line to connect corners
+        MOV     AH,screen_attr
+        MOV     CX,1
+        REP     STOSW
+        add       di,158
+        dec       bl
+        cmp       bl,0
+        jne       rightloop
+
+        pop       si
+        pop       di
+        pop       ax
+        pop       bx
+        ENDM
+
+EDIT    macro   path,command,parms
+;;------------------------- close file first ---------------------------------
+        xor     ax,ax
+        mov     ah,3EH
+        mov     bx,fil_hnd
+        int     21H
+        mov     filopn,0
+        nop
+        push    ds
+        push    es
+        mov     ax,cs
+        mov     es,ax
+        mov     ds,ax
+        assume  es:lse_main,ds:lse_main
+        mov     dx,offset path
+        mov     bx,offset parms
+        mov     word ptr parms[02],offset command
+        mov     word ptr parms[04],cs
+        mov     word ptr parms[06],5CH
+        mov     word ptr parms[08H],es
+        mov     word ptr parms[0AH],6CH
+        mov     word ptr parms[0CH],es
+        mov     al,0
+        mov     ah,4BH
+        int     21H
+        nop
+        pop     es
+        pop     ds
+        assume  ds:lse_data,es:screen
+        xor     ax,ax
+        mov     ah,3DH          ;;open file
+        mov     al,1
+        mov     dx,offset filename
+        int     21H
+        nop
+        mov     fil_hnd,ax
+        mov     filopn,1
+        mov     ah,42H          ;;move pointer to end of file
+        mov     al,2
+        mov     bx,fil_hnd
+        mov     cx,0
+        mov     dx,0
+        int     21H
+        nop
+        endm
+
+EQUIP_CHK       MACRO
+        local   seg_ok
+                int     11H
+                and     al,00110000B    ;;is it B/W?
+                cmp     al,00110000B
+                mov     ax,0b000H       ;;assume B/W
+                mov     stat_port,03baH
+                je      seg_ok
+                mov     ax,0b800H       ;;no, set color
+                mov     stat_port,03daH
+seg_ok:
+                mov     video_address,ax
+                ENDM
+
+

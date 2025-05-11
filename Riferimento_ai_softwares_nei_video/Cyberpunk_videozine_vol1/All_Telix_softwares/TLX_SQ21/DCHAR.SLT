@@ -1,0 +1,4 @@
+main()
+{ call ("GLOBAL","W","LASTK","D");   // Set last character pressed to "D".
+}
+

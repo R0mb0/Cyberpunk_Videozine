@@ -1,0 +1,210 @@
+
+// PC time getter, for Telix    Eric Johnson     ejohnson@csn.org    2-94
+// Calls NIST Atomic clock in Boulder CO.  For me, it is a local call, so
+// you may need to change the number & modem parameters.  It's ugly, but
+// it works.  This program is FREE!
+//
+// Hacked from TSET31.SLT and TIMECFG.SLT by Charles Lee.
+
+main()
+{
+   int count,hi_hour,lo_hour,hi_min,lo_min,hi_sec,lo_sec,local_hr,t;
+   int error,err_test,cfg=0,time_adj,old_b_color,old_f_color;
+   int i;
+   str utc_hour[3],slocal_hr[3],cmd[20]="time ",
+	   script_path[78];
+
+   // Initialize variables
+   hi_hour=-1; 	//Receives hi byte of hour time info
+   lo_hour=-1;
+   hi_min=-1;
+   lo_min=-1;
+   hi_sec=-1;
+   lo_sec=-1;
+
+    prints("dialing for time...");
+ 
+    set_cparams(1200,0,8,1);                              // COMM parameters
+    cputs_tr("ATS6=5S6=200S37=5S9=200N0DT494-4774^M");    // MODEM CRAP
+ 
+    flushbuf();
+ 
+
+   // syncronize to data stream
+ 	if(!waitfor("UTC",60))
+ 	{
+ 	    prints("+++  Timeout - Timeset Aborted  +++");
+ 	    hangup();
+ 	    return;
+ 	}
+    waitfor("-",30);
+    waitfor(" ",30);
+
+   //Receive the time data
+	while(hi_hour==-1)
+	{
+	    hi_hour=cgetc();
+	}
+	while(lo_hour==-1)
+	{
+	    lo_hour=cgetc();
+	}
+   while(cgetc()!=':')
+   {
+   }
+	while(hi_min==-1)
+	{
+	    hi_min=cgetc();
+	}
+	while(lo_min==-1)
+	{
+	    lo_min=cgetc();
+	}
+   while(cgetc()!=':')
+   {
+   }
+	while(hi_sec==-1)
+	{
+	    hi_sec=cgetc();
+	}
+	while(lo_sec==-1)
+	{
+	    lo_sec=cgetc();
+	}
+
+   hangup();
+
+
+   // put hours into an int 
+   strcat(utc_hour,hi_hour);
+   strcat(utc_hour,lo_hour);
+   local_hr=stoi(utc_hour);
+
+   //Adjust UTC time to local time here
+   local_hr = local_hr - 7;                        // 7 hours West
+   if(local_hr<0)
+   {
+	local_hr=local_hr + 24;
+   }
+   itos(local_hr,slocal_hr);
+
+   // build command string
+   strcat(cmd,slocal_hr);
+   strcat(cmd,":");
+   strcat(cmd,hi_min);
+   strcat(cmd,lo_min);
+   strcat(cmd,":");
+   strcat(cmd,hi_sec);
+   strcat(cmd,lo_sec);
+
+   prints(cmd);
+   dos(cmd, 0);
+}
+
+
+
+// ****************************************************************************
+// 
+//                              DESCRIPTION OF THE
+//                  AUTOMATED COMPUTER TELEPHONE SERVICE (ACTS)
+// 
+// 
+// The following is transmitted (at 1200 Baud) after completion of the
+// telephone connection.
+// 
+//              National Institute of Standards and Technology
+//              Telephone Time Service, Generator 3B
+//              Enter question mark "?" for HELP
+//                                      D  L D
+//               MJD  YR MO DA H  M  S  ST S UT1 msADV        <OTM>
+//              47999 90-04-18 21:39:15 50 0 +.1 045.0 UTC(NIST) *
+//              47999 90-04-18 21:39:16 50 0 +.1 045.0 UTC(NIST) *
+//              47999 90-04-18 21:39:17 50 0 +.1 045.0 UTC(NIST) *
+//              47999 90-04-18 21:39:18 50 0 +.1 045.0 UTC(NIST) *
+//              47999 90-04-18 21:39:19 50 0 +.1 037.6 UTC(NIST) #
+//              47999 90-04-18 21:39:20 50 0 +.1 037.6 UTC(NIST) #
+//              etc..etc...etc.......
+// 
+// UTC = Universal Time Coordinated, the official world time referred to the
+// zero meridian.
+// _________________________________________________________________________
+// 
+// DST = Daylight savings time characters, valid for the continental U.S., are
+// set as follows:
+//   00 = We are on standard time (ST).    50 = We are on DST.
+//   99 to 51 = Now on ST, go to DST when your local time is 2:00 am and the
+//     count is 51.  The count is decremented daily at 00 (UTC).
+//   49 to 01 = Now on DST, go to ST when your local time is 2:00 am and the
+//     count is 01.  The count is decremented daily at 00 (UTC).
+// The two DST characters provide up to 48 days advance notice of a change in
+// time.  The count remains at 00 or 50 at other times.
+// _________________________________________________________________________
+// 
+// LS = Leap second flag is set to "1" to indicate that a leap second is to be
+// added as 23:59:60 (UTC) on the last day of the current UTC month.  The LS
+// flag will be reset to "0" starting with 23:59:60 (UTC).  The flag will
+// remain on for the entire month before the second is added.  Leap seconds
+// are added as needed at the end of any month.  Usually June and/or December
+// are chosen.
+// 
+// __________________________________________________________________________
+// 
+// DUT1 = Approximate difference between earth rotation time (UT1) and UTC, in
+// steps of 0.1 second.         DUT1 = UT1 - UTC
+// ___________________________________________________________________________
+// 
+// MJD = Modified Julian Date, often used to tag certain scientific data.
+// ___________________________________________________________________________
+// 
+// The full time format is sent at 1200 Baud, 8 bit, 1 stop, no parity.
+// The format at 300 Baud is also 8 bit, 1 stop, no parity. 
+// At 300 Baud the MJD and DUT1 values are deleted and the
+// time is transmitted only on even seconds.
+// ___________________________________________________________________________
+// 
+// Maximum on line time will be 56 seconds.  If all lines are busy at any time,
+// the oldest call will be terminated if it has been on line more than 28
+// seconds, else, the call that first reaches 28 seconds will be terminated. 
+// ___________________________________________________________________________
+// 
+// Current time is valid at the "on-time" marker (OTM), either "*" or "#". 
+// The nominal on-time marker (*) will be transmitted 45 ms early to account
+// for the 8 ms required to send 1 character at 1200 Baud, plus an additional
+// 7 ms for delay from NIST to the user, and approximately 30 ms "scrambler"
+// delay inherent in 1200 Baud modems.  If the caller echoes all characters,
+// NIST will measure the round trip delay and advance the on-time marker so
+// that the midpoint of the stop bit arrives at the user on time.  The amount
+// of msADV will reflect the actual required advance in milliseconds and the
+// OTM will be a "#".  The NIST system requires 4 or 5 consecutive delay
+// measurements which are consistent before switching from "*" to "#".
+// If the user has a 1200 Baud modem with the same internal delay as that used
+// by NIST, then the "#" OTM should arrive at the user within +-2 ms of the
+// correct time.  However, NIST has studied different brands of 1200 Baud
+// modems and found internal delays from 24 ms to 40 ms and offsets of the
+// "#" OTM of +-10 ms.  For many computer users, +-10 ms accuracy should be
+// more than adequate since many computer internal clocks can only be set with
+// granularity of 20 to 50 ms.  In any case, the repeatability of the offset
+// for the "#" OTM should be within +-2 ms, if the dial-up path is reciprocal
+// and the user doesn't change the brand or model of modem used. This should
+// be true even if the dial-up path on one day is a land-line of less than
+// 40 ms (one way) and on the next day is a satellite link of 260 to 300 ms.
+// In the rare event that the path is one way by satellite and the other way
+// by land line with a round trip measurement in the range of 90 to 260 ms,
+// the OTM will remain a "*" indicating 45 ms advance.
+// ___________________________________________________________________________
+// 
+// For user comments write:
+// NIST-ACTS
+// Time and Frequency Division
+// Mail Stop 847
+// 325 Broadway
+// Boulder, CO  80303
+// 
+// Software for setting (PC)DOS compatable machines is available
+// on a 360-kbyte diskette for $35.00 from:
+// NIST Office of Standard Reference Materials
+// B311-Chemistry Bldg, NIST, Gaithersburg, MD, 20899, (301) 975-6776
+// 
+// --------------------------------------------------------------------------
+// 
+

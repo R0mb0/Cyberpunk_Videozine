@@ -1,0 +1,86 @@
+////////////////////////////// CAPCMD.SLT ////////////////////////////////////
+//
+// DESCRIPTION:  This script is designed to be used in one of Custom Command
+// options of any Liberator Command File.  The script captures the results
+// of a user-defined PCBoard/ProDoor command to a user-defined file.
+//
+// INSTRUCTIONS:  Simply place the name of the capture file, along with the
+// command to send to PCBoard/ProDoor in Custom Command 1 or 2 in the follow-
+// ing format:
+//
+// @CapCmd <capfname> <command>
+//
+// To capture bulletin 6 to the file C:\TEMP\B6.CAP, the appropriate Custom
+// Command would be:
+//
+// @CapCmd C:\TEMP\B6.CAP B 6 NS
+//
+//////////////////////////////////////////////////////////////////////////////
+// Below are two things called 'variables', that I'm sure you've seen in other
+// scripts.  Once defined, they simply provide a place to store some numbers
+// (int) or letters (str) in memory, to be retrieved later.  If you have to
+// keep track of something in your scripts, just define variables as below.
+// int for numbers, str for 'strings' or groups of letters, symbols, etc.
+// the [64] means that the string can hold up to 64 characters.
+
+int old_capture_stat;      // holds status of current capture file (open/closed)
+str old_capture_fname[64]; // holds name of current capture file
+
+//////////////////////////////////////////////////////////////////////////////
+main(str fname, str cmd)
+{
+ if (not fname)              // check passed parameters, abort if none
+  return;                    // 'not fname' is TRUE if the str is empty
+ if (not cmd)
+  return;
+
+ cputs(cmd);                 // send the passed cmd to the BBS
+ cputs("^M");                // along with a CR or <Enter>
+ 
+ if (open_capture(fname))    // if open_capture() returns TRUE...
+  waitfor("Command? ", 300); // wait up to 5 minutes for a main prompt
+
+ restore_capture();          // restore_capture() is defined below
+}
+
+//////////////////////////////////////////////////////////////////////////////
+open_capture(str capfname)
+{
+ old_capture_stat = capture_stat();  // capture_stat() as explained in SALT dox
+ old_capture_fname = _capture_fname; // _capture_fname 'system variable' holds
+                                     // the name of the current capture file
+                                     // this stores the current name...
+
+ _capture_fname = capfname;          // then replace with user-defined name
+
+ if (capture_stat())                 // if capture file now open...
+  capture("*CLOSE*");                // close it...
+
+ if (capture(_capture_fname) == -1)  // and try to open the new one
+  {
+   status_wind("Error opening capture file!", 30);
+   return(0);                        // return FALSE (zero) if error
+  }
+
+ // the above if() may look a little strange, but what is means is:
+ // 'if() the return value of capture() is equal to (==) -1'.  The capture()
+ // function returns -1 when it can't open the specified _capture_fname, thus
+ // what's between the curly brackets gets executed 'if capture() returns -1'.
+
+ return(1);                          // return TRUE (non-zero) if okay
+}
+
+//////////////////////////////////////////////////////////////////////////////
+restore_capture()
+{
+ if (capture_stat())
+  capture("*CLOSE*");                // all done... close capture file
+
+ _capture_fname = old_capture_fname; // put the old capture file name back
+                                     // (stored in open_capture() at start)
+ 
+ if (old_capture_stat)               // if the capture file was open when we
+  capture(_capture_fname);           // started, then re-open it.
+}
+
+////////////////////////////////////////////////////////////////////////////// 

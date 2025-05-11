@@ -1,0 +1,48 @@
+The following is a brief summary of tips on running Telix in DV.
+ 
+In DV setup, Performance menu:  ticks 2 and 2 or 3 and 3, Optimize
+comm: Y, and if you have a 386(or SX), DOS buffers for EMS: 0, unless
+you use a network adaptor.
+ 
+Tell DV that your Telix window is not allowed to swap out, it CAN run
+in background, and give it a couple of K of system memory.
+ 
+Add noff.shr or noff.shp (they are the same program, but the ext name
+got changed in DV 2.26) in the shared program section of the DV PIF
+for Telix.  In some cases, you may help your comm program by adding
+noff.shp to something else, such as WordPerfect, which needs it in DV.
+ 
+If your external modem is running at 9600 bps or above, try to get a
+NS16550AFN UART chip for your serial adapter.
+ 
+If your modem supports flow control and if you lock the modem/serial
+port connection (DTE/DCE) at a fixed speed be sure to tell Telix:
+auto baud detect OFF, otherwise, set it ON.  If you do lock DTE/DCE at
+a fixed speed, you will need to turn on flow control.  Use CTS/RTS
+flow controls if your modem supports it (if your modem manual doesn't
+mention it, then it doesn't support it!).  (Do NOT use DSR/DTR flow
+control on phone lines.)
+ 
+Shadow ram your video rom, if you can but aren't already.
+ 
+Tell Telix to use direct screen writes, but tell DV that it does not
+write directly to screen.  (I know it seems contradictory, but for
+Telix 3.12 in DV it's the way to do it).
+ 
+In Configure Telix, Protocol options, File xfer disk buffer size: use a
+small number, 1 to 4, especially if you do not use a disk cache program.
+ 
+DV PIF excerpts for Telix 3.12 in DV 2.26 QEMM 5
+Options:
+Writes text directly to screen...: [N] (See above discussion)
+Displays graphics information....: [N] (ASCII graphics will still work)
+Virtualize text/graphics (Y,N,T).: [N] (Y not needed by Telix)
+Uses serial ports (Y,N,1,2)......: [2] or [1], whichever
+ 
+Pathname..: c:\dv\noff.shp
+ 
+Runs in background (Y,N,blank).. [Y]
+Can be swapped out (Y,N,blank) [N]
+ 
+JerryB
+

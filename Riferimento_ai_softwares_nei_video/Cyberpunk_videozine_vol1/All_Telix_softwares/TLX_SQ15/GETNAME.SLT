@@ -1,0 +1,195 @@
+//-----------------------------------------------------------
+// GETNAME.SL? Get variables from the NAME.DAT file.
+//
+// Author: Inge Vabekk
+//         Hamangskogen 108
+//         N-1300 SANDVIKA
+//         NORWAY
+//-----------------------------------------------------------
+
+str namefile  [12]= "NAME.DAT"    // File containing name etc.
+   ,fonedir   [12]= "TELIX.FON"   // Default phone directory
+   ,global      []= "GLOBAL"      // Name of global script
+   ,name        []= "NAME"        // Global: User name.
+   ,mdir        []= "MDIR"        // Global: Mail directory.
+   ,errormess [80]                // For error message.
+   ,inputline[160]                // For reading NAME.DAT file.
+   ,varname    [6]
+   ;                                     
+
+int file                          // File handle
+   ,namelen=6                     // Length of names
+   ,stringlen=80                  // Max. length of variables
+   ;
+
+//-----------------------------------------------------------
+// Script starts here.
+//-----------------------------------------------------------
+
+main ()
+{
+int c, l;
+
+  if (!is_loaded(global))                // If Global script is not
+    return(-1);                          // loaded: Error.
+
+  clear_scr();
+  box ( 8,6,60,14,2,0,15);
+  box (10,7,58,13,2,0,15);
+  box (12,8,56,12,2,0,15);
+  pstraxy ("Please wait a sec... I'm reading data....",14,10,116);
+  gotoxy(0,0);
+
+  if ((file=fopen(namefile,"r"))<=0) 
+  { errormess = namefile;
+    strcat (errormess," not found!");
+    status_wind (errormess,20);          // Show error message.
+    return (-1);
+  }
+  write ("Prompt"," Command");           // Set default command prompt.
+
+// Read the NAME.DAT file.
+
+  while (fgets(inputline,160,file)>0)    // Get input line.
+    codeset ();                          // Find and set the code.
+
+  fclose (file);                         // Close the file
+
+// Set user keys.
+
+  if (getkey ("f1",inputline) > 0)       // F1 key.
+    setkey (0x3b00,inputline);
+  if (getkey ("f2",inputline) > 0)       // F2 key.
+    setkey (0x3c00,inputline);
+  if (getkey ("f3",inputline) > 0)       // F3 key.
+    setkey (0x3d00,inputline);
+  if (getkey ("f4",inputline) > 0)       // F4 key.
+    setkey (0x3e00,inputline);
+  if (getkey ("f5",inputline) > 0)       // F5 key.
+    setkey (0x3f00,inputline);
+  if (getkey ("f6",inputline) > 0)       // F6 key.
+    setkey (0x4000,inputline);
+  if (getkey ("f7",inputline) > 0)       // F7 key.
+    setkey (0x4100,inputline);
+  if (getkey ("f8",inputline) > 0)       // F8 key.
+    setkey (0x4200,inputline);
+  if (getkey ("f9",inputline) > 0)       // F9 key.
+    setkey (0x4300,inputline);
+  if (getkey ("f10",inputline) > 0)      // F10 key.
+    setkey (0x4400,inputline);
+  if (getkey ("f11",inputline) > 0)      // F11 key.
+    setkey (0x8500,inputline);
+  if (getkey ("f12",inputline) > 0)      // F12 key.
+    setkey (0x8600,inputline);
+
+  read ("Graph",inputline);              // Graphics?
+  setchr(inputline,1,0);                 // Set graphics, Y or N.
+  strupper(inputline);
+  if (inputline != "Y") inputline = "N";
+  write ("Graph",inputline);
+
+  if (read ("Fdir",errormess) < 0)       // phone directory,
+    write ("Fdir",fonedir);
+
+  read (mdir,errormess);                 // Mail directory
+  for (l=strlen(errormess)-1; l>0; --l)
+  { if (subchr(errormess,l) !='\')
+      break;
+    setchr (errormess,l,0);              // Delete trailing slash.
+  }
+  run ("CRDIR",errormess,2);             // Create directory.
+  strcat (errormess,"\");                // Add slash again.
+  write (mdir,errormess);                // Set mail directory
+  return (0);                            // and return.
+}
+
+//-----------------------------------------------------------
+// Routine to decode one line from the input file.
+//-----------------------------------------------------------
+
+codeset()
+{
+int i, j, k, l, c, copo; 
+
+  copo = strchr(inputline,0,':');        // Find first colon.
+  if (copo < 0) return(0);               // Not found!
+
+  if ((k=strchr(inputline,0,'{')) >= 0)    // Comment in this line?
+  { if ((l=strchr(inputline,k,'}')+1) > k) // End of comment found?
+    { substr (inputline,l,80,errormess); // Move rest to temp.
+      copystr (errormess,inputline,k,80);// Back to input line.
+    }
+  }
+
+  for (i=j=0; i < copo; ++i)
+  { if ((c=subchr(inputline,i)) != ' ')
+    { setchr (varname,j,toupper(c));     // Copy all except space.
+      if (++j >= namelen)                // Protect against too long
+        break;                           // strings.
+    }
+  }
+  for (; j < namelen; ++j)               // Add spaces.
+    setchr (varname,j,' ');
+
+// Isolate contents of variable. Find first non-space after colon.
+
+  while ((c=subchr(inputline,++copo))>0)
+    if (c > ' ') break;                  // Non-space found.
+
+  if (c < ' ') return(0);                // Invalid input.
+
+  l = strlen(inputline);
+  for ( ; l>=copo; --l)  
+    if (subchr(inputline,l) != ' ')      // Remove trailing spaces.
+      break;
+   
+  setchr(inputline,++l,0);               // Insert terminator.
+
+//  Move string down to start at 0.
+
+  substr (inputline,copo,stringlen,inputline);
+  write (varname,inputline);             // Define this global.
+
+  return(0);
+}
+
+//-----------------------------------------------------------
+// Get a softkey.
+//-----------------------------------------------------------
+
+getkey (str key, str varname) 
+{
+  read (key,varname);
+  if (strcmpi (varname,"@name") == 0)  // Replace "@name" by name.
+  { read (name,varname);
+    strcat (varname,"^M");
+  }
+}
+
+//-----------------------------------------------------------
+// Read a variable.
+//-----------------------------------------------------------
+
+read (str name, str varname)
+{
+  return (call (global,"R",name,varname));
+}
+
+//-----------------------------------------------------------
+// Write a variable.
+//-----------------------------------------------------------
+
+write(str name, str varname)
+{ 
+  return (call (global,"W",name,varname));
+}
+
+//-----------------------------------------------------------
+// Set a key.
+//-----------------------------------------------------------
+
+setkey (int key, str string)
+{ 
+  if (strlen(string) > 0)
+    keyset (key,0,string);
+}

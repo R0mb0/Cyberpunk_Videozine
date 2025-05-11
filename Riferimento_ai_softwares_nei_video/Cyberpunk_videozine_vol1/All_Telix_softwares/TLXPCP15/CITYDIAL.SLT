@@ -1,0 +1,809 @@
+//These are the user configurable variables of this script
+
+str user_id[10]="XXXXXXXX",
+    password[10]="********",
+    busy_tone[]="Y",
+    message_tone[]="y",
+    connect_tone[]="y",
+    maintain_log[]="y";
+
+///////////////////////////////////////////////////////////////////////////////
+//                                                                           //
+//                  citydial v1.5 Copyright (c) by Charles Lee               //
+//                             January 1989                                  //
+//                                                                           //
+///////////////////////////////////////////////////////////////////////////////
+
+//Declare the dialing arrays
+str city_str[1000],
+    city_dial_str[1000],
+    city_search_buffer[1000];
+
+//Declare string to build dos commands in
+str dos_command[200];
+
+connect_alarm()
+{
+    if((connect_tone=="y")|(connect_tone=="Y"))
+    {
+        alarm(2);
+    }
+}
+disp_monthly()
+{
+    int fp,
+        t,
+        t1;
+
+    str monthly_time_file[76],
+        elapse_time[12];
+
+    monthly_time_file=_script_dir;
+    strcat(monthly_time_file,"mtelapse.pcp");
+
+    fp=fopen(monthly_time_file,"r");
+    fgets(elapse_time,12,fp);
+    fclose(fp);
+    pstraxy("Total Monthly Elapsed Time is: ",38,19,10);
+    t=stoi(elapse_time);
+    t1=t/3600;
+    gotoxy(44,20);
+    printn(t1);
+    pstraxy(" hr(s) ",getx(),gety(),10);
+    t1=(t-t1*3600)/60;
+    printn(t1);
+    pstraxy(" mins.",getx(),gety(),10);
+    return;
+}
+
+beep(int freq)
+{
+    if((message_tone=="y")|(message_tone=="Y"))
+    {
+        tone(freq,20);
+    }
+}
+
+display_cities(int start)
+{
+    str highlight_test[10],
+        buffer[10];
+    int count;
+
+    for(count=0;count<20;count=count+1)
+    {
+        substr(city_dial_str,((start+count)*8),8,highlight_test);
+        substr(city_str,((start+count)*8),8,buffer);
+        if(highlight_test=="********")
+        {
+            pstraxy(" ",26,(count+2),14);
+            pstraxy(buffer,27,(count+2),14);
+            pstraxy(" ",35,(count+2),14);
+        }
+        else
+       {
+            pstraxy(" ",26,(count+2),0x1f);
+            pstraxy(buffer,27,(count+2),0x1f);
+            pstraxy(" ",35,(count+2),0x1f);
+       }
+    }
+}
+
+display_bar(int menu_bar_pos,int city_bar_pos)
+{
+    str buffer[10];
+
+    substr(city_str,(city_bar_pos*8),8,buffer);
+    pstraxy(" ",26,(menu_bar_pos+2),0x4f);
+    pstraxy(buffer,27,(menu_bar_pos+2),0x4f);
+    pstraxy(" ",35,(menu_bar_pos+2),0x4f);
+}
+
+
+un_display_bar(int menu_bar_pos,int city_bar_pos)
+{
+    str buffer[10],
+        highlight_test[10];
+
+    substr(city_str,(city_bar_pos*8),8,buffer);
+    substr(city_dial_str,(city_bar_pos*8),8,highlight_test);
+    if(highlight_test=="********")
+    {
+        pstraxy(" ",26,(menu_bar_pos+2),14);
+        pstraxy(buffer,27,(menu_bar_pos+2),14);
+        pstraxy(" ",35,(menu_bar_pos+2),14);
+    }
+    else
+    {
+        pstraxy(" ",26,(menu_bar_pos+2),0x1f);
+        pstraxy(buffer,27,(menu_bar_pos+2),0x1f);
+        pstraxy(" ",35,(menu_bar_pos+2),0x1f);
+    }
+}
+
+
+dial_these()
+{
+    str buffer[10],
+        highlight_test[10],
+        pcp_cities_file[76],
+        pcp_dial_queue[76];
+
+    int fp,
+        done=0,
+        menu_bar_pos=0,
+        city_bar_pos=0,
+        menu_top=0,
+        city_str_amt=0,
+        menu_scroll=1,
+        key,
+        last_char;
+
+    status_wind("Processing city file!  One moment please.",20);
+
+    //Build city_str
+    pcp_cities_file=_script_dir;
+    strcat(pcp_cities_file,"cities.pcp");
+    fp=fopen(pcp_cities_file,"r");
+    if(!fp)
+    {
+        beep(500);
+        status_wind("Can't find PC Pursuit City file!.  Aborting.",10);
+        return 0;
+    }
+    while(fread(buffer,8,fp)==8)
+    {
+        fseek(fp,2,1);
+        strcat(city_str,buffer);
+        city_str_amt=city_str_amt+1;
+    }
+    fclose(fp);
+
+    pcp_dial_queue=_script_dir;
+    strcat(pcp_dial_queue,"queue.pcp");
+    fp=fopen(pcp_dial_queue,"r");
+    if(!fp)
+    {
+        //The dialing queue doesn't exist.  Create it.
+        for(fp=0;fp<city_str_amt;fp=fp+1)
+        {
+            strcat(city_dial_str,"********");
+        }
+    }
+    else
+    {
+        fread(city_dial_str,1000,fp);
+        fclose(fp);
+    }
+    box(25,1,36,22,3,0,11);
+    box(38,10,66,12,3,0,11);
+    pstraxy("PC Pursuit City Menu",43,11,15);
+    pstraxy("  moves select bar   ",40,14,12);
+    pstraxy("Space selects/deselects",40,15,12);
+    pstraxy("C clears all selected  ",40,16,12);
+    pstraxy("Ù exits to city dialer",40,17,12);
+
+    //Display monthly totals
+    disp_monthly();
+
+    _scr_chk_key=0;
+    cursor_onoff(0);
+
+    while(!done)
+    {
+        cursor_onoff(0);
+        if(menu_scroll)
+        {
+            display_cities(menu_top);
+            menu_scroll=0;
+        }
+        while(1)
+        {
+           display_bar(menu_bar_pos,city_bar_pos);
+           //Get key pressed and empty the keyboard buffer
+           key=inkeyw();
+           last_char=1;
+           while(last_char)
+           {
+                last_char=inkey();
+           }
+           un_display_bar(menu_bar_pos,city_bar_pos);
+
+            //Pg dn key
+            if(key==0x5100)
+            {
+                menu_bar_pos=0;
+                if((city_bar_pos+20)>=city_str_amt)
+                {
+                    beep(500);
+                }
+                city_bar_pos=(city_bar_pos/20 + 1)*20;
+                menu_top=city_bar_pos;
+                if((menu_top+20)>city_str_amt)
+                {
+                    menu_top=city_str_amt-20;
+                    city_bar_pos=menu_top;
+                }
+                menu_scroll=1;
+                break;
+            }
+            //Pg up key
+            if(key==0x4900)
+            {
+                if(!menu_top)
+                {
+                    beep(500);
+                }
+                menu_bar_pos=19;
+                menu_top=((city_bar_pos/20)-1)*20;
+                city_bar_pos=menu_top+19;
+                if(menu_top<0)
+                {
+                    city_bar_pos=19;
+                    menu_top=0;
+                }
+                menu_scroll=1;
+                break;
+            }
+            //Up key
+            if(key==0x4800)
+            {
+                if(menu_bar_pos==0)
+                {
+                    if(city_bar_pos==0)
+                    {
+                        beep(500);
+                    }
+                    else
+                    {
+                        menu_top=menu_top-20;
+                        city_bar_pos=city_bar_pos-1;
+                        menu_bar_pos=19;
+
+                        if(menu_top<0)
+                        {
+                            menu_top=0;
+                            city_bar_pos=19;
+                        }
+                        menu_scroll=1;
+                    }
+                }
+                else
+                {
+                    menu_bar_pos=menu_bar_pos-1;
+                    city_bar_pos=city_bar_pos-1;
+                }
+                break;
+            }
+
+            //Dn key
+            if(key==0x5000)
+            {
+                if(menu_bar_pos==19)
+                {
+                    if(city_bar_pos==(city_str_amt-1))
+                    {
+                        beep(500);
+                    }
+                    else
+                    {
+                        city_bar_pos=city_bar_pos+1;
+                        menu_top=menu_top+20;
+                        menu_bar_pos=0;
+                        if((menu_top+20)>city_str_amt)
+                        {
+                            menu_top=city_str_amt-20;
+                            city_bar_pos=city_str_amt-20;
+                        }
+                        menu_scroll=1;
+                    }
+                }
+                else
+                {
+                    menu_bar_pos=menu_bar_pos+1;
+                    city_bar_pos=city_bar_pos+1;
+                }
+                break;
+            }
+
+            //Space key
+            if(key==0x20)
+            {
+                menu_scroll=1;
+                subchrs(city_str,(8*city_bar_pos),8,buffer);
+                subchrs(city_dial_str,(8*city_bar_pos),8,highlight_test);
+                if(highlight_test=="********")
+                {
+                    copychrs(buffer,city_dial_str,(8*city_bar_pos),8);
+                }
+                else
+                {
+                    copychrs("********",city_dial_str,(8*city_bar_pos),8);
+                }
+                beep(3000);
+                break;
+            }
+
+            //Enter key
+            if(key==0x0d)
+            {
+                done=1;
+                break;
+            }
+            if((key=='c')|(key=='C'))
+            {
+                city_dial_str="";
+                menu_bar_pos=0;
+                city_bar_pos=0;
+                menu_top=0;
+                menu_scroll=1;
+                beep(3000);
+                status_wind("Clearing all selected cities!",10);
+
+                for(fp=0;fp<city_str_amt;fp=fp+1)
+                {
+                    strcat(city_dial_str,"********");
+                }
+                break;
+            }
+
+            beep(500);
+            status_wind("Unknown command!",10);
+            cursor_onoff(0);
+        }
+    }
+    //Save the highlighted cities
+    fp=fopen(pcp_dial_queue,"w+");
+    fwrite(city_dial_str,strlen(city_dial_str),fp);
+    fputc(0,fp);
+    fclose(fp);
+
+    //Remove * from city_dial_str
+    for(fp=0;fp<strlen(city_dial_str);fp=fp+8)
+    {
+        if(subchr(city_dial_str,fp)=='*')
+        {
+            delchrs(city_dial_str,fp,8);
+            fp=fp-8;
+        }
+    }
+    return (strlen(city_dial_str)/8);
+
+}
+dequeue(str city)
+{
+    int fp,
+        status;
+
+    str pcp_dial_queue[76];
+
+    pcp_dial_queue=_script_dir;
+    strcat(pcp_dial_queue,"queue.pcp");
+    fp=fopen(pcp_dial_queue,"r");
+    fread(city_search_buffer,1000,fp);
+    fclose(fp);
+
+    status=strpos(city_search_buffer,city,0);
+    if(status!=-1)
+    {
+        copychrs("********",city_search_buffer,status,8);
+        fp=fopen(pcp_dial_queue,"w+");
+        fwrite(city_search_buffer,strlen(city_search_buffer),fp);
+        fputc(0,fp);
+        fclose(fp);
+    }
+
+return;
+}
+
+dial_cities(int quantity)
+{
+    int t0,t1,t2,t3,t4,t5,status,count,test_count,flag,fp,dir_length,t_handle;
+
+    str pcp_command[25],
+        city[10],
+        fon_path[76],
+        fon_name[76],
+        dir_length_buffer[3],
+        pcp_dial_queue[76],
+        empty_fon_path[76],
+        usage_log_path[76],
+        temp_time_file[76],
+        start_time[12],
+        buffer[12];
+
+    dos_command="copy ";
+    _strip_high=1;
+
+    if(!quantity)
+    {
+        beep(500);
+        status_wind("No cities selected!",10);
+        return 4;
+    }
+    ustamp("*** City dialer starting to dial.",1,1);
+while(1)
+{
+    for(count=0;count<quantity;count=count+1)
+    {
+        prints(" ");
+        prints(" ");
+
+        flushbuf();
+        t0=track("STILL",1);
+        t1=track(" CONNECTED",1);
+        t2=track("BUSY",1);
+        t3=track("ADDRESS",1);
+        t4=track("NOT OPERATING",1);
+
+
+        substr(city_dial_str,(count*8),8,city);
+
+        if(city!="Net Exch")
+        {
+            pcp_command="C D/";
+            strcat(pcp_command,city);
+            strcat(pcp_command,",");
+            strcat(pcp_command,user_id);
+            strcat(pcp_command,"^M");
+
+            cputs_tr(pcp_command);
+
+            status=waitfor("PASSWORD",3);
+            if(!status)
+            {
+                cputs_tr("^M");
+            }
+            else
+            {
+                cputs_tr(password);
+                cputs_tr("^M");
+            }
+        }
+        else
+        {
+            cputs_tr("C PURSUIT^M");
+        }
+        flushbuf();
+        t_handle=timer_start(100);  //Set the timeout value.
+        while(1)
+        {
+            terminal();
+            status=track_hit(0);
+            if(time_up(t_handle))
+            {
+                timer_free(t_handle);
+                beep(500);
+                status_wind("City timed out!",10);
+                track_free(0);
+                cputs_tr("^M");
+                if(!waitfor("@",5))
+                {
+                    beep(500);
+                    status_wind("Lock up error! Aborting.",10);
+                    return 5;
+                }
+                break;
+            }
+
+            if(inkey()==0x20)
+            {
+                status_wind("Exiting City Dialer!",10);
+                track_free(0);
+                timer_free(t_handle);
+                return 2;
+            }
+            if(status==t0)
+            {
+                beep(500);
+                status_wind("Still connected!  Must disconnect from city first.",10);
+                track_free(0);
+                timer_free(t_handle);
+                return 1;
+            }
+            if(status==t1)
+            {
+                track_free(0);
+                timer_free(t_handle);
+
+                if(city!="Net Exch")
+                {
+                    connect_alarm();
+                    status_wind("Connected! Now testing city modem.",10);
+                    flag=1;
+                    //Check for RV mode and get out of it
+                    cputs_tr("^M");
+                    if(waitfor("*",2))
+                    {
+                        cputs_tr("I~^M");
+                    }
+                    for(test_count=0;test_count<2;test_count=test_count+1)
+                    {
+                        cputs_tr("^M~~ATZ~~^M");
+                        if(waitfor("OK",2))
+                        {
+                            flag=0;
+                            dequeue(city);
+                            beep(3000);
+                            status_wind("Modem ok! Loading dialing directory.",10);
+                            break;
+                        }
+                    }
+                    if(flag)
+                    {
+                        beep(500);
+                        status_wind("Bad city modem!  Disconnecting city.",10);
+                        cputs_tr("^M~~@~~^M");
+                        cputs_tr("d~~^M");
+                        if(!(waitfor("@",4)))
+                        {
+                            beep(500);
+                            status_wind("Unable to disconnect city!  Aborting.",10);
+                            return 5;
+                        }
+                        break;
+                    }
+                    ustamp("*** Connected to ",1,0);
+                    ustamp(city,0,1);
+                    if((maintain_log=="y")|(maintain_log=="Y"))
+                    {
+                        status_wind("Updating usage log!",30);
+                        usage_log_path=_script_dir;
+                        strcat(usage_log_path,"usage.pcp");
+                        fp=fopen(usage_log_path,"a+");
+                        fputc(0x0d,fp);
+                        fputc(0x0a,fp);
+                        fputs("   ",fp);
+                        fputs(city,fp);
+                        fputs(" connected at ",fp);
+                        t0=curtime();
+                        time(t0,buffer);
+                        fputs(buffer,fp);
+                        fputs(".",fp);
+                        fputc(0x0d,fp);
+                        fputc(0x0a,fp);
+                        fclose(fp);
+                    }
+
+                    itos(curtime(),start_time);
+                    temp_time_file=_script_dir;
+                    strcat(temp_time_file,"temptime.pcp");
+                    fp=fopen(temp_time_file,"w");
+                    fputs(start_time,fp);
+                    fputc(0x0d,fp);
+                    fputc(0x0a,fp);
+                    fclose(fp);
+
+                    delchrs(city,5,3);
+                    fon_path=_telix_dir;
+                    strcat(fon_path,"pcpfon\");
+                    empty_fon_path=fon_path;
+                    strcat(empty_fon_path,"empty.fon");
+                    strcat(fon_path,city);
+                    strcat(fon_path,".fon");
+                    if(!(loadfon(fon_path)))
+                    {
+                        beep(500);
+                        status_wind("Creating it.",10);
+                        strcat(dos_command,empty_fon_path);
+                        strcat(dos_command," ");
+                        strcat(dos_command,fon_path);
+                        dos(dos_command,0);
+                        loadfon(fon_path);
+                    }
+                    _dial_time=90;
+                    _strip_high=0;
+
+                    //Adjust baud rates in the directory file
+                    fp=fopen(fon_path,"r+");
+                    if(!fp)
+                    {
+                        beep(500);
+                        status_wind("Not able to adjust directory baud rates!",10);
+                    }
+                    fseek(fp,6,0);
+                    fread(dir_length_buffer,2,fp);
+                    dir_length=subchr(dir_length_buffer,0)+(subchr(dir_length_buffer,1)*256);
+                    fseek(fp,106,0);
+                    for(;dir_length;dir_length=dir_length-1)
+                    {
+                        if(get_baud()==1200)
+                        {
+                            fputc(1,fp);
+                        }
+                        else
+                        {
+                            fputc(2,fp);
+                        }
+                        fseek(fp,85,1);
+                    }
+                    fclose(fp);
+
+                    //Save the current city name to disk
+                    fon_name=_script_dir;
+                    strcat(fon_name,"fondir.pcp");
+                    fp=fopen(fon_name,"w+");
+                    fputs(fon_path,fp);
+                    fputc(0x0a,fp);
+                    fclose(fp);
+
+                    call("dialbbs.slc");
+                }
+                else
+                {
+                    
+                    t0=track("FIRST",1);
+                    t1=track("@",1);
+                    t2=track("CONTINUE",1);
+                    while(1)
+                    {
+                        terminal();
+                        status=track_hit(0);
+                        if(status==t0)
+                        {
+                            connect_alarm();
+                            status_wind("Connected to the Network Exchange!",10);
+                            track_free(0);
+                            dequeue(city);
+                            ustamp("*** Connected to the Network Exchange.",1,1);
+                            if((maintain_log=="y")|(maintain_log=="Y"))
+                            {
+                                status_wind("Updating usage log!",30);
+                                usage_log_path=_script_dir;
+                                strcat(usage_log_path,"usage.pcp");
+                                fp=fopen(usage_log_path,"a+");
+                                fputc(0x0d,fp);
+                                fputc(0x0a,fp);
+                                fputs("   NET EXCH connected at ",fp);
+                                t0=curtime();
+                                time(t0,buffer);
+                                fputs(buffer,fp);
+                                fputs(".",fp);
+                                fputc('P',fp);
+                                fputc(0x0d,fp);
+                                fputc(0x0a,fp);
+                                fclose(fp);
+                            }
+                            return 3;
+                        }
+                        if(status==t1)
+                        {
+                            track_free(0);
+                            break;
+                        }
+                        if(status==t2)
+                        {
+                            cputs_tr("~~~~^M");
+                        }
+                    }
+                    break;
+                }
+                return 0;
+            }
+
+            if(status==t2)
+            {
+                if((busy_tone=="y")|(busy_tone=="Y"))
+                {
+                    tone(3000,20);
+                }
+                track_free(0);
+                timer_free(t_handle);
+                break;
+            }
+            if(status==t3)
+            {
+                beep(500);
+                dequeue(city);
+                status_wind("City is not recognized by PCP!  Removing from queue.",10);
+                delchrs(city_dial_str,(count*8),8);
+                track_free(0);
+                timer_free(t_handle);
+                count=0;
+                quantity=quantity-1;
+                if(!quantity)
+                {
+                    return 4;
+                }
+                break;
+            }
+            if(status==t4)
+            {
+                beep(500);
+                dequeue(city);
+                status_wind("City is not operating! Removing from queue.",10);
+                delchrs(city_dial_str,(count*8),8);
+                track_free(0);
+                timer_free(t_handle);
+                count=0;
+                quantity=quantity-1;
+                if(!quantity)
+                {
+                    return 4;
+                }
+                break;
+            }
+
+           
+        }
+    }
+}
+}
+
+
+
+main()
+{
+    int flag,
+        quantity,
+        scr_handle,
+        status,
+        todays_date,
+        time_file_date,
+        fp;
+
+    str monthly_time_file[76],
+        time_log_path[76];
+
+    monthly_time_file=_script_dir;
+    strcat(monthly_time_file,"mtelapse.pcp");
+
+    todays_date=curtime();
+    time_file_date=filetime(monthly_time_file);
+    if(time_file_date==-1)
+    {
+        beep(500);
+        status_wind("Monthly time file not found! Creating it.",30);
+        fp=fopen(monthly_time_file,"w");
+        fputs("0",fp);
+        fputc(0x0d,fp);
+        fputc(0x0a,fp);
+        fclose(fp);
+
+        time_file_date=todays_date;
+    }
+    // Check to see if the month is over
+    if(tmonth(time_file_date)!=tmonth(todays_date))
+    {
+        beep(500);
+        dos_command="copy ";
+        status_wind("Starting new monthly time total!.",30);
+        strcat(dos_command,_script_dir);
+        strcat(dos_command,"mtelapse.pcp ");
+        strcat(dos_command,_script_dir);
+        strcat(dos_command,"lastmo.pcp");
+        dos(dos_command,0);
+        fp=fopen(monthly_time_file,"w");
+        fputs("0",fp);
+        fputc(0x0d,fp);
+        fputc(0x0a,fp);
+        fclose(fp);
+    }
+
+
+    _scr_chk_key=0;
+    cputs("^M");
+    cputs("@");
+    cputs("^M");
+    flag=waitfor("@",5);
+    if(!flag)
+    {
+        status_wind("Pursuit not responding!",30);
+        prints("+++ Pursuit did not respond! +++");
+       beep(500);
+        hangup();
+        return();
+    }
+    status_wind("Loading PC Pursuit City Menu!",10);
+    scr_handle=vsavearea(0,0,79,25);
+    clear_scr();
+    quantity=dial_these();
+    vrstrarea(scr_handle);
+    status=dial_cities(quantity);
+    if(status==4)
+    {
+        beep(500);
+        status_wind("Dialing queue is empty!",10);
+    }
+}
+

@@ -1,0 +1,232 @@
+//-----------------------------------------------------------
+// UpDownF.SL?  Telix script to upload or download a file. Uses
+//              external or internal protocol.
+//
+// Please look at the comments through the whole file, and modify to
+// suit your needs, BEFORE you use it. Then recompile with CS UpDownF.
+//-----------------------------------------------------------
+
+// If you have suggestions for improving this script, please suggest
+// improvements to me via old-fashioned snail-mail to:
+
+// Author:  Inge Vabekk
+//          Hamangskogen 108
+//          N-1300 SANDVIKA
+//          NORWAY
+//          tel. (472) 546 396
+
+                             // For the Global storage:
+str global   []="GLOBAL"     // Global script.
+   ,crdir    []="CRDIR"      // Create directory program
+   ,Cprot    []="CPROT"      // Current protocol.
+   ,xprot    []="XPROT0"     // External protocol.
+   ,xprog    []="XPROG0"     // External protocol program (variable)
+   ,xpram    []="XPRAM0"     // Parameters for external
+                             // protocol program
+   ,xrecv    []="XRECV0"     // Receive parameters (variable)
+   ,xxmit    []="XXMIT0"     // Send parameters (variable)
+   ,params [12]              // Receive/transmit parameters (string)
+   ,program[12]              // External protocol program (name)
+   ,runstr [80]              // Run string for protocol program.
+   ,Downdir[64]              // Save download dir.
+   ,myprot  [2]              // My protocol
+   ;
+int UseExternal              // TRUE for external protocol program.
+   ,protocol
+   ;
+
+//-----------------------------------------------------------
+// GetFile script is entered here.
+//-----------------------------------------------------------
+
+// Parameters: Put=1 for SEND, Put=0 for RECEIVE.
+
+main(int Put, str filedir, str filename)
+{
+int i, m, s, start_time;
+
+// Check if online.
+//-----------------------------------------------------------
+
+  if (!carrier())
+  { failtune();                          // No, failure.
+    status_wind ("Tý: YOU CAN ONLY DOWNLOAD IF YOU'RE ONLINE!",20);
+    return(-1);
+  }
+  run (crdir,filedir,0);          // Create file dir. if it doesn't exist.
+
+  read (cprot,myprot);            // Get protocol.
+  protocol = subchr (myprot,0);   // Must be INT.
+
+// Check if external protocol should be used.
+//-----------------------------------------------------------
+
+  UseExternal = 0;                     // = 1 for external protocol.
+  for (i='0'; i<='9'; ++i)
+  { setchr (xprot,5,i);
+    if (read (xprot,runstr) > 0)
+    { if (runstr==myprot)
+      { setchr (xprog,5,i);
+        if (read (xprog,program) > 0)  // External program defined?
+        { UseExternal = 1;             // = 1 for external protocol.
+          break;                       // Break out.
+        }
+      }
+    }
+  }
+  if (UseExternal)
+  { setchr (xpram,5,i);
+    if (read (xpram,runstr) <= 0)      // Parameters defined?
+    { runstr = "Tý: Run parameters (";     // NO!
+      strcat (runstr,xpram);
+      strcat (runstr,") for ");
+      strcat (runstr,program);
+      strcat (" are not defined!");
+      status_wind (runstr,20);
+      failtune();
+      UseExternal = 0;                 // = 1 for external protocol.
+    }
+  }
+  if (UseExternal && Put)              // Send using external protocol?
+  { setchr (xxmit,5,i);
+    if (read (xxmit,params) <= 0)      // Send parameters defined?
+    { runstr = "Tý: Send parameters (";
+      strcat (runstr,xxmit);
+      strcat (runstr,") for ");
+      strcat (runstr,program);
+      strcat (" are not defined!");
+      status_wind (runstr,20);
+      failtune();
+      UseExternal = 0;                 // = 1 for external protocol.
+    }
+  }
+  else if (UseExternal)
+  { setchr (xrecv,5,i);
+    if (read (xrecv,params) <= 0)      // Receive parameters defined?
+    { runstr = "Tý: Receive parameters (";
+      strcat (runstr,xrecv);
+      strcat (runstr,") for ");
+      strcat (runstr,program);
+      strcat (" are not defined!");
+      status_wind (runstr,20);
+      failtune();
+      UseExternal = 0;                   // = 1 for external protocol.
+    }
+  }
+
+  if (!Put && Protocol=='Z') 
+    waitfor ("**",1);                 // Check Zmodem transfer.
+  terminal();                          // Update screen.
+  start_time = curtime();              // start transfer time.
+
+  if (UseExternal)
+  { strcat (runstr," ");               // Complete run string.
+    strcat (runstr,params);
+    strcat (runstr," ");
+    strcat (runstr,filename);
+    newdir (filedir);                  // Must be in the download dir!
+    i = run (program,runstr,0);        // Use external program.
+    newdir (_telix_dir);               // Return to TELIX directory!
+  }
+  else if (Put)                        // Send file:
+  { Downdir = _up_dir;                 // Save upload dir.
+    _up_dir = filedir;
+    i = send (protocol,filename);      // Use defined protocol!
+    i = i < 0;                         // Error if negative.
+    _up_dir = downdir;                 // Restore upload directory.
+  }
+  else                                 // Receive file:
+  { Downdir = _down_dir;               // Save download dir.
+    _down_dir = filedir;
+    i = receive (protocol,filename);   // Use defined protocol!
+    i = i < 0;                         // Error if negative.
+    _down_dir = downdir;               // Restore download directory.
+  }
+
+  if (i)                               // Good transfer?
+    failtune();                        // No, bad.
+  else
+  { s=start_time = curtime()-start_time; // Calculate no. of seconds.
+    goodtune();
+    m = s/60;
+    s = s - m*60;
+    prints ("");
+    printsc ("Tý: Transfer time: ");
+    if (m > 0)
+    { printn (m);
+      printsc (" minute");
+      if (m > 1) printsc ("s");
+      printsc (", ");
+    }
+    printn (s);
+    printsc (" second");
+    if (s > 1) printsc ("s");
+    runstr = filedir;                  // Find filename.
+    strcat (runstr,filename);
+    if ((m=filesize(runstr)) > 0)      // Found?
+    { printsc (", transfer speed: ");  // So print CPS rate.
+      printn (m/start_time);
+      printsc (" bytes per second");
+    }
+    prints (".");
+  }
+  return (i);
+}
+
+//-----------------------------------------------------------
+// Play good tune.
+//-----------------------------------------------------------
+
+goodtune()
+{
+int n;
+  for (n=40; n< 200; n = 144*n/100)
+  { tone(n*10,6);                        // Good tone!
+    terminal();                          // Process text!
+  }
+}
+
+//-----------------------------------------------------------
+// Play fail tune.
+//-----------------------------------------------------------
+
+failtune()
+{
+int n;
+  for (n=120; n > 30; n = 100*n/105)
+  { tone(n*10,6);                        // Fail tone!!
+    terminal();                          // Process text!
+  }
+}
+
+//-----------------------------------------------------------
+// Read a global variable.
+//-----------------------------------------------------------
+
+read (str name, str varname)
+{
+  return (call (global,"R",name,varname));
+}
+
+//-----------------------------------------------------------
+// Write a global variable.
+//-----------------------------------------------------------
+
+write(str name, str varname)
+{
+  return (call (global,"W",name,varname));
+}
+
+//-----------------------------------------------------------
+// Strip trailing spaces from string.
+//-----------------------------------------------------------
+
+strip (str string)                       // Strip strailing spaces,
+{                                        // return length.
+int l;
+  for (l=strlen(string); l>=0; --l)
+  { if (subchr(string,l) > ' ') return (++l);
+    setchr(string,l,0);
+  }
+  return (0);
+}

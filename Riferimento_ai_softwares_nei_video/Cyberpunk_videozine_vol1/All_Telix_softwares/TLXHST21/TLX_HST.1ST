@@ -1,0 +1,51 @@
+TX-HST21.ZIP  TLX_HST.1ST
+
+This ZIP archive contains the following files:
+
+FILENAME       ORIGINAL SIZE    DESCRIPTION
+
+TLX_HST  1ST     2024           This file
+TLX_HST  DOC    18284           Documentation for TLX_HST and HST Modems
+TLX_HST  NEW     2176           What's new in this release
+TLX_HST  SLC    32540           The compiled TLX_HST script
+TLX_HST? SLM      813-1131      Assorted menu files used by TLX_HST
+TLX_HST  SLT    59600           Source code for the TLX_SLT script
+MENU_MGR SLC     6800           Menu Manager routine used by TLX_HST
+
+All file dates are 01/23/89.  Times are all 7:00 pm.
+
+If the file sizes shown do not match what is in your TX-HST21.ZIP
+archive, one or more files may have been modified by someone
+other than the author (and did not bother to update this
+TLX_HST.1ST file).
+
+NOTE:  TLX_HST 2.1 was designed to run on an EGA or VGA display.  It
+       will run under Mono or CGA but the menu's are currently not
+       very pretty.  It is recommended that MONO/CGA users stick with
+       the old release 1.2 until better screen support is added in
+       the planned 3.0 release of TLX_HST.
+
+The TLX_HST.SLT file is the HST SALT script source code. SALT source
+is standard CR/LF-delimited ASCII files which contain the
+script's programming.  You may view/edit it with any suitable
+text editor or word processor which can save files in standard
+ASCII format. The compiled script is called TLX_HST.SLC and is
+ready to run.  If you customize the .SLT source code do not forget
+to use the CS Telix command to recompile the script into executable
+.SLC format.
+
+PLEASE DO NOT Modify or rename this ZIP archive.
+
+You may contact the author of TLX_HST if you so desire at:
+
+Andrzej Taramina
+58 Aquila Court
+Rexdale, Ontario
+Canada M9W 5J2
+
+Rose Media BBS:                  (416) 733-2285  (9600bps)
+Telix Support BBS:               (416) 439-8293  (9600bps)
+
+or in the Interlink Telix or HST conferences on an Interlink BBS node
+near you!
+

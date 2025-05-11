@@ -1,0 +1,17 @@
+////////////////////////////  QUICKBBS.SIM  /////////////////////////////////
+//                                                                         //
+// This is a sample SIMPLE script for logging on to a QuickBBS based       //
+// system.                                                                 //
+//                                                                         //
+// Put your name in the line that says ASSIGN STRING1.  The script will    //
+// get the proper password from the dialing directory, CSS puts the        //
+// password in the variable BBSPASSWORD.                                   //
+//                                                                         //
+/////////////////////////////////////////////////////////////////////////////
+
+ASSIGN STRING1, "John Smith"     // Put your name (in Quotes!) here.
+
+ALARM 1
+WAITFOR " name" MAXOF 180 THENDO SEND STRING1 HITENTER
+WAITFOR "Password:" THENDO SEND BBSPASSWORD HITENTER
+

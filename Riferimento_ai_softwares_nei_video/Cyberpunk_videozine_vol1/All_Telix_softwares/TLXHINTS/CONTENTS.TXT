@@ -1,0 +1,14 @@
+The following files are included in the library "TLXHINTS.ZIP".  If you wish to
+assemble the debug scripts yourself, simply enter the command:
+	DEBUG <EGAnn.SCR         or          DEBUG <NEWKEYS.SCR
+after insuring that both debug and the .SCR file are in your path.
+
+EGA25    COM       40   3-15-89   1:30p  Toggles EGA to 25 line mode
+EGA25    SCR      270   3-15-89   1:29p  Source for EGA25 in DEBUG script form
+EGA43    COM       40   3-15-89   1:24p  Toggles EGA to 43 line mode
+EGA43    SCR      311   3-15-89   1:22p  Source for EGA43 in DEBUG script form
+EGA50    COM       80   3-15-89   7:48p  Toggles EGA to 50 line mode
+EGA50    SCR      739   3-15-89   7:48p  Source for EGA50 in DEBUG script form
+NEWKEYS  COM      137   3-15-89   1:22p  Enables new keys on extended keyboard
+NEWKEYS  SCR      625   3-15-89   1:16p  Source for NEWKEYS in DEBUG script
+TLXHINTS DOC     4012   3-15-89   3:10p  The meat of the whole thing!!

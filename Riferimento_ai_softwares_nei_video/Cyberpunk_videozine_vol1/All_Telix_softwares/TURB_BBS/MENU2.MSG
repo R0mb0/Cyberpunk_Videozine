@@ -1,0 +1,14 @@
+     ีอต TurboBBS v1.00 ฦอออออออออออออออออออออออต Press '?' for Help! ฦอธ
+     ณ                       ณ                      ณ                   ณ
+     ณ (T)ype any file       ณ (Y)ell for SysOp     ณ (V)ersion         ณ
+     ณ (F)iles avaliable     ณ (C)omment to SysOp   ณ (B)ulletin        ณ
+     ณ (U)pload (send file)  ณ (A)pply for access   ณ (S)tatistics      ณ
+     ณ (D)ownload (recieve)  ณ (*) Return to Opus   ณ (I)nit welcome    ณ
+     ณ                       ณ                      ณ                   ณ
+     ณฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤณฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤณฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤฤณ
+     ณ                       ณ                      ณ                   ณ
+     ณ (O)nline program      ณ    (L)og (usage)     ณ (E)nter message   ณ
+     ณ (G)oodbye (Log Off)   ณ    (J)ump to DOS     ณ (R)ead messages   ณ
+     ณ                       ณ    (!) Shut Down     ณ                   ณ
+     ิอออออออออออออออออออออออธ                      ีอออออออออออออออออออพ
+                             ิออออออออออออออออออออออพ

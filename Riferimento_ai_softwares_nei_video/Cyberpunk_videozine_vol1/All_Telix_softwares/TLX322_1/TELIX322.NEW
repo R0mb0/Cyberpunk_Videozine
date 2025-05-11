@@ -1,0 +1,223 @@
+
+  ---------------------------------------------------------------------------
+        deltaComm Development, Inc., PO Box 1185, Cary, NC  27512  USA
+         (919)-460-4556 voice, (919)-460-4531 FAX, (919)-481-9399 BBS
+         Telix Copyright (C) 1986-1994 by deltaComm Development, Inc.
+  ---------------------------------------------------------------------------
+
+  January 31, 1994 -- Notes on Telix 3.22:
+
+      o This update is a free upgrade to registered users with serial
+        numbers and original disks (from Exis or from deltaComm).  The file
+        TLX322-U.ZIP will be posted on the deltaComm BBS starting January
+        31st, 1994, and its contents will "patch" a registered, unbranded
+        (from the original disk) copy of Telix 3.21 into a registered,
+        unbranded version 3.22.  Users of versions before 3.21 will also
+        require the 3.21 patch files to get from 3.11 or later to 3.21
+        first.  This file is TLX321-U.ZIP.  Both of these patch files may be
+        widely distributed and posted publicly on other bulletin boards.
+
+      o New methods of support are now available electronically.  You may
+        contact deltaComm Development, Inc., customer service via these new
+        additional addresses:
+
+        FidoNet EMail to TELIX SUPPORT at 1:151/107
+        Compuserve EMail to 71035,2167
+        Internet EMail to support@delta.com
+
+        We also hope to be assigned our own forum on Compuserve in the near
+        future.  We hope that our "GO" word will be "TELIX"; until such time
+        as we can be sure that this will happen, Compuserve EMail and public
+        access in the IBMCOM forum, subforum 3, is available.
+
+        We are also still available via voice support at 919-460-4556 and on
+        our own BBS, deltaComm Online, at 919-481-9399.
+
+      o The main reason for this release is to program around a known flaw
+        in a particular revision of Rockwell's firmware.  The symptom was
+        modems that returned incomplete responses (i.e. type "AT" and get
+        back "O" instead of "OK").  We have been able to confirm without a
+        doubt that this is a bug in the Rockwell firmware, and we have found
+        the root cause.  While the chips do remain flawed, we have found a
+        software solution for the flaw, which is incorporated into this
+        release.  Owners of the two known brands that shipped modems with
+        this firmware should have no further problems with Telix 3.22.
+        Neither of those manufacturers is now shipping new modems with the
+        flawed chips.
+
+        This programming "kludge" also has the happy result of requiring
+        much fewer interrupts on machines with 16550 UARTS installed,
+        meaning that Telix should now be slightly more efficient under
+        Windows, OS/2, DESQview, or other multitasking environments.
+        Transfer rates might improve by a few cps on slower machines.
+
+      o Changed the flashing "F" during file transfers to a more descriptive
+        "Flow".  This should eliminate many of the FAQ's of "what does the
+        flashing 'F' mean in the transfer box?"
+
+      o When using the function to "Insert an Entry" into the dialing
+        directory, the speed now defaults to the default baud rate rather
+        than to 1200 bps.
+
+      o Corrected two anomalies in the script learning code:  Learn will now
+        accept a carriage return by itself as a valid response to a prompt,
+        and will also preface any double-quote (") you type with a caret so
+        that it will be coded into the script properly.
+
+      o Corrected several display areas that could leave "blank splotches"
+        on the screen if you had changed the background color of the menus
+        to be a color other than black.
+
+      o Added some registration enticers to the closing screen of the
+        program.
+
+      o Found and squashed a bug that could cause the file transfer status
+        bar in Zmodem transfers to exceed the 100% width for very small files.
+
+      o Added an Alt-6 command to the registered version to pop up a status
+        window with your serial number at any time.  This is mainly to aid our
+        support staff when someone calls for help.
+
+      o The status line now changes to the actual connect rate if it can be
+        determined by the dialing method.
+
+      o External protocol triggers were being left active even after its
+        protocol was removed from the Alt-O/Protocols menu.  Fixed.
+
+      o Added a "save entire scrollback" feature to the Alt-B command.
+
+      o Altered the behaviour of the PgUp, PgDn, and End keys in the dialing
+        directory as suggested by many.  They now do more of what you'd
+        expect as you approach the beginning and end of a directory.
+
+      o Added two new features to the dialing directory, under the "other"
+        menu.  You may now sort a dialing directory internally based on four
+        keys, in ascending or descending order.  If your desired order is not
+        available, you may also move individual entries or groups of entries
+        to new locations in the directory.
+
+      o Added order forms for foreign registration sites to make
+        registration from abroad much easier.
+
+      o FINALLY, FINALLY, FINALLY corrected code that in some circumstances
+        would cause the dialing box to read:
+
+        Connected at       - press any key to continue.
+
+        Fixing this also caused us to find a latent oversight (not really a
+        bug, but a faux pax in any case), whereby a user with a dialing
+        directory entry set at 38,400, and with AUTOBAUD DETECT turned on
+        would not ever get connected.  From time to time we'd get a tech
+        call from someone who used the dialing directory and it would simply
+        count down and down and down; even if you could visibly verify a
+        connect via the modem lights, Telix would not see it.  The old
+        autobaud detect methods only looked for several specific connect
+        strings:
+
+         if (auto_baud)
+          {
+           th_array[1] = track_add((char far *)"CONNECT\r", 0);
+           th_array[2] = track_add((char far *)"CONNECT 1200", 0);
+           th_array[3] = track_add((char far *)"CONNECT 2400", 0);
+           th_array[4] = track_add((char far *)"CONNECT 4800", 0);
+           th_array[5] = track_add((char far *)"CONNECT 9600", 0);
+           th_array[6] = track_add((char far *)"CONNECT 19200", 0);
+          }
+         else
+          {
+           make_output_strn(&modem_strns[0][0], strn);
+           th_array[0] = track_add((char far *)strn, 0);
+          }
+
+        In other words, if autobauding, look for a speed (or lack thereof,
+        by getting a <CR> right after "CONNECT"), and if not autobauding,
+        look for the connect string with track handle zero.
+
+        In a roundabout way, auto_baud was hidden in the code under the
+        auspices of another variable (it would take too much time to
+        explain...), so we missed finding the place where it actually
+        changed the baud if autobaud detect was turned on.  Without setting
+        the DCE value there as well, the string "Connected at     -- press
+        any key to continue" was being left blank, since the DCE value was
+        also being left blank. This was fixed by adding 38,400 and 57,600 to
+        the speeds looked for by the autobaud detect function.
+
+        NOTE WELL!     This has the effect of using two additional track
+                       handles during dialing.  If you have a script that is
+                       counting on 11 handles being unmolested by Telix even
+                       if you call "dial", this is NO LONGER the case. Telix
+                       will use FIVE track handles if autobaud detect is
+                       OFF, but it will usurp ALL SIXTEEN handles if
+                       autobaud is ON (CONNECT^M, CONNECT 300, CONNECT 1200,
+                       ..., CONNECT 57600, plus the four no-connect
+                       strings).  You may want to modify complex dialing
+                       scripts to insure that autobaud detect is OFF to
+                       insure that your track handles are not commandeered
+                       by Telix.
+
+
+      o The upload picklist box has been a continuing source of problems to
+        users of removable drives (Bernoulli, device driven floppies, etc).
+        3.21 added a new, user-editable line can be to TELIX.CNF, but the
+        user had to read the docs and then add the line with a text editor:
+
+        drivelst="acdxz"
+
+        Where each of the letters listed in quotes is validated as being a
+        POTENTIAL drive letter (i.e. A-Z) and then added to the picklist.
+
+        3.22 has squeezed this option into the menus. It is Alt-O/General/Q.
+
+      o Added the /D parameter to the ALT-O menus, as Alt-O/Terminal/O
+        (moved Answerback string to option P).  /D will still be valid, but
+        will be unnecessary if this option is turned on in the config file.
+        It is listed as "dropcts" in the config file, and defaults to "OFF"
+        if not present.
+
+      o Added Alt-O/Filenames/Startup Script to the menus.  If this option
+        is set, this script will be executed every time Telix is run, UNLESS
+        a script is passed on the command line with the /S parameter.  /S
+        scripts CANCEL OUT this default startup script; if a script is
+        passed in from the DOS command line, then this script will NOT be
+        run.  Thanks to Earl Borah for this suggestion.
+
+        This feature solves one of the most commonly asked questions,
+        without (finally) the use of a batch file.  If this script is
+        specified, the opening screen will NOT appear.  You can now avoid
+        the opening screen without having to use a "TX.BAT", and can even
+        run PICKUP or such without a batch file as well.
+
+      o This release includes the 16550 patch that TX321FIX.ZIP made, to
+        correct for those UARTS that are picky about the order in which the
+        registers are restored.  The symptoms here were other comm programs
+        locking up (notably, Prodigy wouldn't run after Telix). This is NOT
+        the same thing as the AMI BIOS bug whereby the BIOS doesn't
+        recognize certain ports after a warm boot.  This will STILL occur
+        and there's nothing Telix can do about it.
+
+New in the CSS.EXE SIMPLE script compiler:
+
+      o Fixed bug in string parser which would accept STRING01 as a valid
+        string, however, it would use S_1 as the definition, and S_01 as
+        the usage.  It now correctly strips out the leading zero's in the
+        usage respect.
+
+      o Fixed bug in protocol selection which would incorrectly parse
+        1K-XMODEM as K-XMODEM (due to invalid leading number token), the
+        protocol has been change to XMODEM-1K.
+
+      o Added New command RENAMEFILE <string>, <string>, which is pretty
+        self explanatory.
+
+      o Added New command ADDSTRING <StringXXX>, <String2>, which will
+        concatonate <String2> to the end of <StringXXX>.
+
+      o Added New command CURSOR (ON/OFF) which turns the cursor on and
+        off.
+
+  ---------------------------------------------------------------------------
+        deltaComm Development, Inc., PO Box 1185, Cary, NC  27512  USA
+         (919)-460-4556 voice, (919)-460-4531 FAX, (919)-481-9399 BBS
+         Telix Copyright (C) 1986-1994 by deltaComm Development, Inc.
+  ---------------------------------------------------------------------------
+

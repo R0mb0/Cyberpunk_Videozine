@@ -1,0 +1,276 @@
+///////////////////////////////////////////////////////////////////////////////
+// This TELIX 3.11 script completely parses the file list, expands any
+// wildcards, and calls the Jmodem program once for each resulting fully
+// quaified filename.  Each file transfer attempt is noted in the file
+// "Jmodem.log" in the directory specified by the TELIX environment
+// variable.  If no directory is specified, the log is written in the
+// current directory.
+//
+// Written by: Michael K. Bozovich
+// Date: 3-19-89
+///////////////////////////////////////////////////////////////////////////////
+
+/////// Integer Variable Declarations.
+
+int pointer = 0;               // String pointer.
+int done = 0;                  // Break flag.
+int handle;                    // Log file handle.
+
+/////// String Variable Declarations.
+
+str port[1];                   // COM port number.
+str fname[64];                 // Scratch buffer.
+str path[64];                  // Path name of file(s) to xfer.
+
+str logfile[75];               // Log file name.
+str scratch[64];               // Scratch buffer.
+str xferdir[64];               // Transfer directory.
+
+str crlf[2] = "^m^j";          // Carriage Return/Line Feed.
+str eofchar[1] = "^z";         // End of file character.
+
+main(str mode)
+
+{
+
+  /////// Determine whether uploading or downloading.
+
+  if(mode == "S")
+    xferdir = _up_dir;
+  else
+    xferdir = _down_dir;
+
+  /////// Get current port number as a string.
+
+  itos(get_port(), port);
+
+  /////// Build log file name.
+
+  logfile = _telix_dir;             // Try to use TELIX directory.
+  strcat(logfile, "jmodem.log");    // If user didn't specify it, put file
+                                    // in the current directory.
+
+  /////// Write the header if we had to create the file.
+
+  if (! filefind(logfile, 0, path))
+    {
+    handle = fopen(logfile, "a+");
+    fwrite("                     TELIX JMODEM File Transfer Log", 51, handle);
+    fwrite("^m^j", 2, handle);
+    fwrite("^m^j", 2, handle);
+    fwrite("^z", 1, handle);
+    fclose(handle);
+    }
+
+  /////// Loop until the file list is exhausted.
+
+  while(1)
+
+  {
+    /////// Strip any leading spaces from file list.
+
+    _ext_filespec = ltrim(_ext_filespec);
+
+    /////// Find the first space in the file list.
+
+    pointer = strpos(_ext_filespec, " ", pointer);
+
+    if (pointer == -1)                      // No spaces, only one file left.
+    {
+      scratch = _ext_filespec;
+      done = 1;                             // Set break flag.
+    }
+    else                                    // Strip the first file from list.
+    {
+      substr(_ext_filespec, 0, pointer, scratch);
+      substr(_ext_filespec, pointer + 1, 64, _ext_filespec);
+      pointer = 0;                          // Reset pointer.
+    }
+
+    /////// Fully qualify the resultant file name.
+
+    if(strpos(scratch, "\", 0) == -1)         // User didn't specify a path.
+      if(strpos(scratch, ":", 0) == -1)       // Or a drive.
+                                              // Let TELIX specify it, then!!
+        inschrs(xferdir, scratch, 0, strlen(xferdir));
+
+    /////// Strip the resulting drive/pathname because
+    /////// the filefind() function does not retain it!
+
+    fnstrip(scratch, 12, path);
+
+    if(mode == "S")            // User is uploading.
+
+      /////// Expand any wild cards while making sure the file exists.
+
+      while (filefind(scratch, 0, fname) != 0)
+      {
+        jmodem(mode, port, fname, path);
+        scratch = "";          // Prepare to find next matching file.
+      }
+
+    else                       // User is downloading.
+
+      /////// Make sure that file DOES NOT exist.
+
+      if(filefind(scratch, 0, fname) == 0)
+        jmodem(mode, port, scratch, path);
+      else
+        {
+        printsc("The file ");
+        printsc(scratch);
+        prints(" already exists!  It's download was ABORTED.");
+        }
+
+    if(done)
+      break;
+  }
+
+  /////// Erase the temporary file used for size determination.
+
+  dos("erase jsize.$$$", 0);
+
+  /////// Return to terminal.
+
+  return();
+
+}
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+jmodem(str mode, str port, str fname, str path)
+
+{
+
+  /////// Integer Variable Declarations.
+
+  int size;                      // Numeric count of bytes transferred.
+  int handle;                    // Log file handle.
+  int abort;                     // Jmodem return code.
+  int start;                     // Used to time transfer.
+
+  /////// String Variable Declarations.
+
+  str cps[5];                    // Transfer speed.
+  str comline[70];               // Jmodem command line buffer.
+  str buff[110];                 // Scratch buffer used to build log entry.
+  str bytes[7];                  // String cast of "size".
+  str baud[6];                   // Port speed.
+  str elapse[5];                 // String cast of transfer time.
+  str xfer_date[8];              // Today's date.
+  str status[] = "COMPLETED";    // String to hold status of transfer.
+  str crlf[2] = "^m^j";          // Carriage Return/Line Feed.
+  str eofchar[1] = "^z";         // End of file character.
+
+  /////// Build the Jmodem command string.
+
+  comline = mode;
+  strcat(comline, port);
+  strcat(comline, " ");
+  if(mode == "S")
+    inschrs(path, fname, 0, strlen(path));  // Restore path information.
+  strcat(comline, fname);
+
+  /////// Run the Jmodem program with the command line just built.
+
+  start = curtime();                      // Start timing.
+  abort = run("jmodem", comline, 0);
+  start = curtime() - start;              // Finished.
+
+  /////// Calculate the file size.
+
+  run("jsize", fname);               // Run the kludge.
+
+  handle = fopen("jsize.$$$", "r+"); // Open temporary file.
+  fread(bytes, 7, handle);           // Read the number of bytes.
+  fclose(handle);                    // Close the file.
+
+  /////// Determine status of the transfer.
+
+  if(abort)
+  {
+    status = "*ABORTED*";
+    size = 0;
+  }
+  else
+    size = stoi(ltrim(bytes));
+
+  /////// Open log for appending.
+
+  handle = fopen(logfile, "a+");
+
+  /////// Move the file pointer to the end of file marker.
+
+  fseek(handle, -1, 2);
+
+  /////// Build the log entry in a scratch buffer.
+
+  buff = mode;                   // Get the transfer mode.
+  pad(buff, bytes, 7);           // Insert spaces.
+  strcat(buff, bytes);           // Append size to buff.
+  itos(get_baud(), baud);        // Get baud rate - cast into string.
+  pad(buff, baud, 7);            // Insert spaces.
+  strcat(buff, baud);            // Append baud rate.
+  strcat(buff, " bps ");         // Append units.
+  itos(start, elapse);           // Get elapsed time - cast into string.
+  itos(size / start, cps);       // Calculate speed - cast into string.
+  pad(buff, cps, 6);             // Insert spaces.
+  strcat(buff, cps);             // Append speed.
+  strcat(buff, " cps ");         // Append units.
+  pad(buff, elapse, 6);          // Insert spaces.
+  strcat(buff, elapse);          // Append elapsed time.
+  strcat(buff, "s ");            // Append units.
+  date(curtime(), xfer_date);    // Get today's date.
+  strcat(buff, xfer_date);       // Append it to the buffer.
+  strcat(buff, " ");             // Insert a space.
+  strcat(buff, status);          // Append status string.
+  strcat(buff, " ");             // Insert a space.
+  strcat(buff, fname);           // Append the file name.
+  strcat(buff, "^m^j");          // Append a newline.
+  strcat(buff, "^z");            // Append eof.            -- DONE --
+
+  /////// Write the entry to the log.
+
+  fwrite(buff, strlen(buff), handle);
+
+  /////// Close the file.
+
+  fclose(handle);
+
+}
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+ltrim(str str_2_trim)
+
+{
+  int j;
+  while(1)
+  {
+    if(j = strpos(str_2_trim, " ", 0) != 0)
+      break;
+
+    substr(str_2_trim, 1, strlen(str_2_trim), str_2_trim);
+  }
+  return(str_2_trim);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+pad(str buffer, str junk, int spaces)
+
+{
+  int n;
+
+  for (n = 0; n != (spaces - strlen(junk)); n = n + 1)
+    strcat(buffer, " ");
+}
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+// eof jxfer.slt
+

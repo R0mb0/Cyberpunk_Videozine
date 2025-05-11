@@ -1,0 +1,53 @@
+
+    Welcome to TurboBBS's help file!
+
+    Here is the discription of what each command does...
+
+
+ (T)ype any file         This selection allows you to type any text file.
+
+ (Y)ell for SysOp        This selection allows you to set off a beeper at
+                         the local end, which will notify the SysOp of this
+                         system that you are here and want to chat with him.
+
+ (V)ersion               This is where Jonathan Rapoport Advertises TurboBBS,
+                         and where he puts the version number.
+
+ (F)iles avaliable       This feature allows you to view all of the files that
+                         the system has for you to download.
+
+ (C)omment to SysOp      This allows you to leave a message to the SysOp.
+
+ (B)ulletin              This is a section where the SysOp can have special
+                         bulletins.
+
+ (U)pload (send file)    You select this feature when you want to send a file
+                         to this system.
+
+ (A)pply for access      This is where you can fill out the questionaire.
+                         You will be validated if you enter your information
+                         correctly.
+
+ (S)tatistics            When you choose this a display will show the name of
+                         your sysop's bbs system, their name, your name, and
+                         your security level.
+
+ (D)ownload (recieve)    This is the option where you can receive files.
+
+ (*) Return to Opus      If the SysOp has this enabled, you will be able to
+                         return to the other BBS software running, or an
+                         online door.
+
+ (I)nit welcome          This option allows you to view the welcome screen
+                         again.
+
+ (R)ead general mail     If you select this option, you can read the mail.
+
+ (G)oodbye (Log Off)     This hangs up on you.
+
+ (E)nter message         This allows you to enter a message to either all
+                         users, or a single one.
+
+
+ That's all there is!  If you still need help, ask the SysOp of this board!
+

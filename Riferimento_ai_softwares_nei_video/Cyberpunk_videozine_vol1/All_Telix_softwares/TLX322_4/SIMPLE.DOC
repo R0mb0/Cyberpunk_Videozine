@@ -1,0 +1,1650 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     T E L I X
+
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     SIMPLE Programming Manual
+
+
+
+
+
+
+
+
+
+
+
+                Copyright (C) 1986-94 deltaComm Development, Inc.
+
+                              ALL RIGHTS RESERVED.
+
+
+
+
+                           deltaComm Development, Inc.
+
+                      P.O. Box 1185, Cary, NC  27512   USA
+
+            (919)-460-4556 / (919)-460-4531 fax / (919)-481-9399 BBS
+     Telix v3.22 - SIMPLE Programming                       COPYRIGHT    ii
+
+
+
+
+
+
+
+                                Copyright Notice
+
+
+
+
+
+     Telix is Copyright (c) 1986-1994 by deltaComm Development, Inc.
+
+     SIMPLE is Copyright (c) 1990-1994 by deltaComm Development, Inc.
+
+     This document is Copyright (c) 1990-1994 by deltaComm Development, Inc.
+
+     No parts of Telix or this document may be copied in part or in whole,
+     except as provided in the License in the following pages.
+
+
+
+
+
+     Disclaimer
+
+     deltaComm Development, Inc., makes no warranty of any kind, either
+     express or implied, including but not limited to implied warranties of
+     merchantability and fitness for a particular purpose, with respect to
+     this software and accompanying documentation.
+
+     IN NO EVENT SHALL DELTACOMM DEVELOPMENT, INC., BE LIABLE FOR ANY DAMAGES
+     (INCLUDING DAMAGES FOR LOSS OF BUSINESS PROFITS, BUSINESS INTERRUPTION,
+     LOSS OF BUSINESS INFORMATION, OR OTHER PECUNIARY LOSS) ARISING OUT OF THE
+     USE OF OR INABILITY TO USE THIS PROGRAM, EVEN IF DELTACOMM DEVELOPMENT,
+     INC., HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+
+
+     Trademarks
+
+     Telix is a trademark of deltaComm Development, Inc.
+
+     SIMPLE is a trademark of deltaComm Development, Inc.
+
+     SALT is a trademark of deltaComm Development, Inc.
+
+     Many product names found throughout this manual are trademarks of var-
+     ious companies.
+     Telix v3.22 - SALT Programming                         Contents    iii
+
+
+
+
+
+
+
+
+
+
+                                 C O N T E N T S
+
+
+
+     1.  The Telix SIMPLE Language........................................1
+         1.1  What Can Be Accomplished With Simple?.......................1
+         1.2  Comparing SIMPLE to SALT....................................1
+         1.3  Creating SIMPLE Scripts.....................................1
+
+     2.  Syntax...........................................................3
+
+     3.  Program Structure................................................5
+         3.1  .i.Variables................................................5
+         3.2  System Variables............................................5
+
+     4.  Built-in Functions...............................................7
+
+     5.  Program Control.................................................25
+         5.1  The Waitfor Command........................................25
+         5.2  The If Command.............................................26
+         5.3  The Whenever Loop..........................................30
+
+     6.  Index...........................................................33
+     Telix v3.22 - SIMPLE Programming                     Introduction    1
+
+
+
+
+
+     1.  The Telix SIMPLE Language
+
+
+     Telix has a built-in programming language called SALT (Script
+     Application Language for Telix).  SALT is extremely powerful, and much
+     of that power is due to its semblance to the C programming language.
+     Along with that power comes a degree of difficulty, however.  For
+     those not comfortable in a structured programming environment such as
+     SALT, a second scripting language, SIMPLE (Salt IMPLEmentation) is
+     also provided.
+
+     Simple takes a loosely structured program resembling a stream of
+     English sentences and transforms it into SALT for you. No programming
+     experience is necessary.  Its SIMPLE!
+
+
+
+     1.1  What Can Be Accomplished With Simple?
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     SIMPLE scripts can be used to automate logins to bulletin boards,
+     automate repetitive tasks such as mail transfers, or can be programmed
+     to watch for multiple strings, offering up the proper response to each
+     no matter the order in which they arrive.  SIMPLE offers you much of
+     the power of SALT without the learning curve.
+
+
+
+     1.2  Comparing SIMPLE to SALT
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     SALT's complexity allows it to do much more than SIMPLE can.  For
+     example, the Host+ bulletin board that comes with Telix was written
+     primarily in SALT, but such a task would not be possible in SIMPLE.
+     SALT offers access to most screen-related functions in Telix; SIMPLE
+     offers only a pair of commands to place information on the screen.
+     SALT offers full color control; SIMPLE does not.  Other differences
+     make SALT the preferable language for complex scripts.
+
+     If your copy of Telix is registered, the SIMPLE compiler, CSS can
+     leave a copy of the translated script on your hard drive in SALT
+     source format.  SIMPLE is primarily a tool for helping you to master
+     SALT, and study of these translations are an excellent way to get
+     started.
+
+
+
+     1.3  Creating SIMPLE Scripts
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     A SIMPLE script is basically a sequence of instructions for Telix to
+     follow, using a loosely defined syntax.  You may use any text editor
+     to produce this script file, as long as its output is normal ASCII
+     text (this means that if you use your word processor, you must
+     Telix v3.22 - SIMPLE Programming                     Introduction    2
+
+
+
+
+
+     explicitly tell it to write out the file using ASCII format and not to
+     embed any special codes in the file).  You may give any name you wish
+     to a SIMPLE script, although we recommend that you always use the
+     extension .SIM for clarity.  For example, a script to log on to the
+     Telix Support BBS might be called TELIX.SIM.
+
+     Once you have written you script file and saved it to disk, it must be
+     compiled.  The program CSS.EXE included with Telix reads your "source"
+     script and compiles it into a form which Telix can understand.  The
+     compiled script can be loaded more quickly by Telix, and is also
+     smaller.
+
+     To compile a SIMPLE script file, type:
+
+          CSS <SIMPLEname> <SALTname>
+
+     <SIMPLEname> is the name of the script we are trying to compile, and
+     <SALTname> is the optional name of the SALT source file to create.
+     <SALTname> may only be used with registered versions of Telix.
+
+     CSS knows the naming conventions of Telix, and expects that an input
+     file ends in .SIM and an output file ends in .SLT, so you may simply
+     type:
+
+          CSS TELIX TELIX
+
+     If you do not supply an output name, CSS assumes the output name is
+     the input name followed by .SLC.  The simplest way to compile
+     TELIX.SIM is:
+
+          CSS TELIX
+
+     The CS.EXE SALT compiler must be in the DOS path in order to use CSS.
+
+     When the script compiler finds an error in your source file, it will
+     abort the compile process and give you the line number on which the
+     error occurred, as well as the type of error.  The error should then
+     be fixed and the source recompiled.  This is repeated until the
+     compiled detects no more errors in your script file.
+
+     The compiled script can then be run in Telix using several methods.
+     It may be run using the 'Run Script' command, as a command line
+     parameter to Telix, as a linked script to a dialing directory entry
+     (i.e. automatically, when you connect to a system), or from another
+     script.  The first three methods are described in the Telix manual,
+     while the last is described later in this manual.
+     Telix v3.22 - SIMPLE Programming                           Syntax    3
+
+
+
+
+
+     2.  Syntax
+
+
+     Case is not important in command, function, and variable names. The
+     only time case matters is inside a string constant (e.g., "Hello" is
+     not the same string as "hello"). Whitespace (such as the space, the
+     tab, the Carriage Return, or the Line Feed character) is not impor-
+     tant. The script compiler does not care where you place items, so that
+     you may arrange the program as you see fit. For example,
+
+          If Online Then Send String25
+          Else Dial "11" MaxOf 23 RunScript
+
+     is equivalent to
+
+          If Online Then
+            Send String25
+          Else
+            Dial "11" MaxOf 23 RunScript
+
+     or even to
+
+          If
+          Online
+          Then
+          Send
+          String25
+          Else
+          Dial
+          "11"
+          MaxOf
+          23
+          RunScript
+
+     The only time whitespace matters is when it would split up key-words
+     or function name, or in a string. For example, the key-word 'whenever'
+     must not be split up if it is to be recognized. The same applies to
+     other key-words or function names. As well, there must be space be-
+     tween the letters of a command and other letters. For example,
+     'whenever' is not the same as 'wheneverabc'. In the interest of
+     clarity, it is recommended that you try to make your script easy to
+     understand, by indenting where appropriate, and by using space ef-
+     fectively. There is no reason, for example, to put more than one
+     statement on a line, even if it is perfectly legal. Another poor
+     example above, however, is one where a complete line is broken up for
+     no good reason.  A good example of program style can be found by
+     looking at the sample SIMPLE scripts included with Telix.
+
+     A string constant is a sequence of ASCII characters enclosed in
+     quotes, for example, "Hello", "Good-bye", or "Telix".  String
+     constants and their use are discussed later.
+     Telix v3.22 - SIMPLE Programming                 Program Structure   5
+
+
+
+
+
+
+     3.  Program Structure
+
+     A SIMPLE script has no set format beyond a few easy-to-follow rules.
+     These rules will be discussed as the apply to the individual commands
+     when necessary.  Otherwise, simply add commands to your script to do
+     whatever is necessary.
+
+     It is highly recommended that you read this manual sequentially, as
+     each command builds on the last.  By the end of the manual we will
+     have worked into more complex examples, and will actually construct a
+     script to log on to the Telix Support BBS.
+
+
+     3.1  Variables
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     A SIMPLE script may use up to 255 string "variables", or groups of
+     characters that you can change as you see fit.  You need not do
+     anything special to use a string.  Just use the word "StringXX"
+     wherever you need the string, where XX is the number the string.  All
+     SIMPLE strings are exactly 80 characters in length.  These will be
+     referred to as StringXX variables throughout this documentation.
+     Examples of StringXX use might be as follows:
+
+     To create string number 20, and make it contain the phone number of
+     the Telix BBS, you might have a line:
+
+     Assign String20, "1-919-481-9399"
+
+     Note that you do not have to use all 80 characters of a string.
+     SIMPLE knows where to end a string if you don't fill it up.
+
+     To create a string that contains today's date, you could simply use:
+
+     Date String15
+
+     If you need to use either the quote character itself in a string, or
+     the carat symbol (the shitfed-6), both have special meaning in Telix,
+     and must be dereferenced.  To dereference the character, precede it
+     with a carat.  Examples of this are:
+
+     Assign String1, "A quote, ^", needs a carat in front."
+
+     Assign String2, "A carat, ^^, is represented by two carats."
+
+
+     3.2  System Variables
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     SIMPLE has four system variables which may be used as part of certain
+     statements.  Their use will be explained in greater detail as part of
+     the commands that may access them.  These variables are:
+     Telix v3.22 - SIMPLE Programming                 Program Structure   6
+
+
+
+
+
+     BBSNumber:     This variable will contain the dialing directory entry
+                    number after dialing and connecting to a system.  It
+                    changes only when a connection is made.
+
+     TransferStatus:This variable will contain the result code of a file
+                    transfer performed in SIMPLE. The values of these
+                    results will be explained later in the documentation as
+                    part of file transfers.
+
+     ReturnCode:    This variable is explained in detail under the If
+                    directive in chapter 5.
+
+     BBSPassword:   This variable contains your password for the system you
+                    last connected to, as read from the dialing directory.
+                    This variable makes it possible to write a script that
+                    doesn't have to be recompiled every time you change
+                    your password.  The script can just use this variable
+                    instead of a String variable.  All you need to do when
+                    changing your password is to edit the dialing directory
+                    within Telix, and insert the new password.
+     Telix v3.22 - SIMPLE Programming                Built-in Functions   7
+
+
+
+
+
+
+     4.  Built-in Functions
+
+
+
+     ALARM
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     ş  Summary
+
+     Alarm <integer>
+
+     ş  Description
+
+     The Alarm function causes an alarm sound (similar to the connect alarm
+     of Telix) to ring for <integer> seconds.
+
+     ş  Example
+
+     Alarm 5
+
+
+
+     ASSIGN
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     ş  Summary
+
+     Assign <String1>, <String2>
+
+     ş  Description
+
+     The Assign function assigns the value of <String2> to <String1>.
+     Neither string need be defined prior to an assign.  Either string may
+     be a StringXX variable, and <String2> may be a literal string in
+     quotes.  The comma between the two strings is required.
+
+     ş  Example
+
+     Assign String24, "Telix Support BBS"
+
+     Assign String40, String24
+     Telix v3.22 - SIMPLE Programming                Built-in Functions   8
+
+
+
+
+
+     BEGIN
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     ş  Summary
+
+     Begin
+
+     ş  Description
+
+     The Begin command denotes the start of a group of code that belongs
+     together.  It is typically used to keep a group of code together in
+     conjunction with If statements (see If).  Every Begin command must
+     have a corresponding End command.  Begin and End commands may be
+     nested within each other.
+
+     It is recommended that indentation be used to help keep track of the
+     Begin and End pairs.
+
+     ş  See Also
+
+     End
+
+     ş  Example
+
+     if Online then
+       Begin
+         Assign String4, "TELIX.REP"
+         Alarm 3
+       End
+
+
+     The use of the If statement will be discussed shortly.  The example
+     above is primarily to illustrate the Begin and End pairs.
+     Telix v3.22 - SIMPLE Programming                Built-in Functions   9
+
+
+
+
+
+     CAPTURELOG
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     ş  Summary
+
+     CaptureLog (<String>/Off/On/Pause/Unpause)
+
+     ş  Description
+
+     The CaptureLog function controls the status of the Telix Capture file,
+     in much the same was as Alt-L does from the keyboard in Telix.  You
+     may turn on the capture log by passing a StringXX or constant string,
+     pause, unpause, or turn off the capture file entirely.  Only one of
+     these actions may be performed per CaptureLog command.  CaptureLog On
+     opens the capture log to the default Telix log name.
+
+     ş  Examples
+
+     CaptureLog "TEMP.CAP"
+     CaptureLog Pause
+     CaptureLog Unpause
+     CaptureLog Off
+
+     CaptureLog On
+     CaptureLog Off
+
+     Assign String16, "TELIX.CAP"
+     CaptureLog String16
+     CaptureLog Off
+
+
+     CHANGEDIR
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     ş  Summary
+
+     ChangeDir <String>
+
+     ş  Description
+
+     The ChangeDir function provides access to the DOS "CD" command.  You
+     may change to any valid directory with this command.  Invalid
+     directories are simply ignored, and Telix will remain in the current
+     directory.  <String> may be either a StringXX variable or a literal
+     string in quotes.
+
+     ş  Examples
+
+     Assign String64, "D:\TELIX\DOWN"
+     ChangeDir String64
+     ChangeDir "C:\TELIX"
+     Telix v3.22 - SIMPLE Programming               Built-in Functions   10
+
+
+
+
+
+     CLEARSCREEN
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     ş  Summary
+
+     ClearScreen
+
+     ş  Description
+
+     The ClearScreen function acts as if you had pressed Alt-C from within
+     Telix.  It clears the screen of all characters other than the status
+     line (if on).  ClearScreen does not accept any parameters.
+
+     ş  Example
+
+     ClearScreen
+
+
+
+     DATE
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     ş  Summary
+
+     Date <String>
+
+     ş  Description
+
+     The Date function places the current date into <String>.  <String>
+     must be a StringXX-type variable.
+
+     ş  Example
+
+     Date String16
+     Telix v3.22 - SIMPLE Programming               Built-in Functions   11
+
+
+
+
+
+     DIAL
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     ş  Summary
+
+     dial <String> [From <String>] [MaxOf <Integer>] [RunScript]
+
+     ş  Description
+
+     The Dial function allows nearly complete access to the Telix dialing
+     directory.  Telix can be told to dial several entries, or from a
+     specific dialing directory, and can be told whether or not to run a
+     linked script.
+
+     Dial must be passed at least one parameter, a StringXX variable or
+     string constant in quotes containing numbers to dial.  This string may
+     contain either a list of entries by number, or a manual number
+     preceded with a lowercase "m".
+
+     If you wish, you may tell Dial from which directory these numbers are
+     to be read, with an optional From directive.  From must be passed a
+     StringXX or literal string constant in quotes, containing the name of
+     the directory to load.  If you use a From directive, it will be valid
+     throughout the rest of the script.  To avoid confusion, it is best to
+     either always use From, or never use it.  If From is not used, the
+     currently loaded  directory shall be the source.
+
+     You may tell Telix to limit the number of dialing attempts to make by
+     using an optional MaxOf directive.  MaxOf must be followed by an
+     integer number of attempts to make.  MaxOf must come after From if
+     From is present.
+
+     You may tell Telix to execute the script linked to the dialing
+     directory.  The default is not to execute such a script.  By placing
+     the optional directive RunScript at the end of the Dial command, Telix
+     will execute that linked script, and return control to your SIMPLE
+     script upon completion.
+
+     ş  Return Value
+
+     The Dial function places a return value into the system variable
+     ReturnCode as follows:
+
+     If there was a connection, ReturnCode shall be the entry number in the
+     dialing directory of the system connected to (or 1 for a manual
+     number).
+
+     If there was no connection established, a zero shall be placed into
+     ReturnCode.
+
+     If the string passed to dial did not contain a string that dial could
+     interpret as a valid list of numbers to dial, -1 will be placed into
+     ReturnCode.
+     Telix v3.22 - SIMPLE Programming               Built-in Functions   12
+
+
+
+
+
+     The use of the ReturnCode is discussed in detail as part of the If
+     statement.
+
+     ş  Examples
+
+     The first example dials entries 1, 5, and 6 from LONGDIST.FON until it
+     connects to one of them or the user presses escape.
+
+     The second example dials the Telix Support BBS manually, up to 50
+     times.
+
+     The third example dials entries 1, 5, and 6, after loading TELIX.FON.
+     If a connection is made, any script linked to the entry will be
+     executed.
+
+     Assign String24, "1 5 6"
+     Assign String64, "D:\TELIX\FON\LONGDIST.FON"
+
+     Dial String24 From String64
+
+     Dial "m1-919-481-9399" MaxOf 50
+
+     Dial String24 From "TELIX.FON" RunScript
+     Telix v3.22 - SIMPLE Programming               Built-in Functions   13
+
+
+
+
+
+     DOS
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     ş  Summary
+
+     Dos <String> [Pause]
+
+     ş  Description
+
+     The Dos function allows you to shell to DOS to execute the program
+     specified in <String>.  <String> may be a StringXX variable or a
+     literal string in quotes.  If you wish Telix to pause prior to
+     returning, simply place the optional directive Pause after the command
+     to execute.
+
+     ş  Return Value
+
+     The Errorlevel that DOS returns after running the command is placed in
+     the system variable ReturnCode.  Use of the ReturnCode is discussed
+     with the If statement.  Please see your DOS manual for more
+     information regarding the DOS Errorlevel.
+
+     ş  Examples
+
+     Assign String64, "C:\WP51\WP.EXE"
+     Dos String64
+     Dos "D:\UTIL\QEDIT.EXE" PauseScreen
+     Telix v3.22 - SIMPLE Programming               Built-in Functions   14
+
+
+
+
+
+     DOWNLOAD
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     ş  Summary
+
+     Download <String> [With Protocol]
+
+     ş  Description
+
+     The Download function acts just as if you had pressed PgDn and entered
+     a protocol and filename.  It will download the file (or files if a
+     batch protocol is used) indicated by <String>.  <String> may be a
+     StringXX variable or a string constant in quotes.
+
+     The Download command uses the protocol specified by the With
+     directive.  If no protocol is specified, Telix will prompt for the
+     protocol. Protocols allowed following the With directive are:
+
+                         Kermit
+                         Modem7
+                         SeaLink
+                         Telink
+                         Xmodem
+                         1K-Xmodem
+                         G-1K-Xmodem
+                         Ymodem
+                         Ymodem-G
+                         Zmodem
+
+     External protocols are not available from SIMPLE.
+
+     Remember that downloads usually need to be triggered on the remote
+     site before you can receive the file.  You will usually need to Send a
+     start command prior to using the Download command.  The Send command
+     is described elsewhere in this manual.
+
+     ş  Examples
+
+     Assign String64, "D:\TELIX\DOWN\WORK\TELIX.QWK"
+
+     Send "D;Z" Enter
+     Send Enter
+     Download String64 with Zmodem
+
+     Send "D;G" Enter
+     Send Enter
+     Download "C:\TELIX\DOWN\TLX320-1.ZIP" With Ymodem-G
+     Telix v3.22 - SIMPLE Programming               Built-in Functions   15
+
+
+
+
+
+     EMULATE
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     ş  Summary
+
+     Emulate <Protocol>
+
+     ş  Description
+
+     The Emulate function tells Telix to change the terminal emulation it
+     is using to that specified by <Protocol>.  Allowable Emulations that
+     can be passed to the Emulate command are:
+
+                         TTY
+                         ANSI-BBS
+                         VT52
+                         VT102
+                         ANSI
+                         AVATAR
+
+     ş  Examples
+
+     Emulate VT102
+     Emulate ANSI-BBS
+
+     END
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     ş  Summary
+
+     End
+
+     ş  Description
+
+     The End command denotes the end of a group of code that belongs
+     together.  It is typically used to keep a group of code together in
+     conjunction with If statements (see If).  Every End command must have
+     a preceding Begin command.  Begin and End commands may be nested
+     within each other.
+
+     It is recommended that indentation be used to help keep track of the
+     Begin and End pairs.
+
+     ş  Example
+
+     if Online then
+       Begin
+         Send "U" Enter
+         Upload "TELIX.REP" with Zmodem
+       End
+     Telix v3.22 - SIMPLE Programming               Built-in Functions   16
+
+
+
+
+
+     ERASEFILE
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     ş  Summary
+
+     EraseFile <String>
+
+     ş  Description
+
+     The EraseFile function deletes the file specified in <String> from the
+     disk.  Be careful using this command as deleted files are usually
+     unrecoverable.  <String> may be a StringXX variable or a literal
+     string in quotes.
+
+     ş  Example
+
+     Assign String24, "D:\WINDOWS\TELIX.TTF"
+     EraseFile String24
+     EraseFile "C:\TELIX\QWIK\TELIX.QWK"
+
+     EXITSCRIPT
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     ş  Summary
+
+     ExitScript
+
+     ş  Description
+
+     The ExitScript function halts execution of the script.  It is exactly
+     like pressing Escape while a script is running, and answering "Yes".
+
+     ş  Example
+
+     ExitScript
+
+
+     EXITTELIX
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     ş  Summary
+
+     ExitTelix
+
+     ş  Description
+
+     The ExitTelix function halts execution of the script, and exits Telix
+     altogether.  It is exactly like pressing Alt-X and answering "Yes."
+
+     ş  Example
+
+     ExitTelix
+     Telix v3.22 - SIMPLE Programming               Built-in Functions   17
+
+
+
+
+
+     HANGUP
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     ş  Summary
+
+     Hangup
+
+     ş  Description
+
+     The Hangup function disconnects you from any system you might be
+     connected to at the time.  It is exactly like pressing Alt-H from
+     within Telix.
+
+     ş  Example
+
+     Hangup
+
+
+     INPUT
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     ş  Summary
+
+     Input <StringXX>, Nx
+
+     ş  Description
+
+     The Input function gets up Nx characters from the keyboard and places
+     them into <StringXX>.  Nx is any integer value from 1 to 80, and
+     <StringXX> must be a StringXX-type variable.
+
+     No prompting is made by SIMPLE.  If you wish to prompt the user for
+     the data, you will want to put the prompt up yourself, using the Show
+     command, described later.
+
+     An example of the Input routine below allows the user to input up to
+     40 characters, placing them into String22:
+
+     ş  Example
+
+     Input String22, 40
+     Telix v3.22 - SIMPLE Programming               Built-in Functions   18
+
+
+
+
+
+     MESSAGE
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     ş  Summary
+
+     Message <String>
+
+     ş  Description
+
+     The Message command places <String> into a centered box on the screen
+     for exactly three seconds.  It is very much like what you would see in
+     Telix when pressing Alt-E, for example, but it allows you to specify
+     the message in the box.  <String> may be a StringXX variable or a
+     literal string in quotes.
+
+     ş  Example
+
+     Message "Disconnecting from the Telix Support BBS"
+
+
+     PRINTER
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     ş  Summary
+
+     Printer [On] [Off]
+
+     ş  Description
+
+     The Printer command toggles the printer mode on and off, just as Ctrl-
+     @ does in Telix.  You must specify the state you wish the log to be
+     in, On or Off.
+
+     ş  Example
+
+     Printer On
+
+     Printer Off
+     Telix v3.22 - SIMPLE Programming               Built-in Functions   19
+
+
+
+
+
+     RUNSCRIPT
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     ş  Summary
+
+     RunScript <String>
+
+     ş  Description
+
+     The RunScript function loads the script specified in <String> and
+     executes it.  When this new script terminates, your script will
+     continue from this position.  <String> may be either a StringXX
+     variable or a literal string in quotes.
+
+     ş  Return Value
+
+     RunScript places the value returned by the called script into the
+     system variable ReturnCode. All SIMPLE scripts will return a zero.
+     SALT scripts may return varying values.
+
+     ş  Example
+
+     RunScript "AXSTOOLS.SLC"
+
+
+     SEND
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     ş  Summary
+
+     Send <String> [Enter]
+
+     ş  Description
+
+     The Send function sends the data contained in <String> out the comm
+     port, and also to the screen.  If the keyword Enter follows <String>
+     then a carriage return will be sent as well.  <String> may be a
+     StringXX variable or a string constant in quotes.
+
+     ş  Examples
+
+     Assign String14, "Telix Support"
+
+     Send String14
+     Send "Chatting with Sysop" Enter
+     Telix v3.22 - SIMPLE Programming               Built-in Functions   20
+
+
+
+
+
+     SHELL
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     ş  Summary
+
+     Shell
+
+     ş  Description
+
+     The Shell function jumps to MS-DOS and allows you to execute other
+     programs manually.  This is the same as pressing Alt-J within Telix.
+     To return to your script from DOS, simply type "exit" at the DOS
+     prompt.
+
+     You must return to the directory you started in if things are expected
+     to function properly.  If you "exit" back to Telix while in another
+     directory, the current directory that scripts use will be incorrect
+     and files might not be found where they should be.  Be careful using
+     the Shell command.
+
+     ş  Example
+
+     Shell
+
+
+     SHOW
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     ş  Summary
+
+     Show <String> [Enter]
+
+     ş  Description
+
+     The Show function places the data contained in <String> on the screen.
+     If the keyword Enter follows <String> then a carriage return will be
+     displayed as well.  <String> may be a StringXX variable or a string
+     constant in quotes.
+
+     Show is very similar to Send, but the data is not sent over the comm
+     port.  Be careful not to confuse Show and Send.
+
+     ş  Examples
+
+     Assign String14, "Telix Support"
+
+     Show String14
+     Show "Chatting with Sysop" Enter
+     Telix v3.22 - SIMPLE Programming               Built-in Functions   21
+
+
+
+
+
+     SOUND
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     ş  Summary
+
+     Sound Nx, Ny
+
+     ş  Description
+
+     The Sound function causes tone of frequency (pitch) Nx to be played on
+     the PC speaker for Ny tenths of a second.  You may want to experiment
+     with values for Nx to determine acceptable frequencies.
+
+     Script execution will not continue until the time has elapsed.
+
+     ş  Examples
+
+     Sound 200, 30
+
+     Sound 500, 10
+
+
+     TIME
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     ş  Summary
+
+     Time <String>
+
+     ş  Description
+
+     The Time function places the current time into <String>.  <String>
+     must be a StringXX-type variable.
+
+     ş  Example
+
+     Time String16
+     Telix v3.22 - SIMPLE Programming               Built-in Functions   22
+
+
+
+
+
+     UPLOAD
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     ş  Summary
+
+     Upload <String> With Protocol
+
+     ş  Description
+
+     The Upload function acts just as if you had pressed PgUp and entered a
+     protocol and filename.  It will upload the file (or files if a batch
+     protocol is used) indicated by <String>.  <String> may be a StringXX
+     variable or a string constant in quotes.
+
+     The Upload command uses the protocol specified on the command line by
+     the With operator.  If a protocol is not specified, Telix will prompt
+     for the protocol.  Protocols allowed following the With directive are:
+
+                         Kermit
+                         Modem7
+                         SeaLink
+                         Telink
+                         Xmodem
+                         1K-Xmodem
+                         G-1K-Xmodem
+                         Ymodem
+                         Ymodem-G
+                         Zmodem
+
+     External protocols are not available from SIMPLE.
+
+     Remember that uploads usually need to be triggered on the remote site
+     before you can send the file.  You will usually need to Send a start
+     command prior to using the Upload command.
+
+     ş  Examples
+
+     Assign String64, "D:\TELIX\DOWN\WORK\TELIX.REP"
+
+     Send "U;Z" Enter
+     Send Enter
+     Upload String64 with Zmodem
+
+     Send "U;G" Enter
+     Send Enter
+     Upload "C:\TELIX\DOWN\TLX320-1.ZIP" With Ymodem-G
+     Telix v3.22 - SIMPLE Programming               Built-in Functions   23
+
+
+
+
+
+     USAGELOG
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     ş  Summary
+
+     UsageLog [On] [Off]
+
+     ş  Description
+
+     The UsageLog command toggles the Telix usage log on and off, just as
+     Alt-U does in Telix.  You must specify the state you wish the log to
+     be in, On or Off.
+
+     ş  Example
+
+     UsageLog On
+
+     UsageLog Off
+
+
+     WAIT
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     ş  Summary
+
+     Wait Nx
+
+     ş  Description
+
+     The Wait function forces the script to pause for Nx seconds.
+
+     ş  Example
+
+     Wait 60
+     Telix v3.22 - SIMPLE Programming                  Program Control   25
+
+
+
+
+
+
+     5.  Program Control
+
+     SIMPLE scripts would be less than useful if there wasn't a way to
+     cause the lines to execute out of order or in repetitive blocks.
+     There are three commands that can cause a SIMPLE script to take on a
+     much higher degree of functionality, and thus complexity.  We will
+     start with the easier ones, and then move on to the more advanced
+     ones.
+
+
+     5.1  The Waitfor Command
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     Often when automating logons to online systems, you must enter
+     information in response to a certain prompt, but it is not known
+     exactly when that prompt will be ready for your input.  Waitfor
+     simulates exactly what you would do when logging onto a system.  It
+     waits for the prompt to appear, and then does what you tell it.
+
+     ş  Summary
+
+     WaitFor <String> [MaxOf Nx] Then <Command>
+
+     <String> may be a literal string in quotes, or a StringXX variable.
+     Case is not significant, and String must be no more than 40
+     characters.
+
+     The optional MaxOf directive tells the WaitFor command how long to
+     wait before giving up.  Nx is a number of seconds to wait.  If MaxOf
+     is defined, and Nx seconds elapse without <String> being received,
+     SIMPLE skips <Command> and continues with the next command after that.
+
+     <Command> is any valid built-in function from Chapter 4, including
+     blocks surrounded by Begin and End.
+
+     ş  Example
+
+     Clark Development's PCBoard BBS prompts the user for various inputs,
+     always in the same order.  It will prompt you for your color
+     preference, your first name, your last name, and your password.  You
+     can use the WaitFor command in a short SIMPLE script to automate this
+     process as follows:
+
+     Assign String1,   "Jeff"
+     Assign String2,   "Woods"
+     Assign String101, "first name"
+     Assign String102, "last name"
+
+     Waitfor "you want graphics" MaxOf 30 Then Send "Y Q" Enter
+
+     Waitfor String101 MaxOf 10 Then
+       Send String1 Enter
+     Telix v3.22 - SIMPLE Programming                  Program Control   26
+
+
+
+
+
+     Waitfor String102 MaxOf 10 Then Send String2 Enter
+     Waitfor "ssword" MaxOf 10 Then Send BBSPassword Enter
+
+
+
+     5.2  The If Command
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     The If conditional is one of the most powerful, and thus complex
+     functions of SIMPLE.  It has several options and is relatively
+     freeform, but it must follow certain conventions.
+
+     Following the explanation of the If statement, our examples will
+     become more complex, as we build on what you have learned so far.
+
+     The general purpose of an If statement is to test to see if a certain
+     condition is true, and to execute certain commands if so, or
+     optionally, certain commands if not.
+
+     ş  Summary
+
+     If [Not] <Condition> Then <Command> [ElseIf <Command>] [Else...]
+
+     <Condition> is the quality you wish to test for being true or false.
+     Conditions may be comparing strings for equality to each other,
+     checking for the existence of a certain file on the disk, or for
+     checking to see if a certain condition exists, such as if Telix is
+     connected to a system.  You can check for the opposite condition by
+     preceding <Condition> with the optional directive Not.
+
+     The Then keyword is required for all If statements, and must follow
+     the <Condition>.
+
+     <Command> is the action that could be performed based on the result of
+     the Condition.  <Command> may be any of the built-in functions of
+     SIMPLE, and can even be a group of instructions marked by Begin and
+     End.
+
+     Else and ElseIf statements will be explained shortly.
+
+
+
+     There are five predefined conditions that can be used:
+
+     1.  Online     You may check the state of the carrier detect signal to
+                    determine if you are connected to another system or
+                    not.  The format of the Online conditional is:
+
+                    If [Not] Online [=Yes] [=No] Then <Command>
+
+                    "Yes" and "No" are optional and are only included for
+                    clarity.  Examples of the Online conditional are:
+
+                         If Online Then
+     Telix v3.22 - SIMPLE Programming                  Program Control   27
+
+
+
+
+
+                           Begin
+                             Download "TELIX.QWK" With ZModem
+                             EraseFile "TELIX.REP"
+                           End
+
+                         If Not Online Then
+                           Dial "m1-919-481-9399" MaxOf 50
+
+                         If Online=No Then Dial "5"
+
+
+     2.  Exist      You may check for the existence of a file on the disk
+                    prior to attempting an action on that file.  The format
+                    of the Exist conditional is:
+
+                    If [Not] Exist <String> Then <Command>
+
+                    <String> may be a StringXX variable or a string
+                    constant in quotes.  Examples of the Exist conditional
+                    are:
+
+                         Assign String1, "D:\TELIX\QWK\TELIX.REP"
+
+                         If Exist String1 Then
+                           Upload String1 With Zmodem
+
+                         If Not Exist String1 Then
+                           If Online Then
+                             Begin
+                               Download String1 With Zmodem
+                               EraseFile "ANYFILE"
+                             End
+
+                    As you can see, our examples are becoming a bit more
+                    complex as more commands are introduced.
+
+     3.   BBSNumber You may check the value of this system variable to
+                    determine which dialing directory entry number you last
+                    connected to.  The format of the BBSNumber conditional
+                    is:
+
+                    If [Not] BBSNumber = Nx Then <Command>
+
+                    <Nx> is any integer number.  For example, if you know
+                    that the Telix Support BBS is entry # 1 in the current
+                    dialing directory, and you wish to find out if we are
+                    currently online with this particular system, you could
+                    nest two If statements together:
+
+                         If Online Then
+                           If BBSNumber = 1 Then
+                             Begin
+                               EraseFile "TELIX.QWK"
+                               Download "TELIX.QWK" With Zmodem
+     Telix v3.22 - SIMPLE Programming                  Program Control   28
+
+
+
+
+
+                             End
+
+                    Note that the <Command> executed for "If Online"
+                    encompasses all of the rest of the above example
+                    through the End statement.  This is the reason for the
+                    indentation as above.  It reminds us which lines
+                    comprise the <Command> to execute if <Condition> is
+                    true.
+
+     4.   ReturnCode     
+
+                    You may check the results of any of three other SIMPLE
+                    commands with the ReturnCode system variable.  Two of
+                    them we have covered, the third we shall shortly.  The
+                    three commands you can check for success are Dos, Dial,
+                    and RunScript.
+
+                    The format of the ReturnCode conditional is as follows:
+
+                    If [Not] ReturnCode = Nx Then <Command>
+
+                    <Nx> is any integer number.  For example, if you know
+                    that the program Foo.EXE returns a DOS Errorlevel of 1
+                    if today is a Saturday, and an Errorlevel of 0 for
+                    every other day of the week, you might want to try
+                    something like the following, which would call the
+                    Telix BBS to download a mail packet on Saturdays only.
+                    Again, we shall try to integrate what we have learned
+                    thus far into more and more complex examples:
+
+                         Dos "Foo.EXE"
+                         If ReturnCode = 1 Then
+                           Begin
+                             Dial "m1-919-481-9399" Maxof 50          Runsc
+                         ript
+                             Send "QMAIL4 D;Y"
+                             Download "TELIX.QWK" With Zmodem
+                             Hangup
+                           End
+     5.   TransferStatus
+
+                    You may check the result of the Upload or Download
+                    commands with the TransferStatus system variable.  The
+                    format of a TransferStatus conditional is as follows:
+
+                    If [Not] TransferStatus = Nx Then <Command>
+
+                    Nx is any integer number.  The following example will
+                    try to send a mail packet to the Telix BBS and if not
+                    successful, will try again.  The example assumes that
+                    we are already logged on and ready to upload.
+
+                         Send "TELIX.REP" With Zmodem
+     Telix v3.22 - SIMPLE Programming                  Program Control   29
+
+
+
+
+
+                         If TransferStatus = 0 Then
+                           Send "TELIX.REP" With Zmodem
+
+
+
+     An optional Else or ElseIf command may be appended to any If statement
+     to further control the flow of the program.  ElseIf and Else
+     statements may be nested within one another, and infinitely deep.
+
+     ElseIf statements indicate another If condition is to be checked in
+     the case of the first If being false.  Else statements indicate the
+     end of an If chain.
+
+     The following is perfectly valid, and quite common:
+
+                         If Online Then
+                           Begin
+                             Send "U;Z" Enter
+                             Upload "Telix.REP" with Zmodem
+                             If TransferStatus = 0 Then
+                               Download "Telix.QWK" with Xmodem
+                             ElseIf
+                               Upload "Telix.REP" With Zmodem
+                             Else
+                               Hangup
+                           End
+                         Else
+                           Dial "11"
+
+
+
+     Note the nesting and indentation of each individual command beneath
+     the If that it is a part of.  Clear, concise indentation can go a long
+     way to making your scripts easier to read and write.
+     Telix v3.22 - SIMPLE Programming                  Program Control   30
+
+
+
+
+
+     5.3  The Whenever Loop
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+     The Whenever loop is the most powerful, and thus most complex function
+     of SIMPLE.  It has several options and is relatively freeform, but it
+     must follow certain conventions.
+
+     The purpose of a Whenever loop is best explained in terms of WaitFor.
+     Please be sure you understand Waitfor before continuing here.
+
+     One of the inherent problems of WaitFor is that the order the prompts
+     come in must be fixed.  One particular bulletin board can randomly
+     prompt your for your birthday as verification of who you really are.
+     Such a prompt renders the WaitFor command fairly useless.
+
+     Whenever is the answer to this problem.  You may set up a group of up
+     to sixteen different strings and can define the proper actions SIMPLE
+     should take whenever that particular prompt comes in.  The order of
+     the prompts will not matter.  If your prompt comes in, then the
+     defined action will occur.  The general format of a Whenever Loop is
+     defined below.
+
+     ş  Summary
+
+     WhenLoop
+         Whenever <String> Then <Command>
+         Whenever <String> Then <Command>
+         Whenever <String> Then <Command>
+         ....
+     EndWhen
+
+     A Whenever Loop begins with the keyword WhenLoop.
+
+     Immediately following WhenLoop must follow a series of up to sixteen
+     Whenever directives.  A whenever directive defines the <String> to
+     watch for, and the <Command> to execute when the <String> is received.
+     The keyword Then must appear between the two, exactly as above.
+
+     <String> may be a StringXX variable or a string constant in quotes.
+     Case is not significant, and <String> may be no longer than 40
+     characters.
+
+     Whenever <String> is received, <Command> will be executed.  The power
+     of the Whenever loop lies in the fact that absolutely any SIMPLE
+     construct may be used here as the <Command> (other than another
+     Whenever loop).  Waitfor, If, or any built-in function from chapter 4
+     may be used.
+
+     The keyword EndWhen must follow the last Whenever directive.
+
+     The keyword QuitWhen is used to exit from a given WhenLoop at the
+     proper time.
+     Telix v3.22 - SIMPLE Programming                  Program Control   31
+
+
+
+
+
+     Using the example of a BBS which can randomly prompt for your date of
+     birth during the login, lets write a script to log on to that system,
+     enter the mail door, download a mail packet, and log off.
+
+     ş  Example
+
+     WhenLoop
+       Whenever "language t"   Then Send "2"         Enter
+       Whenever "first name"   Then Send "Jeff"      Enter
+       Whenever "last name"    Then Send "Woods"     Enter
+       Whenever "ssword"       Then Send BBSPassword Enter
+       Whenever "birthday"     Then Send "03/25/66"  Enter
+       Whenever "new mail"     Then Send "N Q"       Enter
+       Whenever "rd Command"   Then Send "MAILDOOR"  Enter
+       Whenever "mail Command" Then
+         Begin
+           Send "D;Y" Enter
+           Waitfor "ready to Send Telix.QWK" MaxOf 300 Then
+             Download "TELIX.QWK" With Zmodem
+           If TransferStatus = 0 Then
+             Begin
+               Message "Download Not Successful!"
+               Sound 200, 2
+             End
+           Else
+             Begin
+               Wait(20)
+               Send "G;Y" Enter
+               Hangup
+               QuitWhen
+             End
+         End
+     EndWhen
+
+     This entire script would log you onto the BBS, and would answer the
+     random birthday prompt if it appeared.
+
+     The last Whenever directive specifies to the script that it is to do
+     everything within the outermost Begin/End.  Note that the final
+     whenever is in response to a prompt that indicates we are in the mail
+     door.  If we are in the mail door, we send a command to start the
+     download of a mail packet.  When the packet is ready, we actually
+     attempt download.  Upon checking the result of the transfer, we either
+     log off and exit the WhenLoop (we did what we wanted), or we make a
+     beep and go back to the whenloop, which will trigger again on the mail
+     Command prompt, and try to download again.
+
+     Study the example above carefully, as it is very typical of a complete
+     SIMPLE script.  Be careful when using WhenLoops as the above script
+     can try over and over to download a packet.  If there is a problem
+     downloading due to the BBS, you could run up quite a bill.  Advanced
+     automation scripts should probably be in SALT, which allows greater
+     control.
+     Telix v3.22 - SIMPLE Programming                            Index   33
+
+
+
+
+
+     6.  Index
+
+     Alarm................................................................7
+     Assign...............................................................7
+     BBSNumber........................................................6, 27
+     BBSPassword..........................................................6
+     Begin................................................................8
+     CaptureLog...........................................................9
+     Carrier detect......................................................26
+     ChangeDir............................................................9
+     Changing your password...............................................6
+     ClearScreen.........................................................10
+     Compiling a script...................................................2
+     Date................................................................10
+     Dereferencing........................................................5
+     Dial................................................................11
+     Dos.................................................................13
+     Download............................................................14
+     Else................................................................29
+     ElseIf..............................................................29
+     Emulate.............................................................15
+     End.................................................................15
+     EndWhen.............................................................30
+     EraseFile...........................................................16
+     Exist...............................................................27
+     ExitScript..........................................................16
+     ExitTelix...........................................................16
+     Hangup..............................................................17
+     If..................................................................26
+     Input...............................................................17
+     Linked script.......................................................11
+     Message.............................................................18
+     Online..............................................................26
+     Printer.............................................................18
+     QuitWhen............................................................30
+     ReturnCode...............................................6, 11, 13, 28
+     RunScript...........................................................19
+     SALT source..........................................................1
+     Send................................................................19
+     Shell...............................................................20
+     Show................................................................20
+     Sound...............................................................21
+     Strings..............................................................5
+     System variables.....................................................5
+     Time................................................................21
+     TransferStatus...................................................6, 28
+     Upload..............................................................22
+     UsageLog............................................................23
+     Variables............................................................5
+     Wait................................................................23
+     WaitFor.............................................................25
+     Whenever............................................................30
+     WhenLoop............................................................30

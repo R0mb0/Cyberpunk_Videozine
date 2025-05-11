@@ -1,0 +1,287 @@
+//-----------------------------------------------------------
+// MBBSREG.SL? Automatic registration to a new MBBS.
+//
+// Please look at the comments through the whole file, and modify to
+// suit your needs before you use it. Then recompile with CS MBBSREG. 
+//-----------------------------------------------------------
+
+str thisBBStype[]="MBBS"     // Works only for MBBS.
+   ,line       [80]          // Line for string storage.
+   ,temp        [4]          // Temporary for short strings.
+                             // For the Global storage:
+   ,global   []="GLOBAL"     // Global script.
+   ,bbstype  []="BTYPE"      // BBS type.
+   ,hprot    []="HPROT"      // Current protocol.
+   ,addr     []="ADDR"       // Address
+   ,mail     []="MAIL"       // Mail address
+   ,htel     []="HTEL"       // Home phone
+   ,wtel     []="WTEL"       // Work phone
+   ,passw    []="PASSW"      // Actual password
+   ;     
+
+int tol = 300                // No activity for « minute
+   ,i, x                     // makes script time out.
+   ,stat, tmark
+   ;
+
+//-----------------------------------------------------------
+// Script starts here.
+//-----------------------------------------------------------
+
+main()
+{
+  entry();                               // Updates colors & status bar. 
+
+// Only if online.
+
+  if (!carrier()) 
+  { alarm(1);
+    status_wind ("THIS SCRIPT ONLY WORKS IF YOU'RE ONLINE!",20);
+    return (0);
+  }
+
+  call (global,"R",bbstype,line);        // Get BBS type. Should be MBBS.
+
+  if (line != thisBBStype)
+  { wrongBBS();
+    return (-1);
+  }
+
+// Start tracking incoming text.
+
+  if (SECTION1()                         // These routines 
+  || SECTION2())                         // return 0 if all's OK.
+  { status_wind ("Logon/registration failed!!",20);
+    return (-1);
+  }
+
+  cputs ("X S^M");                       // Set SuperExpert mode.
+  waitfor (" Command",2);                // Wait for next command.
+
+  cputs ("U M^M");                       // Go to Utility menu.
+  waitfor ("ANSI terminal:");
+  cputs ("Y Y Y Y Y Y^M");               // Set mode; all to YES.
+        
+  waitfor (" Command",2);                // Wait for next command.
+  cputs ("FILT^M");                      // Switch filter off.
+
+  waitfor (" Command",2);                // Wait for next command.
+  cputs ("T ");                          // Set transfer protocol.       
+  output (hprot);
+  waitfor (" Command",2);                // Wait for next command.
+
+  cputs ("AF Z^M");                      // Auto Format is Zip
+  waitfor (" Command",2);                // Wait for next command.
+
+  cputs ("L 0^M");                       // Set no paging,
+  waitfor (" Command",2);                // Wait for next command.
+
+  cputs ("R SH^M");                      // Show conferences.
+  return (0);                            // continuous display
+}                                        // and quit to "main".
+
+//-----------------------------------------------------------
+// Section 1 starts registration.
+//-----------------------------------------------------------
+
+SECTION1()
+{
+int mo, ee, pw, sa, pc, hp, wp, ok;      // For tracking.      
+
+// Start tracking messages.
+
+  mo = track ("-more-- (Y/n):",0);      // More?
+  ee = track (" for english) ",1);      // Enter for English
+  pw = track ("logon password",0);      // Please enter your logon password
+
+  tmark = timer_start (tol);             // wait up to 30 sec. for 
+                                         // each response.
+  while ((stat=trig()) > 0)              // answer any logon questions
+  { if (stat == pw)                      // Password?
+    { output (passw);                    // Send it. Now we can start
+                                         // tracking.....
+      sa = track ("street address",0);   // ......street address
+      pc = track ("ode and town :",0);   // ......postal code and town
+      hp = track ("home telephone",0);   // ......home telephone number
+      wp = track ("work telephone",0);   // ......work telephone number
+      ok = track (" your answers:",0);   // Satisfied with your answers
+    }
+    else if (stat == ee)                 // Language key  
+      cputs ("^M");                      // ENTER for English.
+
+    else if (stat == mo)                 // More?
+      cputs ("N^M");                     // No.
+
+    else if (stat == sa)                 // Street address
+      output (addr);
+
+    else if (stat == pc)                 // Postal code.
+      output (mail);                     // give street address.
+
+    else if (stat == hp)                 // Home telephone number
+      output (htel);                     // give home phone number.
+
+    else if (stat == wp)                 // Work telephone number
+      output (wtel);                     // give work phone number.
+
+    else if (stat == ok)                 // Satisfied with answers.
+    { cputs ("Y^M");                     // Yes I am (satisfied).
+      ok = 0;                            // OK return.
+      break;
+    }
+  }
+  release();
+  return (ok);                           // Fail.
+}
+
+//-----------------------------------------------------------
+// Section 2 completes registration.
+//-----------------------------------------------------------
+
+SECTION2()
+{
+int pc, pw, mo, ae, lk, ml, of, mn, yl, cm, ec;   // For tracking.
+
+// Start tracking messages.
+
+  pw = track ("s will echo)",0);         // Password entry.
+  ae = track ("Type an 'AE'",0);         // Request for ’
+  ml = track (" line (Y/N)?",0);         // Middle of the line?
+  of = track ("creen (Y/N)?",0);         // Disappear?
+  yl = track ("our liking):",0);         // Not to your liking?
+  pc = track ("your choice ",0);         // Protocol choice.
+  mn = track (" MBBS (Y/N)?",0);         // Want manual?
+  cm = track ("(? for menu)",0);         // Command:
+  ec = track (" continue...",0);         // Enter to continue...
+  mo = 0;
+
+  tmark = timer_start (tol);             // Wait up to 30 sec.
+ 
+  while ((stat=trig()) > 0)              // answer any logon questions.
+  { if (stat == pw)  
+    { output (passw);                    // Send password.
+      if (!mo)                           // Start tracking this now.
+        mo = track ("--more--",0);
+    }   
+    else if (stat == mo                  // more?
+    ||       stat == ec                  // Enter to continue?
+    ||       stat == mn)                 // Manual?         
+      cputs ("N^M");                     // No thanks.
+
+    else if (stat == ae)                 // Norwegian '’'
+      cputs("’");                        // Type an '’'.
+
+    else if (stat==ml                    // Middle of the line?
+         ||  stat==of)                   // ...disappear off the screen?         
+      cputs("Y^M");                      // Answer Y to ANSI.
+
+    else if (stat == yl)                 // Rules to your liking?
+      cputs("Y");                        // YES. MBBS doesn't expect
+                                         // a CR here.
+    else if (stat == pc)                 // Protocol choice?
+      output (hprot);                    // Send protocol.
+
+    else if (stat == cm)                 // 1.st command.   
+      break;
+  }
+  release();                             // Release tracks.
+  return (0);                            // Return OK.
+}
+                                         
+//-----------------------------------------------------------
+// Wrong BBS type.
+//-----------------------------------------------------------
+
+wrongBBS()
+{
+str help[48];
+
+    failtone();                          // Alarm.    
+    help = "This script is for ";        // Catenate strings.
+    strcat (help,thisBBStype);
+    strcat (help," only!");
+    status_wind (help,20);               // Display message for 2 sec.
+}
+
+//-----------------------------------------------------------
+// Play fail tone.
+//-----------------------------------------------------------
+
+failtone()
+{
+  int n;
+  for (n=140; n > 10; n = 100*n/120) 
+  { tone(n*10,12);                       // Fail tone!!
+    terminal();                          // Process text.
+  }
+}
+
+//-----------------------------------------------------------
+// Routine to update colors and status bar.
+//-----------------------------------------------------------
+
+entry ()
+{
+  _back_color = 1;
+  _fore_color = 14;
+  update_term();
+}
+
+//-----------------------------------------------------------
+// Free timer and tracks.
+//-----------------------------------------------------------
+
+release()
+{
+  timer_free (tmark);
+  track_free(0);
+}
+
+//-----------------------------------------------------------
+//  Trig loop. Waits here until either one "trig string" is
+//  found, or we have a time-out, or carrier is lost.
+//-----------------------------------------------------------
+
+trig()
+{
+int i;
+  do
+  { terminal();
+  }  while (!time_up (tmark)             // Loop until time-out
+          && carrier()                   // or carrier lost
+          && (i=track_hit(0))==0);       // or we trigged.
+  if (i==0) 
+    i = -1;                              // Error!
+  else
+    timer_restart (tmark,tol);           // Restore timer.
+  return (i);
+}
+
+//-----------------------------------------------------------
+// Send a global variable to the BBS.
+//-----------------------------------------------------------
+
+output (str name)
+{
+int i;
+
+  call (global,"R",name,line);           // Get it.
+  for (i=strlen(line)-1; i>0; --i)
+  { if (subchr (line,i) > ' ') break;    // Delete any trailing CR.
+    setchr (line,i,0);
+  }
+  cputs (line);
+  cputs ("^M");                          // Add another CR.
+}
+
+//-----------------------------------------------------------
+// Flush incoming text from BBS.
+//-----------------------------------------------------------
+
+flush()
+{
+  do
+  { terminal();                          // Process all echo
+    delay(1);                            // from the BBS.
+  } while (cinp_cnt() > 0);
+}

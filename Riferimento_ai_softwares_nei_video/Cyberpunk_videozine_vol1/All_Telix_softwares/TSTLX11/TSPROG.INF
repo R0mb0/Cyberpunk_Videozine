@@ -1,0 +1,120 @@
+Updated Sat 26-December-1992
+
+A list of PD programs by Timo Salmi              All rights reserved
+===================================
+
+If you have an access to InterNet (or its subnets NorduNet or
+FuNet), and have FTP (file transfer program) capability, you can get
+these PD programs from garbo.uwasa.fi archives, University of Vaasa,
+Finland, node number 128.214.87.1 by anonymous FTP. If you don't
+have FTP, you can use Garbo's mail server. You can inquire for more
+information by email from ts@uwasa.fi.
+
+All these programs are included on Robert Bruce's extensive Garbo
+CDROM (obtainable eg from Harri Valkama, WasaWare Oy, Palosaarentie
+31, SF-65200 Vaasa, Finland). Furthermore, some of the programs have
+appeared as UseNet Binary Postings in comp.binaries.ibm.pc. The
+programs are also available from several bulletin boards. Some of
+these programs also appear on the PC-SIG shareware library.
+
+The most recent versions are, however, at the University of Vaasa.
+This means that using anonymous FTP, or the mail server of
+garbo.uwasa.fi, is the best choice, with the CDROM alternative being
+the best of the alternatives. (North American users might first want
+to try to get these programs from a site near you [e.g. the Garbo
+mirror at wuarchive or SIMTEL20] in order not to add to the load on
+the overseas link. Likewise the Australian users might want to try
+the archie.au Garbo mirror.)
+
+The author can be contacted at:       (Comments are solicited!)
+Internet address: ts@uwasa.fi         (My preferred email address)
+Bitnet address:   SALMI@FINFUN.BITNET
+
+          BINARY files :
+          ---------------
+ts1st     Statistics: Univariate statistical measures.
+ts2st     Statistics: Multiple (OLS) regression analysis.
+ts3st     Statistics: Transformations of observations.
+ts4st     Statistics: Correlation analysis.
+ts5st     Least absolute deviation (LAD) multiple regression.
+ts5dos    MsDos 5.0 (or 4.+) specific programs (setser)
+tsarc     Details of the contents of each ts-package in zipped form.
+tsbase    A programmer's tools base.
+tsbat     A collection of useful batch files and tricks.
+tsbits    Base conversions, decimal bit calculations.
+tscdar    Perpetual calendar in English and Finnish.
+tschek    A Unix-like spelling checker (for MsDos ascii files).
+tsdemo    Assorted graphics demonstrations of functions etc.
+tsdraw    Graphical presentation of equations and LP problems.
+tsf2cm    Comparison of two files, etc.
+tsfaq     Questions from UseNet and Timo's answers.
+tsfcom    A set of programs for manipulating text files.
+tsfilt    Programs for filtering messages, log files, Unix-PC, etc.
+tsfima    Programs of financial mathematics.
+tsfltb    Easily customizable general filters, for text or binary.
+tsfltc    More text-file filters (concat, cut, cutw, detab, rep, rot13)
+tsfunc    Calculates, tabulates, and plots your functions.
+tsgame    Three educational games including a management game.
+tsgmeb    Timo's educational games: typevade, revegame, witpin.
+tsgmec    Timo's educational games: ascigame, linegame, wordexam
+tsgmed    Learn national flags as educational games (good).
+tsgmee    Classic Hangman and Towers of Hanoi
+tsjog     A simple calculator and pacer for a jogging enthusiast.
+tskerm    Keypads, .bats, logging, and file transfers for MsKermit.
+tslin     Linear programming and linear goal programming.
+tsmatr    Standard matrix calculations. Product, inverse, etc.
+tsnum     Various programs in numerical analysis.
+tspa??40  Turbo Pascal 4.0 units for (real:-) programmers.
+tspa??50  Turbo Pascal 5.0 units for (real:-) programmers.
+tspa??55  Turbo Pascal 5.5 units for (real:-) programmers.
+tspa??60  Turbo Pascal 6.0 units for (real:-) programmers.
+tspell    Screen oriented spelling checker & word frequency counter.
+tspfon    Utilities and advice for Procomm Plus.
+tsprn     Printing text files with Diconix and Zenith laptop.
+tspun     Timo's sickening groaners.
+tsqed     Macros and configurations for QEdit text-editor.
+tsqlpc    On home computer (QL) <-> PC file transfer.
+tstlx     Salt scripts etc for the Telix telecommunication program
+tstsr     TSR programs (noboot, resclock, sordino, timedown, timeup,...)
+tsutil    Timo's 1st utility set (sysinfo, dirw, dtetimal, timelog ...)
+tsutlb    Timo's 2nd utility set (touch, chars, dire, setgra)
+tsutlc    Timo's 3rd utility set (eg find duplicates on hd ...)
+tsutld    Timo's 4th utility set (bigcurs, keyrate, caps, switchar ...)
+tsutle    Timo's 5th utility set (lock keyboard, mailsplit, tdel, cmos)
+tsutlf    Timo's 6th utility set (strings, strmemo)
+
+          ASCII files in /pc/ts :
+          ------------------------
+0news-ts     Latest news about the files in /pc/ts directory
+0news89.ts   The news announcements of 1989 on ts-programs
+0news90.ts   The news announcements of 1990 on ts-programs
+0news91.ts   The news announcements of 1991 on ts-programs
+fback        Early user feedback (later see /pc/pd2/post??.zip)
+tsans???.txt Answers to some recurring questions about the packages
+tsarc???.txt Details of the contents of each ts-package
+vaasa.inf    Statistics about Finland, Vaasa, and U of Vaasa, Timo
+vaasa2.inf   More (official) information about University of Vaasa
+
+          Selected ASCII files in /pc/pd2 :
+          ----------------------------------
+0dir-pd2        Information about the /pc/pd2 directory
+author??.zip    List of SW & PD authors reachable on InterNet
+camfaq.zip      comp.archives.msdos[.d/.annouce] FAQ
+cbipwfaq.zip    comp.binaries.ibm.pc.wanted Frequently Asked Questions
+bestpr??.zip    Timo's choice of best MsDos SW & PD programs
+hist9?.zip      Timo's subjective look back at 199?
+infolist.txt    Information on garbo-infolist mailing list
+moder??.zip     A list of MsDos FTP sites & moderators
+news-pd2        Current year's selective news about uploads at Garbo
+news??.pd2      Selected garbo.uwasa.fi news announcements of 19??
+pd2ans???.txt   Frequently asked Garbo questions with answers
+post??.zip      Information email & postings (30 msgs each)
+private.txt     Your feedback, questions and views are public
+
+          Also see in /pc :
+          ------------------
+INDEXTS.ZIP  The contents of each ts-package, same as /pc/ts/tsarc
+
+          Sinclair QL
+          -----------
+The /ql subdirectories have some of my old Sinclair QL programs.

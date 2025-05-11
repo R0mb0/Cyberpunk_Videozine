@@ -1,0 +1,770 @@
+//-----------------------------------------------------------
+// DNLOAD.SL? Automatic download from BBS systems.
+
+str dll_file [] = "DOWNLOAD";    // Download log file.
+str filelist [] = "FILELIST.BBS";// Name of file containing filenames.
+int MinLeft = 5;                 // Minimum time left for download.
+
+//-----------------------------------------------------------
+// The file <BBS>.DL must be placed in TELIX's program (main)
+// directory. <BBS> consists of the first 8 (max.) alphabetic
+// characters of the BBS name.
+// The following parameters must be defined in this file:
+
+// Filename to download.
+// Filename to download
+// etc.
+
+// Example:
+
+// GAME1.ZIP
+// GAME2.ZIP
+// GRAPHICS.ZIP
+
+// You may specify as many files as you want. However, the
+// script attempts to download only 10 files. The script does
+// not attempt to download files that are already in the download
+// directory. Thus you may run the script repeatedly to download
+// more files (if you have enough file time) without having to
+// modify the specification file manually.
+
+// These files are downloaded to the directory defined for
+// this purpose in TELIX. You may NOT specify directory
+// (path) in the download specifications.
+
+// Hint: Define a softkey to trigger this file (define in NAME.DAT)
+//-----------------------------------------------------------
+
+// If you have suggestions for improving this script, please suggest
+// improvements to me via old-fashioned snail-mail to:
+
+// Author:  Inge Vabekk
+//          Hamangskogen 108
+//          N-1300 SANDVIKA
+//          NORWAY
+//          tel. (472) 546 396
+
+str dls_file [14]            // Download specifications 
+   ,NextConf [14]            // Next conference
+   ,PrevConf [14]            // Previous conference
+   ,filist   [30]            // Name of filelist.
+   ,myprot    [2]            // "My" protocol
+   ,hisprot   [2]            // The BBS's protocol
+   ,shortname [8]            // Short name of BBS.
+   ,input   [144]            // Input line.
+   ,f0       [14]            // Filename for download.
+   ,command  [10]            // Command prompt.
+   ,temp      [4]            // Temporary for short strings.
+   ,password [14]            // Password for file download.
+                             // For the Global storage:
+   ,global   []="GLOBAL"     // Global script.
+   ,PutLine  []="PUTLINE"    // Put Line script.
+   ,UpDownF  []="UPDOWNF"    // Upload/Download script.
+   ,bbsname  []="BNAME"      // BBS name.
+   ,bbstype  []="BTYPE"      // BBS type.
+   ,short    []="SHORT"      // Short BBS name.
+   ,Cprot    []="CPROT"      // Current protocol.
+   ,Hprot    []="HPROT"      // "His" protocol.
+   ,version  []="BBSver"     // PCB version
+   ,conf     []="CONF"       // Current conference
+   ,ConfList []="CNFLST"     // YES if conference list wanted.
+   ,prompt   []="PROMPT"     // Current command prompt.
+   ,maxdn    []="MAXDN"      // Max. files for download.
+   ,fpass    []="FPASS"      // Password for downloading.
+   ;     
+
+// Other constants and variables.
+
+int tol = 300      // timeout limit 30 sec.
+   ,tmark, stat
+   ,mbbs, pcb, rbbs, opus, fido, crcs    // Possible BBS types
+   ,BBSver         // PCBoard version.
+   ,infile         // Input file pointer
+   ,infilemenu     // TRUE if in file menu
+   ,success        // Count of succesful downloads.
+   ,fail = 0       // Number of failures.
+   ,MAX            // Max # files to download 
+   ,MORE           // More files to download 
+   ,switched       // TRUE (1) if conferences switched.
+   ,protocol       // Must be INT.
+   ,error          // General error indicator
+   ,Enter = 13     // Code for CR.
+   ;
+
+//-----------------------------------------------------------
+// DNload script starts here.
+//-----------------------------------------------------------
+
+main()
+{
+int c, i, k;               // Temporary storage.   
+
+  entry();                               // Updates colors & status bar. 
+
+// Check if online.
+//-----------------------------------------------------------
+
+  if (!carrier())   
+  { tone (150,50);                       // No, failure.
+    status_wind ("Tý: YOU CAN ONLY DOWNLOAD IF YOU'RE ONLINE!",20);
+    return (-1);
+  }
+  
+// Find BBS type (Set one logical variable).
+
+  read (bbstype,input);                  // Get BBS type,
+
+  mbbs = pcb = rbbs = opus = fido = crcs = 0;
+  if      (input == "MBBS") mbbs = 1;
+  else if (input == "PCB" ) pcb  = 1;
+  else if (input == "RBBS") rbbs = 1;
+  else if (input == "OPUS") opus = 1;
+  else if (input == "FIDO") fido = 1;
+  else if (input == "CRCS") crcs = 1;
+  else                                          
+  { wrongBBS(input);                     // Doesn't match script!
+    return (-1);
+  }
+  read (version,temp);
+  BBSver = subchr (temp,0);              // BBS version.
+
+  read (prompt,command);                 // Get command prompt.
+  read (cprot,myprot);                   // Protocol.
+  protocol = toupper(subchr(myprot,0));
+  read (hprot,hisprot);                  // His protocol.
+  if (pcb) NextConf = "Main Board";      // Join Main conference.
+  read (conf,PrevConf);                  // Get current conference.
+  switched = 0;
+
+  read (short,shortname);                // Get the short name and build
+  dls_file = shortname;                  // name of download spec. file.
+  strcat (dls_file,".DL");               // Add extension.
+
+  newdir (_telix_dir);                   // Go back to TELIX directory.
+  infile = filesize(dls_file);           // Check if download file exists.
+  if (infile < 0)                        // If not,
+  { if (!timeleft(MinLeft))
+      return (99);                       // Not enough time left.
+  
+    exec ("HAVEIT$",shortname);          // run program to build it.
+    infile = filesize(dls_file);         // Check result.
+  }
+  else if (!timeleft(MinLeft))
+      goto done;                         // Not enough time left.
+
+  if (infile > 0)
+    infile = fopen (dls_file,"r");       // Open file for READ.
+
+  if (infile <= 0) goto done;            // No file???
+
+  read (maxdn,temp);
+  MORE = MAX = stoi (temp);              // Max. files to download.
+
+  success = 0;                           // No files so far.
+
+  infilemenu = 0;                        // NOT in file menu yet.
+  while ((error=fgets (input,144,infile)) > 0  // Download files.
+         && MORE
+         && success < MAX 
+         && carrier()
+         && strlen(input) > 3            // Sensible input
+         && timeleft(MinLeft))
+  { k = -1;
+    for (i=0; (c=subchr(input,i)) > 0; ++i)
+    { c = toupper(c);
+      if (c > ' ')
+      { if (k < 0)                       // First character:
+        { if (c=='#' || c=='+' || c=='-' || c=='&')
+            continue;
+        }
+        setchr (f0,++k,c);               // ANY char. > space)
+      }
+      else if (k > 1)
+        break;                           // Filename ended.
+    }
+    setchr (f0,++k,0);                   // End of string.
+
+    for(i=0; (c=subchr(input,i))<=' '; ++i)
+      if (!c) goto loop1;                // Find first character.
+
+    if (c=='#' || c =='+' || c=='-')     // Change conference?
+    { substr (input,++i,14,NextConf);    // Copy conference name.
+      setconf(c);                        // Set conference.
+    }
+    else if (c=='&')                     // Password?
+    { substr (input,++i,14,password);    // Copy password.
+      write (fpass,password);            // Update password.
+    }
+    else
+      if (k > 1) DL();                   // Download this file....
+     
+loop1:
+    continue;
+  }                                      // Read next input line.
+
+  fclose (infile);                       // Close the command file. 
+
+done:
+  fdelete (dls_file);
+  if (!carrier()) return (-1);
+  if (!timeleft(MinLeft))
+    return (99);                         // No more time left.
+  return(0);
+}
+
+//-----------------------------------------------------------
+// Download one file. All systems.
+//-----------------------------------------------------------
+
+DL() 
+{
+int save;
+
+  if (f0=="") return ;                 // No file - Do nothing.
+  if (subchr(f0,0)=='^Z') return ;     // End of file - Do nothing.
+
+  if (exist ("")) return ;             // Check unmodified name.
+  if (exist (".ZIP")) return;          // Already have file.
+  if (exist (".ARC")) return;          // Already have file.
+  if (exist (".LZH")) return;          // Already have file.
+  if (exist (".ARJ")) return;          // Already have file.
+  if (exist (".EXE")) return;          // Already have file.
+  if (exist (".ZOO")) return;          // Already have file.
+
+	save = _zmod_auto;
+  _zmod_auto = 0;
+
+  error = 1;
+  if (mbbs)
+    mbbsdl();                            // MBBS...
+  else if (pcb)
+    pcbdl();                             // PCBoard >= 14.5...
+  else if (rbbs)
+    rbbsdl();                            // RBBS...
+  else if (opus)
+    rbbsdl();                            // OPUS... (NB! NEEDS UPDATE!)
+  else if (fido)
+    rbbsdl();                            // FIDO... (NB! NEEDS UPDATE!)
+  else if (crcs)
+    rbbsdl();                            // CRCS... (NB! NEEDS UPDATE!)
+
+// Check result.
+   
+  _zmod_auto = save;
+  if ((fail=fail+error) > 10)          // No more than
+    MORE = 0;                          // 10 errors in a row!
+}
+
+//-----------------------------------------------------------
+// Download one file from PCBoard rev. >= 14.5
+//-----------------------------------------------------------
+
+pcbdl()
+{
+int ok1, ok2, no1, no2, pw;
+
+  setconf ('#');                       // Check conference.
+  --MORE;                              // Count down for one try.  
+
+  if (pcb && BBSver < 145)             // PCBoard older than 14.5:
+  { ok1 = _back_color;
+    ok2 = _fore_color;
+    _back_color = 4;
+    _fore_color = 15;
+    update_term();
+    prints ("");
+    prints ("Tý: Sorry, this PCB version is no longer supported by Telix_Square!");
+    prints ("");
+    _back_color = ok1;
+    _fore_color = ok2;
+    update_term();
+    tone (150,50);                     // No, failure.
+    return;
+  }
+
+  input = "D ";                        // Download
+  strcat (input,hisprot);
+  strcat (input," ");
+  strcat (input,f0);                   // Send filename.     
+  call (PutLine,input, Enter);
+
+  no1 = track ("nter)=none?",0);       // No file.
+  no2 = track ("o download?",0); 
+  pw  = track ("assword for",0);       // Password?
+  ok1 = track ("e Selected:",0);       // This starts transfer.
+  ok2 = track (command,0);             // Track command too.
+
+  tmark = timer_start(tol);            // 30 seconds.
+
+  while ((stat=trig()) > 0)            // Start tracking.  
+  { if (stat==pw)                      // Password for downloading?
+    { if (read (fpass,password) > 0)
+      { cputs (password);              // Send it.
+        cputs ("^M");
+      }
+    }
+    else if (stat==ok1)                // Start transfer
+      break;
+    else if (stat==ok2)                // Command.
+      break;
+    else if (stat==no1 || stat==no2)
+      cputs ("^M");                    // No file.
+  }
+  release();                           // Release timer and tracks.
+  if (stat==ok1) 
+    get_file();                        // Start transfer
+}
+
+//-----------------------------------------------------------
+// Download one file. MBBS.
+//-----------------------------------------------------------
+
+mbbsdl()
+{
+int se, ok1, no1, no2, no3;
+
+  input = "";
+  if (mbbs) input = "F ";              // (Only MBBS)
+  strcat (input,"D ");                 // Download
+  strcat (input,f0);                   // this file.
+  call (PutLine, input, Enter);
+  infilemenu = 1;                      // We'll be in the file menu now.
+
+  ok1 = track ("send now!",0);         // Sending starts.
+  no1 = track (command ,0);            // Next command - No Dice.
+  no2 = track (" Read ",0);            // Back to Read
+  no3 = track (" Main ",0);            // Back to Main
+
+  tmark = timer_start (tol);           // Give me a half minute.
+  --MORE;                              // Count down for one try.  
+
+  while ((stat=trig()) > 0)            // Answer any questions.
+  { if (stat==ok1)                     // OK to send.
+      error = 0;
+    if (stat==no2 || stat==no3)        // Wrong menu.
+      infilemenu = 0;                  // Only for MBBS.
+    else
+      break;                           // Break out.
+  }
+  release();                           // Release timer and tracks.
+
+  if (!carrier()) return;              // Check carrier.
+
+  if (stat==no3)
+    MORE = 0;                          // Main Command: Terminate.
+
+  if (!error)                          // No error:
+    get_file();                        // Get file!
+}
+
+//-----------------------------------------------------------
+// Download one file. RBBS.
+//-----------------------------------------------------------
+
+rbbsdl()
+{
+int ok1, ok2, no1, no2;
+
+  if (!infilemenu)
+    call (PutLine,"Q F", Enter);       // Enter the file menu.
+  infilemenu = 1;                      // We'll be in the file menu now.
+
+  input = "D ";
+  strcat (input,f0);                   // Download filename.     
+  call (PutLine, input, Enter);
+  
+  --MORE;                              // Count down for one try.  
+  ok1 = track ("er Time:",0);          // Reports transfer time - OK.
+  ok2 = track (",U,V,X>?",0);          // FILE command
+  no1 = track ("file(s)?",0);          // File name again please!
+  no2 = track (" quits)?",0);          // Not found.
+
+  tmark = timer_start (tol);           // Give me a half minute.
+
+  while ((stat=trig()) > 0)            // Answer any questions.
+  { if (stat==ok1)                     // OK to send.
+    { error = 0;
+      break;
+    }
+    else if (stat==no1)
+      call (PutLine,f0, Enter);         // Name again please?
+     
+    else if (stat==no2)
+    { cputs ("^M");
+      break;
+    }
+  }
+  release();                           // Release timer and tracks.
+
+  if (!error)                          //  No error so far:
+  { error = 1;
+    waitfor (f0,10);                   // Wait for filename.
+    get_file();                        // Get file!
+    _zmod_auto = 1;                    // Switch on auto Zmodem again.
+  }
+
+  tol = 50;           
+  tmark = timer_start (tol);           // Give me a 5 seconds.
+
+  ok1 = track (",U,V,X>?",0);          // FILE command
+  ok2 = track (",V,W,X>?",0);          // MAIN command
+
+  while ((stat=trig()) > 0)            // Answer any questions.
+  { if (stat==ok2)                     // MAIN Command.
+      infilemenu = 0;                  // Not in file menu.
+    break;                             // Break out on either.
+  }
+  release();                           // Release timer and tracks.
+  tol = 300;
+}
+
+//-----------------------------------------------------------
+// The routine joins a conference. If the parameter is
+// "+" or "-" the conference is joined or resigned permanently.
+//-----------------------------------------------------------  
+
+setconf(int scan)                      // Scan is #, + or -
+{
+int con, i, k, on, off;
+str help  [6];
+
+  switched = call ("JoinConf",NextConf); // Join the conf.
+  read (conf,PrevConf);                // Get current conference.
+  if (scan!='+' && scan!='-') return;  // Neither join nor resign?
+
+  k = 0;
+  if (pcb && BBSver > 144)             // PCBoard newer than 14.4:
+  { if (scan=='+')
+    { call (PutLine,"R SEL", Enter);   // Issue the SELECT command.
+      call (PutLine,"R SET", Enter);   // Issue the SET command.
+      waitfor ("Read to?",3);          // Wait for question.
+      vgetchrs(0,gety(),input,0,80);   // Get line from screen.
+                                       // Delete all before "-".
+      for (i=0; subchr(input,i) != '-'; ++i)
+        setchr (input,i,' ');
+      i = -stoi (input)-50;            // Get number, subtract 50.
+      itos (i,input);
+      call (PutLine,input,Enter);      // Send line.
+    }
+    else
+      call (PutLine,"R DES", Enter);   // Issue the DESELECT command.
+  }
+
+// ProDoor (PCBoard older than 14.5)
+
+  else if (pcb)                        // ProDoor:
+  { on  = track ("is ON",0);
+    off = track ("is OFF",0);
+    con = track (command, 0);
+  
+    tmark = timer_start (tol);         // Give me a half minute.
+
+    call (PutLine,"SCAN", Enter);      // Send SCAN command.
+    i = 3;
+    while ((stat=trig()) > 0)          // Answer any questions.
+    { if (stat==on)
+        k = '+';
+      else if (stat==off)
+        k = '-';
+      else if (stat==con)
+      { if (k==scan) break;            // If wrong scan flag,
+        call (PutLine,"SCAN", Enter);  // Send SCAN command.
+      }
+      if (!(--i)) break;
+    }
+    release();                         // Release timer and tracks.
+    return;
+  }
+
+// MBBS has already joined. If RESign is wanted, do it.
+
+  else if (mbbs)                       // MBBS:
+  { write (conflist,"YES");            // Update conference list.
+    if (scan =='-')
+    { con = 3;
+      do
+      { call (PutLine,"RES Y", Enter); // Resign.
+      } while (!waitfor("ning from",1) // Check for receipt.
+        && (--con));
+    }
+  }
+
+// RBBS has already joined. If RESign is wanted, do it.
+
+  else if (rbbs && scan =='-')         // RBBS:
+    call (PutLine,"A C", Enter);       // Abandon conference.
+   
+  waitfor (command,2);                 // NOT PCB: Wait for next prompt.
+}  
+
+//-----------------------------------------------------------
+// Check if file is already in the system.
+//-----------------------------------------------------------
+
+exist(str ext)
+{
+str temp[12];
+int i;
+
+  temp = f0;                           // Strip off extension.
+
+  if (ext != "")                       // Extension specified?
+  { i = strpos (temp,".",0);
+    if (i<0) return (0);               // No extension - Illegal    
+                                       // filename??
+    setchr (temp,i,0);                 // Add extension.
+    strcat (temp,ext);                      
+  }
+
+  input = _down_dir;
+  strcat (input,temp);
+  strupper (input);
+
+  if (filesize (input) <=0)            // If not in D/L directory,
+  { input = _up_dir;                   // check the U/L directory
+    strcat (input,temp);
+    strupper (input);                  // as well.
+    if (filesize (input) <=0) return (0);
+  }
+
+  tone (1000,6);
+  tone (1500,6);
+  addname();
+  return (1);                          // We have it!
+}
+
+//-----------------------------------------------------------
+// Wrong BBS type.
+//-----------------------------------------------------------
+
+wrongBBS(str string)
+{
+str help[48];
+    help = "Illegal BBS type (or not found): ";
+    strcat (help,string);
+    strcat (help,"!");
+    status_wind (help,20);             // Display message for 2 sec.
+}
+
+//-----------------------------------------------------------
+// Flush incoming text from BBS.
+//-----------------------------------------------------------
+
+flush()
+{
+  do
+  { terminal();                        // Process all echo
+    delay(1);                          // from the BBS.
+  } while (cinp_cnt() > 0);
+}
+                                         
+//-----------------------------------------------------------
+// Routine to update colors and status bar.
+//-----------------------------------------------------------
+
+entry ()
+{
+  _back_color = 1;
+  _fore_color = 14;
+  update_term();
+}
+
+//-----------------------------------------------------------
+// Play good tone.
+//-----------------------------------------------------------
+
+goodtone()
+{
+int n;
+  for (n=40; n < 200; n = 144*n/100)
+  { tone(n*10,6);                      // Good tone!!
+    terminal();                        // Process text!
+  }
+}
+
+//-----------------------------------------------------------
+// Release timer and tracks.
+//-----------------------------------------------------------
+
+release()
+{
+  track_free(0);                       // Release tracks
+  timer_free (tmark);                  // and timer.
+}
+
+//-----------------------------------------------------------
+//  Trig loop. Waits here until either one "trig string" is
+//  found, or we have a time-out, or carrier is lost.
+//-----------------------------------------------------------
+
+trig()
+{
+int i;
+  do
+  { terminal();
+  }  while (!time_up (tmark)           // Loop until time-out
+          && carrier()                 // or carrier lost
+          && (i=track_hit(0))==0);     // or we trigged.
+  if (i==0) 
+    i = -1;                            // Error!
+  else
+    timer_restart (tmark,tol);         // Restore timer.
+  return (i);
+}
+
+//-----------------------------------------------------------    
+// Get download file from BBS.
+//-----------------------------------------------------------    
+
+get_file()
+{
+int i;
+  i = call (UpDownF, 0,_down_dir,f0);  // Get file.
+
+  if (i)                               // Good?
+  { input = _down_dir;                 // No,
+    strcat (input,f0);
+    prints ("");
+    printsc ("Tý: Deleting bad copy: ");
+    prints (input);                    // delete bad copy.
+    fdelete (input);
+    tone (150,50);                     // "bad" tone.
+    error = 1;
+  }
+  else
+  { ++success;
+    addname();
+    fail = error = 0;                  // Reset failcount/error indicator.
+  }
+}
+
+//-----------------------------------------------------------    
+// Add a file name to the download log file.
+//-----------------------------------------------------------    
+
+addname()
+{
+int i;
+   flist();                            // Check file list.
+                                       // Don't write name of
+   if (strcmpi (filist,f0,0)==0) return; // file list.
+
+   if (strposi(f0,".ZIP",0)>=0         // Strip off .ZIP,
+   ||  strposi(f0,".ARC",0)>=0         // .ARC, .LZH
+   ||  strposi(f0,".ARJ",0)>=0         // ARJ
+   ||  strposi(f0,".EXE",0)>=0         // EXE
+   ||  strposi(f0,".ZOO",0)>=0         // or .ZOO from name.
+   ||  strposi(f0,".LZH",0)>=0)
+   { i = strchr(f0,0,'.');
+     setchr(f0,i,0);
+   }
+   i = fopen (dll_file,"a");           // Open the file for append
+   if (!i)
+   { printsc (dll_file);
+     prints (" not open!");
+   }
+   else
+   { fputs (f0,i);                     // and write the filename.
+     fputs ("^M^J",i);
+     fclose (i);
+     prints  ("");
+     printsc ("Tý: ");
+     printsc (f0);
+     prints  (" added to download log file.");
+   }
+}
+
+//-----------------------------------------------------------
+// Read a global variable.
+//-----------------------------------------------------------
+
+read (str name, str varname)
+{
+  return (call (global,"R",name,varname));
+}
+
+//-----------------------------------------------------------
+// Write a global variable.
+//-----------------------------------------------------------
+
+write(str name, str varname)
+{ 
+  return (call (global,"W",name,varname));
+}
+
+//-----------------------------------------------------------
+// Check if there's enough time left for download.
+//-----------------------------------------------------------
+
+timeleft (int min)
+{
+str help [12];
+int i, j;
+  vgetchrs(0,gety(),help,0,12);        // Get current line.
+  i = strposi (help," min",0);         // Find "min".
+  if (i<=0) i =strposi (help," left",0); // Not found: Find "left".
+  if (i<=0) return 1;                  // Not found. Assume time left.
+  setchr (help,i,0);
+  for (j=0; j<i; ++j)                  // Remove non-digits.
+    if (!isdigit (subchr(help,j))) 
+      setchr (help,j,' ');
+    else
+      goto digit;
+  return (1);                          // No digits found.
+
+digit:
+  i = stoi (help);                     // Return OK if more than
+  return (i >= MinLeft);               // MinLeft minutes left.
+}
+
+//-----------------------------------------------------------
+// Find name of file list.
+//-----------------------------------------------------------
+
+flist ()
+{
+int c, f, i, k;
+
+  if (subchr(filist,0) > 0) return(0); // Got it. Don't repeat.
+
+  input = _telix_dir;
+  strcat (input,filelist);
+  f = fopen (input,"r");               // Open for read.
+  if (!f) return;                      // Not found.
+
+  read (bbsname,filist);               // Get BBS name.
+  while (fgets (input,64,f) > 0)       // Read a line.
+  { if (strposi (input,filist,0) >=0)  // Name match?
+    { k = strchr (input,0,'=');        // Check for equals sign.
+      if (k < 0) continue;
+      i = -1;
+      do                               // Keep all after
+      { c = subchr(input,++k);         // equal sign, except spaces.
+        if (c != ' ') setchr (filist,++i,c);
+      } while (c != 0);
+      goto end;                        // Done.
+    }
+  }
+end:
+  fclose (f);
+}
+
+//-----------------------------------------------------------
+// Execute a program.
+//-----------------------------------------------------------
+
+exec (str prog,str pram)
+{
+str line [80];
+int i;
+  i = run (prog,pram,2);               // Try to run program.
+  if (i >= 0) return (i);              // OK.
+
+  line = "Couldn't find or execute '";
+  strcat (line,prog);
+  strcat (line,".EXE'!");
+  tone (80,80);                        // No success:
+  status_wind (line,20);
+  return (i);
+}
+

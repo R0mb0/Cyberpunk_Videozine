@@ -1,0 +1,378 @@
+
+main()
+{
+    int count,hi_hour,lo_hour,hi_min,lo_min,hi_sec,lo_sec,local_hr,t;
+    int error, err_test, y1, y2, y3, y4, y5, day, month, year, timezone;
+    int julian1, julian2, julian3, julian4, julian5, julian6, julian7, julian8;
+    str utc_hour[3],slocal_hr[3],set_dos_time[20]="time ",set_dos_date[20]="date ";
+    str juldatestr[10] = " ";
+    str geordatestr[10] = " ";
+    str monthstr[3], daystr[3], yearstr[4];
+    str startdtmo[3], startdtdy[3], stopdtmo[3], stopdtdy[3];
+    int integerdate;
+
+//************ TIME ZONE REFERENCE INFOMATION *********************************
+
+//  ZONE   +13	  GMT+13  +13
+//  ZONE   +13A   Mos+10  +13	 MosS+10 +14	90/03/25:2   90/09/30:2
+//  ZONE   +1275  Chat.   +12.75 ChatS	 +13.75 89/10/07:14  90/03/17:14
+//  ZONE   +12	  GMT+12  +12
+//  ZONE   +12A   Mos+9   +12	 MosS+9  +13	90/03/25:2   90/09/30:2
+//  ZONE   +12B   NZ	  +12	 NZ-S	 +13	89/10/07:14  90/03/17:14
+//  ZONE   +11.5  Norf.I  +11.5
+//  ZONE   +11	  GMT+11  +11
+//  ZONE   +11A   Mos+8   +10	 MosS+8  +12	90/03/25:2   90/09/30:2
+//  ZONE   +11B   Vanu.   +11	 VanuS	 +12	89/09/23:14  90/03/23:14
+//  ZONE   +10.5  LHowe   +10.5  LHoweS  +11	89/10/28:16  90/03/03:16
+//  ZONE   +10	  GMT+10  +10
+//  ZONE   +10A   Mos+7   +10	 MosS+7  +11	90/03/25:2   90/09/30:2
+//  ZONE   +10B   NSW	  +10	 NSW-S	 +11	89/10/28:16  90/03/03:16
+//  ZONE   +10C   Vict.   +10	 VictS	 +11	89/10/28:16  90/03/17:16
+//  ZONE   +9.5   AusNT   +9.5
+//  ZONE   +9.5B  SAus	  +9.5	 SAusS	 +10.5	89/10/29:16  90/03/17:16
+//  ZONE   +9	  GMT+9   +9
+//  ZONE   +9A	  Mos+6   +9	 MosS+6  +10	90/03/25:2   90/09/30:2
+//  ZONE   +9B	  JST	  +9
+//  REM  Duplicate entry for Japan
+//  ZONE   +8	  GMT+8   +8
+//  ZONE   +8A	  Mos+5   +8	 MosS+5  +9	90/03/25:2   90/09/30:2
+//  ZONE   +8C	  China   +8	 ChinaS  +9	90/04/15:10  90/09/16:10
+//  ZONE   +7	  GMT+7   +7
+//  ZONE   +7A	  Mos+4   +7	 MosS+4  +8	90/03/25:2   90/09/30:2
+//  ZONE   +6.5   GMT+6.5 +6.5
+//  ZONE   +6	  GMT+6   +6
+//  ZONE   +6A	  Mos+3   +6	 MosS+3  +7	90/03/25:2   90/09/30:2
+//  ZONE   +5.75  Nepal   +5.75
+//  ZONE   +5.5   India   +5.5
+//  ZONE   +5	  GMT+5   +5
+//  ZONE   +5A	  Mos+2   +5	 MosS+2  +6	90/03/25:2   90/09/30:2
+//  ZONE   +4.5   Afghn   +4.5
+//  ZONE   +4	  GMT+4   +4
+//  ZONE   +4A	  Mos+1   +4	 MosS+1  +5	90/03/25:2   90/09/30:2
+//  ZONE   +3.5   Iran	  +3.5
+//  ZONE   +3	  GMT+3   +3
+//  ZONE   +3A	  Mos.	  +3	 MosS	 +4	90/03/25:2   90/09/30:2
+//  ZONE   +3B	  Iraq	  +3	 IraqS	 +4	90/04/01:1   90/10/01:1
+//  ZONE   +2	  GMT+2   +2
+//  ZONE   +2A	  EastEu  +2	 EastEuS +3	90/03/25:2   90/09/30:2
+//  ZONE   +2B	  Isr.	  +2	 IsrS	 +3	90/04/22:1   90/09/02:1
+//  ZONE   +2C	  Egypt   +2	 EgyptS  +3	90/05/01:1   90/10/01:1
+//  ZONE   +2D	  Jord.   +2	 JordS	 +3	90/04/06:1   90/10/05:1
+//  ZONE   +2E	  Leb.	  +2	 LebS	 +3	90/05/01:1   90/10/16:1
+//  ZONE   +2F	  Syria   +2	 SyriaS  +3	90/03/15:1   90/11/01:1
+//  ZONE   +1	  GMT+1   +1
+//  ZONE   +1A	  CentEu  +1	 CentEuS +2	90/03/25:2   90/09/30:2
+//  ZONE   +1B	  Libya   +1	 LibyaS  +2	90/04/01:2   90/10/01:2
+//  ZONE   GMT	  GMT	   0
+//  ZONE   Z	  Z	   0
+//  ZONE   +0A	  WestEu   0	 WestEuS +1	90/03/25:2   90/09/30:2
+//  ZONE   UKT	  GMT	   0	 BST	 +1	90/03/25:1   90/10/28:1
+//  ZONE   -1A	  GMT-1   -1	 GMT	  0	90/03/25:2   90/09/30:2
+//  ZONE   -2	  GMT-2   -2
+//  REM  This zone currently has no entries
+//  ZONE   -2A	  FdNor   -2	 FdNor-S -1	89/10/15:6   90/02/11:6
+//  ZONE   -3	  GMT-3   -3
+//  ZONE   -3A	  GMT-3   -3	 GMT-2	 -2	90/03/25:2   90/09/30:2
+//  ZONE   -3B	  Rio	  -3	 Rio-S	 -2	89/10/15:6   90/02/11:6
+//  ZONE   -3C	  Uru	  -3	 Uru-S	 -2	89/10/29:6   90/03/04:6
+//  ZONE   -3D	  Arg	  -3	 Arg-S	 -2	89/10/15:6   90:03/04:6
+//  ZONE   -3E	  SP/Mi   -3	 SP/Mi-S -2	90/04/01:6   90/10/28:6
+//  ZONE   NFD	  Nfd	  -3.5	 Nfd DT  -2.5	90/04/01:6   90/10/28:6
+//  ZONE   -4	  GMT-4   -4
+//  ZONE   AT	  AST	  -4	 ADT	 -3	90/04/01:6   90/10/28:6
+//  ZONE   -4B	  Falk	  -4	 FalkS	 -3	89/09/10:7   90/04/22:7
+//  ZONE   -4C	  Chile   -4	 ChilS	 -3	89/10/15:7   90/03/11:7
+//  ZONE   -4D	  Para.   -4	 ParaS	 -3	89/10/22:7   90/04/01:7
+//  ZONE   -4E	  Berm.   -4	 BermS	 -3	90/04/01:6   90/10/28:6
+//  ZONE   -4F	  BrazW   -4	 BrazW-S -3	89/10/15:6   90/02/11:6
+//  ZONE   -5	  GMT-5   -5
+//  ZONE   EST	  EST	  -5
+//  REM  Some entries in this zone have been transferred to ZONE "-5"
+//  ZONE   ET	  EST	  -5	 EDT	 -4	90/04/01:7   90/10/28:7
+//  ZONE   -5B	  Cuba	  -5	 CubaS	 -4	90/03/18:7   90/10/07:7
+//  ZONE   -5C	  Peru	  -5	 PeruS	 -4	90/01/01:7   90/04/10:7
+//  ZONE   -5E	  Carib.  -5	 CaribS  -4	90/04/01:7   90/10/28:7
+//  REM  A few Caribbean countries that observe DST on U.S. dates
+//  ZONE   -6	  GMT-6   -6
+//  ZONE   CST	  CST	  -6
+//  REM  Some entries in this zone have been transferred to ZONE "-6"
+//  ZONE   CT	  CST	  -6	 CDT	 -5	90/04/01:8   90/10/20:8
+//  ZONE   -6C	  Eas.I.  -6	 Eas.I.S -5	89/10/15:7   90/03/11:7
+//  ZONE   -7	  GMT-7   -7
+//  ZONE   MST	  MST	  -7
+//  ZONE   MT	  MST	  -7	 MDT	 -6	90/04/01:9   90/10/28:9
+//  ZONE   -8	  GMT-8   -8
+//  ZONE   PT	  PST	  -8	 PDT	 -7	90/04/01:10  90/10/28:10
+//  ZONE   -9	  GMT-9   -9
+//  ZONE   AKT	  AkST	  -9	 AkDT	 -8	90/04/01:11  90/10/28:11
+//  ZONE   -9.5   Marq.I. -9.5
+//  ZONE   -10	  GMT-10  -10
+//  ZONE   -10B   CookI   -10	 CookIS  -9.5	89/10/29:12  90/03/04:11
+//  ZONE   HST	  HST	  -10
+//  ZONE   ALUT   AluST   -10	 AluDT	 -9	90/04/01:12  90/10/28:12
+//  ZONE   -11	  GMT-11  -11
+//  ZONE   -12	  GMT-12  -12
+
+//	  Tokyo 	  9 hours     (Do not precede positive numbers with
+//	  Hong Kong	  8 hours      a plus sign during configuration.)
+//	  Beijing	  8 hours
+//	  Jakarta	  8 hours
+//	  Bombay	  5.5 hours
+//	  Karachi	  5 hours
+//	  Moscow	  3 hours
+//	  Nairobi	  3 hours
+//	  Riyadh	  3 hours
+//	  Cairo 	  2 hours
+//	  Johannesburg	  2 hours
+//	  Rome		  1 hours
+//	  Paris 	  1 hours
+//--->	  GREENWICH	  0 hours	<---   (0 degrees longitude)
+//	  Dakar 	  0 hours
+//	  Reykjavic	  0 hours
+//	  Caracas	 -4 hours    (Use the minus sign during configuration.)
+//	  New York	 -5 hours
+//	  Chicago	 -6 hours
+//	  Mexico City	 -6 hours
+//	  Denver	 -7 hours
+//	  San Francisco  -8 hours
+//	  Anchorage	 -9 hours
+//	  Honolulu	 -10 hours
+
+//******** SET TIMEZONE *******************************************************
+
+    //Pacific Daylight time is - 7 hours
+    //Pacific Standard time is - 8 hours
+
+    timezone=-7;
+
+//*****************************************************************************
+
+    // Initialize variables
+    startdtmo="04-";   // starting month of daylight saving time
+    startdtdy="01-";   // starting day of daylight saving time
+    stopdtmo="10-";    // ending month of daylight saving time
+    stopdtdy="28-";    // ending day of daylight saving time
+
+    error=1;		//Indicates that time info is yet to be decoded properly
+    err_test=-1;	//Used to detect if time info is properly recieved
+    hi_hour=-1; 	//Receives hi byte of hour time info
+    lo_hour=-1; 	//Receives lo byte of hour time info
+    hi_min=-1;		//Recieves hi byte of minute time info
+    lo_min=-1;		//Receives lo byte of minute time info
+    hi_sec=-1;		//Receives hi byte of second time info
+    lo_sec=-1;		//Recieves lo byte of second time info
+    julian1=-1;
+    julian2=-1;
+    julian3=-1;
+    julian4=-1;
+    julian5=-1;
+    _alarm_on = 0;
+    _sound_on = 0;
+
+    //Show opening TIMESET display
+    clear_scr();
+    prints("");
+    prints("");
+    prints("Welcome to Timeset!!!");
+    prints("Now dialing The Naval Observertory for the time...");
+
+    //Dial for the time
+    set_cparams(1200,0,8,1);
+    if(!dial("m1-202-653-0351",10))
+    {
+	prints("Can not contact the Naval Observatory! Aborting.");
+	_alarm_on = 0;
+	_sound_on = 0;
+	tone(300,1);
+	return;        //After 10 tries can't reach the time.  Abort.
+    }
+
+    // Decode the modified Julian time info received
+    while(error)
+    {
+
+	if(!waitfor("UTC",10))
+	  {
+	    prints("Timeout error, aborting!");
+	    hangup();
+	    _alarm_on = 0;
+	    _sound_on = 0;
+	    return;	//Time info is not flowing right.  Abort.
+	  }
+
+	if(!waitfor("*",3))
+	  {
+	    prints("Timeout error, aborting!");
+	    hangup();
+	    _alarm_on = 0;
+	    _sound_on = 0;
+	    return;	//Time info is not flowing right.  Abort.
+	  }
+	flushbuf();
+
+	count=2;       //Amount of bytes to wait until date data should start
+	while(count)
+	{
+	    while(cgetc()==-1)
+	    {
+	    }
+	    count=count-1;
+	}
+	while(julian1==-1)
+	{
+	    julian1=cgetc();
+	}
+	while(julian2==-1)
+	{
+	    julian2=cgetc();
+	}
+	while(julian3==-1)
+	{
+	    julian3=cgetc();
+	}
+	while(julian4==-1)
+	{
+	    julian4=cgetc();
+	}
+	while(julian5==-1)
+	{
+	    julian5=cgetc();
+	}
+
+	count=5;       //Amount of bytes to wait until time data should start
+	while(count)
+	{
+	    while(cgetc()==-1)
+	    {
+	    }
+	    count=count-1;
+	}
+
+	//Receive the time data
+	while(hi_hour==-1)
+	{
+	    hi_hour=cgetc();
+	}
+	while(lo_hour==-1)
+	{
+	    lo_hour=cgetc();
+	}
+	while(hi_min==-1)
+	{
+	    hi_min=cgetc();
+	}
+	while(lo_min==-1)
+	{
+	    lo_min=cgetc();
+	}
+	while(hi_sec==-1)
+	{
+	    hi_sec=cgetc();
+	}
+	while(lo_sec==-1)
+	{
+	    lo_sec=cgetc();
+	}
+	if(waitfor("UTC",2))
+	{
+	 error = 0;
+	}
+    }
+
+    //Hangup the modem and clear extra received data
+    hangup();
+    flushbuf();
+
+    //Start building the DOS set time command
+    strcat(utc_hour,hi_hour);
+    strcat(utc_hour,lo_hour);
+    local_hr=stoi(utc_hour);
+
+    // ****************** Adjust UTC time to local time here *****************
+
+    local_hr=local_hr + timezone;
+
+    if(local_hr<0)
+    {
+	local_hr=local_hr+24;
+    }
+    itos(local_hr,slocal_hr);
+    strcat(set_dos_time,slocal_hr);
+    strcat(set_dos_time,":");
+    strcat(set_dos_time,hi_min);
+    strcat(set_dos_time,lo_min);
+    strcat(set_dos_time,":");
+    strcat(set_dos_time,hi_sec);
+    strcat(set_dos_time,lo_sec);
+
+    // ***********************************************************************
+
+//	   ** julian to calender date algorythiom  **
+
+//  The algorythiom was obtained directly from the Naval Observertory
+//  and should be valid for the next 140 years.
+//  if you use it elsewhere be careful of the integer roundoff,
+//  the precedence's are critical therefore the () are inserted
+//  to clarify them and prevent mistranslation by the reader.
+
+    strcat(juldatestr,"24");  // Add epoch
+    strcat(juldatestr,julian1);
+    strcat(juldatestr,julian2);
+    strcat(juldatestr,julian3);
+    strcat(juldatestr,julian4);
+    strcat(juldatestr,julian5);
+
+
+    integerdate = stoi(juldatestr);
+    y1 = integerdate + 68569;
+    y2 = (4 * y1) / 146097;
+    y3 = y1 - (((146097 * y2) + 3) / 4);
+    year = (4000 * (y3 + 1)) / 1461001;
+    y4 = (y3 - ((1461 * year) / 4)) + 31;
+    month = (80 * y4) / 2447;
+    day = y4 - ((2447 * month) / 80);
+    day = day + 1;
+    if(local_hr >= 12)
+       day = day - 1;	   //Julian day begins at noon so this corrects
+    y5 = month / 11;
+    month = month + 2 - (12 * y5);
+    year = 100 * (y2 - 49) + year + y5;
+
+    itos(integerdate, geordatestr );
+    itos(month, monthstr );
+    itos(day, daystr );
+    itos(year, yearstr );
+
+    strcat(set_dos_date,monthstr);
+    strcat(set_dos_date,"-");
+    strcat(set_dos_date,daystr);
+    strcat(set_dos_date,"-");
+    strcat(set_dos_date,yearstr);
+
+    // Actualy set the internal clock here!
+    //Set DOS time
+    dos(set_dos_time,0);
+    //Set DOS date
+    dos(set_dos_date,0);
+
+    clear_scr();
+    prints("");
+    prints("");
+    prints("");
+    prints("");
+    prints("");
+    prints("");
+    gotoxy(28,gety());
+    prints("SUCCESSFULLY RECEIVED TIME");
+
+    //Display current time continuosly
+    _scr_chk_key=0;	 //Disable keyboard scan so inkey will work properly
+    cursor_onoff(0);	 //Disable the cursor because it is annoying
+    clear_scr();
+
+    run("c:\rolex", "", 2);
+    clear_scr();
+    prints("Thank you for using TIMESET!");
+    exittelix(0, 1);
+}
+

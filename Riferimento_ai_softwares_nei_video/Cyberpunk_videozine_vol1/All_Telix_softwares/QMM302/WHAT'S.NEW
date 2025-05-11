@@ -1,0 +1,52 @@
+12-08-89 QMM 3.01, QMMSETUP 3.01, QMMAUTO 3.01
+/////////////////////////////////////////////////////////////////////
+
+QMM 3.01            Added CTRL and ALT Command Support
+                    Added Protocol Translation Table Support
+                    Strengthened DATAPAC Logon by sending ".." until
+                     DATAPAC is tracked
+                    Added scan for "|" in filename of Download List.
+                     Will not download if found
+                    Now strips space from filename for file transfers
+
+QMMSETUP 3.01       Added View Dialing Directory when configuring
+                     Dialing Dir. entries
+                    Added Protocol Translation Table
+                    Fixed problem where defaults were not being reset
+                     when creating a New Profile
+                    Fixed Door 3 Prompts not being default
+                    Added AutoPilot Recall Option
+                    Added AutoPilot Recall Max
+
+QMMAUTO 3.01        Fixed "File not Found" .LOG file problem when no
+                     .LOG file exists
+                    Added AutoPilot Recall Option when carrier lost
+
+
+01-24-90 QMM 3.02, QMMSETUP 3.02, QMMAUTO 3.02, QMMAUTOR 3.02
+/////////////////////////////////////////////////////////////////////
+
+QMM 3.02           Added Linked Profiles
+                   Added AutoRecall Mode Support
+                   Added Multiple Dialing Directory Support
+                   Added Numeric Keypad Support
+                   Added Wake Up Support
+                   Added Pending Actions Display
+                   Added Single key Profile Selection
+                   Changed name of AutoPilot Recall to SessionSaver
+                   Strengthened Datapac Logon
+                   Fixed Renumber when set to Y and Max = 0, Renumber 
+                    turned OFF
+                   Fixed foreground/background colour resets when BBS
+                    sends ANSI reset
+                   
+QMMSETUP 3.02      Added Linked Profile Support
+                   Added Multiple Dialing Directory Support
+                   Added Numeric Keypad Support
+                   Added Wake Up Support
+                   Added Single key Profile Selection
+                   
+QMMAUTO 3.02       Added AutoRecall Mode Support
+
+QMMAUTOR 3.02      Created AutoRecall Mode 
+                   

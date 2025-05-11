@@ -1,0 +1,20 @@
+                              Hyplus HELP Screen
+                              ==================
+
+ÚÄÄÄÄÄKey commandsÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³  Hypertext jumps ............ Up  Down     Right  Left     Enter  Esc  ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+   Screen                           ³    Other
+      Control ..... PgUp/PgDn       ³       Print ........ P
+      Jumps ....... Home/End        ³       Clipboard .... F5    A  O
+      Scroll ...... Plus/Minus      ³       Bookmarks .... F6 or M
+      Initial ..... Ctrl-Home       ³
+      View path ... V               ³
+                                    ³       Colors ....... C
+   Editor ......... E (enter)       ³       DOS .......... D
+   Vocabulary                       ³       Exit ......... Q  X  Alt-X
+      Glossary .... W or G    L     ³
+      Word/Words .. F2 in glossary  ³
+      Search ...... F or B (ASCII)  ³
+   ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ

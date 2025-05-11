@@ -1,0 +1,1998 @@
+
+
+                   Host+Plus For Telix v1.00
+             Copyright (C) CompuProducts Enterprises
+                   Author: Jason H. Tepperman
+
+
+Before we begin, CompuProducts Ent. and Jason Tepperman wish to
+thank the following people:
+
+Colin Sampleuau:  Creator of Telix and author of the original host
+                  mode.  Colin provided valuable solutions to
+                  several problems.  And, of course, without Telix
+                  CompuHost could not exist in its present form.
+                  
+   Bob Williams:  One of our co-workers here at CompuProducts Ent.,
+                  Bob helped out in the beta testing and provided
+                  fixes to problems in the code.
+
+We, at CompuProducts Ent., would like to extend our thanks and
+apologies to anyone that we might have not listed.
+
+
+
+                     Host+Plus Copyright and License Agreement
+
+
+Host+Plus Copyright and License Agreement
+
+(C) Copyright 1991 CompuProducts Ent. All rights reserved.
+
+Host+Plus is herby referred to as "HOST+"
+
+No part of  this manual may be reproduced, transmitted, transcribed, stored in a
+retrieval  system, or translated into any language (natural or computer), in any
+form or by any means,  except as described in the following  license without the
+prior written permission of COMPUPRODUCTS ENT.
+
+You are granted a limited license to use the software  described in this manual.
+The software may  be used or copied  only in accordance  with the terms of  that
+license, which is described under SINGLE COPY SOFTWARE LICENSE.
+
+Information  in this  manual is subject  to change  without notice and  does not
+represent a commitment on the part of COMPUPRODUCTS ENT.
+
+COMPUPRODUCTS ENT. may make improvements and/or changes in this manual and/or in HOST+
+at any time.
+
+SINGLE COPY SOFTWARE LICENSE
+
+THIS  IS  A SINGLE  COPY SOFTWARE  LICENSE  granted by  COMPUPRODUCTS ENT. whose mailing
+address is at CompuProducts Towers/350 Hobart Avenue/Short Hills/New Jersey/
+07078-2238/InternZip 74339.  HOST+ is licensed to you as the end user.
+
+HOST+ is copyrighted material. You may use it on a trial basis provided you do
+not violate the copyright and if you follow these simple rules.
+
+Use of HOST+ on a regular basis requires purchase as described later.
+
+You may  not make  any  changes or  modifications to  HOST+, and  you may  not
+decompile, disassemble, or  otherwise reverse-engineer it.  You may not rent  or
+lease it to others.
+
+You may make  copies of HOST+ only  under the terms  of the following  section
+entitled "Limited License to Copy".
+
+This  Software  is   Commercial  Computer  Software  under   Federal  Government
+Acquisition Regulations and agency supplements to them. The Software is provided
+to  the Federal  Government and  its agencies  only under the  Restricted Rights
+Provisions  of  the  Federal Acquisition  Regulations  applicable  to commercial
+computer software developed at private expense and NOT in the public domain. The
+use, duplication, or disclosure by the Government is subject  to restrictions as
+set forth in subdivision (c)(1)(ii) of the Rights in Technical Data and Computer
+Software clause at 252.227-7013.
+
+LIMITED WARRANTY.   COMPUPRODUCTS ENT.  makes  no  warranty  of any kind, either
+expressed or implied.  This  includes, but is not limited to, implied warranties
+
+
+                                        ii
+
+
+
+
+
+
+
+                  Host+Plus Copyright and License Agreement
+
+
+of merchantability,  and  fitness  for any  particular purpose  with respect  to
+both the software and the documentation included in this package.
+
+IN NO EVENT SHALL CompuProducts Ent. OR ANY OF ITS PRINCIPLES BE LIABLE  FOR
+ANY DIRECT, INDIRECT,  CONSEQUENTIAL,  OR  INCIDENTAL DAMAGES  ARISING  OUT  OF  THE USE  OR
+INABILITY TO  USE  THIS  PRODUCT EVEN  IF  COMPUPRODUCTS ENT  HAS  BEEN ADVISED  OF  THE
+POSSIBILITY OF SUHP DAMAGES OR CLAIM. Some states  do not allow the exclusion or
+limitation of liability  for consequential or  incidental damages, so the  above
+limitation may not apply to you.
+
+The warranties  set forth above  are in  lieu of all  other express  and implied
+warranties, whether  oral, written, or implied, and the remedies set forth above
+are your sole and exclusive remedies.
+
+LIMITATION OF  LIABILITY.  In no  case  shall CompuProducts Ent. liability
+exceed  the license  fees  paid  for the  right  to  use HOST+  or  five
+dollars ($5.00), whichever is the lesser of the two.
+
+INTEGRATION. This  License constitutes  the entire  agreement and  understanding
+between the parties and supersedes any  prior agreement or understanding whether
+oral  or written, relating  to the subject  of this License.  This Agreement may
+only be modified by a written agreement signed by COMPUPRODUCTS ENT.
+
+LIMITED LICENSE TO COPY
+
+You  are granted a  limited license to  copy HOST+ only  for the  trial use of
+others subject to the software license described above, and also the following:
+
+HOST+  must be  distributed  in  absolutely  unmodified  form,  including  ALL
+program, documentation, and other files.
+
+HOST+ may  not be included  with any other  product for any  reason whatsoever
+without a license from COMPUPRODUCTS ENT.
+
+HOST+ may not be  offered through Public Domain, Shareware, Freeware, or other
+offers of mass  media distributions unless prior permission has  been granted in
+writing by COMPUPRODUCTS ENT. This includes disk vendors.
+
+Operators  of  electronic  bulletin board  systems (Sysops) may  post HOST+  for
+downloading by their users without written permission  only as long as the above
+conditions are met.  A fee may be  charged for access to  the BBS as long  as no
+specific fee is charged for access to the HOST+ files.
+
+                                       iii
+
+
+
+                        Table of Contents
+
+Acknowledgements ...................................... i
+License Agreement ..................................... ii
+Introduction .......................................... 1
+Purpose ............................................... 1
+Configuring ........................................... 2
+Running Host+Plus ..................................... 3
+Appendix A - Command Summary .......................... 4
+Appendix B - Support Files ............................ 6
+Appendix C - Protocol List/Tips ....................... 7
+Appendix D - Support Programs ......................... 8
+Appendix E - Future Enchancements ..................... 9
+Appendix F - Machine Requirements ..................... 10
+Appendix G - Registration ............................. 11
+Glossary .............................................. 12
+
+
+
+Introduction
+
+        Host+Plus was originally intended as a replacement for the original
+Telix Host Mode, for Telix 3.12.  It began as a project for Mr. Tepperman when
+he was home sick, and is currently a product of CompuProducts Ent.  Host+Plus
+has many features at all spectrums of a Host/BBS, and it exceeds full-fledged
+BBS programs such as PC-Board (TM) and RBBS in some areas.  On the other hand,
+Host+Plus provides much better facilities for a chat with your friend than
+the Telix Host has.
+
+On behalf of Mr. Tepperman, and the three other people working on
+Host+Plus, we hope you will enjoy this program.
+
+
+Purpose
+
+        Host+Plus is a host mode/BBS program which fields calls that you might
+receive from your other modem friends.  Unlike full-fledged programs, Host+Plus
+is simple to set up, and very easy to maintain.  Although it could be
+considered a 'real' BBS program, we still call it a host mode, and it is
+intended to be used in the same way as the original five function Telix Host.
+
+        Host+Plus, in 1988, was a program named CompuHost.  It has since been
+renamed.  We decided on this for many reasons, one of which was that the 
+program had been totally rewritten since the last release of CompuHost (á5).
+In addition, CompuHost was never a formal CompuProducts Ent. program, and
+was not considered a part of the company strategy.  On the other hand, 
+Host+Plus is.  In our own admission, CompuHost was not competitive with other
+hosts for Telix, and was plagued with problems.  We feel Host+Plus remedies
+much of the above.
+
+
+
+
+Configuring
+
+Host+Plus is very easy to configure.  Copy all the Host+Plus files to your
+Telix directory, and do these three steps:
+
+Step Number 1> In order to use external protocols, you must run HPRP.SLC.  To
+do this, type at the DOS prompt 'TELIX /SHPRP'.  This program will scan your
+Telix configuration file, and write an external protocol data file.  After it
+finds each external protocol (if you have any), it will ask you if you wish
+to allow Host+Plus to use it.  If you do, press 'Y', if you don't press 'N'.
+If you don't have any external protocols defined, or you don't select any
+to be used, the HPRP will give you an error, and exit.  Otherwise, it will
+write the external protocol data file, and exit, with a success message.
+Press [Alt-X] in Telix, and exit to DOS.  If you get an error running HPRP,
+go back to the beginning of step #1.  If the error is that there are no
+external protocols, you do not need to run HPRP again.  If it is that you
+select any protocols, select one.  If TELIX.CNF cannot be found, put it in
+the current directory.
+
+      WARNING: If any of the protocols require input from the LOCAL side,
+               in other words, you have to type something outside of Telix
+               to use them, DO NOT INSTALL IT.  Since there will not be
+               anyone at the local side, it will hang!
+
+
+Step Number 2> Type: 'TELIX /SHPCONFIG' You will be presented with a window
+saying Host+Plus cannot find its configuration file.  This is because you
+have not made one.  You will be put in the configuration program.  You will
+see several choices.  The first four are directories.  They will have defaults
+in them.  If you wish to change the defaults, either move the light-bar down
+to the letter and press enter, or press the letter next to your choice.  You
+will then be given a blank "grey" line, and you should enter the directory
+name there.  Should the directory name you enter not exist, you will be given
+the option of either making the directory or resetting that to the default
+directory of that option.
+
+The next four selections are toggles.
+
+The first toggle, Color Directories/Msgs, is simple in priciple.  If you want
+the headers of the messages and the directories colored, like in PC-Board with
+ansi, then select yes.  However, displaying colored messages and directories,
+in paticular, takes approx 1.3 times as long to display than no color does.
+The idea to keep in mind is that color makes it look around ten times better.
+
+The second toggle, Callback, means that when a user logs on, in order to
+have access to the system, they have to hang up, and the system will call
+them back.  This is an ultimate security system, because if someone is
+calling from a different number, and they have a person's password, they
+will not be allowed on the system.  However, since the BBS is calling the
+user, this can give large phone bills to the sysop.
+
+The third toggle is 'board type'.  If your board is open, new users are
+allowed in.  If it is closed (like it might be if the board is private for
+you friends), then new users are logged-off after they enter their name with
+a message explaining that the board is closed.
+
+The fourth, and last toggle is the connection type.  Although this is not used
+by most people, the original Telix host had it, so everyone else does too.
+Basically, if you select direct connect, there is no 'Waiting for call' screen,
+and the host sits at the "Enter you first and last names > " prompt.  Also,
+incomming calls are not accepted.  Most people select 'Modem' and that means
+that the board accepts incomming calls, and has a waiting for call menu.
+Unless you are sure of what you want, leave the default at 'Modem'.
+
+If you notice, in the title box, there is a page indicator.  Press [PgDn] to
+advance to the next page.  Here you will see four main options, and then the
+two save options that were on the last menu.
+
+There are two submenus, and two toggles.  The first toggle is whether or
+not you want to use a quad-menu system.  This means, if you want the
+options divided up into seperate menus, you should select yes, and use the
+system.  If you want all the options on one menu (which is easier to get to,
+but supposily harder for the mind to comprehend), select no.  Pre-made, menu
+files are included for either option.
+
+The second toggle is what state you want chat to be in, when Host+Plus loads.
+When you load Host+Plus, you will see on the Waiting for Call status line,
+a Chat Allowed function.  This option sets the default.  If it is set to
+yes, upon startup, Host+Plus allows chat.  If it is set to no, chat is not
+allowed, unless you manually change the setting from the Waiting for Call
+menu.
+
+The next two options are what color you want chat to be.  The first option
+will select what color the remote side (the side that the user is on), will
+print in.  You select the color, by pressing enter to get to the colors menu.
+Once you are in the colors menu, select the color you want.  The color black
+is on white, because otherwise it would not be visible.  If you select it, the
+text the user types will not be visible.  If you want brighter (high-intensity)
+colors, either move the cursor down to high-intensity, and press enter, or
+type 'H'.  All the colors on the screen will brighten (and brown will be
+changed to yellow).  When you exit, the color you have selected will be
+printed on the screen, in that color.  Repeat this for the local side (the side
+the sysop, you, types on).
+
+
+After you have finished reviewing these options, save them using 'Z', or
+abort the configuration, using 'Y',in which case you'll see a status window
+printed saying the configuration was aborted.  Repeat from step one if you
+aborted the configuration, DO NOT PROCEED!  If you selected 'Z', proceed on.
+
+Note: When you save, Host+Plus again checks to make sure directories exist.
+      If they don't, a window with the directory name pops up, and you are
+      asked if you wish to create it (as if you had just entered it).
+
+When you press 'Z' you will be prompted if you wish to auto-install.  This
+means Host+Plus will automatically copy the files to the directories you
+have selected.  We urge you to reply yes, or else you will have to copy them
+manually, for correct execution of Host+Plus.
+
+Please Note: Only reply yes the first time you install Host+Plus.  All other
+             times reply no, because Host+Plus will already be installed.
+
+Step Number 3> Run HPM (Host+Plus Maintenance).  Select [E], from its main
+menu, and proceed to make all the files you can. (options A,B,D,E).  If you
+want to make bulletins or scripts, select the respective options.  This
+procedure is automates a lot of file creation (especially with the protocols).
+Refer to Appendix C for more explaination of HPM.  After making all the files,
+exit Telix using [Alt-X] as you did before.
+
+Please Note: If in HPRP you did not have any external protocols defined in
+             Telix, HPM will give you a message when creating the protocol
+             menu.  Ignore this message.
+
+  Also Note:
+
+Congratulations!  You are finished setting up Host+Plus.
+
+
+
+Running Host+Plus
+
+At the DOS prompt, type TELIX /SHOST+ and you will be put at the Waiting For
+Call menu (WFC), and after a brief second, while the modem is initializing, you
+will have full access to the system.  Notice there is a status line at the
+bottom.  This shows the time, date, and if you are available for HPAT.  The
+default for chat availibility is set in the configuration program, but press
+[T], and the status-bar will change, and the board will be available for you
+to be paged.  The other options are local mode, which is when you log on, as
+if you were from remote, but you local.  Shutdown, is avalible all through-out
+the program, if you press [ESC]. However, you may only exit properly if you are
+at the Main Prompt, the Messages prompt, or at the WFC menu.  Dos functions
+pops up what would be [Alt-F] in Telix.  This may also be accessed by pressing
+[Home] at any time in the program.  [O]ther options presents you with another
+menu which allows you to run several Host+Plus Utility applications.  Please
+see Appendix C for further information on how to use these programs.  Press
+[ESC] to get back to the main WFC menu.
+
+
+Logging On to Host+Plus
+
+Step 1> If a caller calls the system, a status window will pop up with the
+        baud rate.  Goto Step 4.
+
+Step 2> To log on locally, press L, or move the light-bar down to L.  Goto
+        Step 3.
+
+Step 3> When you first enter Host+Plus, a copyright message will be displayed,
+and you will be asked if you want graphics.  The default answer for the is
+yes, but if you select no, non-ansi files will be displayed.  You then will be
+asked for your name.  If you are the sysop, and this is the first time running
+Host+Plus, enter sysop.  You will be told there is no "Sysop" in the user's
+file.  Reply yes to if you want to register, and answer all questions
+presented.  When you are finally at the main prompts (after various screens
+are displayed), press [PgDn], and then type 3.  Respond yes to the next
+question and log off, using the "G" function.  You now have Sysop access.
+
+Note: On the local side, sometimes the host prompts will be obscured by the
+      status line.  In that case, either press enter, or type on the status
+      line.
+
+Local Side Commands
+-------------------
+
+There are several commands for the sysop on the local side.  Press [F8] to
+view the list.
+
+Pressing [Home], as mentioned before, will display the DOS functions menu,
+that normally is accessed by Alt-F in the Telix terminal mode.  If you shell,
+make sure that you return to the Host+Plus (and Telix) directory, or
+Host+Plus will not be able to find its files (resulting in a large mess)!  
+
+
+Pressing [End] terminates a users call, even if it is in local mode.  This is
+a semi-lock out command, but it does not change the user's security level.
+Zero (0), is the lock-out security level.
+
+Pressing [F1] displays the file SYSOPHLP.HP.  This file is made by you, (there
+is a demo file included).  This file should contain notes to yourself, notes
+about users, or any other things that will be helpful to you.
+
+Pressing [F2] will toggle the status of chat, like [T] does at the waiting for
+call menu.  When you press [F2], a status window will pop up, and tell you that
+chat has been toggled.
+
+Pressing [F3] pops a window up on the screen.  If you type in a program name,
+Host+Plus will shell to it, and display to the user a "busy" message.  If you
+just press Enter, you will be put in a DOS shell.
+
+Pressing [F4] turns on and off the status line, on the top of the screen.
+
+Pressing [F8], of course, gives you the help menu, as you just saw.
+
+Pressing [F9] will put you in the internal user editor.  This is unlike the
+external editor (discussed in Appendix C), because it is not windowed, and
+the user can see what you are typing.  However he cannot alter what you have
+entered, or enter his/her own value.  Please see the external editor section
+in Appendix C for what the commands are.  You can edit a different user by
+selecting [A], and entering that user's name.  If you enter an invalid name,
+the current user will be renamed.  The renaming will take effect in the next
+call.
+
+Pressing [F10] gives the user a message, and puts you in the Telix chat mode.
+If you want to use the Host+Plus chat mode, you must use the [O]perator page
+feature (refer to Appendix A for more information on [O]perator page.  The
+Telix chat mode has the advantage that the screen is split, between the
+user and the sysop, however it does not have wordwrap, and the Host+Plus chat
+does.
+
+Pressing [PgUp] allows you to change the users time limit.  This window allows
+you to add or subtract minutes.  If you want to add time, just type the number
+of minutes you wish to add to the user's time limit.  If you want to subtract
+time, type a '-', and then then number of minutes you wish to subtract 
+(i.e. -15 will subtract 15 minutes and 20 will add 20 minutes).
+
+Pressing [PgDn], as you know, pops up a window asking what access level to set
+the user at.  The levels are as follows:
+
+ # | Termed       | Description
+---+--------------+------------------------------------------------------------
+ 0 | Locked out:  | This means Host+Plus will not let the user on the system.
+   |              | It will describe that he has been locked out, and he is not
+   |              | allowed to access the system.  Locking a user out is also
+   |              | termed "Blacklisting".
+---+--------------+------------------------------------------------------------
+ 1 | New User     | This is the access level assigned to a user the first time
+   |              | they log on to Host+Plus, if they opt to register.  At this
+   |              | level, they are granted twenty (20) minutes access time,
+   |              | access to the main board functions (excluding DOORS and
+   |              | extensions), and to the [Q]uick List, [Y]our Mail, and
+   |              | [C]omment to Sysop functions of the message base.
+---+--------------+------------------------------------------------------------
+ 2 | Regular user | This is the access level most users on your system will
+   |              | receive, once you have validated them, using the user
+   |              | editor.  At this level users have sixty (60) minutes of
+   |              | time, and full access to the main board, files, and message
+   |              | functions.
+---+--------------+------------------------------------------------------------
+ 3 | Sysop        | This access level is very dangerous to give to anyone but
+   |              | yourself, and a couple of close friends (need we say that?)
+   |              | With this level, a user has an unlimited amount of time,
+   |              | and has full access to all main board, files, and message
+   |              | functions.  They also have access to the sysop functions
+   |              | which include being able to shell to DOS from remote, and
+   |              | execute any type of command, including an ERASE *.* and
+   |              | format, view the comments, view the log, and use the user
+   |              | editor, which in effect allows them to alter the access of
+   |              | any user to level 3 (Sysop).
+---+--------------+------------------------------------------------------------
+
+As you saw, if you select 3, sysop access, a window will pop up, asking you
+to confirm this choice.  When a user has sysop access he/she can shell to DOS,
+and basically has run of your whole system.  Need we say only to give this to
+yourself, and (optionally) your closest friends?
+
+
+
+
+Appendix A - Command Summary
+----------------------------
+
+Main Menu Section
+-----------------
+  [O]perator Page - This function alllows the user to page the Sysop (you).
+                    If [Chat Allowed] is set to no, a message will be displayed
+                    offering the user the oportunity to leave you a comment.
+                    This comment will appear in the caller's log.
+                    If [Chat Allowed] is set to yes, you will be paged, and a
+                    window will be put up on your screen.  If you press any
+                    key except space, or do not respond after 30 seconds, the
+                    oportunity to leave a message is granted as specified
+                    above.  If you respond, a status window will pop up on the
+                    screen, telling you to use the user editor (F9) to view
+                    statistics, because the status bar will disappear.  You
+                    will then be put into the Host+Plus HPAT mode.  In this
+                    type of chat, lines can wordwrap, but you the screen is
+                    not split in half (refer to [F10] in the previous chapter
+                    for more information on the split-screen mode (Telix HPAT).
+                    Type XC to exit chat.  The user will see you type this, but
+                    cannot effectively type this from his end.
+
+  [G]oodbye       - This function displays file LOGOFF.HP, drops carrier (if
+                    not in local mode) and returns to the waiting for call
+                    menu.  All users use this to exit the Host+Plus system.
+
+  [NEWS] file     - This function redisplays the NEWS.HP file.  This is the
+                    same file that is shown immediately after the user
+                    successfully logs on to your system.
+
+  [X]pert Mode    - This toggles the displaying of menus on or off.  If it is
+                    off, menus are displayed.  If it is on, menus are not
+                    displayed.  This feature will work if you do or do not use
+                    the Quad-Menu system.
+
+  [I]nitial Welcome-This function redisplays WELCOME.HP or WELCOME.HPG,
+                    depending on if the the user has ansi enabled.  This is
+                    the same file which is displayed immediately after the
+                    copyright message is displayed, and the user selects if
+                    he/she wants ANSI color graphics or not.
+
+  [H]elp          - This function displays the main menu and asks what function
+                    the user wants help with.  The user can then press the
+                    letter, and the corresponding help file is displayed.
+                    There is help for all functions except:
+
+                            [/]-Script Extensions
+                            [?]-Redisplay Menu
+                            [*]-Select Protocol
+                            [^Z]-Shutdown System
+
+                    Please refer to Appendix B on how HELP files are altered/
+                    created.
+
+  [B]ulletins     - This function displays a list of bulletins (BLTLIST.HP), and
+                    asks which bulletin the user wishes to see.  The user can
+                    then type the bulletin name/number, and the corresponding
+                    bulletin file is displayed.
+
+                    Please refer to Appendix B on how BULLETINS are altered/
+                    created.
+
+  [W]rite Usr Inf - This function allows the user to alter most data fields
+                    about his account.  He/she may alter both phone numbers,
+                    their password, if they want to chat, and their address
+                    information.  The phone numbers, and the zip code are
+                    checked for illegal characters (i.e. alpha-characters).
+                    The selections are made from a mini-menu.
+
+  [P]age Length   - This function sets the user's page length, which means
+                    how many lines are displayed before a More: [Y/N/C] or
+                    [More] prompt is given.  They may enter any number, 0
+                    through 999.  If they enter a four digit number, only
+                    the first three digits are used.  If they enter 0 or
+                    just press [Enter], then more prompts are not displayed.
+
+  [S]cript Ques.  - This function displays a menu (QUESMENU.HP) to the user
+                    and asks them which questionnaire they wish to enter.
+                    When they enter the name/number, questions are displayed,
+                    and the user is prompted for an answer.  At the end the
+                    file is saved, and the user is returned to the main prompt.
+
+                    Please see Appendix B for information on the file formats
+                    of both the questions file and the answers file.
+
+  [V]iew Stats    - Displays a list of information to the user, such as the
+                    last date on, number of uploads, downloads, and times
+                    on the system, the expert mode setting, and other misc.
+                    information like that.  This is also displayed to the
+                    user after he views the 'NEWS' file when he logs on the
+                    system.
+
+  [?]-Redisplay   - This command redisplays the main menu, or the section
+                    menu if you are using the Quad-Menu system.  It works
+                    only at the main prompt.
+
+                    Please Note: There is no help for this function,
+                                 although it appears to be self-explanatory.
+
+  [BBS] Lister    - This function displays a internal submenu, with two
+                    options.  [L]ist BBS's in database, and if the user
+                    has an access level equal or better than two, another
+                    selection, [A]dd BBS to database, is displayed.  The
+                    first option, simply displays the file BBSLIST.HP.  The
+                    other option, [A]dd BBS, displays three questions, asking
+                    for the name, number, and the city, state, and baud
+                    combined.  It allocates an equal amount of space for each
+                    of these questions.  It then adds the entry.
+
+                    Please Note:  First, there is no longer a script file as
+                    in previous versions of Host+Plus.  All questions are now
+                    internal.  Second, as you may have seen, this option can
+                    be abused.  Please control this behavior as best as you
+                    can.
+
+  Enter [DOOR]    - This option displays a menu of doors (DOORS.HP), and
+                    allows the user to select the door name/number.  It then
+                    proceeds to execute a batch file located in the misc
+                    directory, with the same name as the door chosen (i.e.
+                    1.BAT for door 1).  This file should contain anything
+                    required to run the door, (i.e. redirection info).  When
+                    shelling to the batch file, Host+Plus writes a PCBoard
+                    14.x compatible DOOR file (PCBOARD.SYS) in the main
+                    Host+Plus/Telix directory.
+		    
+                    Note to users of older versions of Host+Plus:  Host+Plus
+		    no longer redirects the standard output to the COM port. 
+		    It is up to the DOOR itself to do that.
+
+  [OPEN] a door   - See Enter [DOOR] (previous command)
+
+  Graphics [M]ode - Like [X]pert mode, this is a toggle.  It toggles if the
+                    user wants ANSI prompts and menus, or if he does not.  This
+                    toggles initial state is determined by the if the user
+                    selects ANSI graphics when he logs on Host+Plus.  One
+                    should note that ANSI color takes longer to display than
+                    regular black and white.
+
+  [/]-Extensions  - This function is much like the DOOR or OPEN function in the
+                    sense that it allows you to run programs from Host+Plus.
+                    However, this function runs SALT scripts, for Telix.  There
+                    are two seperate scripts for each menu selection, one for
+                    remote log-ons and one for local log-ons.  The local
+                    scripts have a 'L' suffixed to the end of the file name,
+                    (i.e. TESTEXT.SLC becomes TESTEXTL.SLC).
+
+                    Please Note: Since Host+Plus tacks on an extra letter to
+                                 the end of the file name, only file names
+                                 up to seven (7) characters, not eight, are
+                                 valid.
+
+                    The remote versions should print out the the com port, and
+                    check for carrier, while the local version should not.
+                    Also, if the Sysop wishes to create a utility which can
+                    only be run locally, or only be run remotely, this system
+                    allows him/her to do that.  Host+Plus comes with two demo
+                    scripts, TESTEXT and TESTEXTL, the latter for local and the
+                    former for remote.  These scripts are very simple, and only
+                    print one line of text, but they show the concept of what
+                    needs to be done.
+
+  [J]ump          - Please Note: This command is only active while useing the
+                    Quad-Menu structure.
+
+                    This command is the only way to jump from section to
+                    section in the Quad-Menu system.  It will only show
+                    sections to which the user has access to enter.
+
+
+Message Base Section Commands
+-----------------------------
+
+  [Q]uick List    - In Beta 8, this command was completely re-written.  It will
+                    start with the message you specify, and then will list to
+                    who the message is for, from whom, and what the subject is.
+                    Although this command does not use a More [Y/N/C] prompt,
+                    the user may stop the listing or pause it at any time.
+
+  [E]nter Message - This function allows you to enter a message to anyone.  The
+                    message will be posted on the message base.  There are a
+                    couple of options and sub-commands.  When you first press
+                    [E], the screen will blank, and you will be asked to whom
+                    you wish to enter the message.  If you are not sure of the
+                    name, enter one as close to the name as you can remember,
+                    just DO NOT MAKE IT PRIVATE.  Next you will be asked what
+                    the message will be about (the message subject).  There
+                    enter a VERY brief description (i.e. if the message is
+                    about a problem with your USR Dual-Standard, the subject
+                    should be "USR modem problems".)The third question you will
+                    be asked is if you wish to make it private.  Making a
+                    message private is discouraged, because only one person
+                    can see it.  If it is not private, many people will have a
+                    chance to respond.  The last question is if you want to use
+                    the Visual Editor.  The visual editor is another editor,
+                    which the sysop (you) has set up.  It is normally a
+                    full-screen editor, such as SHEDIT (the preferred editor
+                    for Host+Plus), or QuickEd.
+
+                    Please Note: If you do not have an editor installed, make
+                                  a note of it in the NEWS file, and make the
+                                  EDITOR.BAT file nul.
+
+                    If the user (before referred to as "you") selects not to use
+                    the visual editor, the Host+Plus editor is shown to them.
+                    It is a line editor, but it does have wordwrap, like
+                    PC-Board and other major BBS systems.  When the user is
+                    finished editing, he/she should press [Enter] on a blank
+                    line, and then they will be at the "Edit Menu".  There are
+                    three choices:
+
+                          [S]ave    - saves the message and returns to the main
+                                      prompt.
+
+                          [A]bort   - Aborts the message and returns the user
+                                      to the main prompt.
+
+                          [C]ontinue- Allows the user to continue the message
+                                      on the line they pressed enter on to
+                                      bring them to the Edit Menu.  This should
+                                      be used if they pressed [Enter]
+                                      accidentally, or if they wish to add
+                                      more to their message.
+
+  [R]ead Messages - This function is one of the most advanced in Host+Plus.
+                    If there are no messages, it will tell you so, and put you
+                    back at the main menu.  However, if there are messages,
+                    you are given several options.  The first is to enter a
+                    message number.  If it is a private message, or it has
+                    been deleted, the system will tell you so, if it exists,
+                    it will be displayed.
+
+
+                    There are other options as well:
+
+                    [Y]our Mail - Gives you a list of message numbers with
+                                  messages FOR you.  (At your option it will
+                                  scan just from the last message you read.)
+                                  
+                    [F]rom You  - Gives you a list of message numbers with
+                                  messages FROM you.  (At your option it will
+                                  scan just from the last message you read.)
+
+                    [T]ext Srch - Searches for a given string in all of a
+                                  message, not just the message header.
+                                  Host+Plus will prompt for this string, and
+                                  if it is found in a message, the message
+                                  number will be displayed. 
+
+                    [R]eply     - Replies to a message.  Host+Plus will allow
+                                  quoting if you are using an external editor.
+                                  First you will be asked to confirm the reply,
+                                  and then you will be asked for the message
+                                  privacy status.
+
+                    [RE]ply     - See [R]eply.  The previous command discussed.
+
+                    [+] Reads one message foward, and sets direction foward
+                    [-] Reads one message backwards and sets direction reverse
+
+                    [=] or [/] Redisplays current message.
+                    [H]elp - displays help file.
+                    [S]ince last read - Displays the last message read, whether
+                        it be on the current call, or the previous call.
+                    [Enter] puts the next message on the screen, using the
+                        direction the user has specified.
+                    [#+] or [#-] allows you to specify a direction with a
+                        and start with that message number.
+
+  [C]omment Sysop - Allows the user to enter a message for the sysop (you) to
+                    see.  All of the four prompts were taken away: the subject
+                    (it is always "COMMENT"), to whom the message is for (it
+                    is always for the Sysop), and if the message is private (it
+                    is always private).  Comments are fully intergrated into
+                    the message base.  
+
+  [Y]our Mail     - Allows the user to see mail for them.  This will also
+                    display how many new messages there are since (from) the
+                    last message the user read.  This function is also
+                    executed upon a sucessful log-in of a user.
+                    The user has an option on whether to search the whole
+                    message base, or just the messages since the last read.
+                    
+  
+  Special Note: As a bonus, we have included the Host+Plus Message Packer.  
+                This program operates much like the Host+Plus User Compressor,
+                discussed later on.  When you first load it, it asks for a
+                date.  Any messages that were posted on or before that date 
+                are deleted.  If you press [Enter] no date is assumed.  If you
+                type "EXIT" at the prompt, the message packer will abort.  The
+                next question it will ask is if it should delete private 
+                messages that have already been read.  Once you answer these
+                questions, it begins packing the message base.  In additon
+                to deleting the messages you have specified, it will also
+                physically delete all killed and aborted messages.  This means
+                you will not be able to use the Sysop [3] function to undelete
+                messages.  It also means that, depending on the size of your
+                message base, a considerable amount of disk space may be saved!
+                When the message packer finishes, it exits and prints the
+                final statistics for that run.  The name of this file is 
+                HPMC.SLC and it should be executed as a script in telix.
+
+
+
+File Section Menu Commands
+--------------------------
+
+  [N]ew Files     - This function allows the user to see all the new files in
+                    a specified directory since he last logged on to the
+                    system.  After typing 'N' at the main prompt, the user will
+                    be asked what date he/she wishes to search from.  If the
+                    user presses [Enter], it will default to the last date that
+                    they were on the system.  Next the user will be asked in
+                    what directory they wish to search (see the 'F' function
+                    for help on getting a list of directories).  When the enter
+                    a valid directory, the new files will be displayed.  They
+                    will then be returned to the main prompt.
+
+  [T]ype File     - This function allows the user to type a file.  If the user
+                    is a sysop (has access level three [3]), they will be
+                    allowed to specify a directory in the file name (allowing
+                    them to type any file, including user's data files).  All
+                    this function does is display a text file to the screen.
+                    After the file is finished, the user is returned to the
+                    main prompt.
+
+  [U]pload        - This function allows the user to send a file to your board.
+
+                      Please Note: The term "UPLOADING" means the user is
+                                   giving you a file.
+
+                    When the user first types 'U' there are a variety of events
+                    which may occur:
+
+                    (These numbers are step numbers, i.e. 1> is Step #1)
+
+                      1> If the user has an undefined protocol, then the list
+                      of protocols (PROTOCAL.HP) will be shown, and they will
+                      be asked to select one.  Goto step #2.  If they already
+                      have a protocol defined, also goto step #2.
+
+                      2> The user will be presented with a prompt, asking what
+                      file they wish to upload.  If the board already has that
+                      file, Host+Plus will tell them so, and will not allow
+                      them to upload it.  Otherwise it will proceed to step #3.
+
+                      3> A message will be displayed, containing various
+                      information and telling the user to start the transfer.
+                      After the transfer is complete, see step #4 if the
+                      transfer was sucessful, and see step #5 if it was not.
+
+                      4> The user will then be prompted to give a description of
+                      the file.  After they give a description, they will be
+                      asked which directory this file fits in best.  The data
+                      will then be recorded in the upload directory
+                      (UPLOADS.DIR), and the Sysop should then move the file
+                      using the Host+Plus Download Director.  See step #5.
+
+                      Host+Plus will run the batch file HPUPLOAD.BAT, after an
+                      upload.  This file should run tests on the file, etc.
+                      like a virus scan, and/or it should insert your comment
+                      into the ARC/Zipfile.  There is one parameter passed to
+                      this batch file: the file name, complete with path.
+
+                      5> The user will then be returned to the main prompt.
+
+  [D]ownload      - This function allows the user to receive (get) a file from
+                    the Host+Plus BBS.  This function has many steps, shown
+                    below:
+
+                      1> If the user has an undefined protocol, then the list
+                      of protocols (PROTOCAL.HP) will be shown, and they will
+                      be asked to select one.  See step #2.
+
+                      2> The user will be presented with a prompt, asking what
+                      file they wish to download.  If the board does not have
+                      that file, Host+Plus will tell them so will notify them.
+                      If the board does have the file, proceed to step #3.
+
+                      3> A message will be displayed, containing various
+                      information and telling the user to start the transfer.
+                      After the transfer is complete, see step #4.
+
+                      4> If the transfer was aborted, a message ("Transfer
+                      Aborted ...") will appear.  After the transfer is
+                      complete, the user will be returned to the main prompt.
+
+  [L]ocate File   - This function allows the user to find a specific file in
+                    the specified directory.  After the user enters 'L', two
+                    questions will be asked.  The first will be what file, or
+                    partial file name they wish to search for.  The second
+                    question will be what directory they wish to search in.
+                    (see the 'F' function for help on getting a list of
+                    directories).  The file that matches the search will then
+                    be displayed.
+
+  [F]ile Lister   - Although this function is one of the most internally intri-
+                    cate functions in HOST+, it is very simple for the user to
+                    operate.  Basically, all the user does is select a 
+                    directory to list, and Host+Plus will read the directory
+                    and display the file names, sizes, dates, descriptions, and
+                    who uploaded them.
+
+  [*]-Sel Protcol - This function allows the user to select a default protocol
+                    to use.  When the user first logs on to your system, the
+                    default protocol is set to [X]modem.  Note: Host+Plus only
+                    deals with the first letter of the protocol, not the name.
+                    If the user is not in expert mode, a list of protocols is
+                    displayed.  The user then may enter the protocol letter
+                    that he/she wants, or [?] for help.  After the user enters
+                    a valid protocol letter, a message is displayed, and they
+                    are returned to the main prompt.
+
+                    Please Note: This is officially called the Select Protocol
+                                 function, but is abbriviated to Sel Protocol
+                                 for printing and display purposes.
+
+  [A]RC/Zip View - This function allows the user to perform a variety of tasks
+                   dealing with ARC and Zipfiles.  When the user first selects
+                   'A', they will be asked what file they wish to view, and
+                   told to include an extension (for type identification).
+                   Once they enter a valid name, they are brought into the main
+                   ARC/Zip menu.  This menu has five options:
+
+                    [R]e-list   - This is somewhat misnamed, because files are
+                                  not listed by default.  However, this command
+                                  gives a list of the files in the archive or
+                                  Zipfile.
+
+                    [V]iew File - This function allows you to view a text file,
+                                  or a group of text files, in the archive.
+                                  These files will be displayed to screen.
+
+                    [X]tract    - This function allows the user to copy files
+                                  in an archive/zipfile to a zipfile called
+                                  REQUEST.ZIP.  It is automatically downloaded
+                                  and deleted, when the user selects download.
+                                  If they do not select download, it is deleted
+                                  when they log off.
+
+                    [T]est      - This allows the user to test the integrity of
+                                  an archive/zipfile.  If there are errors in
+                                  the file, it will be reported to the user.
+
+                    [Q]uit      - Returns the user to the main prompt.
+
+  [Z]ippy dir scan-This function allows the user to find a specific string of
+		   text in the specified directory.  After the user enters 'Z',
+		   two questions will be asked.  The first will be what string
+		   of text, or file name they wish to search for.  The second
+		   question will be what directory they wish to search in.
+		   (see the 'F' function for help on getting a list of
+		   directories).  The files that match the search will then
+		   be displayed.
+
+  [RAW] Directory- This allows the user to display a list of files in the
+                   download directory, exactly like DOS does, except it offers
+                   color for ansi users.
+
+
+Sysop Section Menu Commands
+---------------------------
+
+
+[1] User Editor- This function will put you in the internal user editor.  This
+                 is unlike the external editor (discussed in Appendix C),
+                 because it is not windowed.  This is identical to the [F9]
+                 command, except the remote user may type.  Please see the
+                 external editor section in Appendix C for what the commands
+                 are.  You can edit a different user by selecting [A], and
+                 entering that user's name.  If you enter an invalid name, the
+                 current user record will be copied to the name you enter.
+
+[2] Shell      - This function is one of the most powerful functions in telix.
+                 This command basically allows a user to shell to DOS, and
+                 use any command, including ERASE *.* and FORMAT.  Basically,
+                 a user in this shell can do many things that you can do in
+                 DOS.
+
+                 The shell to dos follows this order:
+
+                 First it trys to execute the "RSHELL.BAT" file.  If that fails
+                 it will try to run the DOORWAY program, by Marshal Dudley.  If
+                 DOORWAY cannot be found it will try to use IBMAUX, GATEWAY and
+                 then CTTY COM, in that order.  If none of these will work, a
+                 message is displayed that "shell is not available".
+                 
+                 In the configuration section, you are allowed to configure the
+                 command line to be passed to DOORWAY.  By default Host+Plus
+                 adds the /G (ansi) parameter in its ON or OFF form depending 
+                 on how the user has ansi configured.  However, if you add a 
+                 /G setting in the command line, the Host+Plus setting will be
+                 overrode.
+                 
+
+                 Warning: This command is VERY powerful.  We can not stress
+                          this enough.  Please excersise EXTREME caution when
+                          granting users access to this command!
+
+[3] Undel Msg  - Undelete a message number.  Messages that have been aborted
+                 by users may be undeleted.
+
+[4] List Log   - This function allows you to list the actions of all users who
+		 logged on to your system.  This includes the commands
+		 executed, files downloaded/uploaded, etc.  See Appendix D for
+		 information on packing logs.
+
+		 Please Note: At other times in this documentation, the log
+			      may be called the daily log or the caller's log.
+
+
+
+
+Appendix B - Host+Plus Support File Definitions
+-----------------------------------------------
+* - Created by Host+Plus
+- - Created manually
++ - Demo file enclosed
+/ - Created by HPM
+
+Text Files
+----------
+* All files below should be located in the main Host+Plus directory
+
+SYSOPHLP.HP  - This is the file which is displayed when you press [F1] locally.
+DOORS   .HP  - This is the OPEN/DOOR function menu(it lists the DOORS available)
+LOG     .HP  * This is the file which contains daily log
+MENU1   .HP  + This is the non-ansi file displayed to access level #1 users
+MENU1   .HPG + This is the ansi file displayed to access level #1 users
+MENU2   .HP  + This is the non-ansi file displayed to access level #2 users
+MENU2   .HPG + This is the ansi file displayed to access level #2 users
+MENU3   .HP  + This is the non-ansi file displayed to access level #3 users
+MENU3   .HPG + This is the ansi file displayed to access level #3 users
+MENU11  .HP  + This is the non-ansi main menu for level 1 users with Quad-Menu.
+MENU11  .HPG + This is the ansi main menu for level 1 users with Quad-Menu.
+MENU13  .HP  + This is the non-ansi message menu for level 1 users w/Quad-Menu.
+MENU13  .HPG + This is the ansi message menu for level 1 users with Quad-Menu.
+MENU21  .HP  + This is the non-ansi main menu for level 2 users with Quad-Menu.
+MENU21  .HPG + This is the ansi main menu for level 2 users with Quad-Menu.
+MENU22  .HP  + This is the non-ansi file menu for level 2 users w/Quad-Menu
+MENU22  .HPG + Ansi version of above
+MENU23  .HP  + This is the non-ansi message menu for level 2 users w/Quad-Menu
+MENU23  .HPG + Ansi version of above
+MENU24  .HP  + This is the sysop non-ansi sysop menu for Quad-Menu.
+MENU24  .HPG + Ansi version of above
+QUESMENU.HP  / This is the Script Questionnaire menu(it lists scripts available)
+LEVEL1  .HP  + This file is displayed to access level #1 users upon log-in
+LEVEL2  .HP  + This file is displayed to access level #2 users upon log-in
+LEVEL3  .HP  + This file is displayed to access level #3 users upon log-in
+CONFIG  .HP  * This file contains the Host+Plus configuration information.
+BLTLIST .HP  / This is the Bulletin menu (it lists the bulletins available)
+NEWS    .HP  + This file is displayed to users immediatley after log-on.  It is
+               also accessable via the [NEWS] function.
+BBSLIST .HP  * This file contains the BBS list(accessable via the [BBS] command)
+CALLBACK.HP  + This file is displayed to the user right before the callback
+               procedure is started.
+EXTPROT .HP  * This is the external protocol data for Host+Plus.Created by HPRP
+NEWUSER .HP  + This file is displayed to new users before they are asked if
+               they want to register.
+DIROFDIR.HP  / This file contains the list of directories (used by the F func.)
+LOGOFF  .HP  + This file is displayed to users when they log off using 'G'.
+WELCOME .HP  + This non-ansi file is displayed to users when they first call.
+WELCOME .HPG + This is the ansi version of WELCOME.HP
+DIRHEAD .HP  + This file is displayed right before a directory listing starts.
+DIRHEAD .HPG + This file is the ansi version of DIRHEAD.HP
+PROTOCAL.HP  / This file is the list of protocols shown to the user.
+UPLOADS .DIR * The upload directory data
+UPLOADS .DI2 * "Internal File" used for deleting files from the uploads file.
+USERFILE.HP  * User data file            ! DO NOT ALTER !
+MSGHDR  .HP  * Message header data file  ! DO NOT ALTER !
+MSGTXT  .HP  * Message text data file    ! DO NOT ALTER !
+
+Batch Files
+-----------
+* All files below should be located in the main Host+Plus directory
+
+EDITOR  .BAT + This file is the batch file used to run the "visual editor" and
+               copy the output from the visual editor into the Host+Plus
+               format.
+INSTALL .BAT   This batch file is an "internal file", which performs the auto-
+               installation from the configuration program.  DO NOT ALTER IT.
+               
+HPUPLOAD.BAT   The batch file that is run after an sucessful upload is 
+               completed.  Host+Plus passes the name of the file that was
+               uploaded (along with the full path), to this batch file.  This
+               batch file can insert comments into the ARC/ZipFile, test its
+               integrity, or anything else that might be desired.
+               
+ARCVIEW.BAT    A carry over from CompuHost, but it is still used in HPDD.
+
+
+Other Files
+----------
+* All files below should be located in the Host+Plus misc directory
+* All files (except where noted) may be made with Host+Plus Maintenance
+
+All files with a .BLT extension: Bulletins
+All files with a .SCR extension: Script Questionnaires
+All files with a .HLP extension: Help files (sample files incl.)
+All files with a .SLC extension: Script Extensions (as previously defined)
+All files with a .DIR extension: File directories
+
+
+Appendix C - Protocol List, Descriptions, and Tips
+--------------------------------------------------
+
+
+Internal Protocol Descriptions
+------------------------------
+
+Please Note: The following section of the manual was taken from the
+             BuzzHost Deluxe version 1.53 manual.  No other portions were
+             taken.
+
+-----------+--------+------------------------------------------------------------
+           |  Needs |
+Name       |Filename| Description
+-----------+--------+------------------------------------------------------------
+[X]modem   |  Yes   | Sends files in blocks of 128 characters at a time. When
+           |        | the receiving computer is satisfied that one block has
+           |        | arrived without errors, it sends an OK byte and waits for
+           |        | the next block to be sent.  The process is repeated until
+           |        | the file is complete.  If there is an error, it sends an
+           |        | ERROR byte, and the block is retransfered.  Error checking
+           |        | is either by Checksum or a more sophisticated
+           |        | Cyclic Redundancy Check (CRC).  This is the first, and
+           |        | most popular error checking protocol created, although not
+           |        | the most efficent.
+-----------+--------+------------------------------------------------------------
+[1]k-Xmodem|  Yes   | This is a small variation of Xmodem that uses blocks
+           |        | that are 1024 bytes in size, instead of 128 bytes.  This
+           |        | will bring enchanced performance on clean lines, and
+           |        | worse performance on noisy lines.
+           |        |
+-----------+--------+-----------------------------------------------------------
+[G]        |  Yes   | This is a variation of 1k-Xmodem that is meant for
+1k-Xmodem  |        | error free channels such as error correcting modems or
+           |        | null modem links between two computers. It sends blocks
+           |        | one after another without waiting for acknowledgment from
+           |        | the receiver.  The modem automatically corrects blocks.
+           |        | The most common form of error-correction is MNP.
+-----------+--------+-----------------------------------------------------------
+[Y]modem   |   No   | This protocol is a variation of Xmodem-1k which keeps the
+           |        | correct name, size, and date of the files being sent. It
+           |        | may use 128 or 1024 byte blocks.  It is a precursor to
+           |        | Zmodem.
+-----------+--------+-----------------------------------------------------------
+Ymod[E]m-G |   No   | This protocol is a variation of Ymodem, which requires
+           |        | an error free channel such as error correcting modems or
+           |        | null modem. It sends one block after another without
+           |        | waiting for acknowledgment from the receiver.  This type
+           |        | of "G" protocol is akin to [G]-1k-Xmodem.  Please see it
+           |        | for more information on error-correction.
+-----------+--------+-----------------------------------------------------------
+[M]odem7   |   No   | This is a close cousin to Xmodem that passes the filename
+           |        | before starting the transfer, thus taking away some of the
+           |        | user's work, otherwise it is identical to Xmodem.
+-----------+--------+-----------------------------------------------------------
+[S]ealink  |   No   | This is an advanced version of Xmodem that is 15 to 25
+           |        | percent faster than regular Xmodem. Sealink passes a
+           |        | file's name, size, and date when transferring.
+-----------+--------+-----------------------------------------------------------
+[Z]modem   |   No   | This advanced protocol is very fast and reliable, and
+           |        | offers many features. It keeps the exact file sizes and
+           |        | dates, and can resume an interrupted transfer at a later
+           |        | time. The latter is known as Crash Recovery.  Furthermore,
+           |        | this protocol cuts down on transfer time because it does
+           |        | not have to send an "OK" or ACK byte, like Xmodem variants
+-----------+--------+-----------------------------------------------------------
+
+
+Protocol Statistics
+-------------------
+
+The following chart may help those of you, who had no idea about the
+real differences between one File-Transfer Protocol and another.
+
+                                  +------------------+
+                                  | File Attributes  |
++--------+---------+-----+--------+  that are sent  +-------+
+|Protocol|Error    |Block|Multiple|-----------------|Sliding|
+|        |Checking |Size |Files   | Name|Size|Date  |Windows|
+|--------+---------+-----+--------+-----+----+------+-------|
+|Xmodem  |CRC/HPKSM|128  |No      |No   |No  |No    |No     |
+|--------+---------+-----+--------+-----+----+------+-------|
+|Zmodem  |CRC-32   |VR(*)|Yes     |Yes  |Yes |Yes   |Yes    |
+|--------+---------+-----+--------+-----+----+------+-------|
+|Ymodem  |CRC      |128/ |No      |No   |No  |No    |No     |
+|        |         |1024 |        |     |    |      |       |
+|--------+---------+-----+--------+-----+----+------+-------|
+|Ascii   |None     |     |No      |No   |No  |No    |No     |
+|--------+---------+-----+--------+-----+----+------+-------|
+|Telink  |CRC/HPKSM|128  |Yes     |Yes  |Yes |Yes   |No     |
+|--------+---------+-----+--------+-----+----+------+-------|
+|Modem7  |CRC/HPKSM|128  |Yes     |Yes  |No  |No    |No     |
++--------+---------+-----+--------+-----+----+------+-------+
+
+
+
+"Advantage" Protocols
+-----------------------
+
+Zmodem is by far the best and most efficent protocol.  Urge your users to use
+it as much as possible.
+
+Try installing DSZ as an external protocol.  DSZ is updated a lot, but Telix
+does not keep up with the updates of the Zmodem protocol.  Therefore, DSZ is
+more up-to-date than Telix could ever be.  Two prime examples are RLE 
+compression and MobyTurbo (which is DSZ specific).
+
+In HPRP, although the program allows you to opt not to use protocols found, we
+urge you to let your users benefit from any protocols you might have on your
+system.
+
+      WARNING: If any of the protocols require input from the LOCAL side,
+               in other words, you have to type something outside of Telix
+               to use them, DO NOT INSTALL IT.  Since there will not be
+               anyone at the local side, Telix/Host+Plus will hang!
+
+If you do not have any external protocols please consider installing
+these:
+
+Kermit  - For mainframe and mini-computer users.  It is very inefficent, but
+          if users of large computers are on your system, it will be hard, if
+          not impossible, for them to transfer files without this protocol. (*)
+
+Jmodem  - A new protocol, featuring blocks up to 8k big, and data-compression.
+
+BiModem - A new protocol that has the features, speed, and reliabilty of
+          Zmodem, but allows you to either chat or upload while downloading a
+          file!!  Highly Recommended.
+
+MPT110  - A updated version of Lynx which is MUCH better than anything out.
+          Several BBS's are now using this protocol.  Excellent product.
+
+Refer to the Telix User's Manual for instructions on installing external
+protocols.
+
+(*) Telix has Kermit built in, but it is totally out-of-date, and incompatible
+    with many versions.  We recommend the MS-Kermit version of Kermit.
+
+
+Appendix D - External Support Programs
+--------------------------------------
+
+Host+Plus Configuration (HPConfig)
+----------------------------------
+
+This program allows you to set up Host+Plus, and alter the set up definitions
+you have already made.  There are two pages of configuration questions.  Press
+[PgUp] to go to the upper page, press [PgDn] to go to the lower page.  Let us
+start with the first page (see figure 1)
+
+ Figure #1 
+
+...............................................................................
+.                       Host+Plus Configuration Script            Page 1 of 2 .
+...............................................................................
+                                                                                
+...............................................................................
+. A  Host Download Directory  . C:\TELIX\HP\                                  .
+. B  Host Upload directory    . C:\TELIX\HP\                                  .
+. C  Misc files directory     . C:\TELIX\HP\MISC\                             .
+. D  Compression Directory    . C:\TELIX\HP\COMPRESS\                         .
+.                             .                                               .
+.                             .                                               .
+.                             .                                               .
+.                             .                                               .
+.                             .                                               .
+. E  Color Directories        . Yes                                           .
+. F  CALLBACK (Yes/No)        . No                                            .
+. G  Board Type (Closed/Open) . Open                                          .
+. H  Connection type          . Modem                                         .
+...............................................................................
+. Y  Abort Host+Plus Configuration                                            .
+. Z  Exit and save changes to disk                                            .
+...............................................................................
+
+
+
+As you can see, on the first page, there are eight (8) selections.  The
+selections are selected by either moving a highlite bar and pressing [Enter],
+or by pressing the letter to the left of the selection description.
+
+Notice, the screen is divided up into four parts: The selections, the selection
+descriptions, the data values, and the save commands.
+
+Relations between the three: You enter your choice via the selections (the far
+                             left), and you choose because of the selection
+                             descriptions.  The data values shows you the value
+                             (or text) you have just entered, and the save
+                             commands allow you to save or cancel your changes.
+
+Command Meanings
+----------------
+
+ [A] Download Directory - This is where the HPDD will put your files, once you
+                          have moved them.   This is basically the only
+                          directory where access level #2 users and below may
+                          take files from.
+
+ [B] Upload Directory   - This is where Host+Plus will put files immediatley
+                          after they have been uploaded.  This means that
+                          all files sent to your system will go to this
+                          directory.
+
+                          WARNING: Do not make this the same directory as for
+                                   Downloads.  You defeat security mechanisms
+                                   if you do.
+
+ [C] Misc Directory     - This is where user-made Host+Plus files, and the help
+                          files will go.  All files with extensions, .BLT, .SCR,
+                          .SLC, .DIR, and .HLP will go in this directory.
+
+ [D] Compression Directy- This is where your compression programs (PKPAK,
+                          PKZIP) are located.
+
+ Please Note: The next four options on page one are toggles.  This means when
+              you select them, Host+Plus changes the value to the oppisite
+              value.
+
+ [E] Color Directory    - This allows you to specify wether or not directory
+                          listings will be colored.  We recommend you use this,
+                          because it only affects users with ANSI enabled, and
+                          although about 1.2 times slower for those users, it
+                          looks about ten times better.
+
+ [F] Callback (Yes/No)  - This allows you to select if users will be "called-
+                          back" upon log on.  Basically, what this means is
+                          that Host+Plus will call the user back, at the phone
+                          number they specified in the "data number" field.
+                          This is a very high level of security, because even
+                          if a person has someone else's password, they still
+                          cannot use it.  On the negitive side, this is very
+                          expensive for the Sysop, because the BBS is calling
+                          the user, so large phone bills may incurr.
+
+ [G] Board Type         - If the board is 'Open', new users will be allowed to
+                          log on and receive access level #1.  If the board is
+                          'Closed' new users will be given a message saying
+                          that it is closed, and will not be allowed to
+                          register.
+
+ [H] Connection Type    - Most users will want the connection type set to
+                          'Modem'.  What setting it to modem means is Host+Plus
+                          will poll the modem for calls, and it will display a
+                          "Waiting for Call" screen.
+
+                          If it is set to 'Direct' then there is no "Waiting
+                          for Call" screen, and Host+Plus will not poll the
+                          modem.  You should set this toggle to 'Direct' ONLY
+                          if you are using a LAN system to call in, or you are
+                          using a terminal dedicated to running Host+Plus.
+
+                          Please Note: This topic is fairly complex.  We suggest
+                                       you leave the toggle at 'Modem' which is
+                                       what most Sysops want.
+
+[Y][Z] Save Commands    - See the end of this section, where they will be
+                          reviewed in depth.
+
+
+Page Two Options/Settings
+-------------------------
+
+Command Summary
+---------------
+
+* See Figure 2 for a screen shot of page two of the Host+Plus Configuration
+  Program.
+ 
+ Figure #2 
+
+
+...............................................................................
+.                       Host+Plus Configuration Script            Page 2 of 2 .
+...............................................................................
+                                                                               
+ 
+...............................................................................
+. A  Use Quad-Menu System     . No                                            .
+. B  Default [Chat Allowed]   . No                                            . 
+. C  Chat color for remote    . Low Intensity White                           .
+. D  Chat color for local     . High Intensity Green                          .
+. E  Status line on/off       . Yes                                           .
+. F  UL:DL ratio for #2 users . 10:1                                          .
+. G  Time limit for #1 users  . 20                                            .
+. H  Time limit for #2 users  . 60                                            .
+. I  Auto-Baud detect(On/Off) . On                                            .
+. J  Default Level of Uploads . Level 2                                       .
+. K  Doorway Command Line     . /S:* /A:ON /V:D /M:100 /C:DOS                 .
+. L  Daily K for Level 2 user . 250k                                          .
+.                             .                                               .
+...............................................................................
+. Y  Abort Host+Plus Configuration                                            .
+. Z  Exit and save changes to disk                                            .
+...............................................................................
+
+
+
+ Please Note: The first two options on page two are toggles.  This means when
+              you select them, Host+Plus changes the value to the oppisite
+              value.  The [E] and [J] options are also toggles.
+
+[A] Use Quad-Menu System  - If you wish to use the quad-menu system (which was
+                            described previously in the manual), select Yes, if
+                            not, select No.
+
+[B] Default Chat Allowed  - In the waiting for call menu, on the status bar,
+                            there is a toggle on if you are available for HPAT.
+                            This selection sets in which state (Yes/No), the
+                            toggle will be in, upon loading.
+
+[C] Chat color for remote - This allows you to select which color the remote
+                            side will type in while chatting.  When you select
+                            this option, a menu will pop-up on the screen, and
+                            you will be asked to pick a color.  If you want a
+                            high-intensity color, select the [H]igh Intensity
+                            option.  The black is black-on-white, only so you
+                            can see it.  When you chat, the black will be
+                            invisible.
+
+[D] Chat color for local  - This allows you to select which color the local
+                            side (you), will type in during a Host+Plus HPAT
+                            mode.  Please see option [C] (above) for information
+                            on selecting colors.
+
+[E] Status Line on/off    - Upon startup, this will be the state of the status
+                            line that is displayed while the user is online.
+                            It may be toggled in Host+Plus with [F4].
+
+[F] UL:DL ratio           - How many files a access level two user must upload
+                            to be allowed to download a file.  If you select
+                            zero, ratios will not be enabled.  When ratios are
+                            selected, the user must upload one file to gain
+                            download privileges.
+
+[G] Time limit for sec.#1 - The amount of time per call a level 1 user gets
+[H] Time limit for sec.#2 - The amount of time per call a level 2 user gets
+                            Note: Access level #3 users (sysops) get an
+                                  unlimited amount of time on the system.
+
+
+[I] Auto-Baud detect      - Some high speed modems can detect the baud rate by
+                            itself, and need the communications port speed to
+                            remain constant.  Some examples are MNP modems, the
+                            USR Dual-Standard, and the Hayes V-Series modems.
+                            If this is set to off, the communications port baud
+                            rate settings will not be changed.  If it is set to
+                            on, they will.
+                            
+[J] Level of Uploads      - This is a toggle which allows you to define whether
+                            you want all uploads to be private (Level 3), by
+                            default when they are moved, or to be public (Level
+                            2 users can download them).  If a '/' character is
+                            put in the description, the file will be level 3.
+                            
+[K] Doorway Command Line  - Allows you to specify a command line to be sent to
+                            the Doorway program when (and if) it is run.  By
+                            default, Host+Plus assigns the /G option (ansi), 
+                            depending on the user's current ansi setting, but
+                            you may override this by putting a /G option in the
+                            command line.
+                            
+[L] K for Level 2 users   - The maximum amount of kilobytes a user with access
+                            level two (2), can download per call.  
+                            
+                            Note: Level 1 users cannot download at all, and
+                                  Level 3 users are not limited.
+
+
+
+Saving Commands
+---------------
+
+Please Note: The following commands can be used on any page.
+
+[Y] Abort Configuration   - Allows you to reset all changes, and exit HPConfig.
+[Z] Save Configuration    - Allows you to save all your hanges, and then opt
+                            to auto-install.  If this is your first time
+                            installing Host+Plus, select auto-install.  This
+                            will copy all your Host+Plus files to the correct
+                            directory.
+
+                            Please Note: Auto-Install uses "CS" to compile the
+                                         demo script extensions.  Have it in
+                                         your path.
+
+                            WARNING: Do not select this if Host+Plus is already
+                                     installed.
+
+                            HPConfig will then exit to Telix.
+
+
+
+Host+Plus Maintenance (HPM)
+---------------------------
+
+Host+Plus Maintenance (HPM), is a program designed to ease the process of
+making external files, such as bulletins, script questionnaires, file
+directories, and other files.  It will also do pesudo-packing of the message
+base and caller's log.
+
+Let us start with the main menu of HPM (See figure #3)
+
+ Figure #3 
+
+
+...............................................................................
+.                                      Host+Plus Sysop Maintenance Utility    .
+...............................................................................
+                                                                                
+ 
+...............................................................................
+.   . Enter/Edit/Read Messages                                                .
+. B . Pack/Delete Messages                                                    .
+. C . Read Log                                                                .
+. D . Pack/Delete Log                                                         .
+. E . File Editor                                                             .
+. F . User Editor                                                             .
+...............................................................................
+. Z . Exit Sysop Maintenance Utility                                          .
+...............................................................................
+
+
+
+Please Note: As you probably can see, there is no letter next to the first
+             option, and there is no "A" letter.  Well... wait until the next
+             version!
+
+[B] - What this function does is it puts all the messages you specify into an
+      archive and then deletes them.  It is a kind of pesudo-packing.
+
+[C] - Views the caller's log (see Sysop function [4] for more information).
+
+[D] - This function puts the user's log into a archive file with the current
+      date in the mmdd.LOG format.  The archive (zip) file is named PAKDLOGS.
+      It then deletes the LOG.HP file.  This again, is a kind of "pesudo-
+      packing".
+
+[E] - See the section on The File Editor
+
+[F] - Executes the external user editor.  See The External User Editor (HPUE),
+      in this appendix.)
+
+[Z] - Returns to Telix terminal mode.
+
+
+The File Editor
+---------------
+
+The file edtior is one of the main sections of HPM: This is the section which
+actually creates the files, one of the main jobs of HPM.
+
+Once you have entered it you will see another menu (see Figure #4):
+
+ Figure #4 
+
+
+...............................................................................
+.                                      Host+Plus Sysop Maintenance Utility    .
+...............................................................................
+                                                                                
+...............................................................................
+. A . File Catagory menu						      .
+. B . Transfer protocols						      .
+. C . Waiting messages							      .
+. D . Questionnaires							      .
+. E . Bulletins 							      .
+. F .  Other file							      . 
+...............................................................................
+. Z . Exit Menu Editing Utility 					      .
+...............................................................................
+
+WARNING: When using this section pay close attention to the bottom help lines.
+         Also, ONLY use HPM if you will use it at all.  HPM depends on various
+         headers in the DIROFDIR.HP, the QUESMENU.HP, and the BLTLIST.HP file
+         to make entries look even.
+
+
+[A] - This function creates the DIROFDIR.HP file, and the directory files
+      (*.DIR).  It uses numbers for the directory names.
+
+      All you have to do is enter the directory descriptions, and HPM will do
+      the rest.
+
+      WARNING: Descriptions should be limited to 25 characters or less.
+
+[B] - This is probably the most automatic function in Host+Plus.  It will read
+      the external protocol data file (EXTPROT.HP), created by HPRP.  If it is
+      not there, a warning window will pop up.  After words, it will test which
+      protocols are available, both the external (by trying to locate the batch
+      files), and internal ones (by looking at the Telix version number and
+      searching inside the Telix executable).  External protocols will be
+      printed in green (versus cyan for internal protocols), and will not be
+      tagged, even if they are found.  However, the PROTOCAL.HP file will
+      reflect existence of the external protocol execution files.
+
+[C] - Waiting messages simply loads a users messages waiting (username.MSG) file
+      into QEdit, the perferred local side editor.
+
+[D] - This function allows you to make questionnaires.  All you have to do is
+      enter the name or number of the questionnaire, a description, and the
+      questions.  Press [Enter] on a blank question line when finished.  HPM
+      will make the questionnaire file and update the QUESMENU.HP file also.
+
+      Please Note: If you type 'N' at the prompt asking for the name, you will
+                   be editing the new user script.
+
+[E] - This function allows you to make bulletins.  All you have to do is enter
+      the name or number, a description, and finally the actual text in the line
+      editor (which does have word wrap), and then save it at the edit sub-menu.
+      You may access the sub-menu by pressing [Enter] on a blank line. HPM will
+      make both the bulletin file with a header, and an entry into the
+      BLTLIST.HP file.
+
+[F] - You will be prompted for a file name (the name of the file you wish to
+      edit), and which editor you want to edit the file in.
+
+      This is for other files that HPM does not already have a pre-made editor
+      for.
+
+      WARNING: The editor must be in the current directory or your path.
+
+[Z] - Exits back to the main HPM menu.
+
+
+Host+Plus User Editor (HPUE)
+----------------------------
+
+The Host+Plus User Editor allows you to easily edit user information, much like
+you do with the [F9] command locally, or the [1]-User Editor command from the
+remote.  However HPUE is different because it has a light-bar/window
+enviornment, like Host+Plus Maintenance and Host+Plus Configuration. (Figure #5)
+While this enviornment is easy to use, it is not available from remote.  By 
+default, the first user in the user's file is loaded at startup.
+
+
+ Figure #5 
+
+
+...............................................................................
+.                            Host+Plus User Editor                Page 1 of 2 .
+...............................................................................
+                                                                                
+...............................................................................
+. A . User Name 							      .
+. B . User Password							      .
+. C . Access Level							      .
+. D . Data Phone Number 						      .
+. E . Home Phone Number 						      .
+. F . Number of Downloads						      .
+. G . Number of Uploads 						      .
+. H . Number of Times on						      .
+. I . Protocal								      .
+. J . Page Length							      .
+. K . Expert Mode							      .
+.   . Last Time On							      .
+.   .									      .
+...............................................................................
+. Y  Save User INFormation						      .
+. Z  Exit User Editor							      .
+...............................................................................
+
+
+
+There are two pages of user data which can be edited.  On the first page there
+are several options:
+
+[A] - This allows you to enter a user name.  If the user exists, their account
+      will be shown on the screen, in the appropriate areas.  If you had been
+      editing a previous user, and enter a new user name, which is not already
+      being used, a new user record will be created.
+
+[B] - Allows you to change a user's password.  The password is put in all-CAPS
+      after you enter it.
+
+[C] - Allows you to change a user's access level.  The access level you choose
+      must be a valid number, from 0 to 3.  Please see the section [PgDn], in
+      the "Local Side Commands" section, for a complete description of access
+      levels.
+
+[D] - Allows you to change the user's data (business) phone number.
+
+[E] - Allows you to change the user's home phone number.
+
+[F] - Allows you to alter how many files the user has downloaded.
+
+      WARNING: Host+Plus has accurate count.  Although we do not see why anyone
+	       would need to alter it, it is alterable.
+
+[G] - Allows you to alter the number of files a user has uploaded.  You should
+      use this if a user uploads a "junk" file, or something of the sort.
+
+      Please Note: Host+Plus maintains an accurate count of uploads
+		   automatically.
+
+[H] - Allows you to alter the number of times a user has been on the system.
+
+[I] - Allows you to select the user's default protocol.  The protocol menu,
+      [PROTOCAL.HP] will be displayed, and you should select a protocol.  This
+      menu operates almost identically to the [*] function in Host+Plus.
+
+[J] - Allows you to change a user's default page length.  This means how many
+      lines will be displayed before a More: [Y/N/C] prompt appears.  If you
+      select 0 lines, a more prompt will not be displayed.
+
+[K] - Allows you to set if a user, by default, will start in expert mode, or in
+      novice mode.
+ 
+[ ] - Last on: Displays the last date on.  Not alterable.
+
+[Ctrl-P] - Allows you to print all users, a specific user (by their user 
+	   number), or the current user that is being edited.  When the users
+	   are printing, the screen clears and the user information flashes on
+	   the screen for the user that is currently being printed.
+
+There is another page of user information (See Figure #6).
+
+
+ Figure #5 
+
+
+...............................................................................
+.                            Host+Plus User Editor                Page 2 of 2 .
+...............................................................................
+                                                                                
+ 
+...............................................................................
+. A . Address (Street)							      .
+. B . City/Town 							      .
+. C . State (two letters)						      .
+. D . Zip-Code (and ZIP+4)						      .
+. E . Last message read 						      .
+. F . Hotkeys (On/Off)							      .
+. G . User Flag 							      .
+. H . User Comment							      .
+...............................................................................
+
+
+The options are as follows on this page:
+
+
+[A] - The user's address.  His street number, street, and designation (Avenue,
+      Road, Street, Drive, etc.), are entered here.
+
+[B] - Allows you to alter the city the user lives in.
+
+[C] - Allows you to alter the state the user lives in.
+
+[D] - Allows you to alter the user's zip code (please add the ZIP+4, if you
+      know it.  This allows you to maintain better records.)
+
+[E] - Allows you to alter the user's last message read.
+
+[F] - Toggle: This allows you to alter the users preference of the hotkeys 
+      being on or off
+      
+[G] - Allows you to change the user's user flag.  This flag is either 
+      "Regular User", "Never Delete", or "Delete".  A regular user is one who
+      is deleted by the user compressor if they haven't called in 'X' days.
+      Never Delete means that the user is never deleted.  Assign this to level
+      3 and level 0 users.  (Level 0 users shouldn't be deleted because they
+      are locked out).	Delete means the user is deleted no matter what when
+      the user compressor is run again.
+      
+[H] - Allows you to change the comment on the user.  The default comment is
+      the date that the user first logged on to the system.  This was in early
+      (pre-Beta 5) versions of Host+Plus.
+
+
+Special Information: Included in Host+Plus is a file called HPUC.SLC.  This 
+                     script is a user file compressor.  When you run it, it
+                     asks for a date from which to delete users if they haven't
+                     called since then.  The user flags ("Regular User", "Never 
+                     User", and "Delete") are all acted upon accordingly.
+
+
+Host+Plus Download Director (HPDD)
+----------------------------------
+
+This is the most complex Host+Plus external program.  When you first load HPDD,
+you are presented with a screen that is split into two parts.  On the top, the
+contents of the uploads directory (UPLOADS.DIR) is listed, press [PgUp] and
+[PgDn] to scroll through it.  On the bottom half is the command list, which is
+as follows:
+
+[M]ove All - This moves all files in the uploads directory to the directory the
+             user suggested when they uploaded it.  If the suggested directory
+             does not exist, HPDD will beep, and prompt you for a directory.
+
+             WARNING: We believe this module has a few bugs, although we cannot
+                      determine them at this time.  It is advised not to use
+                      this module until further notice.
+
+[A]sk All  - This preforms a [S]elect number command on all files in the upload
+             directory.  It is the advised way of transfering large numbers of
+             files.
+
+[L]ocal UL - This allows you to "upload" a file from your disk drive.  When you
+             select this option, you will be asked to confirm.  After that,
+             enter the filename you wish to "upload".  If it is invalid, you
+             will be asked for another name.  After this, you will be asked for
+             the security level of the file (what sec. level is needed to
+             download it), a description, and the directory to put it in. HPDD
+             will then move the file.
+
+[S]el. No. - As you might have noticed, each file has a number next to it.  At
+             the prompt, enter the number of the file which you wish to edit.
+             After you enter a valid number, another screen will appear.  On
+             the top, information about the file (name, date, size, uploader,
+             description, etc.) will be displayed.  On the bottom there are
+             several commands
+
+             [M]ove File - This command lists the DIROFDIR.HP file, and then
+                           asks you for the directory to transfer the file to.
+                           HPDD then moves the file to the download directory
+                           and makes an entry into the specified directory file
+                           
+             [C]hange Desc-This feature allows you to change the description of
+                           a file before you move it.  For instance, if someone
+                           puts a totally incorrect description on the file, 
+                           then this will allow you to change it.  After you
+                           change the description, this function will then ask
+                           you for the access level you want this file to be
+                           placed at.  
+                           
+                           Note: [Enter] at either prompt will keep the old
+                                 value unchanged.
+
+             [D]elete    - This allows you to delete a file.  When you select
+                           it, it will ask you if you wish to move the entry in
+                           as a deleted entry.  This means that there will be
+                           an entry in the file directory, and in the date
+                           range it will say deleted.  The file, however, will
+                           actually be deleted whether you reply yes or no.  If
+                           you reply yes, you will be asked if you want to 
+                           change the description.  The reason we have this is
+                           if you want to tell your users what was wrong (i.e.
+                           BAD ARHPIVE).  Finally, you will be asked to confirm
+                           the deletion.
+
+             [V]iew ARC  - This command emulates the HOST+ version of [A]rc
+                           View.  You may view or extract files, list the
+                           archive, or test the integrity of the archive.
+
+                           Please Note: This command also works with Zipfiles.
+
+
+
+Appendix E - Future Enchancements to Host+Plus
+----------------------------------------------
+
+* Full screen ANSI chat mode
+
+* Full Screen Message Editor 
+
+* Sysop definable access levels
+
+* Multiple archive formats (PAK, LZH, and possibly ZOO)
+
+* Take phone off hook when in the [O]ther Menu and in [L]ocal Mode
+
+* More flexibility in HPDD (which will allow you to change a file's status
+  after it has been moved.
+  
+* The [M]ove All bug in HPDD will be fixed.
+
+* Standard Telix colors throughout all modules (not just HOST+)
+
+* Vastly enchanced callback (area code checking, etc.)
+
+* Vastly enchanced BBS Lister (it will be a true database)
+
+* A MAYBE: Configurable chat times
+
+* A MAYBE: Configuration in HOSTPLUS.SLC file
+
+* A MAYBE: Allow the sysop to configure the access level for each command.
+
+
+Beta 3 will have probably have many of these features, and will have any 
+remaining bugs removed.  Host+Plus 1.00 will be almost identical to 
+Beta 3 and will be released several months afterwords (to allow time for a 
+long beta test).
+
+
+
+Appendix F - Registration Terms
+-------------------------------
+Host+Plus is Copyright (c) 1986, 1987, 1988, 1991 by CompuProducts Ent.
+
+      Host+Plus is not, nor has ever been, public domain or free software.
+
+      The commercial, registered version of Host+Plus may not be duplicated
+      other than for backup purposes. A registered copy of Host+Plus must be
+      treated like a book, in that the same registered copy of Host+Plus may
+      not be used in more than one computer at the same time, just as a
+      book may not be read by more than one person at the same time
+      (without making an illegal copy).
+
+      Users are granted a limited license to use the User Supported, trial
+      version of Host+Plus for a limited evaluation period of up to 45 days,
+      in order to determine if it suits their needs. Any other use of
+      Host+Plus or use past this period requires registration.
+
+      All users are granted a limited license to copy the User Supported
+      version of Host+Plus only for the purpose of allowing others to try it,
+      subject to the above restrictions as well as these:
+
+           Host+Plus must be distributed in absolutely unmodified form, in-
+           cluding ALL program, documentation, and other files.
+
+           Host+Plus may not be included with any other product for any reason
+           whatsoever without a license from CompuProducts.
+
+           No charge or payment may be levied or accepted for Host+Plus.
+
+      Bulletin Board system operators may post the unregistered, User Sup-
+      ported version of Host+Plus on their BBS for downloading by their users
+      without written permission only if the above conditions are met, and
+      only if no special fee is necessary to access the Host+Plus files (a
+      general fee to access the BBS is ok).
+
+      Distributors of User Supported and Public Domain software MUST ob-
+      tain written permission from CompuProducts Ent. before distributing 
+      Host+Plus and must follow the above conditions. Permission is almost 
+      always granted; this requirement is necessary to ensure protection 
+      for ourselves and Host+Plus users from unscrupulous individuals.
+
+      The following section contains information on registration and li-
+      censing.
+
+                                                                   iv
+
+
+
+
+                       REGISTRATION/ORDERING INFORMATION
+
+      Registering Host+Plus allows you to use the product after the trial pe-
+      riod. Registered Host+Plus users get the current copy of Host+Plus on disk
+      along with their own serial number, mailed notification of major
+      Host+Plus updates, and priority when calling the Host+Plus Software support
+      BBS (we guarantee no support to unregistered users). Most impor-
+      tantly, registered users know they are helping to make sure that
+      high-quality software like Host+Plus continues to be sold in this low-
+      cost way.
+
+      Host+Plus registration costs $20 IN US FUNDS ONLY, and includes a
+      'registered' copy of Host+Plus on disk. An evaluation disk with the cur-
+      rent copy of Host+Plus on it is also available for $5 IN US FUNDS ONLY.
+      This is to be used to try out Host+Plus, and does not include registra-
+      tion (the right to use Host+Plus after the evaluation period). The fee
+      covers the cost of diskette(s) and handling.
+
+      Payment may be in the form of check, or money order.  We also accept
+      corporate purchase orders for amounts of $100 US and over. All US dollar
+      checks must be drawn on a US bank.
+
+      To place an order, please use the order form on the following page.
+
+
+                        QUANTITY AND CORPORATE PURHPASES
+
+      The order form on the following page may be used to purchase mul-
+      tiple copies of Host+Plus, with discounts as follows:
+
+                  1 -  10 copies     no discount
+                 11 -  20 copies     5% discount
+                 21 -  50 copies    10% discount
+                 51 - 100 copies    20% discount
+		101 - 200 copies    30% discount
+		200+	  copies    40% discount
+
+      Purchases of up to 10 copies are bulk purchases and include that
+      many copies of Host+Plus on disk, as with single registrations. Pur-
+      chases of 11 or more copies are site licenses. CompuProducts provides a
+      master copy of Host+Plus and the appropriate number of diskette labels.
+      The licensee is responsible for copying the disks (backups of the
+      MASTER do not count towards the total copies in the license).
+
+      Note: All prices and discounts are subject to change without notice.
+      Discounts apply only to separate orders, they are not cumulative.
+
+      Please Note: All orders by check will be allowed a two week clearance
+                   period before shipment.
+
+
+      
+
+
+
+
+      Host+Plus version 1.00 Beta 8                     Invoice #729-HP8
+      ------------------------------------------------------------------
+  Remit to:  CompuProducts Ent/350 Hobart Avenue/Short Hills, NJ 07078-2238
+      ------------------------------------------------------------------
+      Quan	 Item						    Price
+
+      ___  Host+Plus Registration................   @ $20/copy     $________
+            (includes serial #, registration +
+              program and manual on disk)
+      ___  Host+Plus evaluation disk.............   @ $10/copy     $________
+             (includes program and manual
+              on disk, but not registration)
+
+                                  Add $2/copy for 3.5" disks   $________
+
+                                                    Subtotal   $________
+
+                                                  - Discount   $(______)
+
+              New Jersey residents please add Sales Tax (8%)   $________
+
+                                          Shipping ($5/copy)   $________
+
+                                                       TOTAL   $________
+
+      -----------------------------------------------------------------
+      Payment by: ( ) Check   ( ) Money Order  
+
+          Name_______________________________________________________
+
+       Company_______________________________________________________
+
+       Address_______________________________________________________
+
+              _______________________________________________________
+
+         Phone (______)-________________
+
+
+      Comments_______________________________________________________
+
+              _______________________________________________________
+
+
+
+
+                           

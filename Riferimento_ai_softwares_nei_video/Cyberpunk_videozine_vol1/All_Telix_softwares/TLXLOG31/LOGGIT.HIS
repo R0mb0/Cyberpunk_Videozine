@@ -1,0 +1,15 @@
+
+LOGGIT -- Telix Use file Analyzer -- Revision History
+
+02-20-89 -- Version 2.0
+	    Initial Release
+04-08-89 -- Version 3.0
+         -- Improved mono routines
+         -- Added average time display
+         -- Added file abort count
+         -- Added transfer speed display
+04-12-89 -- Version 3.1
+         -- Added /t command line switch to
+            Enable/Disable checking file integrity
+
+
