@@ -18,6 +18,8 @@ Source: INTERNET ARCHIVE
 [![Cyberpunk_videozine_vol1_yt](https://github.com/R0mb0/Cyberpunk_Videozine/blob/main/Copertine_video_in_rete/Videozine%20Cyberpunk%20I%2C%20Doc%20Raro%20(HQ).jpg)](https://www.youtube.com/watch?v=MQ7CYeprqnU)   
 Source: youtube
 
+### ⬆️ [Software citato nel video](https://github.com/R0mb0/Cyberpunk_Videozine/tree/main/Riferimento_ai_softwares_nei_video/Cyberpunk_videozine_vol1) ⬆️
+
 ### Cyberpunk videozine vol 2
 
 [![Cyberpunk_videozine_vol1](https://github.com/R0mb0/Cyberpunk_Videozine/blob/main/Copertine_video_in_rete/Decoder%20Cyberpunk%20%20%20Videozine%20%202%20(HQ).jpg)](https://www.youtube.com/watch?v=KxVLI6gTEKI)   
