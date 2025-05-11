@@ -25,10 +25,14 @@ Source: youtube
 
 <details>
 <summary>
-  
-## Un omaggio speciale a [Sixthclone](https://www.youtube.com/@Sixthclone)
-
+<h2> Un omaggio speciale a <a href="https://www.youtube.com/@Sixthclone)"> Sixthclone <img vertical-align="middle" height="10%" width="10%" src="https://yt3.ggpht.com/ytc/AIdro_nexicen5-7JqbzLJJ-f4B7V0_x6_-CD4WlHuaLqz7-4gU=s800-c-k-c0x00ffffff-no-rj" alt="Sixthclone profile image" /></a></h2>
 </summary>
+<div align="center">
 
+### SIXTHCLONE - Smaila 2087™ (Official Video)
 
+[![SIXTHCLONE - Smaila 2087™ (Official Video)](https://i.ytimg.com/vi/l5cig0ay4X8/hqdefault.jpg?sqp=-oaymwE2CNACELwBSFXyq4qpAygIARUAAIhCGAFwAcABBvABAfgB_gmAAtAFigIMCAAQARhyIEEoRjAP&rs=AOn4CLBRs8LdlZVL4xlTGH9uxTLPYRcSpw)](https://www.youtube.com/watch?v=l5cig0ay4X8)
+Source: youtube
+
+</div>
 </details>
