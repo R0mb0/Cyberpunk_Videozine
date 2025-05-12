@@ -17,7 +17,7 @@ After adding the video to the 'add to archive' utility, I compressed and split t
 - Word size: 64
 - Solid Block size: 4GB
 - Number of CPU threads: max
-
+---
 - Split to volumes. bytes: 10M
-
+---
 - The rest of the options: must be left as they are, without changing any settings
