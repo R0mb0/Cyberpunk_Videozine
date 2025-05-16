@@ -25,6 +25,8 @@ Source: youtube
 [![Cyberpunk_videozine_vol1](https://github.com/R0mb0/Cyberpunk_Videozine/blob/main/Copertine_video_in_rete/Decoder%20Cyberpunk%20%20%20Videozine%20%202%20(HQ).jpg)](https://www.youtube.com/watch?v=KxVLI6gTEKI)   
 Source: youtube
 
+### ⬆️ [Software citato nel video](https://github.com/R0mb0/Cyberpunk_Videozine/tree/main/Riferimento_ai_softwares_nei_video/Cyberpunk_videozine_vol2) ⬆️
+
 <details>
 <summary>
 <h2> Un omaggio speciale a <a href="https://www.youtube.com/@Sixthclone)"> Sixthclone <img vertical-align="middle" height="10%" width="10%" src="https://yt3.ggpht.com/ytc/AIdro_nexicen5-7JqbzLJJ-f4B7V0_x6_-CD4WlHuaLqz7-4gU=s800-c-k-c0x00ffffff-no-rj" alt="Sixthclone profile image" /></a></h2>
