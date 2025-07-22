@@ -1,0 +1,15 @@
+{
+  name = yoke;
+  plgfile = yoke.plg scale 1,1,1;
+  pos = ;
+  {
+    {
+     name = yokebut;
+     plgfile = yokebut.plg scale 1,1,1;
+    }
+    {
+     name = yokestik;
+     plgfile = yokestik.plg scale 1,1,1;
+    }
+  }
+}
