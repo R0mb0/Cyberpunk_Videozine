@@ -1,0 +1,214 @@
+//-----------------------------------------------------------
+// RBBSREG.SL? Automatic registration to a new RBBS.
+
+// Telix script for first logon to an RBBS system.
+// This script is normally called from the script RBBS.SLC.
+//
+// Please look at the comments through the whole file, and modify to
+// suit your needs, BEFORE you use it. Then recompile with CS RBBSREG. 
+//-----------------------------------------------------------
+
+// If you have suggestions for improving this script, please suggest
+// improvements to me via old-fashioned snail-mail to:
+
+// Author:  Inge Vabekk
+//          Hamangskogen 108
+//          N-1300 SANDVIKA
+//          NORWAY
+//          tel. (472) 546 396
+
+str thisBBStype[]="RBBS"     // Works only for RBBS.
+   ,line       [80]          // Line for string storage.
+   ,temp        [4]          // Temporary for short strings.
+                             // For the Global storage:
+   ,global   []="GLOBAL"     // Global script.
+   ,bbstype  []="BTYPE"      // BBS type.
+   ,cprot    []="CPROT"      // Current protocol.
+   ,name     []="NAME"       // User name
+   ,addr     []="ADDR"       // Address
+   ,country  []="STATE"      // Country
+   ,mail     []="MAIL"       // Mail address
+   ,hfone    []="HTEL"       // Home phone
+   ,wfone    []="WTEL"       // Work phone
+   ,work     []="WORK"       // Profession
+   ,telver   []="TELVER"     // Telix version number
+   ,modem    []="MODEM"      // Type of modem
+   ,cpu      []="CPU"        // Type of CPU
+   ,passw    []="PASSW"      // Actual password
+   ;     
+
+int tol = 300                // No activity for « minute
+   ,i, x                     // makes script time out.
+   ,stat, tmark
+   ;
+
+//-----------------------------------------------------------
+// Script starts here.
+//-----------------------------------------------------------
+
+main()
+{
+int l;
+
+  entry();                               // Updates colors & status bar. 
+
+// Only if online.
+
+  if (!carrier())  
+  { failtone();
+    status_wind ("Tý: THIS SCRIPT ONLY WORKS IF YOU'RE ONLINE!",20);
+    return (-1);
+  }
+
+  read (bbstype,line);                   // Get current BBS type.
+  if (line != thisBBStype)  
+  { wrongBBS();                          // Doesn't match script!
+    return (-1);
+  }
+
+// Wait for your own name.
+
+  read (name,line);                      // Get user name.
+  if (!waitfor (line,3))                 // Wait 3 sec. for echo.
+    return (-1);                         // Incorrect.
+
+  flush();
+  cputs ("Y^M");                         // Correct; answer Yes.
+
+  if (!waitfor("CITY and COUNTRY?",3))   // Wait again.
+    return (-2);                         // Not received.
+
+// Construct city and country, fx "SANDVIKA NORWAY".
+
+  read (addr,line);                      // Get address.
+  l = strlen(line);
+  for (i=0; i<l; ++i)  
+  { if (subchr(line,l) > '9')            // Skip postal code
+      break;
+  }
+  for ( ; i<l; ++i)                      // Copy post-office name.
+    cputc (subchr (line,l));             // Send the rest.
+
+  cputs (" ");
+  read (country,line);
+  cputs (line);                          // Echo city and country.
+  cputs ("^M");
+
+  waitfor ("Key to continue",3);         // Wait again.
+  cputs ("^M");                         
+
+  waitfor ("[R]egister?",3);             // Want to register?
+  cputs ("R^M");                         // Of course!
+
+  waitfor ("use to logon again?",3);     // Wait for password request.
+
+  read (passw,line);
+  for (i=0;i<2; ++i)                     // Password must be sent twice.
+  { cputs(line);             
+    cputs("^M");
+    if (i==0)
+    waitfor ("Verification (Dots Echo)?",3); // Verify password.
+  }
+
+  waitfor ("present yourself now? (Y/N)?",3); // Present yourself.
+  cputs ("Y^M");
+
+  waitfor ("voice phone number?",3);     // Voice phone
+  read (hfone,line);
+  cputs (line);
+  cputs ("^M");
+
+  waitfor ("address (on one line please)",3); // Street address
+  read (addr,line);
+  cputs (line);
+  cputs ("^M");
+
+  waitfor ("School do you go to?",3);    // School or work
+  read (work,line);
+  cputs (line);
+  cputs ("^M");
+
+  waitfor ("(Type ^"N^" if nothing)",3);
+  cputs ("N^M");
+
+  waitfor ("ll on one line, please)",3); // Modem and program
+  read (modem,line);
+  cputs (line);
+  cputs (", TELIX ver. ");
+  read (telver,line);
+  cputs (line);
+  cputs ("^M");
+
+  waitfor ("system(s) do you use?",3);   // Computer system(s)
+  read (cpu,line);
+  cputs (line);
+  cputs ("^M");
+
+  waitfor ("with your answers (Y/N)?",3);// Satisfied?
+  cputs ("Y^M");
+
+  waitfor ("C)ontinuous,A)bort?",5);     // More?
+  cputs ("N^M");                         // No thanks.
+
+  return(0);                             // Registration OK.         
+}
+                                         
+//-----------------------------------------------------------
+// Wrong BBS type.
+//-----------------------------------------------------------
+
+wrongBBS()
+{
+str help[48];
+
+    failtone();                          // Alarm.    
+    help = "This script is for ";        // Catenate strings.
+    strcat (help,thisBBStype);
+    strcat (help," only!");
+    status_wind (help,20);               // Display message for 2 sec.
+}
+
+//-----------------------------------------------------------
+// Play fail tone.
+//-----------------------------------------------------------
+
+ failtone()
+{
+  int n;
+  for (n=140; n > 10; n = 100*n/120) 
+  { tone(n*10,12);                       // Fail tone!!
+    terminal();                          // Process text.
+  }
+}
+                                        
+//-----------------------------------------------------------
+// Routine to update colors and status bar.
+//-----------------------------------------------------------
+
+entry ()
+{
+  _back_color = 1;
+  _fore_color = 14;
+  update_term();
+}
+
+//-----------------------------------------------------------
+// Read a global variable.
+//-----------------------------------------------------------
+
+read (str name, str varname)
+{
+  return (call (global,"R",name,varname));
+}
+
+//-----------------------------------------------------------
+// Flush incoming text from BBS.
+//-----------------------------------------------------------
+
+flush()
+{
+  do
+  { terminal();                          // Process all echo
+    delay(1);                            // from the BBS.
+  } while (cinp_cnt() > 0);
+}

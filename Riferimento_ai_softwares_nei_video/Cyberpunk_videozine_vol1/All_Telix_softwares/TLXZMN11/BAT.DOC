@@ -1,7 +1,0 @@
-The sample Batch files illustrate a way to turn off your mouse menu
-before running an editor or file directory program from telix.  If 
-the programs that you run from telix have their own mouse support, 
-they will shut off TLXZMENU.  Construct a batch file to call your 
-program and disable TLXZMENU.  In your batch file, after the program 
-name, enter the commands to re-install TLXZMENU.  In telix put your 
-batch file's name in place of the program's name.

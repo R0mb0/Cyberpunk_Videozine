@@ -1,0 +1,162 @@
+USRobotics Courier HST Telix Service Script Production Release 1.0
+-------------------------------------------------------------------
+
+(C) Copyright Andrzej Taramina 1988, 1989
+
+The USRobotics logo, Courier, and HST are trademarks of
+USRobotics, Inc.
+
+Telix is the trademark of Colin Sampaleanu and Exis Inc.
+
+DISCLAIMER
+
+This script is copyrighted solely to prevent others from reaping
+financial gain through its sale and/or use.  Permission has been
+given to Colin Sampaleanu and the Exis Inc., to
+distribute this script as part of the Telix program
+package.  It may not be distributed as part of any other
+computer communication hardware or software package without the
+written permission of the author.  This script may be copied and
+distributed freely by private individuals who wish to share it
+with others as long as no specific charge is assessed for this
+service other than minimal fees to cover the distribution medium
+and the copying service itself.  Permission is hereby granted to
+System Operators of active Bulletin Boards to post the TLX_HST
+ARChive for public distribution.  Due to the easily modifiable
+nature of scripts,  modified versions of the script
+should bear a different name and have their origin clearly
+identified.
+
+If you like and use this script along with the Telix communications
+package, please consider registering Telix with Colin/Exis if you
+have not already done so.  Colin has spent many hours in developing
+the best comm. program on the market (shareware or commercial) and
+provides a high degree of support to his users....he is deserving of
+our financial support.  This will allow for release 4.0 (in planning
+at this moment) to be even better still!  Do your part to keep
+the Shareware concept viable and thriving in the future!  Please
+register Telix.
+
+
+COMMERCIAL USES OF THE HST SCRIPT
+
+The series of TLX_HST Telix Scripts may not be used for
+marketing, demonstrations, advertising, problem diagnosis or
+correction OR ANY COMMERCIAL or Business purposes by modem
+manufacturers, their agents, dealers, resellers, or any company
+or individual involved in the sale, marketing, or maintenance of
+modems or other computing devices.  Commercial and/or business
+uses of the TLX_HST script(s) requires formal licensing of this
+product.  To obtain a commercial-use license for the TLX_HST
+script(s), the author may be contacted at the address shown at
+the end of this document or on one of the Bulletin Boards listed
+at the end of the TLX_HST.1ST file included with this package.
+
+
+TELIX RELEASE DEPENDENCY
+
+This script will operate with TELIX 3.11 (and later
+releases of TELIX).  Due to Telix Salt Script Language
+dependencies, Release 1.0 of this script WILL NOT OPERATE under
+pre-3.10 releases of Telix. It should run under 3.10 but has not
+been tested under that release.
+
+
+OPERATIONAL SUMMARY
+
+TLX_HST.SLC is intended as a configuration and setup help for the
+USR HST modem, and although it facilitates much of the modem's
+setup tasks, some knowledge of the HST's operation and
+technology is required, as well as a basic understanding of
+computer communications.
+
+If you are using TLX_HST to set up your USR Courier HST for use
+with Telix 3.11 or PCBoard 14.x, two menu options (TX and PC)
+will perform all firmware configuration, leaving physical switch
+changes up to the user (but correct switch settings are
+displayed as part of the script's operation).
+
+TLX_HST automatically detects the ROM release level of your modem.
+If your USR HST modem is at ROM level 964 (the latest ROM
+level at the time of this release), TLX_HST will allow you
+access to a second level of menu via the "AD" main menu option.
+This second menu accesses HST features only available in
+964-level modems, such as data compression (MNP level 5),
+settings for the new S-register 15, 4800/7200 link rate
+settings, and the new modem configuration screen.  Advanced
+Functions are NOT available for ROM releases prior to 964.
+
+
+SETTING UP THE HST FOR TELIX OPERATION
+
+Although TLX_HST eases the setup tasks, it can't do it all.  It is
+likely that you will need to change the modem's switches from
+their default factory settings to the setup recommended in the
+menu's TX or PC options.  Unfortunately, TLX_HST can't quite
+"reach out and touch switches"; you must do this yourself.  The
+script makes you aware of this requirement.
+
+Another very important part of the modem setup is the
+configuration of Telix itself.  With release 3.1x of Telix,
+this is done with the ALT-O command, which updates the
+Telix configuration file. Another text file, (TLX_HSTS.DOC)
+included in this ARChive, will help you select the proper Telix
+configuration parameters for the HST modem.
+
+I recommend that you keep your HST manual handy while you
+experiment with the script.  Bug reports or suggestions for
+changes or improvements should be reported to the Canada Remote
+Systems or Rose Media BBS's in Toronto.
+
+
+FRIENDLY WARNING
+
+TLX_HST can make permanent changes to the modem's internal
+configuration.  Once a setting has been changed, writing the
+change to Non-Volatile RAM (NRAM) implements the change until
+that setting is changed and written to NRAM again.  Changes to
+NRAM are maintained even when the modem power is OFF.  If you
+have a working set of modem settings and wish to experiment, do
+not copy the changes to NRAM.  The next hardware reset or
+power-off / power-on sequence will re-establish the last NRAM
+settings.  A text file (TLX_HSTI.DOC) describing the HST's basic
+internal operation is included in this ARChive; you may wish to review it
+to gain a better understanding of the modem's settings.
+
+
+NRAM NOTES TO PCBOARD USERS
+
+PCBoard software insists on having total control over modem
+answer operations following RING detect.  To comply with this
+requirement, TLX_HST sets the RAM value of register S0 to zero to
+disable automatic call answering. This script also indicates
+that switch 5 be left in the DOWN (ON) position, which disables
+automatic call answering and leaves this feature entirely under
+software control.
+
+
+
+SUPPORT
+
+I will attempt to correct problems with this script, as well as
+keep it current with releases of the HST's firmware and Telix
+software only as time allows.  This is a personal effort which I
+am sharing, but for which I receive no remuneration (except from
+commercial users of the script).  Please make no unreasonable
+demands for support, especially for things that are not broken;
+you got this for free and if it does not perform as you would
+like it to, you have a God-given right not to use it.  You may
+also chose to alter the script to meet your unique requirements.
+If you do so, please do not distribute the modified version
+under its original name.  You may contact me on a number of
+bulletin boards, a list of which is contained towards the end of
+the TLX_HST.1ST file included in this ARChive.
+
+
+Andrzej Taramina
+58 Aquila Court
+Rexdale, Ontario
+Canada M9W 5J2
+
+12/13/1988
+

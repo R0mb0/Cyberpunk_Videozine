@@ -1,0 +1,40 @@
+str mptcmd [127];
+main()
+
+{
+	str port [4];
+	int ret, c;
+	str protocol[5]="mpt";	// puma users: change "mpt" to "puma"
+
+	mptcmd="A- F+ N+ M- P";
+	itos (get_port(), port);
+	strcat (mptcmd, port);		// add port
+	strcat (mptcmd, " S0");	// add speed (0=auto adjust)
+	if (_zmod_rcrash) strcat (mptcmd, " R+");	// resume file
+	else strcat (mptcmd, " O+");			// overwrite file
+	if (_sound_on) strcat (mptcmd, " B+");		// beep when finished
+	else strcat (mptcmd, " B-");			// silence
+	strcat (mptcmd, " X+ r ");
+	strcat (mptcmd, _down_dir);
+	prints (mptcmd);
+	ret=run (protocol,mptcmd,0);
+	if (_sound_on) {
+		if (ret) {
+			// command failed.  descending tones
+			for (c=1; c<=3; ++c) {
+				tone (790,17);
+				tone (657,17);
+				tone (530,17);
+			}
+		}
+		else {
+			// command succeeded.  ascending tones
+			for (c=1; c<=3; ++c) {
+				tone (530,17);
+				tone (657,17);
+				tone (790,17);
+			}
+		}
+	}
+	return (0);
+}

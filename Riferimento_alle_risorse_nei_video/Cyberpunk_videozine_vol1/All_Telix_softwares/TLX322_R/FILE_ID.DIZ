@@ -1,0 +1,9 @@
+Patch file for REGISTERED versions of Telix
+to take versions 3.11 or later to version
+3.22.  This patch is free and is direct from
+deltaComm. It will not work on unregistered
+copies.  This patch file replaces the files
+named TLX32?-U.ZIP. Please read the complete
+documentation contained within in PATCH.DOC.
+These instructions cover almost any problem
+you may encounter when applying this patch.

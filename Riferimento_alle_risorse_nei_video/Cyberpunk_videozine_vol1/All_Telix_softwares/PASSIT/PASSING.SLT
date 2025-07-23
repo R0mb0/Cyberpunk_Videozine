@@ -1,0 +1,17 @@
+main()
+{
+str passit[20];
+str passwd[14];
+str message[50];
+clear_scr();
+passwd = _entry_pass;
+passit = passwd;
+strcat(passit, "^M^J");
+keyset(15616, 0, passit);
+message = "Your Password... ";
+strcat(message, passwd);
+strcat(message, " ...is in FK3.^M^J");
+prints(message);
+}
+
+

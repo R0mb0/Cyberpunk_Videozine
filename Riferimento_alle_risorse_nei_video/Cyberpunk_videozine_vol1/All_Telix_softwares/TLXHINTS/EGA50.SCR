@@ -1,0 +1,43 @@
+N EGA50.COM
+A 100
+CLD
+MOV	BH,03
+MOV	AX,1130		; 8x8 font pointer
+INT	10
+PUSH	ES
+POP	DS
+MOV	SI,BP
+PUSH	CS		; DS:SI points to font
+POP	ES
+MOV	DI,0150
+MOV	BX,0100		; ES:DI to destination
+MOV	CX,0007		; Number of characters
+REPZ			; Move them
+MOVSB
+INC	SI		; Skip over kast byte
+DEC	BX
+JNZ	0114            ; Next character
+MOV	BP,0150		; Points to font
+MOV	DX,0000		; Starting char
+MOV	CX,0100		; Number of chars
+MOV	BH,07		; Bytes per char
+MOV     BL,00           ; Block to load
+MOV	AX,1110		; Load user font
+INT	10
+SUB	AX,AX
+MOV	DS,AX
+PUSH	[0487]		; Fix up cursor
+OR	BYE PTR [0487],01
+MOV	CX,0600
+MOV	AH,01
+INT	10
+POP	[0487]
+MOV	DX,03B4		; Fix up underline
+MOV	AX,0614
+OUT	DX,AX
+INT	20
+
+RCX
+50
+W
+Q

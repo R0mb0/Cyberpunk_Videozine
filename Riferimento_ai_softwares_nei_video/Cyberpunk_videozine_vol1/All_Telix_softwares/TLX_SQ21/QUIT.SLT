@@ -1,4 +1,0 @@
-main()
-{
-  exittelix (0,1);    // Just exit.
-}

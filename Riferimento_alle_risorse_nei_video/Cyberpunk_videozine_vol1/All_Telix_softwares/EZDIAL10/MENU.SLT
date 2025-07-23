@@ -1,0 +1,109 @@
+str code1[] = "XXXXXXXX";     //Enter your User ID for the X's
+str code2[] = "YYYYYYYY^M";   //Enter your password for the Y's
+str cr[] = "^M";
+str sender[];
+str input[6] = "      ";
+str code3[25];
+str part1[] = "C D/";
+str part2[] = "/12,";
+str part3[];
+str fon_ext[] = ".FON";
+str fon1[9];
+int phone;
+
+main()
+{
+ input = "      ";
+ set_cparams(1200,0,8,1);
+ clear_scr();
+ prints("     ****************************************************************");
+ prints("     *                E-Z DIALER ver. 1.00                          *");
+ prints("     *                                                              *");
+ prints("     *   GAATL...Atlanta    MABOS...Boston     ILCHI...Chicago      *");
+ prints("     *   OHCLV...Cleve.     TXDAL...Dallas     CODEN...Denver       *");
+ prints("     *   MIDET...Detroit    CAGLE...Glendale   CTHAR...Hartford     *");
+ prints("     *   TXHOU...Houston    MOKAN...K City     CALAN...L. A.        *");
+ prints("     *   FLMIA...Miami      WIMIL...Milw.      MNMIN...Minn.        *");
+ prints("     *   NJNEW...Newark     NYNYO...NY City    CAPAL...Palo Alto    *");
+ prints("     *   AZPHO...Phoenix    ORPOR...Portland   NCRTP...RT Park      *");
+ prints("     *   CARIV...Riverside  CASAC...Sacro.     UTSLC...SL City      *");
+ prints("     *   CASAD...San Diego  CASFA...San Fran.  CASJO...San Jose     *");
+ prints("     *   CASAN...Santa Ana  WASEA...Seattle    MOSLO...St Louis     *");
+ prints("     *   FLTAM...Tampa      DCWAS...D.C                             *");
+ prints("     *          EXEC...Exec-PC      PCP...Pursuit BBS               *");
+ prints("     *                      BYE...Log off                           *");
+ prints("     ****************************************************************");
+ prints("     Enter your choice.......                                        ");
+ gets(input,6);
+  strupper(input);
+  if (input == "EXEC")
+    calld("exec");
+  else if (input == "PCP")
+    calld("pcpbbs");
+  else if (input == "BYE")
+    call("bye");
+  else
+    dial_it(input);
+}
+dial_it(str input)
+{
+int status, t1, t2, t3, t4, t5, t6, phone;
+t1 = track("@",1);
+t2 = track("PASSWORD = ",1);
+t3 = track("CONNECTED",1);
+t4 = track("BUSY",1);
+t5 = track("UNRECOGNIZED",1);
+t6 = track("NOT OPERATING",1);
+
+  {
+   strcat(code3,part1);
+   strcat(code3,input);
+   strcat(code3,part2);
+   strcat(code3,code1);
+   strcat(code3,cr);
+  }
+
+cputs(cr);
+
+while (1)
+  {
+   terminal();
+
+   status = track_hit(0);
+
+    if (status == t1)
+       cputs(code3);
+
+    if (status == t2)
+       cputs(code2);
+
+    if (status == t3)
+       {
+       strcat(input,".FON");
+       loadfon(input);
+       dial();
+       break;
+       }
+
+    if (status == t4)
+       continue;
+
+    if (status == t5)
+       break;
+
+    if (status == t6)
+       {
+       clear_scr();
+       prints("Error dialing City. It is not operating. Press F9");
+       break;
+       }
+
+  }
+track_free(t1);
+track_free(t2);
+track_free(t3);
+track_free(t4);
+track_free(t5);
+
+
+}

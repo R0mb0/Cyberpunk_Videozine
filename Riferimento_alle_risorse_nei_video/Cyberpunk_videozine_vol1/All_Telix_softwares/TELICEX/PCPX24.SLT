@@ -1,0 +1,23 @@
+//
+//Script to log on to Telenet's local access number and call ICEX203
+//
+
+str T_ID[] = "D1";
+str cr[] = "^M";
+
+main()
+{
+ alarm(2);
+ {
+ cputs_tr("@~D~^M~~");
+
+ }
+   cputs(T_ID);
+   cputs("^M");
+ if (not waitfor("@", 20))
+  {
+   prints("Log-on failed!");
+   return;
+  }
+ run("c:\telix\icex203","-d",0);
+}

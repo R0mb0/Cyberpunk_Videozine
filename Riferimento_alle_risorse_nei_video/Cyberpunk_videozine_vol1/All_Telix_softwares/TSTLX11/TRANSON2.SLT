@@ -1,0 +1,53 @@
+// TRANSON2.SLT Telix script by Prof. Timo Salmi, University of
+// Vaasa, Finland. All rights reserved.    Sat 26-December-1992
+//
+// This is to set on the Scandinavian (Finnish) character
+// translation tables, both incoming and outgoing.
+//
+// Note that to avoid ansi porblems you must have set
+// B - Emulate before translate table... On
+// from Configure Telix (alt-O): Terminal options
+//
+// To make this script operative you need to compile it applying
+// CS transon2
+
+// ----------------------------------------
+// Definition section, the global variables
+str incoming[] = "IN2.TRN",        // You can customize these
+    outgoing[] = "OUT.TRN",
+    buf[64];                       // Burffer for file existence
+
+// ----------------------------
+// The main program starts here
+
+main ()    // Each program must have at least this "main" function
+  {        // The body of program is limited by the brackets {}
+
+  // Test whether the incoming translation table exists
+  if (not filefind (incoming, 0, buf))
+    {
+    alarm(1);
+    prints ("");
+    pstra ("Error in finding or loading the incoming translation table ", 12);
+    pstra (incoming, 12);       // pstra is like printsc but users colors
+    prints ("");
+    return;
+    }
+
+  // Test whether the outgoing translation table exists
+  if (not filefind (outgoing, 0, buf))
+    {
+    alarm(1);
+    prints ("");
+    printsc ("Error in finding or loading the outgoing translation table ");
+    prints  (outgoing);
+    return;
+    }
+
+  transtab (incoming, 0);   // Set on the incoming translation table
+  transtab (outgoing, 1);   // Set on the outgoing translation table
+  prints ("");
+  prints ("Both full Scandinavian translation tables have been set on");
+  prints ("Use the TRANSOFF script to turn them off");
+
+  }

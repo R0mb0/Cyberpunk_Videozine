@@ -1,0 +1,7185 @@
+***********************************************************************
+* This is version 2.22 of Telix.MDM, Modem Definitions dated 01/31/94 *
+* for Telix 3.22.  Please do not modify this file -- it is NOT a text *
+* file and  the program will  not work  properly if  you try to  make *
+* adjustments.  It will  be updated often,  so if you do think that a *
+* setting might be in error, please contact deltaComm at 919-460-4556 *
+* voice, 919-481-9399 by modem (HST Dual Standard v.32bis), or by fax *
+* at 919-460-4531.     Direct comments to Randy Delfel, Tech Support. *
+***********************************************************************
+÷Aceex
+Aceex 9600/v.32
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~
+AT&F1
+AT%C1&D2%C1&R0&Y0\Q3\N3\J0&K3W1
+AT&W
+0
+
+Your Aceex 9600 modem is now configured for best performance
+with Telix 3.22.   Options might be to add M0 in your modem
+init string to silence your speaker if you prefer.
+
+Set all entries in your dialing directory to 38,400.
+
+Aceex 14.4k/v.32bis
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~
+AT&F1
+AT%C1&D2%C1&R0&Y0\Q3\N3\J0&K3W1
+AT&W
+0
+
+Your Aceex 14.4 modem is now configured for best performance
+with Telix 3.22.   Options might be to add M0 in your modem
+init string to silence your speaker if you prefer.
+
+Set all entries in your dialing directory to 38,400.
+
+÷Anchor
+Anchor 2400i Internal Half-Card
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~
+ATQ0V1&C1&d2
+ATS0=0S2=255S10=30
+ATE0M1X4&W
+0
+
+Your Anchor 2400i Internal Half Card is now configured
+for best performance with Telix 3.22.
+
+Options might be to add M0 in your modem init string
+to silence your speaker if you prefer.
+
+Anchor 9600
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+ATE0Q0V1X4
+ATS0=0S2=255 \K5\N3\Q3
+AT\V2\X1%C1&C1&D2&W
+0
+
+Your Anchor modem is now configured for best performance
+with Telix 3.22.  Set ALL dialing directory entries to 9600
+to get the most out of your modem.
+
+
+
+÷AST
+AST 2X9600
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&FV1Q0
+AT\J0\Q3\V1&C1&D2\N3
+AT&W
+10
+See Ending Comments
+Your AST modem is now configured for best performance with
+Telix 3.22.  Set ALL dialing directory entries to 19,200
+to get the most out of your modem.
+
+Front Switches: 1 2 3 4 5 6 7 8   Rear: 1 2 3 4 5 6 7
+                U D D U D U U D         D D D U D U U
+AST Premium Exec Fax
+9600
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT\J1\N3
+ATDT\J0\N1
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&F
+AT&C1&D2\Q3\J0
+AT&W
+10
+See Ending Comments
+Your AST modem is now configured for best performance with
+Telix 3.22.  Set ALL dialing directory entries to 19,200
+to get the most out of your modem.
+
+Front Switches: 1 2 3 4 5 6 7 8   Rear: 1 2 3 4 5 6 7
+                U D D U D U U D         D D D U D U U
+÷Atrie
+Atrie 9632MNP5
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+45
+ATZ^M
+AT&F
+AT\J0\N3%C1&C1&D2E1L1&S1\Q3S7=45S11=55S0=0
+AT&W
+10
+U U U U U U U U U U
+
+
+
+Your Atrie 9632MNP5 Modem is now configured for best
+performance with Telix 3.21.  Compression is enabled so
+set all your dialing entries to 19,200 for best use!
+÷AT&T
+AT&T Model 4000
+120
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+30
+ATV1E1Q0X2S7=45S0=0^M
+
+
+
+0
+
+Your AT&T modem is now configured for best performance with
+Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+AT&T CEO 2224
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~~~AT&C1&D2\C1\G0\J0\N3\Q3\V1^M~
+
+
+
+0
+
+Your AT&T modem is now configured for best performance with
+Telix 3.22.  Correction is enabled so set all of your dialing
+directory entries to 9600 for best performance.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+AT&T Comsphere 3810/3820
+5760
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~~~AT&C1&D2\C1\G0\N3\Q3V1^M~
+AT&F
+ATE0Q0V1X6S0=0S2=255&C1&D2
+AT&S0&R1\N5\Q3\X1%C1%W
+0
+
+Your AT&T modem is now configured for best performance with
+Telix 3.22.  Correction is enabled so set all of your dialing
+directory entries to 57,600 for best performance.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+AT&T DataPort 14.4/Fax
+5760
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~~~AT&C1&D2%C1\N7\D1X4\Q3S0=0S7=55^M~
+
+
+
+0
+
+Your AT&T modem is now configured for best performance with
+Telix 3.22.  Correction is enabled so set all of your dialing
+directory entries to 57,600 for best performance.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+÷ATI
+ATI 2400etc without v.42
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT&Q5DT
+AT&Q0DT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&F1V1Q0
+AT&C1&D2X4S11=60S7=60S9=10S10=18
+AT&W
+0
+
+Your ATI modem is now set up for best perfomance with Telix
+3.22.  Compression is enabled, so set ALL of your dialing
+directory entries to 9600 bps for best performance.
+
+Use Dialing Prefix 1 for calling error-correcting systems.
+Use Dialing Prefix 2 for calling non-errorcorrecting systems.
+ATI 2400etc with v.42
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT&Q6DT
+AT&Q0DT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&F2V1Q0
+AT&C1&D2&K3X4S11=60S7=60S9=10S10=18
+AT&W
+0
+
+Your ATI modem is now set up for best perfomance with Telix
+3.22.  Compression is enabled, so set ALL of your dialing
+directory entries to 9600 bps for best performance.
+
+Use Dialing Prefix 1 for calling error-correcting systems.
+Use Dialing Prefix 2 for calling non-errorcorrecting systems.
+ATI 9600etc/e v.32/v.42
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT&Q6DT
+AT&Q0DT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&F2V1Q0
+AT&C1&D2X4S11=60S7=60S9=10S10=18
+AT&W
+0
+
+Your ATI modem is now set up for best perfomance with Telix
+3.22.  Compression is enabled, so set ALL of your dialing
+directory entries to 38400 bps for best performance.
+
+Use Dialing Prefix 1 for calling error-correcting systems.
+Use Dialing Prefix 2 for calling non-errorcorrecting systems.
+÷Avatech
+Avatech 2400E
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1Q0V1X4&C1&D2S7=55S11=60S0=0^M
+
+
+
+0
+
+Your Avatech modem is now configured for best performance
+with Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+÷Best/Smart One
+Best Smart One 2400
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~~~AT&C1&D2S7=60S11=60^M~
+
+
+
+0
+
+Your Best Data Products Smart One modem is now configured
+for best performance with Telix 3.22.
+
+Options might be to add M0 in your modem init string
+to silence your speaker if you prefer.
+
+Best Smart One 9624FQ
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~~~AT&C1&D2S7=60S11=60^M~
+
+
+
+0
+
+Your Best Data Products Smart One modem is now configured
+for best performance with Telix 3.22.
+
+Options might be to add M0 in your modem init string
+to silence your speaker if you prefer.
+
+Best Smart One 2400/Fax
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~~~AT&C1&D2S7=60S11=60^M~
+
+
+
+0
+
+Your Best Data Products Smart One modem is now configured
+for best performance with Telix 3.22.
+
+Options might be to add M0 in your modem init string
+to silence your speaker if you prefer.
+
+Best 96/42 v.32bis
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~~~AT&C1&D2 S7=55 S11=55 W2^M~
+
+
+
+0
+
+Your Best Smart One 14.4k with v.32bis is now configured
+for best performance with Telix 3.22.  Compression is
+enabled so set all dialing entries to 38,400 for best use!
+
+Use dialing prefix 1 for error-correcting systems.
+Use dialing prefix 2 for non-error correcting systems.
+÷Boca
+Boca 2400 w/ v.42bis
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~~~AT&C1&D2\V1\J0\N3\Q3S7=55S11=55^M~
+
+
+
+0
+
+Your Bocamodem 2400 with v.42bis is now configured
+for best performance with Telix 3.22.
+
+Options might be to add M0 in your modem init string
+to silence your speaker if you prefer.
+
+Boca 14.4k v.32bis
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+AT&Q0DT
+ATDT
+NO DIAL
+40
+ATZ^M~
+AT&F
+AT&C1&D2&K3\N3%C1S11=60S36=7
+ATS46=138S95=47%E1\K5S48=7&W
+0
+
+Your Bocamodem 14,400bps with v.32bis is now configured
+for best performance with Telix 3.22.  Compression is
+enabled so set all dialing entries to 38,400 for best use!
+
+Use dialing prefix 1 for error-correcting systems.
+Use dialing prefix 2 for non-error correcting systems.
+÷BSM
+BSM Quick Comm 2400 MNP
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&FV1Q0
+AT\Q3\J0\N3%C1&C1&D2S7=55S0=0
+AT&W
+0
+
+Your BSM modem is now set up for best perfomance with Telix
+3.22.  Compression is enabled, so set ALL of your dialing
+directory entries to 9600 bps for best performance.
+
+
+
+BSM Quick Comm 2400 non-MNP
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~~~ATX4V1Q0&C1&D2&T5S7=55S11=55
+
+
+
+0
+
+Your BSM modem is now set up for best perfomance with Telix
+3.22.
+
+
+
+
+BSM Quick Comm 1200 non-MNP
+120
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~~~ATX4V1Q0&C1&D2S7=55S11=55
+
+
+
+0
+
+Your BSM modem is now set up for best perfomance with Telix
+3.22.
+
+
+
+
+BSM Quick Comm Spirit
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&FX4
+AT*F3&C1&D2V1
+AT&W
+0
+
+Your BSM modem is now set up for best perfomance with Telix
+3.22.  Compression is enabled, so set ALL of your dialing
+directory entries to 38400 bps for best performance.
+
+
+
+BSM Quick Comm Spirit II
+5760
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&FX4
+AT*F3*E9*N6&C1&D2V1
+AT&W
+0
+
+Your BSM modem is now set up for best perfomance with Telix
+3.22.  Compression is enabled, so set ALL of your dialing
+directory entries to 57600 bps for best performance.
+
+
+
+QuickCom v32
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+45
+ATZ^M
+AT&F
+AT*E9*F3M0&C1&D2S0=0*M
+AT&W
+0
+
+
+
+
+
+Your QuickCom v.32 modem is now configured for best
+performance with Telix 3.22.
+÷Cardinal
+Cardinal 2400 MNP-5
+480
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&FV1Q0
+AT \Q3\N3\J0\C1S0=0&C1&D2\V1\K3\C1
+AT&W
+0
+
+Your Cardinal modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 4800 bps for best performance.
+
+
+
+Cardinal 2400 non-MNP
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATV1Q0&C1&D2S11=60S7=60S0=0^M
+
+
+
+0
+
+Your Cardinal modem is now set up for best perfomance with
+Telix 3.22.
+
+
+
+
+Cardinal 9600 v.32 internal
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT&M4DT
+AT&M0DT
+ATDT
+NO DIAL
+40
+AT&F^M~~~ATS7=60S11=55&I1^M~
+
+
+
+5
+X X U X X
+Your Cardinal modem is now set up for best performance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 19200 bps for best performance.
+
+Use dialing prefix 1 for MNP/v.32 systems.
+Use dialing prefix 2 for non-MNP/v.32 systems.
+Cardinal 9600/2400 Faxmodem
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~~ATS11=55S7=60&S1&T5&C1^M
+
+
+
+0
+
+Your Cardinal modem is now set up for best performance with
+Telix 3.22.
+
+
+
+
+Cardinal 9600 v.32/v.42bis
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT&Q5DT
+AT&Q6DT
+ATDT
+NO DIAL
+40
+AT&F^M~~~ATS95=2&C1&D2&S1^M~
+
+
+
+0
+
+Your Cardinal modem is now set up for best performance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 38400 bps for best performance.
+
+Use dialing prefix 1 for MNP/v.32/v.42bis systems.
+Use dialing prefix 2 for non-MNP/v.32/v.42bis systems.
+Cardinal 14400 v.32bis
+5760
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT&Q5DT
+AT&Q6DT
+ATDT
+NO DIAL
+40
+AT&F^M~~~ATS95=2&C1&D2&S1^M~
+
+
+
+0
+
+Your Cardinal modem is now set up for best performance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 57600 bps for best performance.
+
+Use dialing prefix 1 for MNP/v.32bis/v.42bis systems.
+Use dialing prefix 2 for non-MNP/v.32bis/v.42bis systems.
+÷Cermetek
+Cermetek InfoMate 212a
+120
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+30
+ATV1E1Q0X2S7=45S0=0^M
+
+
+
+8
+U D D U U D U D
+Your Cermetek modem is now configured for best performance
+with Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+Cermetek R/2400 SPC
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT E1 Q0 V1 X4 S7=55 S11=60 S0=0^M
+
+
+
+8
+U D D U U D U D
+Your Cermetek modem is now configured for best performance
+with Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+Cermetek 1200 SPC
+120
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT E1 Q0 V1 X2 S7=55 S11=60 S0=0^M
+
+
+
+8
+U D D U U D U D
+Your Cermetek modem is now configured for best performance
+with Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+÷Codex
+Codex 2264
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&FV1Q0
+AT&C1&D2*FL3*XC1*PT0&R0
+AT&W
+0
+
+Your Codex modem is now configured for best performance with
+3.22.  Compression is enabled, so set ALL of your dialing
+directory entries to 19200 bps for best performance.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+Codex 3260
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&FV1Q0
+AT&C1&D2*FL3*XC2*RS0*CT0*MD0*MF0L3
+ATS7=60S11=60S10=5&W0
+0
+
+Your Codex modem is now configured for best performance with
+3.22.  Compression is enabled, so set ALL of your dialing
+directory entries to 38400 bps for best performance.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+÷Compaq
+Compaq Enhanced v.42bis
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT&Q5DT
+AT&Q0DT
+ATDT
+NO DIAL
+40
+ATZ^M~
+AT&F
+AT&C1&D2X4W1S7=60S11=60S46=2&K3S36=7
+AT&W
+0
+
+Your Compaq enhanced Modem with v.42bis is now configured
+for best performance with Telix 3.22.  Compression is
+enabled so set all dialing entries to 19,200 for best use!
+
+Use dialing prefix 1 for error-correcting systems.
+Use dialing prefix 2 for non-error correcting systems.
+÷CompuCom
+CompuCom SpeedModem CSP
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT\N3%C1DT
+AT\N3%C0DT
+AT\N0DT
+NO DIAL
+40
+AT&F2^M~~~AT&C1&D2*H2V1Q0X4^M
+
+
+
+0
+
+Your CompuCom modem is now configured for best performance
+with 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 19200 bps for best performance.
+Use dialing prefix 1 to transfer text files with MNP.
+Use dialing prefix 2 to transfer compressed files with MNP.
+Use dialing prefix 3 to transfer files without MNP.
+CompuCom Storm v.32
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT\N3%C1DT
+AT\N3%C0DT
+AT\N0DT
+NO DIAL
+40
+AT&F2^M~~~AT&C1&D2*H2V1Q0X4^M
+
+
+
+0
+
+Your CompuCom modem is now configured for best performance
+with 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 38400 bps for best performance.
+Use dialing prefix 1 to transfer text files with MNP.
+Use dialing prefix 2 to transfer compressed files with MNP.
+Use dialing prefix 3 to transfer files without MNP.
+CompuCom Star v.32bis
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT\N3%C1DT
+AT\N3%C0DT
+AT\N0DT
+NO DIAL
+40
+AT&F2^M~~~AT&C1&D2*H2V1Q0X4^M
+
+
+
+0
+
+Your CompuCom modem is now configured for best performance
+with 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 38400 bps for best performance.
+Use dialing prefix 1 to transfer text files with MNP.
+Use dialing prefix 2 to transfer compressed files with MNP.
+Use dialing prefix 3 to transfer files without MNP.
+CompuCom SpeedModem (Europe)
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT\N3%C1DP
+AT\N3%C0DP
+AT\N0DP
+NO DIAL
+40
+AT&F2^M~~~AT&C1&D2*H2V1Q0X4B0B15^M
+
+
+
+0
+
+Your CompuCom modem is now configured for best performance
+with 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 19200 bps for best performance.
+Use dialing prefix 1 to transfer text files with MNP.
+Use dialing prefix 2 to transfer compressed files with MNP.
+Use dialing prefix 3 to transfer files without MNP.
+÷CTS
+CTS Companion 212AH
+120
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+Disconnect
+40
+ATE1Q0V1S7=55S11=60S0=0^M
+
+
+
+0
+
+Your CTS modem is now configured for best performance with
+Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+CTS Datacomm 2424ADH
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&FV1Q0
+AT&C1&D2S0=0S2=255S10=30X4
+AT&W
+0
+
+Your CTS modem is now configured for best performance with
+Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+÷Dallas Fax
+Dallas Fax 9696
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~~AT&C1&D2S95=41W1^M~
+
+
+
+0
+
+Your Dallas Fax 9600 is now configured for best
+performance with Telix 3.22.  British users add
+&P1 to the init string for the guard tone.  Set
+all entries in the dialing directory to 38,400.
+Options might be to add M0 in your modem init
+string to silence your speaker if you prefer.
+Dallas Fax 14.4k
+5760
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~~AT&C1&D2S95=41W1^M~
+
+
+
+0
+
+Your Dallas Fax 9600 is now configured for best
+performance with Telix 3.22.  British users add
+&P1 to the init string for the guard tone.  Set
+all entries in the dialing directory to 57,600.
+Options might be to add M0 in your modem init
+string to silence your speaker if you prefer.
+÷Data Trek
+Data Trek 624
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~~AT&C1&D2\N3\Q3\J1S11=55S7=60^M~
+
+
+
+0
+
+Your DataTrek modem is now configured for best
+performance with Telix 3.22.  British users add
+&P1 to the init string for the guard tone.
+
+Options might be to add M0 in your modem init string
+to silence your speaker if you prefer.
+Data Trek 2424
+480
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~~AT&C1&D2\N3\Q3\J1S11=55S7=60^M
+
+
+
+0
+
+Your DataTrek MNP modem is now configured for best
+performance with Telix 3.22.  Correction is enabled
+so set all dialing directory entries to 4800!
+
+Options might be to add M0 in your modem init string
+to silence your speaker if you prefer.
+Data Trek v.32
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~
+AT&F^M
+AT\J0\N3\Q3\V1%C2S134=4S7=60S11=55
+AT&C1&D2S0=0&W
+0
+
+Your DataTrek v.32 modem is now configured for best
+performance with Telix 3.22.  Compression is enabled
+so set all dialing entries to 19200 for best speed!
+
+Options might be to add M0 in your modem init string
+to silence your speaker if you prefer.
+÷Dell
+Dell FaxModem
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~AT&C1&D2&K3\B1\V1S7=60S11=55S59=96^M
+
+
+
+0
+
+Your Dell Fax / Modem is now configured for best
+performance with Telix 3.22.  Data compression is
+enabled so set all dialing entries to 9600 for best use!
+
+Use dialing prefix 1 for error-correcting systems.
+Use dialing prefix 2 for non-error correcting systems.
+÷Delta Gold
+Delta Gold DM 1200
+120
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1Q0V1X4 S7=55 S11=60 S0=0^M
+
+
+
+0
+
+Your Delta modem is now configured for best performance with
+Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+÷Digicom
+DSI 9624LE (v.32 bis)
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&FV1Q0
+AT&C1*F3&R0
+AT&W
+0
+
+Your Digicom modem is now configured for best performance
+with 3.15.  Compression is enabled, so set ALL of your
+dialing directory entries to 38400 bps for best performance.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+DSI 9624PC/PC+ (v.32bis)
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&FV1Q0
+AT&C1*F3&R0
+AT&W
+
+0
+Your Digicom modem is now configured for best performance
+with 3.15.  Compression is enabled, so set ALL of your
+dialing directory entries to 38400 bps for best performance.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+DSI Connection 96+
+5760
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&FW1
+AT&C1&K3
+AT
+0
+
+Your DSI Connection 96+ modem is now configured for best
+performance with 3.15.  Compression is enabled, so set ALL
+of your dialing directory entries to 57600 bps for best
+performance. If you are using a non-standard IRQ you must have
+Telix write to your NRAM so you can select the alternate IRQ setting.
+
+DSI Scout+ and Eagle+
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&FV1Q0
+AT&C1*S1*F3&R0
+AT&W
+0
+
+Your DigiCom modem is now configured for best performance
+with 3.15.  Compression is enabled, so set ALL of your
+dialing directory entries to 57600 bps for best performance.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+÷Digital
+DECModem V32
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+55
+ATZ1^M~
+AT&F0
+ATB0L0M3V1X5%F2%M1%S5&C1&E1$C0
+AT&K1$M2S0=0S7=55&W1
+0
+
+Your Digital DECModem V32 is now configured for best performance
+with Telix 3.22.   Options might be to add M0 in your modem
+init string to silence your speaker if you prefer.
+
+Set all entries in your dialing directory to 19200.
+
+÷Digitan
+Digitan High-IQ Fax 2400
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1Q0V1X4S7=55S11=60S0=0&C1&D2^M
+
+
+
+0
+
+Your Digitan High-IQ Fax Modem is now configured
+for best performance with Telix 3.22.
+
+Options might be to add M0 in your modem init string
+to silence your speaker if you prefer.
+
+÷E*Tech Bullet
+Bullet 2400 MNP
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~~AT&C1&D2&T5$C1$E2$F4$X1^M
+
+
+
+0
+
+Your E*Tech Bullet 2400 MNP modem is now configured
+for best performance with Telix 3.22.
+
+Error correction is enabled so set all of your dialing
+directory entries to 9600 for best performance.
+
+Bullet v.32
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~~AT&C1&D2&T5$C1$E1$F4$X5$S0^M
+
+
+
+0
+
+Your E*Tech Bullet 19200 MNP modem is now configured
+for best performance with Telix 3.22.
+
+Correction is enabled so set all of your dialing
+directory entries to 19200 for best performance.
+
+÷Everex
+Everex 12e External (EV-936)
+120
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1Q0V1X4&C1&D2 S7=55 S11=60 S0=0^M
+
+
+
+9
+U D D D D U D D D
+Your Everex modem is now configured for best performance
+with Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+Everex 24e External (EV-945)
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1Q0V1X4&C1&D2 S7=55 S11=60 S0=0^M
+
+
+
+9
+U D D D D U D D D
+Your Everex modem is now configured for best performance
+with Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+Evercom 24+ (MNP)
+480
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ0^M~~~AT S7=55 S11=60^M
+AT&F
+AT Q0 V1 X4 &C1 &D2 \Q3 \C1 \N3 \J0 \V1
+AT&W0
+0
+
+Your Everex modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 4800 bps for best performance.
+
+
+
+Everex Everfax 24/96
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ0^M~~~AT S7=55 S11=60^M
+AT&FV1Q0
+ATX4&C1&D2\Q3\C1\N3\J0\V1%C1&T5
+AT&W0
+0
+
+Your Everex fax/modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 9600 bps for best performance.
+
+
+
+Everex Everfax 24/96 v.32
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&C1&D2Y0\N3\V1\X1\Q3%C1\J0^M~
+
+
+
+0
+
+Your Everex fax/modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 9600 bps for best performance.
+
+
+
+Everex Everfax 96+ v.32bis
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATS2=255&C1&D2E1V1X4Q0%C1\C1\N3\V1\J1^M
+
+
+
+0
+
+Your Everex fax/modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 38400 bps for best performance.
+
+
+
+÷FastComm
+FastComm FDX 2424 (MNP-5)
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&FV1Q0
+ATE1X4S7=60&C1&D2&B1&G0&H1&I1&M6
+AT&W
+8
+All of them OFF
+Your FastComm modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 9600 bps for best performance.
+
+
+
+FastComm 2496 Turbo
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+DATA TIME OUT
+40
+ATZ^M
+AT&FV1Q0
+ATE1X4S7=60&C1&D2&B1&G0&H1&I1&M6
+AT&W
+8
+All of them OFF
+Your FastComm modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 9600 bps for best performance.
+
+
+
+FastComm 9696 (v.32)
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+DATA TIME OUT
+40
+ATZ^M
+AT&FV1Q0
+ATE1X4S7=60&C1&D2&B1&G0&H1&I1&M6
+AT&W
+8
+All of them OFF
+Your FastComm fax/modem is now set up for best perfomance
+with Telix 3.22.
+
+Compression is enabled, so set ALL of your dialing directory
+entries to 19200 bps for best performance.
+
+÷FlashTalk
+FlashTalk LP2400
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+50
+ATZ^M~
+AT&F
+ATB0E1L1M1Q0V1X4&C1&D2&G0&J0&L0&P0
+ATS0=0S2=43&W
+0
+
+Your FlashTalk Linepowered Mini Modem LP2400 is now
+configured for best performance with Telix 3.22.
+
+
+
+
+÷Forval
+SA or IM 14,400 v.32bis
+38400
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT\N6DT
+AT\N0DT
+ATDT
+NO DIAL
+40
+ATZ0^M
+AT&FV1Q0
+AT&K3\J0\Q3\N6%C0%E0
+AT&W
+0
+
+Your Forval modem is now configured for best performance
+with Telix 3.22.  Compression is enabled so set all of your
+dialing directory entries to 38,400 for best performance.
+
+Use Dialing Prefix 1 for calling error-correcting systems.
+Use Dialing Prefix 2 for non error-correcting systems.
+÷Galaxy
+Galaxy UFO v.32bis
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~~~AT&C1&D2\N3\Q3\V1\J0%C1E1V1Q0W1X4^M
+
+
+
+0
+
+Your Galaxy Modem with v.32bis is now configured
+for best performance with Telix 3.22.  Compression is
+enabled so set all dialing entries to 38,400 for best use!
+
+
+
+÷Gandalf
+Gandalf 2400-A
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~~~AT&C1&D2S7=60S11=60^M~
+
+
+
+0
+
+Your Gandalf Access 2400/24A modem is now configured
+for best performance with Telix 3.22.
+
+Options might be to add M0 in your modem init string
+to silence your speaker if you prefer.
+
+Gandalf 2400-EC
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT\N3DT
+AT\N0DT
+ATDT
+NO DIAL
+40
+AT&F^M~~~AT\N3\J0\Q3&C1&D2S7=60S11=60^M~
+
+
+
+0
+
+Your Gandalf Access 2400/24A modem is now configured
+for best performance with Telix 3.22.  Compression is
+enabled so set all dialing entries to 9600 for best use.
+
+Use dialing prefix 1 to call error correcting systems.
+Use dialing prefix 2 to call non error correcting systems.
+Gandalf Access v.3242
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT\N3DT
+AT\N0DT
+ATDT
+NO DIAL
+40
+AT&F^M~~~AT&C1&D2&S1&R2\Q3\N3%C1S7=60S11=55^M
+
+
+
+0
+
+Your Gandalf Modem with v.32 is now configured
+for best performance with Telix 3.22.  Compression is
+enabled so set all dialing entries to 19,200 for best use!
+
+Use dialing prefix 1 for error-correcting systems.
+Use dialing prefix 2 for non-error correcting systems.
+÷Gateway
+Gateway Telepath v.32bis/Fax
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~~~AT&C1&D2S11=55 S7=55 W2 ^M
+
+
+
+0
+
+Your Gateway Telepath fax with v.32bis is now configured
+for best performance with Telix 3.22.  Compression is
+enabled so set all dialing entries to 38,400 for best use!
+
+
+
+Gateway Telepath 550 14400
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+50
+ATZ^M~
+AT&F
+ATE1Q0M1X7V1S7=60S11=45
+AT&A3&K3&B1&C1&D2&H1&M4&N0&R2&W
+8
+U U D U D U U D
+Your Gateway Telepath 550 is now configured for best
+performance with Telix 3.22.
+
+
+
+
+÷Generic
+1200 bps without switches
+120
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1Q0V1X1S7=55S11=60S0=0^M
+
+
+
+0
+
+Your modem is now configured for best performance with Telix.
+
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+1200 bps with switches
+120
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1Q0V1X1S7=55S11=60S0=0^M
+
+
+
+8
+U U D U D U U D
+Your modem is now configured for best performance with Telix.
+
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+2400 bps without switches
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&C1&D2E1Q0V1X4S7=55S11=60S0=0^M
+
+
+
+0
+
+Your modem is now configured for best performance with Telix.
+
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+2400 bps with switches
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1Q0V1X4S7=55S11=60S0=0^M
+
+
+
+8
+U U D U D U U D
+Your modem is now configured for best performance with Telix.
+
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+v.32/v.32bis (9600/14,400)
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&F
+AT&C1&D2X4S7=55S11=55
+AT&W
+0
+
+Your v.32 modem is configured for best performance with
+Telix v3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 38400 bps for best speed.
+This is a generic configuration and you may need to add
+additional proprietary settings to the modem init string.
+Refer to the modem manual or manufacturer for details.
+÷GVC
+GVC 2400 MNP-5
+480
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT%C1DT
+AT%C0DT
+ATDT
+NO DIAL
+40
+ATZ^M~~~AT&C1&D2%C1\Q3\J0\N3\V1^M
+AT&F
+AT&C1&D2%C1\Q3\J0\N3\V1
+AT&W
+0
+
+Your GVC modem is now configured for best performance with
+3.22.  Compression is enabled, so set ALL of your dialing
+directory entries to 4800 bps for best performance.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+GVC 2400 non-MNP
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~~~ATS11=55S7=60^M
+
+
+
+0
+
+Your GVC modem is now configured for best performance with
+Telix version 3.22.
+
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+GVC 9600 v.32/v.42
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&F
+AT&C1&D2%C1\Q3\J0\N3\V1
+AT&W
+0
+
+Your GVC modem is now configured for best performance with
+3.22.  Compression is enabled, so set ALL of your dialing
+directory entries to 19200 bps for best performance.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+GVC 9600+ v.32bis/v.42bis
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&F
+AT&C1&D2%C1\Q3\J0\N3\V1
+AT&W
+0
+
+Your GVC modem is now configured for best performance with
+3.22.  Compression is enabled, so set ALL of your dialing
+directory entries to 38400 bps for best performance.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+GVC 9600/14400 v.42bis
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F2^M
+
+
+
+0
+
+Your GVC modem is now configured for best performance with
+3.22.  Compression is enabled, so set ALL of your dialing
+directory entries to 38400 bps for best performance.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+÷Hayes
+ISDN Terminal Interface
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~
+AT&F
+AT&C1&D2&K3S7=60S11=55%A1=0%A2=2%A0=2
+ATW1&W
+0
+
+Your Hayes modem is now configured for best performance with
+Telix 3.22. Correction is enabled so set all dialing entries
+to 38,400 for best performance.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+Smartmodem 2400
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT E1Q0V1X4&C1&D2 S7=55 S11=60 S0=0^M
+
+
+
+0
+
+Your Hayes modem is now configured for best performance with
+Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+Hayes Personal Modem 1200
+120
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT E1 Q0 V1 X4 &C1 &D2 S0=0^M
+
+
+
+0
+
+Your Hayes modem is now configured for best performance with
+Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+Hayes Personal Modem 2400
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT E1 Q0 V1 X4 &C1 &D2 S0=0^M
+
+
+
+0
+
+Your Hayes modem is now configured for best performance with
+Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+Hayes V-Series 2400
+480
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ0^M AT &Q5 S36=3^M
+AT&FV1Q0
+AT&G0&J0&C1&D2&K3&L0&P0&Q5S7=55S11=60
+AT&W0
+0
+
+Your Hayes modem is now set up for best perfomance with Telix
+3.22.  Compression is enabled, so set ALL of your dialing
+directory entries to 4800 bps for best performance.
+
+
+
+Hayes V-Series 9600
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&FV1Q0
+AT&C1&D2&J0&K3&P0&L0&G0&Q5S7=55S11=60
+AT&W
+0
+
+Your Hayes modem is now set up for best perfomance with Telix
+3.22.  Compression is enabled, so set ALL of your dialing
+directory entries to 19200 bps for best performance.
+
+
+
+Hayes V-Series 9600 with v.42
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ0^M AT &Q5 S36=3^M
+AT&FV1Q0
+AT&C1&D2&L0&P0&Q5&K3S7=55S11=60
+AT&W0
+0
+
+Your Hayes modem is now set up for best perfomance with Telix
+3.22.  Compression is enabled, so set ALL of your dialing
+directory entries to 38400 bps for best performance.
+
+
+
+Hayes Ultra-Smartmodem (9600/14400)
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ0^M
+AT&FV1Q0N1W2
+AT&K3&L0&U0&Q5&C1&D2S7=55S11=60
+AT&W0
+0
+
+Your Hayes modem is now set up for best perfomance with Telix
+3.22.  Compression is enabled, so set ALL of your dialing
+directory entries to 38400 bps for best performance.
+
+
+
+Hayes Optima 2400
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~~~
+AT&F
+AT&C1&D2&K3W1S95=42
+AT&W
+0
+
+Your Hayes modem is now configured for best performance with
+3.22.  Compression is enabled, so set ALL of your dialing
+directory entries to 9600 bps for best performance.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+Hayes Optima 9600
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~~~
+AT&FV1Q0
+AT&C1&D2&K3&Q5S95=42
+AT&W
+0
+
+Your Hayes modem is now set up for best perfomance with Telix
+3.22.  Compression is enabled, so set ALL of your dialing
+directory entries to 38400 bps for best performance.
+
+
+
+Hayes Optima 14400
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&FV1Q0
+AT&K3&Q9&C1&D2S38=0S95=46
+AT&W
+0
+
+Your Hayes modem is now set up for best perfomance with Telix
+3.22.  Compression is enabled, so set ALL of your dialing
+directory entries to 38400 bps for best performance.
+
+
+
+Hayes Optima 28800
+5760
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&F
+AT&C1&D2&K3&Q9W2
+ATS37=0S38=0S95=46S760S11=55&W
+0
+
+Your Hayes modem is now set up for best perfomance with Telix
+3.22.  Compression is enabled, so set ALL of your dialing
+directory entries to 115200 bps for best performance.
+
+
+
+÷Hayes Accura
+ACCURA 24 EC
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+50
+ATZ^M
+AT&F
+ATW1&Y0&C1&D2L1S11=60
+AT&W
+0
+
+
+
+
+Your Hayes ACCURA 24 Modem with v.42bis is now configured
+for best performance with Telix 3.22.  Compression is
+enabled so set all dialing entries to 9600 for best use!
+ACCURA 24B EC
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+50
+ATZ^M
+AT&F
+ATW1&Y0&C1&D2L1S11=60
+AT&W
+0
+
+
+
+
+Your Hayes ACCURA 24B Modem with v.42bis is now configured
+for best performance with Telix 3.22.  Compression is
+enabled so set all dialing entries to 9600 for best use!
+ACCURA 96 EC
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+50
+ATZ^M
+AT&F
+ATW1&Y0&C1&D2L1S11=60
+AT&W
+0
+
+
+
+
+Your Hayes ACCURA 96 Modem with v.42bis is now configured
+for best performance with Telix 3.22.  Compression is
+enabled so set all dialing entries to 19,200 for best use!
+ACCURA 96B EC
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+50
+ATZ^M
+AT&F
+ATW1&Y0&C1&D2L1S11=60
+AT&W
+0
+
+
+
+
+Your Hayes ACCURA 96B Modem with v.42bis is now configured
+for best performance with Telix 3.22.  Compression is
+enabled so set all dialing entries to 19,200 for best use!
+ACCURA 144 EC
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+50
+ATZ^M
+AT&F
+ATW1&Y0&C1&D2L1S11=60
+AT&W
+0
+
+
+
+
+Your Hayes ACCURA 144 Modem with v.42bis is now configured
+for best performance with Telix 3.22.  Compression is
+enabled so set all dialing entries to 38,400 for best use!
+ACCURA 144B EC
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+50
+ATZ^M
+AT&F
+ATW1&Y0&C1&D2L1S11=60
+AT&W
+0
+
+
+
+
+Your Hayes ACCURA 144B Modem with v.42bis is now configured
+for best performance with Telix 3.22.  Compression is
+enabled so set all dialing entries to 38,400 for best use!
+÷IBM
+IBM Model 5841 (1200)
+120
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1Q0V1S7=55S11=60S0=0^M
+
+
+
+0
+
+Your IBM modem is now configured for best performance with
+Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+IBM PC 2400
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1Q0V1X4&C1&D2 S7=55 S11=60 S0=0^M
+
+
+
+0
+
+Your IBM modem is now configured for best performance with
+Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+÷Identity
+Identity 2400E (MNP)
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~~~
+AT&F
+AT&C1&D2\V1\N3\Q3X4V1
+AT&W
+0
+
+Your Identity modem is now configured for best performance
+with 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 9600 bps for best performance.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+Identity 2400I
+2400
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~~~
+AT&F
+AT&C1&D2X4V1
+AT&W
+0
+
+Your Identity modem is now configured for best performance
+with Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+Identity 9600 v.32
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~~~ATS7=60 S0=0 S11=55^M
+AT&F2
+AT&C1&D2\J0\N6
+AT&W
+0
+
+Your Identity modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 38400 bps for best performance.
+
+
+
+÷Incomm
+Incomm 2400EC
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1V1Q0&C1&D2\K3\N3\Q3\H0S11=60S7=55^M
+
+
+
+0
+
+Your Incomm modem is now configured for best performance
+with Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+Incomm Classic 2400
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1V1Q0&C1&D2&T5S11=60S7=55^M
+
+
+
+0
+
+Your Incomm modem is now configured for best performance
+with Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+Incomm Midget 24FXI
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+50
+ATZ^M~
+AT&F
+AT\J0\N3\Q3X4
+AT&W
+0
+
+Your Incomm Midget 24FXI is now configured for best
+performance with Telix 3.22.
+
+
+
+
+Incomm 9600 v.32
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT\N3DT
+AT\N0DT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&F
+AT S11=60\Q3\N3\J0
+AT&W
+0
+
+Your Incomm modem is now set up for best perfomance with
+Telix 3.22. Error correction is enabled, so set ALL of your
+dialing directory entries to 19200 bps for best performance.
+
+Use dialing prefix # 1 to call MNP/v.32 systems.
+Use dialing prefix # 2 to call non-MNP/non-v.32 systems.
+Incomm 9605 v.32/MNP-5
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT%C1\N3DT
+AT%C0\N3DT
+AT%C0\N0DT
+NO DIAL
+40
+ATZ^M
+AT&F
+AT \Q3\N3\J0S11=60
+AT&W
+0
+
+Your Incomm modem is now set up for best perfomance with
+Telix 3.22. Data compression is enabled, so set ALL of your
+dialing directory entries to 38400 bps for best performance.
+Use dialing prefix # 1 to call MNP-5/v.32 systems.
+Use dialing prefix # 2 to call MNP-4/v.32 systems.
+Use dialing prefix # 3 to call non-MNP/non-v.32 systems.
+÷Infomate
+Infomate 212/A PC
+120
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1V1Q0 S7=55 S11=60 S0=0^M
+
+
+
+0
+
+Your Infomate modem is now configured for best performance
+with Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+Infomate 212/X PC
+120
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1Q0V1 S7=55 S11=60 S0=0^M
+
+
+
+0
+
+Your Infomate modem is now configured for best performance
+with Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+÷Infotel
+Infotel 9600 v.32
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~~~ATS11=60^M
+AT&F2
+ATS0=0&C1&D2&K5&R1&S0
+AT&W
+0
+
+Your Infotell modem is now set up for best perfomance with
+Telix 3.22. Error correction is enabled, so set ALL of your
+dialing directory entries to 19200 bps for best performance.
+
+
+
+Infotel 9600 w/o v.42bis
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~~~ATS11=60^M
+AT&F2
+ATS0=0&C1&D2&K5&R1&S0
+AT&W
+0
+
+Your Infotell modem is now set up for best perfomance with
+Telix 3.22.
+
+
+
+
+Infotel 14.4k v.32bis
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~~~
+AT&F
+AT&C1&D2W1
+AT&W
+0
+
+Your Infotel modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 38400 bps for best performance.
+
+
+
+Infotel 1414VE
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+50
+ATZ^M~
+AT&F
+AT&C1&D2&K3&Q5S7=60S95=3S0=0
+AT&W
+0
+
+Your Infotel 144VE modem is now configured for best
+performance with Telix 3.22.
+
+
+
+
+Infotel 1414VQP
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+50
+ATZ^M~
+AT&F
+AT&C1&D2&K3&Q5S7=60S95=3S0=0
+ATS11=50&W
+0
+
+Your Infotel 144VQP modem is now configured for best
+performance with Telix 3.22.
+
+
+
+
+Infotel 14400 (All Others)
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+50
+ATZ^M~
+AT&F
+AT&C1&D2&K3&Q5S95=3S0=0
+AT&W
+0
+
+Your Infotel 14400 modem is now configured for best
+performance with Telix 3.22.
+
+
+
+
+÷Intel
+Intel 2400B (non-MNP)
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~~AT&C1&D2S11=55S7=60V1Q0X4E1^M
+
+
+
+0
+
+Your Intel modem is now configured for best performance
+with Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+Intel 2400B/2400EX (MNP)
+480
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&F
+AT\Q3\N3\J0\V1\C1 S11=60
+AT&W
+0
+
+Your Intel modem is now configured for best performance
+with Telix 3.22.  Correction is enabled so set all dialing
+entries to 4800 for best performance.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+Intel 9600EX (v.32/v.42bis)
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&F
+AT \Q3\N3\J0\V1\C0S11=60
+AT&W
+0
+
+Your Intel modem is now set up for best perfomance with
+Telix 3.22.
+
+Compression is enabled, so set ALL of your dialing directory
+entries to 38400 bps for best performance.
+
+Intel 14.4EX v.32bis
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&F
+AT\Q3\N3\J0\V2\C0&C1&D2%E1%C0X4
+AT&W
+0
+
+Your Intel 14.4EX v.32bis modem is now configured to work best with
+Telix 3.22. Compression is enabled, so set all your dialing directory
+entries to 38400 bps for best performance.
+
+
+
+Intel SatisFAXion
+480
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ0^M
+AT&F
+AT \C1 S11=60
+AT&W0
+0
+
+Your Intel modem/fax is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 4800 bps for best performance.
+
+
+
+Intel SatisFAXion 200
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&F
+AT\N3\Q3&C1&D2\V1
+AT&W0
+0
+
+Your Intel modem/fax is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 38400 bps for best performance.
+
+
+
+Intel SatisFAXion 400
+5760
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&F
+AT&T5\J0\Q3&C1&D2\N3
+AT&W
+0
+
+Your Intel modem/fax is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 57600 bps for best performance.
+
+
+
+÷InterQuad
+InterQuad M2400
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+50
+ATZ^M~
+AT&F
+ATE1Q0M1X4V1S11=60
+AT&C1&D2&W
+0
+
+Your InterQuad 2400 modem is now configured for best
+performance with Telix 3.22.
+
+
+
+
+÷LightCom
+LightCom 2400
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+50
+ATZ^M~
+AT&F
+AT&E1Q0M1X4V1S7=60
+AT&C1&D2&W
+0
+
+Your LightCom 2400 is now configured for best
+performance with Telix 3.22.
+
+
+
+
+LightCom 96 v.32
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT&Q5%C1DT
+AT&Q9%C0DT
+AT&Q0%C0DT
+NO DIAL
+40
+AT&F^M~~AT&C1&D2\A3S11=55^M~
+
+
+
+0
+
+Your LightCom 96 v.32 modem is now configured for best
+performance with Telix 3.22.
+
+Use dialing prefix 1 to call v.42bis systems.
+Use dialing prefix 2 to call MNP systems.
+Use dialing prefix 3 to call non-error correcting systems.
+LightCom 14.4 v.32bis
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~~~
+AT&F
+AT&C1&D2 S95=44 W2
+AT&W
+0
+
+Your LightCom 14.4 v.32bis modem is now configured for
+best performance with Telix 3.22.  Compression is enabled,
+so set ALL of your dialing directory entries to 57600 bps
+for best performance.
+
+
+÷Maxwell
+Maxwell Modem 300/V
+30
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT E1 Q0 V1 S0=0^M
+
+
+
+0
+
+Your Maxwell modem is now configured for best performance
+with Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+Maxwell Modem 1200VP
+120
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT E1 Q0 V1 X4 &C1 &D2 S7=55 S0=0^M
+
+
+
+0
+
+Your Maxwell modem is now configured for best performance
+with Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+Maxwell Modem 2400PC
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT E1 Q0 V1 S7=30 S0=0^M
+
+
+
+0
+
+Your Maxwell modem is now configured for best performance
+with Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+÷Megahertz
+MHz EasyTalk 1200
+120
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT E1 Q0 V1 S7=55 S11=60 S0=0^M
+
+
+
+0
+
+Your Megahertz modem is now configured for best performance
+with Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+MHz EasyTalk 2400
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT E1Q0V1X4&C1&D2S7=55S11=60S0=0^M
+
+
+
+0
+
+Your Megahertz modem is now configured for best performance
+with Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+÷Microcom
+AX1200/AX2400 w/ compression
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~~AT&C1&D2\Q3\N3\J0S7=55S11=55%C1^M
+
+
+
+10
+See Ending Comments
+Your MicroCom modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 9600 bps for best performance.
+
+Rear Switches:  1 2 3 4 5 6 7 8  Front: 1 2 3 4 5 6 7 8 9 10
+                D D D U D U D D         U D D D D U U D U U
+AX1200/AX2400 w/o compression
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~~AT&C1&D2\Q3\N3\J0S7=55S11=55^M
+
+
+
+10
+See Ending Comments
+Your MicroCom modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 9600 bps for best performance.
+
+Rear Switches:  1 2 3 4 5 6 7 8  Front: 1 2 3 4 5 6 7 8
+                D U D U D U D U         U D D U D U U D
+Microcom AX9612c/AX9624c
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&FV1Q0
+AT\J0\Q3\N3S0=0
+AT&W
+10
+See Ending Comments
+Your MicroCom modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 19200 bps for best performance.
+
+Rear Switches:  1 2 3 4 5 6 7 8  Front: 1 2 3 4 5 6 7 8
+                D U D U D U D U         U D D U D U U D
+Microcom 2400t/QX
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&F
+AT\J0\Q3\N3\V1%C3\C1S7=60S11=55V1Q0
+AT&W
+10
+See Ending Comments
+Your MicroCom modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 19200 bps for best performance.
+
+Rear Switches:  1 2 3 4 5 6 7 8  Front: 1 2 3 4 5 6 7 8 9
+                D U D U D U D U         U D D U D U U D U
+Microcom QXv.32c/v.32bis/4232hs
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&FV1Q0
+AT\J0\Q3\N3%C3S7=55S0=0
+AT&W
+10
+See Ending Comments
+Your MicroCom modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 38400 bps for best performance.
+
+Rear Switches:  1 2 3 4 5 6 7 8  Front: 1 2 3 4 5 6 7 8 9 10
+                D D D U D U D D         U D D U D U U D   U
+÷Miracom
+Miracom Keycard 2400
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~ATV1Q0X4&C1&D2S7=60S11=60^M
+
+
+
+0
+
+Your Miracom Keycard is now configured for best
+performance with Telix 3.22.
+
+Options might be to add M0 in your modem init string
+to silence your speaker if you prefer.
+
+Miracom Keycard 3000
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~ATV1Q0X4&C1&D2S7=55S11=60S23=1^M
+
+
+
+0
+
+Your Miracom Keycard is now configured for best
+performance with Telix 3.22.
+
+Options might be to add M0 in your modem init string
+to silence your speaker if you prefer.
+
+Miracom WS4000/PC 300
+30
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~ATV1Q0X1S7=55S11=60S23=1^M
+
+
+
+0
+
+Your Miracom Keycard is now configured for best
+performance with Telix 3.22.
+
+Options might be to add M0 in your modem init string
+to silence your speaker if you prefer.
+
+÷MICC
+MICC v.32/v.32bis
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT\N9%C1DT
+AT\N3%C0DT
+AT\N0%C0DT
+NO DIAL
+40
+AT&F^M~~~AT\N9\J0&C1&D2S7=60S11=60%C1^M~
+
+
+
+0
+
+Your MICC v.32 or v.32bis modem is now configured
+for best performance with Telix 3.22.  Compression is
+enabled so set all dialing entries to 38400 for best use.
+Use dialing prefix 1 to call v.42bis error correcting systems.
+Use dialing prefix 2 to call MNP-only error correcting systems.
+Use dialing prefix 3 to call non error correcting systems.
+÷MultiTech
+MultiModem 224 PC
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1Q0V1X4&C1&D2 S7=55 S11=60 S0=0^M
+
+
+
+0
+
+Your MultiTech modem is now configured for best performance
+with Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+MultiModem 224 EC (MNP)
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&FV1Q0
+ATQ0&E1&E4&E7&E13&E15
+AT$SB9600$BA0$A1$I1$R1&W
+0
+
+Your Multitech modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 9600 bps for best performance.
+
+
+
+MultiModem MT224EH5/EH7
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&FV1Q0
+ATQ0&E1&E4&E7&E13&E15
+AT$SB9600$BA0$A1$I1$R1&W
+10
+See Ending Comments
+Your Multitech modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 9600 bps for best performance.
+
+4 Switch set : 1 2 3 4   8 Switch Set:  1 2 3 4 5 6 7 8
+               D U D D                  U U D U D U U D
+MultiModem v.32
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&FV1Q0
+ATB0&E1&E4&E7&E13
+ATX4$SB19200$BA1$A1S7=55S11=60S0=0&W
+10
+See Ending Comments
+Your Multitech modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 9600 bps for best performance.
+
+4 Switch set : 1 2 3 4   8 Switch Set:  1 2 3 4 5 6 7 8
+               D U D D                  U U D U D U U D
+MultiModem 696E
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&FV1Q0&D2$EP1$F1&Q0&E15&E10
+AT&B0&E1&E4&E8&E13$MB9600&BS0$D0&C1
+ATX4$SB19200$BA1$A1S7=55S11=60S0=0&W0
+10
+See Ending Comments
+Your Multitech modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 19200 bps for best performance.
+
+Set switch 1 on the block of 8 to OPEN.
+Set switch 7 on the block of 8 to OPEN.
+MultiModem 932EC
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&F
+ATB0&E1&E4&E8&E10&E13&E15
+ATX4$SB19200$MB9600$BA1&W
+10
+See Ending Comments
+Your Multitech modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 19200 bps for best performance.
+
+Set switch 1 on the block of 8 to OPEN.
+Set switch 7 on the block of 8 to OPEN.
+MultiModem 1432EAB
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&F
+ATB0&E1&E4&E8&E10&E13&E15
+ATX4$SB38400$MB14400$BA1&W
+10
+See Ending Comments
+Your Multitech modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 38400 bps for best performance.
+
+Set switch 1 on the block of 8 to OPEN.
+Set switch 7 on the block of 8 to OPEN.
+÷NEC
+NEC 2431c
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&FV1Q0
+AT&C1&D2&E1S7=55S11=60
+AT&W
+0
+
+Your NEC 2431c modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 9600 bps for best performance.
+
+
+
+NEC N9631 v.32
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&F2V1Q0
+AT&T5\Q3\X1\V1*FT1
+AT&W
+0
+
+Your NEC 9631c modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 19200 bps for best performance.
+
+
+
+NEC N9635 V.32
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+50
+ATZ^M~
+AT&F2
+AT&C1&D2&W
+AT&T5\Q3\V1\J0\N3&W
+0
+
+Your NEC N9635 modem is now configured for best
+performance with Telix 3.22.
+
+
+
+
+÷Novation
+Novation Professional 2400
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO TONE
+40
+ATE1Q0V1X3YC0YF1YT0 S7=45 S0=0^M
+
+
+
+0
+
+Your Novation modem is now configured for best performance
+with Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+÷Nuvotel
+Nuvotel 14400
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~
+AT&F
+ATV1X4&C1&D2S7=50S0=0
+AT&W
+0
+
+Your Nuvotel 14400 modem is now configured for best performance
+with Telix 3.22.   Options might be to add M0 in your modem
+init string to silence your speaker if you prefer.
+
+Set all entries in your dialing directory to 38,400.
+
+÷Okidata
+OkiTel 2400 Plus
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ0^M
+AT&FV1Q0
+AT &C1&D2 \V1 \N3 \Q3 \J0 \C1
+ATS7=55S11=60&W0&Y0
+0
+
+Your Okidata modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 9600 bps for best performance.
+
+
+
+OkiTel 1200
+120
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1Q0V1 S7=55 S11=60 S0=0^M
+
+
+
+0
+
+Your Okidata modem is now configured for best performance
+with Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+OkiTel 2400
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1Q0V1X4&C1&D2 S7=55 S11=60 S0=0^M
+
+
+
+0
+
+Your Okidata modem is now configured for best performance
+with Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+OkiTel 9600
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&FV1Q0
+AT&C1&D2
+AT&W
+10
+See ending comments
+Your Okidata modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 19200 bps for best performance.
+
+Rear switch 6 should be on, the rest off.
+
+OkiTel CLP 296
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~~AT&C1&D2\V1\Q3\J0\C1S7=66S11=55^M
+
+
+
+10
+ALL off except # 6
+Your Okidata modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 9600 bps for best performance.
+
+
+
+÷Pace
+Pace 300 internal
+30
+"N"
+8
+1
+On
+Off
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~
+
+
+
+0
+
+Your Pace modem is now configured for best performance
+with Telix 3.22.
+
+Options might be to add M0 in your modem init string
+to silence your speaker if you prefer.
+
+Pace 1200
+120
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~
+
+
+
+0
+
+Your Pace modem is now configured for best performance
+with Telix 3.22.
+
+Options might be to add M0 in your modem init string
+to silence your speaker if you prefer.
+
+Pace Series IV MNP
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~
+
+
+
+0
+
+Your Pace modem is now configured for best performance
+with Telix 3.22.
+
+Options might be to add M0 in your modem init string
+to silence your speaker if you prefer.
+
+Pace UltraLink/IV Quad
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~AT&A1&E2&I1&K1\C4\N0\P1\Q0S7=60S11=55^M
+
+
+
+0
+
+Your Pace modem is now configured for best performance
+with Telix 3.22.  Correction is enabled so set all your
+dialing entries to 9600 for best performance and speed.
+
+Options might be to add M0 in your modem init string
+to silence your speaker if you prefer.
+Pace UltraLink/IV v.32
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~AT&A1&E2&I1&K1\C4\N0\P1\Q0S7=60S11=55^M
+
+
+
+0
+
+Your Pace modem is now configured for best performance
+with Telix 3.22.  Correction is enabled so set all your
+dialing entries to 19200 for best performance and speed.
+
+Options might be to add M0 in your modem init string
+to silence your speaker if you prefer.
+÷Packard Bell
+Packard Bell PB9600 MNP
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT\N3DT
+AT\N0DT
+ATDT
+NO DIAL
+40
+ATZ^M~
+AT&F
+ATB0E1V1Q0S7=60S11=55\A3%C1\J0\N3\Q3
+AT&Y0&W0
+0
+
+Your Packard Bell Modem with MNP is now configured
+for best performance with Telix 3.22.  Compression is
+enabled so set all dialing entries to 19,200 for best use!
+
+Use dialing prefix 1 for error-correcting systems.
+Use dialing prefix 2 for non-error correcting systems.
+Packard Bell PB9600 v.42bis
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT\N6DT
+AT\N0DT
+ATDT
+NO DIAL
+40
+AT&F2^M~
+
+
+
+0
+
+Your Packard Bell Modem with v.42bis is now configured
+for best performance with Telix 3.22.  Compression is
+enabled so set all dialing entries to 38,400 for best use!
+
+Use dialing prefix 1 for error-correcting systems.
+Use dialing prefix 2 for non-error correcting systems.
+÷PC Logic
+PC Logic 9600 v32, v42bis
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+50
+ATZ^M~
+AT&F
+ATL1W1&C1&D2%E1
+AT&W0
+0
+
+Your PC Logic 9600bps with v.42bis is now configured
+for best performance with Telix 3.22.  Compression is
+enabled so set all dialing entries to 19,200 for best use!
+
+
+
+PC Logic 14400 v.32bis, v.42bis
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+50
+ATZ^M~
+AT&F
+ATL1W1&C1&D2%E1
+AT&W0
+0
+
+Your PC Logic 14400bps with v.42bis is now configured
+for best performance with Telix 3.22.  Compression is
+enabled so set all dialing entries to 38,400 for best use!
+
+
+
+÷Penrill
+Penrill Alliance v.32
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&FV1Q0
+AT&C1&D2\Q1,1
+AT&W
+0
+
+Your Penrill modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 19200 bps for best performance.
+
+
+
+Penrill Alliance v.32bis
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&FV1Q0
+AT&C1&D2\Q1,1
+AT&W
+0
+
+Your Penrill modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 38400 bps for best performance.
+
+
+
+Penrill Data Link 1200
+120
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1Q0V1X4&C1 S7=55 S11=60 S0=0^M
+
+
+
+0
+
+Your Penrill modem is now configured for best performance
+with Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+Penrill Data Link 2400
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1Q0V1X4&C1 S7=55 S11=60 S0=0^M
+
+
+
+0
+
+Your Penrill modem is now configured for best performance
+with Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+÷Practical
+PM2400SA/HC/PKT
+240
+"N"
+8
+1
+Off
+On
+Off
+On
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F&C1&D2S7=90^M
+AT&F
+AT&C1&D2S7=90
+AT&W
+0
+
+Your Practical Peripherals PM2400 modem is now configured for best
+performance with Telix 3.22.
+
+
+
+
+PM2400EFXSA/HC
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT&Q9DT
+AT&Q6DT
+ATDT
+NO DIAL
+40
+AT&F&C1&D2S7=90S95=3^M
+AT&F
+AT&C1&D2S7=90S95=3
+AT&W
+0
+
+Your Practical Peripherals PM2400EFX modem is now configured for best
+performance with Telix 3.22.  Use dialing prefix #1 when connecting to
+error correcting modems, prefix #2 when connecting to non-error correcting
+modems.
+Set all entries in your dialing directory to 9600.
+
+PM2400F series
+240
+"N"
+8
+1
+Off
+On
+Off
+On
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F&C1&D2S7=90^M
+AT&F
+AT&C1&D2S7=90
+AT&W
+0
+
+Your Practical Peripherals PM2400F series modem is now configured for best
+performance with Telix 3.22.
+
+
+
+
+PM2400SA/HC/PKT V.42BIS
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT&Q9DT
+AT&Q6DT
+ATDT
+NO DIAL
+40
+AT&F&C1&D2S7=90S95=3^M
+AT&F
+AT&C1&D2S7=90S95=3
+AT&W
+0
+
+Your Practical Peripherals PM2400 V.42bis modem is now configured for best
+performance with Telix 3.22.  Use dialing prefix #1 when connecting to
+error correcting modems, prefix #2 when connecting to non-error correcting
+modems.
+Set all entries in your dialing directory to 9600.
+
+PM2400FX96SA/HC
+240
+"N"
+8
+1
+Off
+On
+Off
+On
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F&C1&D2S7=90^M
+AT&F
+AT&C1&D2S7=90
+AT&W
+0
+
+Your Practical Peripherals PM2400FX96 modem is now configured for best
+performance with Telix 3.22.
+
+
+
+
+PM9600SA/HC/FXSA/FXHC
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT&Q9DT
+AT&Q6DT
+ATDT
+NO DIAL
+40
+AT&F&C1&D2S7=90S95=3^M
+AT&F
+AT&C1&D2S7=90S95=3
+AT&W
+0
+
+Your Practical Peripherals PM9600 series modem is now configured for best
+performance with Telix 3.22.  Use dialing prefix #1 when connecting to
+error correcting modems, prefix #2 when connecting to non-error correcting
+modems.
+Set all entries in your dialing directory to 38400.
+
+PM14400FXMT/SA/HC/PKT/PCMCIA
+5760
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT&Q9DT
+AT&Q6DT
+ATDT
+NO DIAL
+40
+AT&F1S7=90S95=3^M
+AT&F
+AT&C1&D2S7=90S95=3
+AT&W
+0
+
+Your Practical Peripherals PM14400 series modem is now configured for best
+performance with Telix 3.22.  Use dialing prefix #1 when connecting to
+error correcting modems, prefix #2 when connecting to non-error correcting
+modems.
+Set all entries in your dialing directory to 57600.
+
+PM288LCD/PKT/HC
+5760
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT&Q9DT
+AT&Q6DT
+ATDT
+NO DIAL
+40
+AT&F1S7=90S95=3^M
+AT&F
+AT&C1&D2S7=90S95=3
+AT&W
+0
+
+Your Practical Peripherals PM28800 series modem is now configured for best
+performance with Telix 3.22.  Use dialing prefix #1 when connecting to
+error correcting modems, prefix #2 when connecting to non-error correcting
+modems.
+Set all entries in your dialing directory to 115200.
+
+÷Prometheus
+Prometheus Pro 1200
+120
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1Q0V1 S7=55 S11=60 S0=0^M
+
+
+
+0
+
+Your Prometheus modem is now configured for best performance
+with Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+Prometheus MCT-24I Half Card
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1Q0V1X4&C1&D2 S7=55 S11=60 S0=0^M
+
+
+
+0
+
+Your Prometheus modem is now configured for best performance
+with Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+Prometheus 9600
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~~~AT*F3^M
+
+
+
+0
+
+Your Prometheus modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 19200 bps for best performance.
+
+
+
+Promehus 9600 Plus
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+45
+ATZ^M
+AT&F
+AT&C1&D2\Q3\N3\J0X1
+AT&W
+0
+
+
+
+
+
+Your Promethus Promodem 9600 is now configured for
+performance with Telix 3.22.
+÷Quicktel
+Quicktel v.32/v.42
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~~AT\Q3&C1&D2^M
+
+
+
+10
+See Ending Comments
+Your Quicktel v.32 and v.42bis modem is now configured
+for best performance with Telix 3.22.  Compression is
+enabled so set all dialing directory entries to 19200.
+
+Make sure that switches 7 and 8 on the outside are OFF
+and that the INSIDE switches are OFF OFF OFF ON.
+÷Racal Vadic
+Racal Milgo RMD 3221
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M ATX9&C1&D2*F2 S7=55 S11=60 S0=0^M
+
+
+
+0
+
+Your Racal-Vadic modem is now set up for best perfomance
+with Telix 3.22.
+
+Compression is enabled, so set ALL of your dialing directory
+entries to 9600 bps for best performance.
+
+Racal Vadic 1200 PA
+120
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~~~AT &C1&D2^M
+
+
+
+0
+
+Your Racal-Vadic modem is now set up for best performance
+with Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+Racal Vadic 2400 PS
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ0^M~~~AT S7=55 S11=60^M
+AT&FV1Q0
+AT*F2&C1&D2*E0
+AT&W0
+0
+
+Your Racal-Vadic is now configured for best performance with
+Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+Racal Vadic 2400 LC
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ0^M~~~AT S7=55 S11=60^M
+AT&FV1Q0
+AT &C1&D2 *E0*F2*P1S7=55S11=60
+AT&W0
+0
+
+Your Racal-Vadic is now configured for best performance with
+Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+Racal Vadic LC2400 PC
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~~~ATS7=55S11=60
+
+
+
+0
+
+Your Racal-Vadic is now set up for best performance with
+Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+Racal Vadic 2400 PA Model 2
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~~~AT S7=55 S11=60^M
+AT&FV1Q0
+AT &C1&D2 X4 *E0*L1*Q1*F2*P1
+AT&W
+0
+
+Your Racal-Vadic is now set up for best performance with
+with Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+Racal Vadic 2400 VP
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&FV1Q0
+AT&C1*C1&D2*E0*F2Y1S7=55*Q1S11=60
+AT&W
+0
+
+Your Racal-Vadic modem is now set up for best performance
+with Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+Racal Vadic 2400VP MNP
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&FV1Q0
+AT&C1*C1&D2*E0*F2Y1S7=55*Q1S11=60
+AT&W
+0
+
+Your Racal-Vadic modem is now set up for best performance
+with Telix 3.22. Compression is enabled so set all of your
+dialing directory entries to 9600 for best performance.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+Racal Vadic 9600 PA
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~~~ATS7=55^M
+AT&FV1Q0
+AT&C1*C1&D2*F2Y1*Q1
+AT&W
+0
+
+Your Prometheus modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 9600 bps for best performance.
+
+
+
+÷Supra
+Supra Modem 2400
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1Q0V1X4 &C1&D2 S7=55 S11=60 S0=0^M
+
+
+
+0
+
+Your Supra modem is now configured for best performance
+with Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+Supra Modem 2400 MNP
+480
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F2^M~~AT&C1%C0S11=60S7=60^M~
+
+
+
+0
+
+Your Supra modem is now configured for best performance
+with Telix 3.22.  Correction is enabled so set all your
+dialin entires to 4800 for best performance.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+Supra 2400 Plus v.42bis
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F2^M~~AT&C1\V2S11=60S7=60^M~
+
+
+
+0
+
+Your Supra modem is now configured for best performance
+with Telix 3.22.  Compression is enabled so set all your
+dialin entires to 9600 for best performance.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+Supra 9600 v.32
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~~AT&C1\N3V1%C0S7=55S11=55^M~
+
+
+
+0
+
+Your Supra modem is now configured for best performance
+with Telix 3.22.  Compression is enabled so set all your
+dialing entries to 19200 for best performance.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+Supra 14,400 v.32bis
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~~AT&C1\N3V1%C0S7=55S11=55^M~
+
+
+
+0
+
+Your Supra modem is now configured for best performance
+with Telix 3.22.  Compression is enabled so set all your
+dialing entries to 19200 for best performance.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+Supra FaxModem 14,400 v.32bis
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&F
+ATW1 &C1&D2\N3S95=41
+AT&W
+0
+
+Your Supra modem is now configured for best performance
+with Telix 3.22.  Compression is enabled so set all your
+dialing entries to 38400 for best performance.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+÷Sysdyne
+Sysdyne MDM 24H
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1Q0V1X4&C1&D2S7=55S11=60S0=0^M
+
+
+
+0
+
+Your Sysdyne modem is now configured for best performance
+with Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+÷Telebit
+Telebit Internal Card
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+60
+AT&F^M~~ATS11=60S7=60S51=5S58=2S66=1S95=2^M
+
+
+
+0
+
+Your Telebit modem is now set up for best performance with
+Telix 3.21.  RTS/CTS Flow Control is enabled, so set ALL of 
+your dialing directory entries to 19200 bps.
+
+
+
+Telebit T1000
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+60
+ATZ^M~
+AT~&FS66=1S58=2S51=254S11=60
+ATS0=0S52=1S131=1S95=2S7=60
+AT&W
+0
+
+Your Telebit T1000 modem is now set up for best performance 
+with Telix 3.21.  RTS/CTS flow control is enabled, so set ALL
+of your dialing directory entries to 19200 bps.
+
+
+
+Telebit T1500
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+60
+ATZ^M
+AT ~&F V1 Q0 S7=60 S11=60 S51=254
+AT S52=1 S58=2 S66=1 S95=2
+AT S97=1 S106=1 &W
+0
+
+Your Telebit T1500 modem is now set up for best performance 
+with Telix 3.21.  RTS/CTS Flow Control is enabled, so set ALL
+of your dialing directory entries to 19200 bps.
+
+
+
+Telebit T1600
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+60
+ATZ0^M
+AT &F9 X12 L1 S7=60
+AT S11=60 S51=253 S59=15
+AT &W
+0
+
+Your Telebit T1600 modem is now set up for best performance 
+with Telix 3.21.  RTS/CTS Flow Control is enabled, so set ALL
+of your dialing directory entries to 38400 bps.
+
+
+
+Telebit T2000
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+60
+ATZ^M
+AT~&F V1 Q0 S7=60 S11=60
+AT S51=254 S52=1 S58=2
+AT S66=1 S95=2 S131=1 &W
+0
+
+Your Telebit T2000 modem is now set up for best performance 
+with Telix 3.21.  RTS/CTS Flow Control is enabled, so set ALL
+of your dialing directory entries to 19200 bps.
+
+Note that this assumed you were in Enhanced command mode. If
+you were not, please refer to your manual and redo MODEMCFG.
+Telebit T2500
+19200
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+60
+ATZ^M
+AT~&F V1 Q0 S7=60 S11=60
+AT S51=254 S52=1 S58=2 S66=1
+AT S95=2 S97=1 S106=1 &W
+0
+
+Your Telebit T2500 modem is now set up for best performance 
+with Telix 3.21.  RTS/CTS Flow Control is enabled, so set ALL
+of your dialing directory entries to 19200 bps.
+
+Note that this assumed you were in Enhanced Command Mode.
+If not, please refer to your manual and redo MODEMCFG.
+Telebit T3000
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+60
+ATZ^M
+AT &F9 X12 L1 S7=60
+AT S11=60 S51=253 S59=15
+AT &W
+0
+
+Your Telebit T3000 modem is now set up for best performance 
+with Telix 3.21.  RTS/CTS Flow Control is enabled, so set ALL
+of your dialing directory entries to 38400 bps.
+
+
+
+Telebit TrailBlazer Plus
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+60
+ATZ^M
+AT ~&F V1 Q0 S7=60 S11=55
+AT S51=254 S52=1 S58=2 S66=1
+AT S95=2 S97=1 S106=1 &W
+0
+Your Telebit TrailBlazer Plus modem is now set up for best
+performance with Telix 3.21.  RTS/CTS Flow Control is
+enabled, so set ALL of your dialing directory entries to
+19200 bps.
+
+Note that this assumed you were in Enhanced Command Mode.
+If not, please refer to your manual and redo MODEMCFG.
+Telebit QBlazer
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+60
+ATZ^M
+AT &F &C1 &D2 X4 S7=60
+AT S11=60 S51=253
+AT S58=2 S59=15 &W
+0
+
+Your Telebit QBlazer modem is now set up for best
+performance with Telix 3.21.  RTS/CTS Flow Control is
+enabled, so set ALL of your dialing directory entries to
+38400 bps.
+
+
+Telebit WorldBlazer
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+60
+ATZ^M
+AT &F9 X12 L1
+AT S51=253 S59=15
+AT &W
+0
+
+Your Telebit WorldBlazer modem is now set up for best
+performance with Telix 3.21.  RTS/CTS Flow Control is
+enabled, so set ALL of your dialing directory entries to
+38400 bps.
+
+
+÷The Complete PC
+Complete FAX/Portable Plus
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1V1&F&C1&D2\A3\N3\Q3\V1%C1\J0^M~
+
+
+
+0
+
+Your Complete FAX/Portable Plus modem is now configured for
+best performance with Telix 3.22.   Options might be to add
+M0 in your modem init string to silence your speaker if you
+prefer.
+
+Set all entries in your dialing directory to 2400.
+Complete Modem/Complete Modem Plus
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1V1&F&C1&D2^M~
+
+
+
+0
+
+Your Complete Modem/Complete Modem Plus is now configured for
+best performance with Telix 3.22.   Options might be to add
+M0 in your modem init string to silence your speaker if you
+prefer.
+
+Set all entries in your dialing directory to 2400.
+Complete FAX/9624
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1V1&F&C1&D2\A3\N3\Q3\V1%C1\J0^M~
+
+
+
+0
+
+Your Complete FAX/9624 modem is now configured for best
+performance with Telix 3.22.   Options might be to add
+M0 in your modem init string to silence your speaker if you
+prefer.
+
+Set all entries in your dialing directory to 2400.
+Complete Communicator
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1V1&F&C1&D2\A3\N3\Q3\V1%C1\J0^M~
+
+
+
+0
+
+Your Complete Communicator modem is now configured for best
+performance with Telix 3.22.   Options might be to add
+M0 in your modem init string to silence your speaker if you
+prefer.
+
+Set all entries in your dialing directory to 2400.
+Complete Communicator Gold
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATB0E1V1&F&C1&D2\A3\N6%C1S95=44^M~
+
+
+
+0
+
+Your Complete Communicator Gold modem is now configured
+for best performance with Telix 3.22.   Options might be
+to add M0 in your modem init string to silence your speaker
+if you prefer.
+
+Set all entries in your dialing directory to 19200.
+TurboModem Plus
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATB0E1V1&F&C1&D2\A3\N6\Q3V1%C1\J0^M~
+
+
+
+0
+
+Your Complete TurboModem Plus modem is now configured
+for best performance with Telix 3.22.   Options might be
+to add M0 in your modem init string to silence your speaker
+if you prefer.
+
+Set all entries in your dialing directory to 38400.
+÷Twincom
+Twincom 96/42i
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT\N3%C1DT
+AT\N3%C0DT
+AT\N0DT
+NO DIAL
+40
+AT&F^M~AT&C1&D2S36=7\A3S95=160W1^M~
+AT&F
+AT&C1&W0
+AT&Y0
+0
+
+Your Image Twincom is now configured for best performance
+with Telix 3.22.  Compression is enabled so set all of your
+dialing entries to 38,400 for best performance and speed.
+
+Use dialing prefix 1 to call a v.42bis modem, prefix 2 to
+call an MNP modem, and prefix 3 to call "generic" modems.
+Twincom 144/DF
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT\N3%C1DT
+AT\N3%C0DT
+AT\N0DT
+NO DIAL
+40
+AT&F^M~AT&C1&D2S36=7\A3S95=160W1^M~
+AT&F
+AT&C1&W0
+AT&Y0
+0
+
+Your Image Twincom is now configured for best performance
+with Telix 3.22.  Compression is enabled so set all of your
+dialing entries to 38,400 for best performance and speed.
+
+Use dialing prefix 1 to call a v.42bis modem, prefix 2 to
+call an MNP modem, and prefix 3 to call "generic" modems.
+÷UDS
+UDS Fast Talk 2400
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1Q0V1X4&C1&D2 S7=55 S0=0^M
+
+
+
+0
+
+Your UDS modem is now configured for best performance with
+Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+UDS v.3224/v.3225
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~~AT&C1&D2%B6\N3\C1\J0\Q3%C0\V1^M~
+
+
+
+0
+
+Your UDS modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 19200 bps for best performance.
+
+
+
+UDS Fasttalk v.32/v.42
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&F
+AT\N3&C1%B9600C\C1\J0&R0&T5\Q3\V1%C1
+AT&Y&W
+0
+
+Your UDS modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 9600 bps for best performance.
+
+
+
+UDS FasTalk 32X
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&F
+ATL1&C1&D2&R0&S1\Q3
+AT&W
+0
+
+Your UDS modem is now set up for best perfomance with
+Telix 3.21.  Compression is enabled, so set ALL of your
+dialing directory entries to 19200 bps for best performance.
+
+
+
+÷US Robotics
+USR 1200 PC Internal
+120
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1Q0V1X1S7=55S11=60S0=0^M
+
+
+
+0
+
+Your USR modem is now configured for best performance with
+Telix 3.22.  Set the jumpers as:  J1: Up  J2: Up  J3: Down
+and J14:  Up      All switches should be off.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+USR Password 1200
+120
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1Q0V1X1S7=55S11=60S0=0^M
+
+
+
+0
+
+Your USR modem is now configured for best performance with
+Telix 3.22.  Set the jumpers as:  J1: Up  J2: Up  J3: Right
+and J5:  Down      All switches should be Up.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+USR Sportster 1200
+120
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1Q0V1X2 S7=55 S11=60 S0=0^M
+
+
+
+10
+U U D U D U U D
+Your USR modem is now configured for best performance with
+Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+USR Sportster 2400 MNP-5
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT&M4DT
+AT&M0DT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&F
+AT X4 S11=60 S7=60
+AT&W
+5
+U U U U U
+Your USR modem is now set up for best perfomance with Telix
+3.22.  Compression is enabled, so set ALL of your dialing
+directory entries to 9600 bps for best performance.
+
+Use Dialing Prefix 1 for calling error-correcting systems.
+Use Dialing Prefix 2 for calling non-errorcorrecting systems.
+USR Sportster 2400
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1Q0V1X4&C1&D2 S7=55 S11=60 S0=0^M
+
+
+
+8
+U U D U D U U D
+Your USR modem is now configured for best performance with
+Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+USR Sportster v.32
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT&M4DT
+AT&M0DT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&F
+ATX4&H1&R2&B1
+AT S7=55S0=0 &W
+8
+U U D U D U U D
+Your USR modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 38400 bps for best performance.
+
+Use Dialing prefix 1 for calling MNP-equipped systems.
+Use Dialing prefix 2 for calling non-MNP systems.
+USR Sportster 14.4k v.32bis
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT&M4DT
+AT&M0DT
+ATDT
+NO DIAL
+40
+ATZ^M~~~
+AT&F
+ATX4&H1&R2&B1
+AT S7=55S0=0 &W
+8
+U U D U D U U D
+Your USR modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 38400 bps for best performance.
+
+Use Dialing prefix 1 for calling MNP-equipped systems.
+Use Dialing prefix 2 for calling non-MNP systems.
+USR MicroLink 2400
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1Q0V1X4&C1&D2 S7=55 S11=60 S0=0^M
+
+
+
+10
+U U D U D U U D D U
+Your USR modem is now configured for best performance with
+Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+USR VARmodem 2400
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1Q0V1X4&C1&D2 S7=55 S11=60 S0=0^M
+
+
+
+10
+U U D U D U U D D U
+Your USR modem is now configured for best performance with
+Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+USR Courier HST 9600
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT&M4DT
+AT&M0DT
+ATDT
+NO DIAL
+40
+ATZ^M~~~
+AT&FV1Q0
+AT&K0X6&B1&H1&R2S7=55S11=60
+AT&W
+10
+U U D U D U U D D U
+Your USR modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 19200 bps for best performance.
+
+Use Dialing prefix 1 for calling MNP-equipped systems.
+Use Dialing prefix 2 for calling non-MNP systems.
+USR Courier HST 14400
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT&M4DT
+AT&M0DT
+ATDT
+NO DIAL
+40
+ATZ^M~~~
+AT&F
+ATX6&K0&B1&H1&R2S7=55S11=60
+AT&W
+10
+U U D U D U U D D U
+Your USR modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 19200 bps for best performance.
+
+Use Dialing prefix 1 for calling MNP-equipped systems.
+Use Dialing prefix 2 for calling non-MNP systems.
+USR Courier HST 14400 v.42
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT&M4DT
+AT&M0DT
+ATDT
+NO DIAL
+40
+ATZ^M~~~
+AT&F
+ATX6&B1&H1&R2&M4&A3S7=55S11=60
+AT&W
+10
+U U D U D U U D D U
+Your USR modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 38400 bps for best performance.
+
+Use Dialing prefix 1 for calling MNP-equipped systems.
+Use Dialing prefix 2 for calling non-MNP systems.
+USR Courier HST 16800
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT&M4DT
+AT&M0DT
+ATDT
+NO DIAL
+40
+ATZ^M~~~
+AT&F
+ATX6&B1&H1&R2&M4&A3S7=55S11=60
+AT&W
+10
+U U D U D U U D D U
+Your USR modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 38400 bps for best performance.
+
+Use Dialing prefix 1 for calling MNP-equipped systems.
+Use Dialing prefix 2 for calling non-MNP systems.
+USR Courier HST Dual Standard
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT&M4DT
+AT&M0DT
+ATDT
+NO DIAL
+40
+ATZ^M~~~
+AT&F
+ATX6&B1&H1&R2S7=55S11=60
+AT&W
+10
+U U D U D U U D D U
+Your USR modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 38400 bps for best performance.
+
+Use Dialing prefix 1 for calling MNP-equipped systems.
+Use Dialing prefix 2 for calling non-MNP systems.
+USR Courier HST Dual 16.8k
+5760
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT&M4B1DT
+AT&M4B0DT
+AT&M0B1DT
+NO DIAL
+40
+ATZ^M~~~
+AT&F
+ATX6&B1&H1&R2S7=55S11=60
+AT&W
+10
+U U D U D U U D D U
+Your USR modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 57600 bps for best performance.
+Use Dialing prefix 1 for calling HST-equipped systems.
+Use Dialing prefix 2 for calling v.32-equipped systems.
+Use Dialing prefix 3 for calling non-MNP systems.
+USR Courier v.32bis
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT&M4DT
+AT&M0DT
+ATDT
+NO DIAL
+40
+ATZ^M~~~
+AT&F
+ATX6&H1&R2&B1
+AT S7=55S0=0 &W
+10
+U U D U D U U D D U
+Your USR modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 38400 bps for best performance.
+
+Use Dialing prefix 1 for calling MNP-equipped systems.
+Use Dialing prefix 2 for calling non-MNP systems.
+÷Ventel
+Ventel 2400 Internal
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATE1 Q0 V1 X4 S7=30 S0=0^M
+
+
+
+0
+
+Your Ventel modem is now configured for best performance
+with Telix 3.22.
+
+
+If there are four switches, see your manual to set the comm
+port.   If there are six, set 1 and 5 open, and 2 closed.
+Ventel 2400-33
+960
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT %A13B1\C1&C1\D3&D2E1F1V1Q0\G0&G0
+AT &L0&M0\N3Q0\Q3&R1\T0&T4V1
+AT \V1X4\X1Y0&W
+10
+See Ending Comments
+Your Ventel modem is now configured for best performance
+with Telix 3.22.  Set all dialing directory entries to 9600
+for best performance as compression is enabled.
+
+Switch Block:  1   2   3   4   5   6   7   8   9   10
+              OFF OFF OFF OFF OFF OFF ON  ON  ON  OFF
+Ventel Pathfinder
+1920
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&FV1Q0
+ATS51=5S54=3S58=2S66=1S68=2S92=1
+ATS95=2S111=0&W
+0
+
+Your Ventel modem is now set up for best performance with
+Telix 3.22.  An option might be to add M0 to the modem
+initial string to silence your modem if you prefer.
+
+Compression is enabled so set all dialing directory entries
+to 19200 for best performance.
+÷Viva
+Computer Periph'l Hook-Up 2400
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~~~AT&C1&D2S7=60S11=60^M~
+
+
+
+0
+
+Your Computer Peripherals Hook-Up modem is now configured
+for best performance with Telix 3.22.
+
+Options might be to add M0 in your modem init string
+to silence your speaker if you prefer.
+
+Viva 24m
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT\N3\Q3DT
+AT\N0\Q0DT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&F1
+ATS7=55S11=60
+AT&W
+0
+
+Your Viva modem is now configured for best performance
+with 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 9600 bps for best performance.
+
+Use Dialing Prefix 1 for calling MNP systems.
+Use Dialing Prefix 2 for calling non-MNP systems.
+Viva 9642e v.32/v.42bis
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT\N3DT
+AT\N0DT
+ATDT
+NO DIAL
+40
+ATZ^M
+AT&F
+ATS7=55&C1&D2S11=60%C0
+AT&W
+0
+
+Your Viva modem is now configured for best performance
+with 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 38400 bps for best performance.
+
+Use Dialing Prefix 1 for calling error-correcting systems.
+Use Dialing Prefix 2 for calling non-error-correcting ones.
+Viva 14.4
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~
+AT&F
+AT&C1&D2S10=3S11=60S95=3
+AT&W
+0
+
+Your Viva 14400 modem is now configured for best performance
+with Telix 3.22.   Options might be to add M0 in your modem
+init string to silence your speaker if you prefer.
+
+Set all entries in your dialing directory to 38,400.
+
+÷Wang
+Wang 14/14
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~
+AT&F
+ATS7=60S0=0M1V1E1&C1&D2X4W2
+AT&W
+0
+
+Your Wang 14400 modem is now configured for best performance
+with Telix 3.22.   Options might be to add M0 in your modem
+init string to silence your speaker if you prefer.
+
+Set all entries in your dialing directory to 38,400.
+
+÷Zeos
+Zeos Notebook
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+AT&F^M~~AT&C1&D2X3\Q3\N3\J0\V1%C1S7=60S11=60^M
+
+
+
+0
+
+Your Zeos Notebook is now configured for best performance
+with Telix 3.22.  Correction is enabled so set all your
+dialing directory entries to 9600 for best performance.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+÷Zoltrix
+Zoltrix MF-96P FaxModem
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~~~ATS11=55S7=60^M
+
+
+
+0
+
+Your Zoltrix FaxModem is now configured for best
+performance with Telix 3.22.
+
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+Zoltrix 14400/v.32
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~
+AT&F
+ATW0&C1&D2&K3&Q5&Y0S36=7S95=3
+AT&W0
+0
+
+Your Zoltrix 14400 modem is now configured for best performance
+with Telix 3.22.   Options might be to add M0 in your modem
+init string to silence your speaker if you prefer.
+
+Set all entries in your dialing directory to 38,400.
+
+÷Zoom
+Zoom 2400 w/ optional fax
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~~~ATS7=55S11=60^M
+AT&FV1Q0
+ATE1X3S7=55S11=60S0=0&C1&D2
+AT&W
+0
+
+Your Zoom modem is now configured for best performance with
+Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+Zoom 1200
+120
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~~ATV1Q0X1S7=55S11=60S0=0&C1^M
+
+
+
+0
+
+Your Zoom modem is now configured for best performance with
+Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+Zoom MX 2400 (no MNP)
+240
+"N"
+8
+1
+On
+Off
+Off
+Off
+On
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~~ATV1Q0X3S7=55S11=60S0=0&C1&D2^M
+
+
+
+0
+
+Your Zoom modem is now configured for best performance with
+Telix 3.22.
+
+An option might be to add M0 to the modem initial string to
+silence your modem if you prefer.
+
+Zoom HC2400R with v.42bis
+960
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+ATDT
+ATDT
+ATDT
+NO DIAL
+40
+ATZ^M~~~ATS7=55S11=60^M
+AT&FV1Q0X3
+ATS11=60S0=0&C1&D2S36=7S95=44
+AT&W
+0
+
+Your Zoom modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 9600 bps for best performance.
+
+
+
+Zoom v.32 w/ v.42bis
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT&Q5DT
+AT&Q0DT
+ATDT
+NO DIAL
+40
+ATZ^M~~~ATS7=55S11=60^M
+AT&FV1Q0X4
+ATS11=60S0=0&C1&D2S36=7S95=44
+AT&W
+0
+
+Your Zoom modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 38400 bps for best performance.
+
+Use Dialing prefix 1 for calling MNP-equipped systems.
+Use Dialing prefix 2 for calling non-MNP systems.
+Zoom v.32bis VFP Fax
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT&Q5\N3DT
+AT&Q0\N0DT
+ATDT
+NO DIAL
+40
+ATZ^M~~~ATS7=55S11=60^M
+AT&F
+ATS11=60S0=0&C1&D2S95=44
+AT&W0
+0
+
+Your Zoom modem is now set up for best perfomance with
+Telix 3.22.  Compression is enabled, so set ALL of your
+dialing directory entries to 38400 bps for best performance.
+
+Use Dialing prefix 1 for calling error correcting systems.
+Use Dialing prefix 2 for calling non-EC systems.
+÷ZyXel
+ZyXEL U-1496
+3840
+"N"
+8
+1
+Off
+On
+Off
+Off
+Off
+AT&K4DT
+AT&K1DT
+AT&K0DT
+NO DIAL
+40
+AT&F^M~~~ATX7S11=55^M
+
+
+
+0
+
+Your ZyXEL U-1496 Modem with v.42bis is now configured
+for best performance with Telix 3.22.  Compression is
+enabled so set all dialing entries to 38,400 for best use!
+Use dialing prefix 1 for v.42bis error-correcting systems.
+Use dialing prefix 2 for MNP-4 error correcting systems.
+Use dialing prefix 3 for non-error correcting systems.

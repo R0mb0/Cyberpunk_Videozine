@@ -1,0 +1,983 @@
+//-----------------------------------------------------------
+// LOGON.SL? Automatic logging into any BBS.
+
+//-----------------------------------------------------------
+// Please look at the comments through the whole file, and modify to
+// suit your needs before you use it. Then recompile with CS LOGON.
+// Modify your dialing directory as follows: linked script should be
+// set to LOGON, and your password should be set to whatever it is.
+//-----------------------------------------------------------
+
+// If you have suggestions for improving this script, please suggest
+// improvements to me via old-fashioned snail-mail to:
+
+// Author:  Inge Vabekk
+//          Hamangskogen 108
+//          N-1300 SANDVIKA
+//          NORWAY
+//          tel. (472) 546 396
+
+// Various variable strings.
+
+str bbs_type [32]              // BBS type.
+   ,bbs_name [32]              // BBS name.
+   ,User     [32]              // Your own name.      
+   ,Suser    [32]              // Save user name.     
+   ,logfile  [32]              // Log file name.  
+   ,catfile  [32]              // Catalog file name.
+   ,shortname[ 8]              // BBS name,
+   ,codename [ 8]              // ID-code,
+   ,help     [80]              // For various help
+   ,lline    [60]              // Read last line.
+   ,input   [144]              // Input line (from file).
+   ,check     [4]              // For checking "short" globals.
+
+// Script names.
+
+   ,upload  [] = "UPLOAD"      // Name of upload script.
+   ,grabmail[] = "GRABMAIL"    // Name of GrabMail script.
+   ,getname [] = "GETNAME"     // Name of GetName script.
+   ,newfiles[] = "NEWFILES"    // Name of NewFiles script.
+   ,modscript[]= "MOD.SLC"     // Name of MOD script.
+   ,dnload  [] = "DNLOAD"      // Name of download script.
+   ,mailup  [] = "MAILUP"      // Name of mail upload script.
+   ,PutLine [] = "PUTLINE"     // Name of put line script.
+   ,ssl     [] = "SSL"         // Name of status line script.
+   ,global  [] = "GLOBAL"      // Global script
+   ,show    [] = "DISPLAY"     // Display logoff/exit status
+   ,conflist[] = "CONFLIST"    // Get conference list (MBBS only)
+   ,BBSHOOK[65]= " "           // Name of BBS hook script.
+
+// Global variable names
+
+   ,bbsname []="BNAME"         // BBS name.
+   ,cname   []="CNAME"         // Codename for current BBS
+   ,bbstype []="BTYPE"         // BBS type
+   ,mscript []="MDOOR"         // Mail script/door
+   ,short   []="SHORT"         // Shortened BBS name
+   ,conf    []="CONF"          // Current conference
+   ,username[]="NAME"          // User name
+   ,addr    []="ADDR"          // User's address
+   ,dpass   []="DPASS"         // Default password
+   ,passw   []="PASSW"         // Current password
+   ,graph   []="GRAPH"         // Graphics: YES or NO
+   ,cprot   []="CPROT"         // Current protocol
+   ,hprot   []="HPROT"         // "His" protocol
+   ,version []="BBSVER"        // BBS version
+   ,logoff  []="LOGOF"         // Auto-Logof setting
+   ,changed []="CHANGE"        // Status line changed
+   ,reader  []="READER"        // Offline reader in use
+   ,newmes  []="NEWMES"        // Directory of new messages
+   ,getnew  []="NEWFIL"        // New files wanted?
+   ,rmode   []="RMODE"         // Read mode
+   ,fixup   []="FIXUP"         // Fix setup (MBBS)
+   ,gconflst[]="CNFLST"        // Get conference list?
+   ;
+
+int tol = 300            // No activity for 30 seconds
+   ,stat, tmark          // makes script time out. 
+   ,pcb=0                // 1 for PCBoard, 2 for ProLogon, otherwise 0.
+   ,mbbs=0               // TRUE for MBBS
+   ,rbbs=0               // TRUE for RBBS
+   ,opus=0               // TRUE for OPUS
+   ,atari=0              // TRUE for ATARI
+   ,crcs=0               // TRUE for CRCS
+   ,wildcat
+   ,BBSver               // BBS version no.
+   ,y                    // Y coordinate for writing on screen.
+   ,pw1, pw2             // Trig for password request
+   ,ppass                // =1 if BBS script should send password.
+   ,xboard = 0           // =1 if XBoard is being used
+   ,Enter = 13           // Code for Enter.
+   ;
+
+//-----------------------------------------------------------
+// Script starts here.
+//-----------------------------------------------------------
+                               
+main()
+{
+int c, error, i, l, na, t1, t2, lf, lfs;
+int pcb1, pcb2                         // Trigs for various PCBs
+   ,mbbs1                              // trig for MBBS 9.9 and above
+   ,opus1, atar1, crcs1                // trig for OPUS/Atari/crcs
+   ,wild1                              // trig for WildCat!
+   ,esc
+   ,more
+   ,WantGrab
+   ;
+
+// Only if online.
+
+  entry();
+  keyset (0x1000,0,"@Logoff");         // Set the Alt-Q key.
+  i = 0;
+  while (!carrier())
+  { delay(1);
+    if (++i > 10)
+    if (!carrier())
+    { failtone();
+      release();
+      status_wind ("Tý: THE LOGON SCRIPT ONLY WORKS IF YOU'RE ONLINE!",20);
+      return (-1);
+    }
+  }
+  ppass = 1;                           // Send password is default.
+  clear_scr();
+
+// Only if the Global script is loaded.
+//-----------------------------------------------------------
+
+  if (!is_loaded(global))              // If Global script is not
+  { box (13,7,62,14,176,1,15);
+    box (15,8,60,13,177,1,15);
+    box (17,9,58,12,178,1,15);
+    pstraxy ("  Sorry - the LOGON script only works   ",18,10,79);
+    pstraxy (" if you execute the Qdial script first! ",18,11,79);
+    gotoxy (0,20);
+    failtone();
+    goto end2;
+  }
+
+// Start all tracking at once - just in case something takes long.
+
+  pcb1  = track ("nter Lang",0);       // Check for PCboard / ProLogon
+  pcb2  = track (" graphics",0); 
+  esc   = track ("ss Escape",0);       // Press Escape?
+  mbbs1 = track (") MBBS",0);          // Check for MBBS
+  opus1 = track ("OPUS",0);            // Check for OPUS BBS
+  atar1 = track ("Atari ST",0);        // Check for Atari MiniBBS
+  wild1 = track ("[N]onStop? [",0);    // Check for WildCat!
+  crcs1 = track ("CRCS system ",0);    // Check for CRCS
+  more = track ("--more--",0);         // Check for the "more" prompt
+  na = track (" your first na", 1);    // Request for name.
+  lf = track ("^J", 0);                // Track linefeed.
+  lfs = 0;
+
+  if (!strlen(Suser))
+    read (Username,Suser);             // Get user name from NAME.DAT.
+
+  bbs_name = _entry_name;
+  i = strposi (bbs_name,"D:",0);       // Find "D:" in string.
+  if (i < 0) 
+    i = strlen (bbs_name);             // Not found: Use length.
+
+  for (--i; i>1; --i) 
+    if (subchr (bbs_name,i)!=' ') break; // Delete trailing spaces.
+  setchr (bbs_name,i+1,0);             // This is last character.   
+
+// Extract the first 8 alphabetic characters
+// to get the short name.
+
+  c = 0;
+  error=strlen (bbs_name);
+  for (i=0; (error=subchr (bbs_name,i)) > 0; ++i) 
+  { if (isalpha(error=toupper(error))) 
+    { setchr (shortname,c,error);
+      ++c;
+      if (c > 7) break;
+    }
+  }
+  setchr (shortname,c,0);              // End string.
+  write (short,shortname);             // Enter short name into global.
+  logfile = "LOG\";                    // Logfile directory.
+  strcat (logfile,shortname);
+
+  stat = capture_stat();               // Check capture file status.
+
+  if (stat) 
+    capture ("*CLOSE*");
+
+  entry ();                            // Update colors & status bar. 
+  y = 1;
+  display (bbs_name,0,12);             // Write it on the screen.
+  i = strlen (bbs_name);
+  y = display (" answered. ",i,12);
+  y = display("Opening log file... ",0,15);
+  fdelete (logfile);                   // Delete previous file.
+  if(capture(logfile) < 0)
+    y = display("LOG FILE NOT OPENED! ",0,15);
+  else
+  { i = display ("Capturing into ",0,15);
+    y = display (_capture_fname,15,62); 
+  }
+
+  write (bbsname,bbs_name);            // Write BBS name to global.
+  i = call (ssl);                      // Find status line.         
+  terminal();
+  pstraxy ("                           ",0,i,116);
+  pstraxy (bbs_name,1,i,116);          // Write BBS name on status line.  
+  gotoxy (0,++y);                      // Move back up.
+  goodtone();
+
+  write (changed,"YES");               // Make "display" update status
+  call (show);                         // line - Telix destroyed it.
+
+  bbs_type="MBBS";                     // set MBBS type (default) 
+
+  if (strlen(_entry_pass) > 0)
+    lline = _entry_pass;
+  else
+    read (dpass,lline);                // Get default password.
+
+  write (passw,lline);                 // Set current password.
+
+  help = "";
+  if (getenv ("XBOARD",help))          // Get XBoard dir.
+    get_id_code(help);                 // Get correct ID-code.
+  else if(i=fopen("XBOARD.DIR","r")>0) // Try open XBoard.DIR file.
+  { fgets (help,64,i);                 // Read dir.name.
+    fclose (i);
+    get_id_code(help);
+  }
+
+  set_defprot ('Z');                   // Set default protocol (Zmodem)
+
+  tol = 40;                            // Set 4 seconds initially.
+  tmark = timer_start (tol);           // Gimme more time.
+  error=stat=pcb=mbbs=rbbs=opus=atari=crcs=0;  // System not defined yet!
+
+  while (stat >= 0)
+  { stat=trig();                       // Get trig.
+    if (stat < 0)                      // Timeout?
+    { if (tol < 300)                   // First time-out?
+      { timer_restart (tmark,tol);     // Restart timer.
+        cputc (Enter);                 // Send a CR.
+        stat=0;
+      }
+      else
+        break;
+    }
+    else if (stat==lf)                 // Linefeed coming in?
+    { if (++lfs > 1)
+      { tol = -1;                      // Indicate reset.
+        track_free (lf);               // Release this tracking.
+        lf = 0;
+      }
+    }
+    else if (stat > 0)
+      tol = -1;                        // Expected trig.
+
+    if (tol < 0)                       // Reset?
+    { tol = 300;
+      timer_restart (tmark,tol);       // Restart timer.
+    }
+    if (stat == more)                  // More?
+      call (PutLine,"N", Enter);       // No thanx!
+    else if (stat == esc)              // Press Escape?
+    { cputc (27);                      // Do it twice.
+      cputc (27);
+    }
+    else if (stat == mbbs1)            // check for MBBS
+      mbbs = 1;
+    else if (stat==pcb1                // Check for PCBoard.
+         ||  stat==pcb2
+         ||  stat == opus1             // check for OPUS
+         ||  stat == atar1             // check for Atari
+         ||  stat == wild1             // check for WildCat!
+         ||  stat == crcs1)            // check for CRCS
+      break;
+    else if (stat == na)               // Request for name.
+    { mbbs = 1;
+      break;
+    }
+  }
+  release();                           // Release tracks and timer.
+  if (stat<0 || !carrier()) error = -1;
+  if (error) goto fail;                // Bad return.
+
+  if (!mbbs)
+  { if (stat==pcb1 || stat==pcb2)      // Check for PCBoard.
+    { bbs_type = "PCB";                // Log on using PCB script.
+      pcb = 1;
+    }
+    else if (stat == opus1)            // check for OPUS
+    { bbs_type = "OPUS";               // Log on using OPUS script.
+      opus = 1;
+    }
+    else if (stat == atar1)            // check for Atari
+    { bbs_type = "MINIBBS";            // MiniBBS.
+      atari = 1;
+    }
+    else if (stat == wild1)            // check for WildCat!
+    { bbs_type = "WILDCAT";     
+      wildcat = 1;
+    }
+    else if (stat == crcs1)            // check for CRCS
+    { bbs_type = "CRCS";               // Log on using CRCS script.
+      crcs = 1;
+    }
+  }
+  write (bbstype,bbs_type);            // Set BBS type.
+  if (pcb)                             // Log on for determined board.
+    error=pcbl(); 
+  else if (mbbs)
+    error=mbbsl();
+  else if (atari)                      // For Atari MiniBBS:
+  { error=ataril();                    // Only logon is supported.
+    goto end2;                  
+  }
+  else if (wildcat || opus || crcs)    // For WildCat!, Opus or Crcs:
+    error = 0;                         // Continue.
+
+fail:
+  if (error)
+  { if (error == 99)
+    { for (i=0; i<3; ++i)
+      { tone (300,20);
+        tone (400,20);
+      }
+      prints ("");
+      prints ("Tý: Download aborted because of limited time!");
+      prints ("");
+      error = 0;                       // No error.
+      goto end2;
+    }
+    else
+    { failtone();                      // FAIL!
+      if (error < 0)
+        status_wind ("Tý: Logon failed! Run manually!",20);
+      else
+        status_wind ("Tý: Script failed! Continue manually!",20);
+      write (logoff,"NO");
+      write (changed,"YES");           // Update status line.
+      call (show);
+      goto end2;
+    }
+  }
+
+// Call next script in sequence (BBS type related stuff).
+
+  if (!carrier()) error = -1;
+  if (!error)
+    error = call (bbs_type,ppass);     // Main script according to
+                                       // BBS type.
+  WantGrab = 1;
+  if (error==99)                       // SPECIAL: No grab wanted.
+    WantGrab = error = 0;
+  if (!carrier()) error = -1;
+
+  if (error) goto fail;                // Bad return.
+
+  read (mscript,help);                 // Get name of mail door/script.
+  error = 0;
+
+  if (help==mailup)                    // ASCII upload?
+  { error = call (mailup);             // Send mail first.
+    if (!carrier()) error = -1;
+    if (WantGrab && !error)
+      error = call (grabmail);
+  }
+  else
+  { if (strcmpi(help," ") > 0)         // No, some other mail door.
+      error = call (help);
+  }
+  if (!carrier()) error = -1;
+  if (error) goto fail;                // Bad return.
+
+  if (mbbs)
+  { help = _telix_dir;
+    strcat (help,shortname);           // Modify MBBS files?
+    strcat (help,".MOD");
+    strcat (help,shortname);
+    if (filesize (help) > 0)
+      error = call (modscript);        // Call mod-script.
+    if (!carrier()) error = -1;
+    if (error) goto fail;              // Bad return.
+  }
+
+  error = call (upload);               // Upload files.
+  if (!carrier()) error = -1;
+  if (error) goto fail;                // Bad return.
+
+  catfile = "CAT\";                    // Find file list.
+  strcat (catfile,shortname);
+  if (filesize (catfile) == 0)
+  { fdelete (catfile);
+    t1 = 200000;
+    t2 = 0;
+  }
+  else
+  { t1 = curtime();
+    t2 = filetime(catfile);
+  }
+
+  if (read (getnew,help) > 0           // New files wanted:
+  || t1-t2 > 180000)                   // More than ca. 24 hours:
+    call (newfiles);                   // Get new files.
+
+  error = call (dnload);               // Download files.
+  if (!carrier()) error = -1;
+  if (error) goto fail;                // Bad return.
+  if (mbbs)                            // MBBS only:
+  { if (read (gconflst,help) > 0)      // Get conference list?
+      call (conflist);
+    call (PutLine,"Chat A", Enter);
+  }
+
+  BBSHOOK = _script_dir;               // Build name of BBSHOOK file.
+  help = bbs_type;                     // Use max. 4 characters of
+  setchr (help,4,0);                   // BBS type.
+  strcat (BBSHOOK,help);               // Add BBS type.
+  strcat (BBSHOOK,"HOOK.SLC");
+  if (filesize (BBSHOOK) > 0) call (BBSHOOK);  // Exists: Call it!
+
+  read (logoff,check);
+  if (strcmpi(check,"YES",0) == 0)     // Auto logoff?
+  { if (!pcb)
+      c = track ("(Enter=Y):",0);
+    else
+      c = 0;
+
+    for (i=0; i<2; ++i)
+    { if (pcb)                         // Yes, PCBoard?
+      { call (PutLine,"G Q", Enter);
+        na = track (" Used:",0);
+      }
+      else if (mbbs)
+      { call (PutLine,"G Y N Y", Enter);
+        na = track ("Logout",0);
+      }
+      else if (rbbs)
+      { call (PutLine,"G S", Enter);
+        na = track ("^J",0);
+      }
+      tmark = timer_start (100);       // 10 seconds.
+
+      while (carrier()                 // Wait until carrier drops
+        && !time_up (tmark))           // or loop times out.
+      { terminal();
+        if (stat=track_hit(0))
+        { if (stat==c)                 // No scratchpad now please!
+            call (PutLine,"N", Enter);
+          else if (stat==na)           // Logout message?
+          { _fore_color=1;             // Hide garbage characters
+            _back_color=1;             // by setting foreground
+            update_term();             // equal to background color.
+            cputs_tr (_mdm_hang_str);
+            goto end1;
+          }
+        }
+      }
+    }
+  }
+end1:
+  release();
+  goodtone();                          // happy ending.
+end2:
+  User = Suser;
+  error = _entry_enum;                 // Get catalog entry number.
+  write (conf,"");                     // Clear conference, which may
+                                       // be changed by operator.
+  do
+  { do terminal();                     // Wait till user logs off.
+    while (carrier());
+  } while (carrier());                 // Check twice!!
+  entry();                             // Restore colors.
+  capture ("*CLOSE*");                 // Close capture file.
+  if (xboard)                          // XBoard is being used -- 
+    call (getname,2);                  // Restore user data.
+    
+  return (error);                      // Return entry number.
+}
+
+//-----------------------------------------------------------
+// Proceed with logon for PCBoard.
+//-----------------------------------------------------------
+//PCBoard (R) v14.5/E3 (beta 06/05/90 16:38) - Node 1
+//PCBoard (R) - Version 14.1/E3
+
+pcbl()
+{
+int na                                 // Request for name.
+   ,wn                                 // Wrong name specification
+   ,un                                 // Unknown user
+   ,langno                             // Language number
+   ,c, f, i, k, l, error, sub, pos     // temporaries
+   ;
+
+// Get the BBS version number and language.
+
+  error = langno = -1;
+  BBSVER = 145;                        // Assume new version.
+  pos = gety();
+  for (c=0; c<=pos; ++c)               // Get screen line.
+  { vgetchrs(0,c,help,0,80);
+    if ((i=strposi (help,"ProLogon",0)) >=0)  // ProLogon?
+    { pcb = 2;
+      BBSVER = 142;
+    }
+    else if ((i=strposi (help,"Board (R)",0)) >=0) // Check for PCboard.
+    { pcb = 1;
+      i = i+5;                         // PCBoard rev. 14.5 or later.
+      l = strchr (help,i,'/');         // End of number.
+      if (l < 0) l = strlen(help);
+      sub = 0;
+      for (; i<l; ++i)
+      { k = subchr(help,i);            // Move only digits.
+        if (isdigit(k)) 
+        { setchr(help,sub,k);
+          ++sub;
+        }
+      }
+      setchr(help,sub,0);              // End the string.
+      BBSVER = stoi(help);             // Get BBS version.
+    }
+    else if ((i=strposi (help,"English",0)) > 0) // Language no.?
+    { langno = subchr(help,firstp(help));  // Get language no. to use.
+      break;
+    }
+  }
+
+  setchr (check,0,BBSver);
+  setchr (check,1,0);
+  write (version,check);               // Save BBS version.
+
+  vgetchrs(0,gety(),help,0,80);        // Request for language?
+  if (strposi (help,"Language",0) >= 0)
+  { if (langno > 0)                    // If request for language:
+      cputc (langno);                  // Set language.
+    cputc (Enter);                      // Just Enter.
+  }
+  if (read (graph,lline) <= 0)         // Do I want graphics?
+    lline = "N";
+  setchr (lline,1,0);
+  strcat (lline," Q");                 // "quiet please"
+
+// Start tracking texts.
+
+  pw1 = track ("ill echo)?", 0);       // PCBoard's password request
+  pw2 = track (" password?", 0);       // ProLogon's password request
+  na  = track ("ur first na", 0);
+  wn  = track ("First and L", 0);      // Wrong name input.
+  un  = track (" a new user", 0);      // Unknown user.
+
+  tmark = timer_start (tol);           // Give me a minute.
+
+  call (PutLine,lline,Enter);          // Send line.
+
+  while ((stat=trig()) > 0)            // answer any logon questions
+  { if (stat == na)                    // Name?
+      SendUname("");
+
+    else if (stat == wn)               // Wrong name format?
+    { for (i=strlen(User); i>1; --i)
+      { if (subchr(User,i) == ' ')
+        { setchr (User,i,Enter);       // Split into first/last name.
+          break;
+        }
+      }
+    }
+    else if (stat == un)               // unknown user!
+    { release();                       // Free all tracks
+      write (bbstype,bbs_type);        // Set this key to BBS type
+                                       // and start to
+      error = call ("PCBREG");         // register as a new user.
+      break;                           // Section done.
+    }
+    else if (stat==pw1 || stat==pw2)   // Password (PCBoard)
+    { release();                       // Release all tracks
+      error = 0;                       // (Password is sent by the
+      break;                           // "PCB" script).
+    }
+  }
+  return (error);                      // Fail or OK.
+}
+
+//-----------------------------------------------------------
+// Proceed with logon for MBBS and RBBS.
+//-----------------------------------------------------------
+
+mbbsl()
+{
+int i
+   ,na, un1, un2                       // For tracking.
+   ,tries                              // # of tries for name.
+   ,wrong
+   ;
+str myprot [2]
+   ,hisprot[2];
+
+  BBSver = 99;                         // Assume MBBS 9.9 or newer.
+  if (read (cprot,myprot)<0)           // Get protocol.
+    myprot = "Z";
+
+  if (myprot=="Y")                     // This is kind of
+    hisprot = "YB";                    // a translate table
+  else if (myprot=="E")                // for the protocol.
+    hisprot = "YG";
+  else if (myprot=="1")
+    hisprot = "X";
+  else if (myprot=="D")
+    hisprot = "Z";
+  else
+    hisprot = myprot;
+  write (Hprot,hisprot);               // Save it for later.
+
+  wrong = track ("Wrong!", 0);         // Check MBBS version.
+  SendUname (" Q");                    // Send user name.
+  tries = 0;                           // Zero tries.
+
+// Start looking for log-on sequence.
+               
+again:
+  na = track ("is your first",1);      // Another request for name.
+  pw1 = track ("will echo", 0);        // Get password (MBBS)
+  pw2 = track ("Dots echo", 1);        // Get password (RBBS)
+  un1 = track ("s not reg",0);         // Starts registration (MBBS)
+  un2 = track ("not found",0);         // User name unknown (RBBS)
+
+  tmark = timer_start (tol);           // Wait a minute for login
+ 
+  while ((stat=trig()) > 0)            // answer any logon questions.
+  { if (stat == na)  
+      SendUname (" Q");                // Send the user name.
+                                       // Check what made us exit.
+    if (stat == un1)                   // NEW MBBS user?                  
+    { flush();
+      if (++tries > 1)                 // Try once more.
+        break;
+      call (PutLine,"N",Enter);
+    }
+    else if (stat == wrong)            // This version doesn't under-
+    { track_free(wrong);               // stand quick login....
+      BBSver = 98;
+    }
+    else if (stat == un2)              // NEW RBBS user?                  
+      break;
+
+    else if (stat == pw1)              // send password
+      break;
+
+    else if (stat == pw2)              // send password
+    { bbs_type="RBBS";                 // This is an RBBS system!
+      break;
+    }
+  }
+  release();
+  setchr (check,0,BBSver);
+  setchr (check,1,0);
+  write (version,check);               // Save BBS version.
+
+  if (stat == un1)                     // New MBBS user?                  
+  { write (bbstype,bbs_type);          // Set this key to BBS type
+    stat = call ("MBBSREG");           // and register as a new user.
+    ppass = 0;                         // Don't send password.
+  }
+  else if (stat == un2)                // New RBBS user?                  
+  { bbs_type="RBBS";                   // This is an RBBS system!
+    write (bbstype,bbs_type);          // Set this key to BBS type.
+    stat = call ("RBBSREG");           // Register as a new user.
+  }
+
+  mbbs = (bbs_type=="MBBS");           // Either MBBS or RBBS.
+  rbbs = !mbbs;
+
+  return (0);
+}
+
+//-----------------------------------------------------------
+// Proceed with logon for atari BBS.
+//-----------------------------------------------------------
+
+ataril()
+{
+int na;
+str prot[2];
+
+  read (cprot,prot);                   // Get protocol.
+  write (Hprot,prot);                  // Save it for later.
+
+// Start looking for log-on sequence.
+               
+again:
+  na  = track ("ull name:",0);         // Request for name.
+  pw1 = track ("password:",0);         // Get password.
+
+  tmark = timer_start (tol);           // Wait a minute for login
+ 
+  while ((stat=trig()) > 0)            // answer any logon questions.
+  { if (stat == na)  
+      SendUname("");                   // send user name.
+                                       // Check what made us exit.
+    else if (stat == pw1)              // send password
+    { read (passw,help);
+      Cputs (help);                    // Send password.
+      Cputc (Enter);
+    }
+  }
+  release();
+  return (0);
+}
+
+//-----------------------------------------------------------
+// Get ID-code of this BBS, based on the XBOARD.BBS 
+// configuration file. Also, get current script config. data.
+//-----------------------------------------------------------
+
+get_id_code (str filespec)
+{
+int xb                                 // File handle.
+   ,f, i, j, k, l, m                   // Temporaries
+   ;
+
+  k = strlen(filespec)-1;
+  if (subchr(filespec,k)!='\')         // Append "\" if  
+    strcat (filespec,"\");             // necessary.
+  lline = filespec;                    // Keep file spec.
+
+  strcat (filespec,"XBOARD.BBS");      // Make full filename.
+  xb = fopen (filespec,"r");           // Try to open XBOARD.BBS file.
+  if (xb <=0)                          // Found?
+    return;                            // No.
+
+  while (fgets (input,144,xb) >=0)     // Yes, so read each line.
+  { if (strlen(input)<3) goto next;    // Nothing useful here.
+    i = firstp (input);                // Find first printing char.
+    if (subchr(input,i) == ';')        // Semicolon:
+      goto next;                       // Skip comment line.
+    if ((j=strchr(input,0,'='))<=0)    // No equal sign? Ignore.
+      goto next;
+    for (k=-1; i<j; ++i)               // Check the name.
+    { m =toupper(subchr(input,i));
+      if (isalpha(m))                  // Alpha: Check this character.
+      { l = subchr(shortname,++k); 
+        if (l < 'A') goto match;       // End of shortname: Match!
+        if (l != m) goto next;         // No match: Next line.
+      }
+    }
+    goto match;                        // No discrepancies: MATCH!
+next:
+    input = "";                        // End of "one line" loop.
+  }
+  fclose (xb);                         //  Not found.
+  return;
+
+// The BBS description is found in the file XBOARD.BBS.
+// Isolate the part to the right of the equal sign, which
+// contains the board's codename.
+
+match:
+  fclose (xb);
+  xboard = 1;
+  for (++j; subchr(input,j)<=' '; ++j) ; // Find next non-space
+                                         // after the equal sign.
+  for (i=-1; (k=subchr(input,j))>0; ++j) // Move this part of the
+    setchr(codename,++i,k);            // string to the BBS ID
+  setchr(codename,++i,0);              // (codename).
+
+  write (cname,codename);              // Set the codename.
+  write (reader,"XBOARD");             // We're using the XBoard reader!
+  strcat (lline,codename);             // Remember mail directory.
+  strcat (lline,"\");                  // Append a "\".
+  write (newmes,lline);                // New messages are here.
+
+  strcat (lline,codename);             // Add codename again.
+  strcat (lline,".CAP");               // Add extension.
+  f=fopen(lline,"w");                  // Open file,
+  time (curtime(),lline);              // Get current time.
+  fputs ("Last call was at ",f);
+  fputs (lline,f);
+  fputs (" on ",f);
+  date (curtime(),lline);              // Get current date.
+  fputs (lline,f);
+  fputs ("^M^J",f);
+  fclose (f);
+
+  read (newmes,lline);                 // Get mail dir. again.
+  strcat (lline,codename);             // Find config.list. Use codename.
+  strcat (lline,".cfg");               // Add extension.
+
+  f=fopen (lline,"r");                 // Open file for read.
+  if (f < 0) 
+  { printsc ("Tý: XBoard config. file ");
+    printsc (lline);
+    prints (" not found!");
+    return (-1);              // Ignore if not found.
+  }
+  while (fgets(input,144,f) >= 0)      // Read till EOF found.
+  { if ((i=strposi (input,"=",0)) < 0)
+      continue;                        // No equal sign.
+
+    for (++i;subchr(lline,i) <= ' '; ++i)
+      ;
+    j = subchr(input,i);               // Next character after "=".
+
+    if (strposi (input,"yourname",0) >=0)
+      string (Username,i);             // Set user name.
+
+    else if (strposi (input,"getconflist",0) >=0)
+      logical (gconflst,j);            // Get conference list
+    
+    else if (strposi (input,"newfiles",0) >=0)
+      logical (getnew,j);              // Get new files indicator.
+
+    else if (strposi (input,"fixsetup",0) >=0)
+      logical (fixup,j);               // Return next character.
+
+    else if (strposi (input,"readmode",0) >=0)
+      string (rmode,i);                // Set read mode.
+  }
+  fclose (f);
+}
+
+//-----------------------------------------------------------
+// Write string value to a global variable.
+//-----------------------------------------------------------
+
+string (str var,int byte)
+{
+  substr (input,byte,80,input);
+    write (var,input);
+  return;
+}
+
+//-----------------------------------------------------------
+// Write logical value to a global variable.
+//-----------------------------------------------------------
+
+logical (str var,int byte)
+{
+  if (byte == '1' || byte == 'Y')
+    write (var,"YES");
+
+  return;
+}
+
+//-----------------------------------------------------------
+// Find first non-space of a string.
+//-----------------------------------------------------------
+
+firstp (str s) 
+{
+int x, c;
+  if (subchr(s,0)==0) return (-1);     // No string: return -1.
+  for (x=0; subchr(s,x)==' '; ++x) ;   // Search for non-space.
+  return (x);
+}
+
+//-----------------------------------------------------------
+//  Trig loop. Waits here until either one "trig string" is
+//  found, or we have a time-out, or carrier is lost.
+//-----------------------------------------------------------
+
+trig()
+{
+int i;
+  do
+  { terminal();
+  }  while (!time_up (tmark)           // Loop until time-out
+          && carrier()                 // or carrier lost
+          && (i=track_hit(0))==0);     // or we trigged.
+  if (i==0) 
+    i = -1;                            // Error!
+  else
+    timer_restart (tmark,tol);         // Restore timer.
+  return (i);
+}
+
+//-----------------------------------------------------------
+// This routine writes a string to the screen (in color).
+//-----------------------------------------------------------
+
+display (str s,int x,int c)
+{
+  pstraxy (s,x,y,c+16);
+  return (y+1);                        // Next line next time (?)
+}
+
+//-----------------------------------------------------------
+// Play fail tone.
+//-----------------------------------------------------------
+
+failtone ()
+{
+int n;
+  for (n=100; n > 10; n = 100*n/110) tone(n*10,8); // Fail tone!!
+}
+
+//-----------------------------------------------------------
+// Flush incoming text from BBS.
+//-----------------------------------------------------------
+
+flush ()
+{
+  do 
+  { terminal();                        // Process all echo
+    delay(2);                          // from the BBS.
+  } while (cinp_cnt() > 0);
+}
+
+//-----------------------------------------------------------
+// Routine to update colors and status bar.
+//-----------------------------------------------------------
+
+entry ()
+{
+  _back_color = 1;
+  _fore_color = 14;
+  update_term();
+}
+
+//-----------------------------------------------------------
+// Play good tone.
+//-----------------------------------------------------------
+
+goodtone ()
+{
+int m;
+  for (m=50; m < 300; m = 144*m/100)
+  { tone(m*10,6);                      // Good tone!!
+    terminal();                        // Don't forget incoming text!
+  }
+}
+
+//-----------------------------------------------------------
+// Free timer and tracking functions.
+//-----------------------------------------------------------
+
+release ()
+{
+  timer_free (tmark);                  // free timer channel
+  track_free (0);                      // and all track channels.
+}
+
+//-----------------------------------------------------------
+// Read a global variable.
+//-----------------------------------------------------------
+
+read (str name, str varname)
+{
+  return (call (global,"R",name,varname));
+}
+
+//-----------------------------------------------------------
+// Write a global variable.
+//-----------------------------------------------------------
+
+write(str name, str varname)
+{ 
+  return (call (global,"W",name,varname));
+}
+
+//-----------------------------------------------------------
+// Get user data.
+//-----------------------------------------------------------
+
+SendUname (str pscript)
+{
+  while (read (Addr,User) < 0)         // Check user's address.
+  { prints("");
+    prints("Tý: Please wait -- I must read your user data...");
+    if (xboard)                        // If we're using XBoard,
+      read (Username,User);            // save user name.
+    call (getname,2);                  // Unknown: Get it!
+    read (Username,Suser);             // Get user name from NAME.DAT.
+    if (xboard)                        // If we're using XBoard,
+      write (Username,User);           // Use XBoard's name now.
+  }
+  read (Username,User);                // Get the user name.
+  lline = User;
+  strcat (lline,pscript);
+  call (PutLine,lline, Enter);         // Send name and CR.
+}

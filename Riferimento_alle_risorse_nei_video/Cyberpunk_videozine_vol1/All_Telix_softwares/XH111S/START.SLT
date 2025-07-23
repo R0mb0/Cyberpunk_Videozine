@@ -1,0 +1,8 @@
+main()
+{
+ int call_stat = 1;
+ _scr_chk_key = 0;
+ calld("editor", "ACE APE", "The Demon", "Nothing", "1", 1, call_stat,
+         180000, "d:\comms\script\", 1);
+ _scr_chk_key = 1;
+}

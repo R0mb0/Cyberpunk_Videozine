@@ -1,0 +1,134 @@
+    
+January 31, 1994:
+
+Enclosed is a Telix.PIF file for the use of Telix under Windows 3.1.
+We make no guarantees as to its usability.   You will have to use the
+PIF Editor to set your own paths, or it may not work.   Other tips for
+the operation of Telix 3.22 under Windows follow.
+
+And before this generates a flood asking if there will ever be a native
+Windows application of Telix, the answer is, "Yes."  deltaComm previewed
+such a version at BBSCON in Colorado in August 1993, and such a version is
+expected to be released in the spring of 1994.  The best way to help
+get a Windows version of Telix into general release more quickly is to
+encourage registration of existing versions, as that income is what
+finances future development.
+
+Here are some extra tips for the operation of Telix v. 3.22 under Windows
+3.1:
+
+1) Set your DOS environment variable for Telix.   i.e. In Autoexec.BAT,
+   include a line similar to:
+
+   SET TELIX=C:\TELIX
+
+   No traling backspaces needed, and no spaces around the equals sign
+   allowed.
+
+2) The following table depicts the standard settings for the four
+   communications ports that Microsoft Windows 3.10 and DOS (4.01)
+   support. This information is useful for troubleshooting
+   communications problems under Windows 3.10. A brief description for
+   each column appears below the table. (Note: In the table below,
+   Windows 3.10 is abbreviated as WIN3.)
+
+           WIN3 COMM.DRV    WIN3  Default       WIN3 Desired
+            Telix 3.22    SYSTEM.INI Settings SYSTEM.INI Settings
+   Port   I/O Range  IRQ      I/O Range          I/O Range
+   ----  ---------------- ------------------ ------------------
+                            [386ENH]           [386ENH]
+   COM1      3F8h     4     COM1BASE=3F8h      COM1BASE=3F8h
+   COM2      2F8h     3     COM2BASE=2F8h      COM2BASE=2F8h
+   COM3      3E8h     4     COM3BASE=2E8h      COM3BASE=3E8h
+   COM4      2E8h     3     COM4BASE=2E0h      COM4BASE=2E8h
+
+   The first column lists the ports. The second column describes the
+   settings for the ports that both the Windows COMM.DRV and Telix
+   communications packages use by default. The third column shows what
+   Windows 3.10 sets by default and the fourth column shows what should
+   be set in the [386ENH] section of the SYSTEM.INI file for proper
+   functioning of the ports under enhanced-mode Windows 3.10.
+
+   Note: You must make the changes shown in column 4 above if you want
+   to share IRQs. These procedures are described in good detail in
+   SYSINI2.TXT under the [386ENH] section.
+
+   The headings "I/O Range" specify the base port addresses for the
+   respective ports. IRQ represents the normal interrupts used in IBM-AT
+   compatible computers and should not be changed under normal
+   conditions. Under enhanced-mode Windows 3.10, you can change the base
+   port addresses, IRQ lines, communications protocol, and
+   communications IRQ sharing. For complete information on any of these
+   topics, please consult the file SYSINI2.TXT.
+
+   Troubleshooting Communications Problems Under Windows 3.10
+
+a. You can use two communication ports simultaneously that share the
+   same interrupt (for example, COM1 and COM3, or COM2 and COM4) only
+   if the hardware is capable of it. The ability to share
+   communications port IRQs is hardware dependent. Currently, the
+   only hardware that you can be assured that IRQ sharing is supported
+   on is MicroChannel. Although EISA (Extended Industry Standard
+   Architecture) does have IRQ sharing as part of its specifications,
+   implementation on current machines is spotty. If you are unable to
+   successfully share an IRQ with the COMIrqSharing switch set to
+   true, the hardware does not support IRQ sharing and Windows 3.00 is
+   not able to overcome the lack of support for this feature using
+   software.
+
+b. COM3 and COM4 may not be reliable under Windows 3.00 standard mode
+   unless both COM1 and COM2 are first activated. If you use only COM3
+   and/or COM4, you may experience problems (with printing,
+   communications, your mouse). If you use COM1 and COM3 without using
+   COM2, you also may have problems. The easiest way to remember this is
+   to not use a higher serial port (2, 3, or 4) unless all lower number
+   ports (1, 2, and 3) are first activated (or in use).
+
+c. Standard-mode Windows 3.10 uses the COMM.DRV directly whereas
+   enhanced-mode Windows 3.10 virtualizes the ports using a device
+   called the virtual communications driver (VCD). For this reason,
+   serial communication can theoretically be considered more reliable
+   under standard mode because there can be no miscommunication between
+   the VCD and the COMM.DRV. In cases where you are using multiple
+   communications ports under Windows 3.10 enhanced mode, verify that
+   the base port addresses are set as described in the table located
+   earlier in this article.
+
+   Note: IRQ sharing is possible under enhanced-mode Windows 3.10 only
+   if you make the necessary changes to the [386ENH] section of the
+   SYSTEM.INI file as outlined above.
+
+3) Also, you may want to modify (or add) the lines:
+
+        Com1AutoAssign=-1
+        Com2AutoAssign=0
+        Com3AutoAssign=2
+        Com4AutoAssign=2
+        COMIrqSharing=1
+        COMBoostTime=<milliseconds>
+         [ Default: 2
+           Purpose: Specifies the amount of time (in milliseconds) to
+                    allow a virtual machine to process a COM interrupt.
+                    If a communications application is losing keyboard
+                    characters on the display, you can try increasing
+                    this value.  deltaComm suggests 8 to 10 for Telix. ]
+        COM1Buffer=<characters>
+        COM2Buffer=<characters>
+        COM3Buffer=<characters>
+        COM4Buffer=<characters>
+         [ Default: 128
+           Purpose: Specifies the number of characters that will be
+                    buffered by the device on the corresponding
+                    communications port. Before changing one of these
+                    settings, make sure the corresponding
+                    COMxProtocol setting has the proper value.
+                    Buffering may slow down communications on a port,
+                    but might be necessary to prevent some
+                    communications applications from losing
+                    characters at high baud rates. The size of the
+                    buffer required will depend on the speed of the
+                    machine and the application's needs. Before
+                    increasing this value, see the COMxProtocol
+                    setting.  deltaComm recommends 1024 or 2048 for Telix. ]
+
+

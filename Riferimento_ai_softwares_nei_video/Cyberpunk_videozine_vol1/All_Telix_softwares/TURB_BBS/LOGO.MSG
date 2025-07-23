@@ -1,4 +1,0 @@
-
-This file is the message that is shown to the user before he/she enters
-their name
-

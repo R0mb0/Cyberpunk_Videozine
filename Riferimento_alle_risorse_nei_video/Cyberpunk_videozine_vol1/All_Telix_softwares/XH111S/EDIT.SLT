@@ -1,0 +1,1225 @@
+///////////////////////////////////////////////////////////////////////////////
+//  U S E R  E D I T O R  0 . 0  -  for XH 0.0                         //
+//  by ACE APE                                                               //
+//  LE: 012692                                                               //
+///////////////////////////////////////////////////////////////////////////////
+//
+
+//Record length = 320
+//
+//
+// Status_Char[1] Alias[26] Password[13] Level[1] Flags[1] Real_Name[26]
+//
+// code[2] Phone_1[4] City_State[25] Country[31] unused[3]
+//
+// Protocol_Char[1] byte_Chars[4] UloB_Chars[4] DloB_Chars[4] UloF_chars[2]
+//
+// DloF_Chars[2] unused[8] Last_on_Chars[4]
+//
+// Time_left_chars[2] Total_Calls[2] Comment[30]
+//
+// scanbitmap[5] regbitmap[5] longptr[4] readptr[80]
+//
+// reserved[30]
+
+// Status Char includes:
+//
+//   PCGAXPBS ( Protect, Capture, xxxxxx, ANSI, Xpert, Scan Msgs, Blacklist, Status)
+//   00000000                      ^--- maybe ? mail waiting?
+//
+
+Str user_name       [25],         // user's name!
+    real_name       [25],         // real name
+    password        [12],         // password
+    city            [24],         // City
+    country         [30],         // Country
+    time_left       [3],          // Time left on last log
+    expiry_date     [8],
+    comment         [30];         // comment on this user
+
+str acode[3],
+    phone[7],                         // Phone number
+    bytes[9],                        // bytes left on last day
+    bdwnld[9],                       // bytes downloaded
+    bupld[9],                        // bytes uploaded
+    proto[1],                         // Default protocol
+    status[8],
+    page[3],
+    flags[8],
+    regmap[40],
+    scanmap[40],
+    access_level[3];                  // Access level of current caller
+
+int last_log,                      // Last time/date of log
+    fdwnld, fupld,                 // files downloaded/uploaded
+    help_line,                     // help line position on screen
+    total_calls;
+
+str User_List[6000],
+    Record[320];       // allow up to 200 users -- fix to len = 26
+    
+int UP = 18432, DOWN = 20480, PGUP =18688, PGDN = 20736, HOME = 18176, 
+    END = 20224, LEFT = 19200, RIGHT = 19712, SEARCH = 'S', EDIT = 9,
+    EXIT = 27, file, ADD = 'A', Xpos = 0, tmark, file2;
+
+int edity = 2, pos, read, pointy, REC_LEN = 320, fpos, oldkey;
+
+str stat_save[80], things[320];
+int stat_color;
+///////////////////////////////////////////////////////////////////////////////
+main()
+{ 
+ int screen, c;
+ int pos1, x, quit, savex, savey;
+ str files[64];
+ oldkey = _scr_chk_key;
+ _scr_chk_key = 0;
+ 
+ newdir(_telix_dir);
+
+ savex = getX();
+ savey = gety();
+
+ gethelpline();
+ if (help_line >= 0)
+    {
+     vgetchrs(0, help_line, stat_save, 0, 80);
+     gotoxy(0, help_line);
+     stat_color = vgetchr()/256;
+     gotoxy(0, 0);
+     }
+ 
+ screen = vsavearea(0, 0, 79, 24);
+ 
+ cursor_onoff(0);
+ 
+ files = "USERS.DAT";
+ 
+ file = fopen(files, "r+");
+ fseek(file, 0, 0);
+ tmark = timer_start(0);
+ 
+ pointy = 2;
+ 
+ box(29, 10, 51, 14, 'Û', 0, 8);
+ box(28, 9, 50, 13, 1, 0, 112);
+ vputchrs(30, 11, "Loading user file...", 0, 20, 112);
+ fpos = 0;
+ loadusers();
+ boxes();           // display 2 boxes and subtitles.
+
+ pointy = 2;
+
+ pos = -1;
+
+//////////////////////////////////////////////////////////////////////////////
+// POS is at the LAST CHAR of the current user's name                       //
+//////////////////////////////////////////////////////////////////////////////
+// The length of an element is 30 [max length of user's name]               //
+// (should fix this to length 26, since that is the current max)
+//////////////////////////////////////////////////////////////////////////////
+// POINTY = current y position                                              //
+// Top = 2, Bottom = 21  (20 users on-screen)
+//////////////////////////////////////////////////////////////////////////////
+
+ for (x = pos; x <= 570 && x <= strlen(user_list)-31; x = x+30)
+     {                                         // list names on left
+      vputchrs(2, pointy, user_list, x+1, 30, 31);
+      ++pointy;
+      }
+
+  pos = 29;
+  pointy = 2;
+  stat_line(1);
+  light();
+
+  while(1)   // start main loop
+   {
+    c = 0;
+    pos1 = timer_total(tmark);
+    read = 1;
+    while(c != SEARCH && c != EXIT && c != EDIT && c < 18000 && c!= ADD)
+      {
+       c = toupper(inkey());
+       if (read && (timer_total(tmark) - pos1 >= 5))
+           {
+           if (strlen(user_list) > 5)
+               print_user();
+           read = 0;
+          }
+      }
+   
+   if (c == DOWN)             // down one
+      {
+      if (pos == strlen(user_list)-1)
+          continue;
+      unlight();
+      pos = pos+30;
+      if (pointy < 21)
+         {
+         ++pointy;
+         light();
+         }
+      else
+         {
+          scroll(2, 2, 31, 21, 1, 31);
+          light();
+          }
+       continue;    
+      }  
+       
+    else if (c == PGDN)           // down twenty
+      {
+       if (pos == strlen(user_list)-1)      // if at end of list, cont
+           continue;
+       unlight();
+
+       if (pointy < 21)         // if no scrolling of users is needed
+         {
+          pos1 = strlen(user_list)-1;
+          c = (pos1-pos)/30;
+
+          if (c <= 21-pointy)
+             {
+              pointy = pointy+c;
+              pos = pos+c*30;
+              light();
+              continue;
+              }
+          pos = pos + ((21-pointy)*30);
+          pointy = 21;
+          light();
+          }
+     else                    // if at bottom of list
+         {
+          box(2, 2, 31, 21, 0, 0, 31);         // clear box
+
+          if (pos+601 > strlen(user_list)-1)
+              pos = strlen(user_list)-601;
+          if (pos < 0)
+              pos = -1;
+
+          pointy = 1;
+
+          for (x = pos; x <= pos+570 && x <= strlen(user_list)-30; x = x+30)
+             {
+              ++pointy;
+               vputchrs(2, pointy, user_list, x+1, 30, 31);
+              }
+
+           pos = x;
+           light();
+          }
+      continue;
+      }
+    else if (c == PGUP)                       // up 20
+      {
+       if (pointy > 2)         // if not at top of list
+        {
+         unlight();
+         pos = pos-(pointy-2)*30;
+         pointy = 2;                  // go there
+         light();
+         }
+     else
+        {
+         if (pos == 29)                // if at beginning of list
+           continue;               // then start loop over
+         if (pos-600 < 0)
+             pos = -1;
+         else
+            pos = pos-600;
+
+         pos1 = pos+30;   // save position of first
+
+         box(2, 2, 31, 21, 0, 0, 31);
+
+         pointy = 1;
+
+         for (x = pos; x <= pos+570 && x <= strlen(user_list)-30; x = x+30)
+            {
+             ++pointy;
+             vputchrs(2, pointy, user_list, x+1, 30, 31);
+             }
+         pointy = 2;
+         pos = pos1;   // restore position
+         light();
+        }
+      continue;    
+      }
+    else if (c == UP) 
+      {
+       if (pos == 29)
+             continue;
+       unlight();
+       pos = pos-30;
+       if (pointy > 2)
+         {
+          --pointy;
+          light();
+          }
+       else
+        {
+         scroll(2, 2, 31, 21, -1, 31);
+         light();
+         continue;
+         }
+       }
+     else if (c == HOME)     // go to user 1
+        {
+         if (pos == 29)
+           continue;
+
+         if (pos <= 600 && ((pointy-1)*30-1-pos) == 0)
+           {
+            unlight();
+            pointy = 2;
+            pos = 29;
+            light();
+            continue;
+           }
+           
+         pos = -1;
+
+         pointy = 1;
+
+         box(2, 2, 31, 21, 0, 0, 31);
+
+         for (x = -1; x <= pos+570 && x <= strlen(user_list)-30; x = x+30)
+           {
+            ++pointy;
+            vputchrs(2, pointy, user_list, x+1, 30, 31);
+            }
+
+         pointy = 2;
+         pos = 29;
+         light();
+         continue;
+         }
+
+     else if (c == END)        // go to last user
+       {
+        if (pos == strlen(user_list)-1 )
+          continue;
+
+        if (pos+(21-pointy)*30 >= strlen(user_list)-1)
+            {
+             unlight();
+             pointy = pointy+(strlen(user_list)-1-pos)/30;
+             pos = strlen(user_list) - 1;
+             light();
+             continue;
+             }
+
+         box(2, 2, 31, 21, 0, 0, 31);
+
+         pos = strlen(user_list)-601;
+         if (pos < 0)
+             pos = -1;
+
+         pointy = 1;
+
+         for (x = pos; x <= pos+570 && x <= strlen(user_list)-30; x = x+30)
+            {
+            ++pointy;
+            vputchrs(2, pointy, user_list, x+1, 30, 31);
+            }
+
+         pos = strlen(user_list) - 1;
+         light();
+         continue;               
+        }
+     else if (c == EXIT)  
+       break;
+
+     else if (c == SEARCH)  
+       {
+        x = vsavearea(0, 23, 48, 23);
+        pstraxy("Find: ", 0, 23, 7);
+        cursor_onoff(1);
+        getsxy(things, 25, 6, 23, 7);
+        vrstrarea(x);
+
+        cursor_onoff(0);
+
+        if (things)
+         {
+          c = strposi(user_list, things, pos+1);
+          if (c >= 0)
+           {
+            pos = c/30*30-1;  // get beginning of search hit.
+
+            box(2, 2, 31, 21, 0, 0, 31);
+
+            pointy = 1;
+
+            for (x = pos; x <= pos+570 && x <= strlen(user_list)-30; x = x+30)
+                {
+                 ++pointy;
+                 vputchrs(2, pointy, user_list, x+1, 30, 31);
+                 }
+           pos = pos+30;
+           pointy = 2;
+           light();
+           }
+          continue;
+          }
+        }
+
+     else if (c == EDIT || c == RIGHT || c == ADD)
+      {
+       stat_line(2);
+      if (c == ADD || subchr(user_list, pos-29) == 0)
+         {
+          things = "New User";
+          setchrs(things, strlen(things), 32, 22);
+          inschrs(things, user_list, strlen(user_list), 30);
+
+          // if end of list is displayed, then goto, else new screen.
+
+          if (strlen(user_list)-1 <= pos + (21-pointy)*30)
+             {
+               unlight();
+               pointy = pointy+(strlen(user_list)-1-pos)/30;
+               }
+           else if (strlen(user_list)-1 == pos + (22-pointy)*30)
+                {
+                 scroll(2, 2, 31, 21, 1, 31);
+                 pointy = 21;
+                }
+           else
+               {
+                box(2, 2, 31, 21, 0, 0, 31);
+
+                pos = strlen(user_list)-601;
+                if (pos < 0)
+                    pos = -1;
+
+                pointy = 1;
+
+                for (x = pos; x <= pos+570 && x <= strlen(user_list)-30; x = x+30)
+                    {
+                     ++pointy;
+                      vputchrs(2, pointy, user_list, x+1, 30, 31);
+                     }
+                }
+
+           pos = strlen(user_list) - 1;
+           light();
+           user_name = "New User";
+           real_name = "New User";
+           password = "NewPass";
+           access_level = "1";
+           city = "Montreal, PQ";
+           country = "Canada";
+           acode = "0";
+           phone = "0";
+           last_log = 0;
+           time_left = "15";
+           page = "23";
+           comment = "New User!";
+           bytes = "0";
+           bupld = "0";
+           fupld = 0;
+           fdwnld = 0;
+           total_calls = 0;
+           last_log = 0;
+           setchrs(flags, 0, '0', 8);
+           setchrs(status, 0, '0', 8);
+           setchrs(scanmap, 0, '0', 40);
+           setchrs(regmap, 0, '0', 40);
+           bdwnld = "0";
+           proto = "Z";
+           read = 1;
+           save();
+           }
+
+      if (read)
+         {
+          print_user();
+          read = 0;
+          }
+      edity = 1;
+       
+      xpos = 0;
+      while(1)
+        {
+        if (edity < 15)
+           vputchrs(35, edity, "", 0, 1, 112);
+
+        if (edity == 1)
+          c = edit_string(user_name, 42, 1, 25);
+        else if (edity == 2)
+          c = edit_string(password, 46, 2, 12);
+        else if (edity == 3)
+              c = edit_string(access_level, 43, 3, 3);
+        else if (edity == 4)
+          c = edit_string(real_name, 42, 4, 25);
+        else if (edity == 5)
+             {
+              if (xpos == 0)
+                  c = edit_string(acode, 46, 5, 3);
+              else if (xpos == 1)
+                  {
+                  substr(phone, 0, 3, things);
+                  c = edit_string(things, 51, 5, 3);
+                  copychrs(things, phone, 0, 3);
+                  }
+              else
+                  {
+                  substr(phone, 3, 4, things);
+                  c = edit_string(things, 55, 5, 4);
+                  copychrs(things, phone, 3, 4);
+                  }
+              }
+        else if (edity == 6)
+          c = edit_string(city, 42, 6, 24);
+        else if (edity == 7)
+          c = edit_string(country, 45, 7, 30);
+        else if (edity == 8)
+          c = edit_string(proto, 46, 8, 1);
+        else if (edity == 9)
+          c = edit_string(bytes, 43, 9, 9);
+        else if (edity == 10)
+          c = edit_string(bupld, 45, 10, 9);
+        else if (edity == 11)
+          c = edit_string(bdwnld, 47, 11, 9);
+        else if (edity == 12)
+          c = edit_string(time_left, 47, 12, 3);
+        else if (edity == 13)
+          c = edit_string(page, 49, 13, 3);
+        else if (edity == 14)
+            c = edit_string(comment, 45, 14, 30);
+        else if (edity == 15)
+           {
+            stat_line(3);
+            c = edit_string(status, 44, 16, 8);
+            if (c == 2)
+               stat_line(2);
+            }
+        else if (edity == 16)
+           {
+            stat_line(4);
+            c = edit_string(flags, 44, 17, 8);
+            }
+        else if (edity == 17)
+           {
+            stat_line(5);
+            c = edit_string(regmap, 38, 21, 40);
+            }
+        else if (edity == 18)
+            {
+            stat_line(5);
+            c = edit_string(scanmap, 38, 22, 40);
+            }
+
+        if (edity < 15)
+           vputchrs(35, edity, " ", 0, 1, 112);
+
+       if (c == 3)
+         {
+          things = user_name;
+          cursor_onoff(0);
+          setchrs(things, strlen(things), 32, 30-strlen(things));
+          copychrs(things, user_list, pos-29, 30);
+          light();
+          save();
+          break;
+          }
+        else if (c == -1)
+         {
+          cursor_onoff(0);
+          break;
+          }
+        else if (c == 1)
+               {
+               if (edity == 5 && xpos < 2)
+                   ++xpos;
+               else
+                   ++edity;
+               }
+        else if (c == 2)
+               {
+               if (edity == 5 && xpos > 0)
+                   --xpos;
+               else
+                   --edity;
+               }
+        if (edity < 1)
+            edity = 18;
+        if (edity > 18)
+           {
+            edity = 1;
+            stat_line(2);
+            xpos = 0;
+            }
+        }
+        stat_line(1);
+       }
+      else if (c == 21248)  // delete user
+             {
+             if (read)
+                print_user();
+             setchr(status, 0, 49);
+             save();
+             }
+    }
+
+ stat_line(0);      // show saved status line
+ fclose(file);
+ clear_scr();
+ cursor_onoff(1);
+ vrstrarea(screen);
+ gotoxy(savex, savey);
+ _scr_chk_key = oldkey;
+ }
+///////////////////////////////////////////////////////////////////////////////
+// The general edit-string function. A default STRING can be provided.
+edit_string( str String, int X, int Y, int Length)
+{
+
+int scrn;
+
+int UP = 18432, 
+    DOWN = 20480, 
+    HOME = 18176, 
+    END = 20224,
+    LEFT = 19200, 
+    RIGHT = 19712,
+    F2 = 15360,
+    EDIT = 9, 
+    HELP = 15104, 
+    EXIT = 27;
+    
+ str Backup[80], // backup of string to edit.
+     Temp[80];
+
+ int X2,        // current x.pos of cursor
+     Char,      // the char from keyboard
+     Ins = 0,   // insert mode toggle
+     EndX,      // pos of last character
+     TempX = 0, // temporary spaces at end of string
+     RetVal = 0;
+ 
+ X2 = X;
+ gotoxy(X2, Y);
+ EndX = X+strlen(String);
+ if (Length < strlen(String))
+   setchr(String, length-1, 0);
+ Backup = String;
+ setchrs(String, strlen(String), 0, length-strlen(String));
+ vputchrs(X, Y, String, 0, length, 112);
+
+ cursor_onoff(1);
+ 
+ while(retval == 0)
+  {
+  Char = inkeyw();
+
+  if (Char == 8)       // BackSpace
+    {
+     if (TempX)
+        {
+          --TempX;
+          --X2;
+          }
+     else if (X2 > X)
+        {
+         Temp =  "";
+         vgetchrs(X2, Y, Temp, 0, Endx-X2);
+         vputchrs(X2-1, Y, Temp, 0, Endx-X2+1, 112);
+         --X2;
+         --EndX;
+         }
+     gotoxy(X2, Y);
+     continue;
+     }
+     
+ if (Char == 21248)     // Delete char
+     {
+       if (!TempX && X2 < Endx)
+            {
+             vgetchrs(X2+1, Y, Temp, 0, Endx-X2-1);
+             setchr(temp, endx-x2-1, 0);
+             vputchrs(X2, Y, Temp, 0, Endx-X2, 112);
+              --EndX;
+              gotoxy(X2, Y);
+             }
+      continue;
+      }
+  
+  if (Char > 31 && Char < 256)
+     {
+       if (Ins && X2 < EndX && x2 < X+Length-1)
+         {
+          Temp =  "";
+          vgetchrs(X2, Y, Temp, 0, Endx-X2);
+          if (Endx <= X+Length-1)
+              vputchrs(X2+1, Y, Temp, 0, Endx-x2, 112);
+          else
+              vputchrs(X2+1, Y, Temp, 0, Endx-x2-1, 112);
+
+          }
+        vputchr(Char+112*256);
+
+        if (Char == 32)  // if space
+            {
+             if (X2 < EndX)
+                 {
+                  if (Ins)
+                     ++EndX;
+                  }
+             else if (X2 == EndX-1 && !Ins)
+                  {
+                  --EndX;
+                  Tempx = 1;
+                  }
+             else if (X2 < X+Length-1)
+                  ++TempX;
+
+             if (X2 < X+Length-1)
+                  ++X2;
+
+             if (EndX > X+Length)
+               EndX = X+Length;
+
+             gotoxy(X2, Y);
+             continue;
+             }
+
+         if (X2 >= EndX || (Ins && EndX < X+Length))
+            {
+             if (TempX)  // if we were past the end of string
+              {
+               EndX = EndX+TempX;  // add the amount we were past by
+               TempX = 0;          // reset amount
+               }
+             ++EndX;          // Move end pointer
+             }
+
+          if (EndX > X+Length)
+              EndX = X+Length;
+          if (X2 < X+Length-1)
+              ++X2;
+         gotoxy(X2, Y);
+         continue;
+        }
+
+  if (Char == LEFT)
+     {
+      if (X2 > X)
+         {
+          --X2;
+          if (TempX)
+            --TempX;
+          gotoxy(X2, Y);
+          }
+       else
+           retval = 2;
+      continue;
+      }
+      
+  if (Char == RIGHT)
+    {
+      if (X2 < X+Length-1)
+         {
+          ++X2;
+          if (X2 > EndX)
+             ++TempX;
+          gotoxy(X2, Y);
+         }
+       else
+         retval = 1;
+     continue;
+     }
+
+  if (Char == END)
+      {
+       if (X2 == EndX || Endx == X)
+          continue;
+       X2 = EndX;
+       if (X2 > X+Length-1)
+         --X2;
+       TempX = 0;
+       gotoxy(X2, Y);
+       continue;
+       }
+
+  if (Char == HOME)
+     {
+      X2 = X;
+      tempX = 0;
+      gotoxy(X2, Y);
+      continue;
+      }
+
+     if (Char == 13 || Char == DOWN)
+       {
+        retval = 1;
+        continue;
+        }
+     if (Char == UP)
+        {
+        retval = 2;
+        continue;
+        }
+     if (char == F2)
+       {
+        retval = 3;        // save on exit
+        continue;
+        }
+
+  if (Char == 29952)    // Ctrl-End
+    {
+    if (!TempX)
+     {
+      setchrs(Temp, 0, 0, Length);
+      vputchrs(X2, Y, temp, 0, EndX-X2, 112);
+      EndX = X2;
+      gotoxy(X2, Y);
+      }
+     continue;
+     }
+
+  if (Char == EXIT)  // exit
+     {
+      String = Backup;
+      retval = -1;              // don't save on exit
+      continue;
+      }
+
+  if (Char == 30464)    // Ctrl-Home
+     {
+      EndX = strlen(Backup)+X;
+      String = Backup;
+      setchrs(String, strlen(String), 0, Length-strlen(String));
+      vputchrs(X, Y, String, 0, Length, 112);
+      X2 = X;
+      TempX = 0;
+      gotoxy(X2, Y);
+      continue;
+     }
+
+  if (Char == 20992)   // Toggles insert
+     {
+      Ins = !Ins;
+      continue;
+      }
+
+  if (Char == HELP)   // HELP!!!
+     {
+      cursor_onoff(0);
+
+      scrn = vsavearea(19, 3, 62, 21);
+
+      box(20, 4, 62, 21, 'Û', 0, 8);
+      box(19, 3, 61, 20, 2, 0, 127);
+
+      pstraxy(" Help ", 37, 3, 124);
+
+      pstraxy("Editing functions:", 21, 4, 112);
+
+      pstraxy("Use   and  ", 21, 6, 112);
+      pstraxy("^[", 25, 6, 122);
+      pstraxy("^Z", 31, 6, 122);
+      pstraxy("to move along the line.", 33, 6, 112);
+
+      pstraxy("Home", 21, 7, 122);
+      pstraxy("goes to the start of the line.", 26, 7, 112);
+
+      pstraxy("End", 21, 8, 122);
+      pstraxy("goes to the end of the line.", 25, 8, 112);
+
+      pstraxy("Use  ,   and", 21, 9, 112);
+      pstraxy("^X", 25, 9, 122);
+      pstraxy("^Y", 28, 9, 122);
+      pstraxy("^QÙ", 34, 9, 122);
+
+      pstraxy("to change lines.", 37, 9, 112);
+      pstraxy("Tab", 21, 10, 122);
+      pstraxy("save and exit this user.", 25, 10, 112);
+
+      pstraxy("Escape", 21, 11, 122);
+      pstraxy("exits and loses all changes.", 28, 11, 112);
+
+      pstraxy("Backspace", 21, 12, 122);
+      pstraxy("erases the previous character", 31, 12, 112);
+      pstraxy("on the line.", 26, 13, 112);
+
+      pstraxy("Delete", 21, 14, 122);
+      pstraxy("erases the current character.", 28, 14, 112);
+
+      pstraxy("Control-Home", 21, 15, 122);
+      pstraxy("restarts the line with the", 34, 15, 112);
+      pstraxy("default string.", 26, 16, 112);
+
+      pstraxy("Control-End", 21, 17, 122);
+      pstraxy("deletes from the current", 33, 17, 112);
+      pstraxy("character to the end of the line.", 26, 18, 112);
+
+      pstraxy("Insert", 21, 19, 122);
+      pstraxy("toggles insert mode.", 28, 19, 112);
+      inkeyw();
+      vrstrarea(scrn);
+      cursor_onoff(1);
+      }
+   }
+   if (retval > 0)
+     {
+      String = "";
+      vgetchrs(X, Y, String, 0, EndX-X);
+      setchr(String, EndX-X, 0);
+      }
+ format(string);
+ return retval;
+}
+///////////////////////////////////////////////////////////////////////////////
+format(str string)
+{
+ while(subchr(string, strlen(string)-1) == 32)
+   setchr(string, strlen(string)-1, 0);
+}
+///////////////////////////////////////////////////////////////////////////////
+save( )
+{
+ str temp1[114];
+ int i, xpos;
+
+ fseek(file, 0, 2);
+
+ if ((pos+1)/30*rec_len - rec_len > ftell(file)-rec_len)
+     {
+      i = 1;
+      fclose(file);
+      file = fopen("USERS.DAT", "a");
+      }
+
+  fseek(file, (pos+1)/30*rec_len - rec_len, 0);
+
+  setchr(record, 0, bstoc(status));
+  copychrs(user_name, record, 1, 26);
+  copychrs(password, record, 27, 13);
+  setchr(record, 40, stoi(access_level));
+  setchr(record, 41, bstoc(flags));
+
+  copychrs(real_name, record, 42, 26);
+  put_int(stoi(acode), record, 68, 2);
+  put_int(stoi(phone), record, 70, 4);
+  copychrs(city, record, 74, 25);
+  copychrs(country, record, 99, 31);
+  setchr(record, 130, stoi(page));
+  setchr(record, 133, subchr(proto, 0));
+  put_int(stoi(bytes), record, 134, 4);
+  put_int(stoi(bupld), record, 138, 4);
+  put_int(stoi(bdwnld), record, 142, 4);
+  put_int(fupld, record, 146, 2);
+  put_int(fdwnld, record, 148, 2);
+
+  put_int(last_log, record, 158, 4);
+  put_int(stoi(time_left), record, 162, 2);
+  put_int(total_calls, record, 164, 2);
+  copychrs(comment, record, 166, 30);
+  for(xpos = 0; xpos <= 32; xpos = xpos + 8)
+     {
+      substr(scanmap, xpos, 8, temp1);
+      setchr(record, 196 + xpos/8, bstoc(temp1));
+      }
+  for(xpos = 0; xpos <= 32; xpos = xpos + 8)
+     {
+      substr(regmap, xpos, 8, temp1);
+      setchr(record, 201 + xpos/8, bstoc(temp1));
+      }
+
+  if (i == 1)               // if record has been created, write out last_reads
+     {
+     setchrs(record, 206, 0, 114);
+     fwrite(record, 320, file);
+     }
+  else
+     fwrite(record, 206, file);
+
+  if (i == 1)
+    {
+    fclose(file);
+    file = fopen("USERS.DAT", "r+");
+    }
+}
+///////////////////////////////////////////////////////////////////////////////
+print_user( )
+{
+ str tmp[8];
+  fseek(file, (pos+1)/30*rec_len - rec_len, 0);
+
+  fread(Record, 320, file);    // get all from disk
+  itobs(subchr(record, 0), status);
+  subchrs(record, 1, 26, user_name);
+  subchrs(record, 27, 13, password);
+  itos(subchr(record, 40), access_level);
+  itobs(subchr(record, 41), flags);
+
+  subchrs(record, 42, 26, real_name);
+
+  itos(get_int(record, 68, 2), acode);
+  itos(get_int(record, 70, 4), phone);
+
+  subchrs(record, 74, 25, city);
+  subchrs(record, 99, 31, country);
+
+  itos(subchr(record, 130), page);
+  setchr(proto, 0, subchr(record, 133));
+  itos(get_int(record, 134, 4), bytes);
+  itos(get_int(record, 138, 4), bupld);
+  itos(get_int(record, 142, 4), bdwnld);
+  fupld = get_int(record, 146, 2);
+  fdwnld = get_int(record, 148, 2);
+
+  last_log = get_int(record, 158, 4);
+  itos(get_int(record, 162, 2), time_left);
+  total_calls = get_int(record, 164, 2);
+  subchrs(record, 166, 30, comment);
+// skip longptr
+
+  scanmap = "";
+  for (xpos = 0; xpos < 5; ++xpos)
+     {
+     itobs(subchr(record, 196 + xpos), tmp);
+     strcat(scanmap, tmp);
+     }
+  regmap = "";
+  for (xpos = 0; xpos < 5; ++xpos)
+     {
+     itobs(subchr(record, 201 + xpos), tmp);
+     strcat(regmap, tmp);
+     }
+
+  itos((pos+1)/30, tmp);
+// vputchrs(42, 0, tmp, 0, 5, 127);  // remove to avoid overwriting line 1
+  vputchrs(42, 1, user_name, 0, 25, 112);
+  vputchrs(46, 2, password, 0, 12, 112);
+  vputchrs(43, 3, access_level, 0, 3, 112);
+  vputchrs(42, 4, real_name, 0, 25, 112);
+  vputchrs(46, 5, acode, 0, 7, 112);
+  vputchrs(51, 5, Phone, 0, 3, 112);
+  vputchrs(55, 5, Phone, 3, 4, 112);
+  vputchrs(42, 6, City, 0, 24, 112);
+  vputchrs(45, 7, country, 0, 30, 112);
+  vputchrs(46, 8, proto, 0, 1, 112);
+  vputchrs(43, 9, bytes, 0, 9, 112);
+  vputchrs(45, 10, bupld, 0, 9, 112);
+  vputchrs(47, 11, bdwnld, 0, 9, 112);
+  vputchrs(47, 12, time_left, 0, 3, 112);
+  vputchrs(49, 13, page, 0, 3, 112);
+  vputchrs(45, 14, comment, 0, 30, 112);
+  vputchrs(44, 16, status, 0, 8, 112);
+  vputchrs(44, 17, flags, 0, 8, 112);
+  vputchrs(38, 21, regmap, 0, 40, 112);
+  vputchrs(38, 22, scanmap, 0, 40, 112);
+  xpos = 0;
+}
+///////////////////////////////////////////////////////////////////////////////
+pad(int length, int padded)
+{
+ int ixe;
+ if (length > padded)
+  return 0;
+ ixe = padded-length;
+ 
+while(ixe)
+{
+ fputc(0, file);
+ --ixe;
+ }
+return; 
+}   
+///////////////////////////////////////////////////////////////////////////////
+boxes()
+{
+ clear_scr();
+ str tmp[] = "1234567890", char[1];
+
+ box(0, 1, 32, 22, 1, 0, 29);
+ box(34, 0, 79, 23, 1, 0, 112);
+
+ pstraxy("Users", 14, 1, 29);
+ pstraxy("Data", 57, 0, 112);
+
+ pstraxy("User:", 36, 1, 112);
+ pstraxy("Password:", 36, 2, 112);
+ pstraxy("Level:", 36, 3, 112);
+ pstraxy("Name:", 36, 4, 112);
+ pstraxy("Phone #: (   )    -", 36, 5, 112);
+ pstraxy("City:", 36, 6, 112);
+ pstraxy("Country:", 36, 7, 112);
+ pstraxy("Protocol:", 36, 8, 112);
+ pstraxy("Bytes:", 36, 9, 112);
+ pstraxy("Uploads:", 36, 10, 112);
+ pstraxy("Downloads:", 36, 11, 112);
+ pstraxy("Time Left:", 36, 12, 112);
+ pstraxy("Page length:", 36, 13, 112);
+ pstraxy("Comment:", 36, 14, 112);
+ pstraxy("12345678", 44, 15, 112);
+ pstraxy("Status:", 36, 16, 112);
+ pstraxy("Flags:", 36, 17, 112);
+ pstraxy("Conferences registered in, to scan:", 36, 18, 112);
+
+ for (xpos = 38; xpos <= 68; xpos = xpos + 10)
+     {
+      setchr(char, 0, (xpos - 28)/10 + 48);
+      pstraxy(char, xpos+9, 19, 112);
+      pstraxy(tmp, xpos, 20, 112);
+      }
+ pstraxy("R:", 36, 21, 112);
+ pstraxy("S:", 36, 22, 112);
+}
+///////////////////////////////////////////////////////////////////////////////
+unlight( )
+{
+vputchrs(2, pointy, user_list, pos-29, 30, 31);
+}
+///////////////////////////////////////////////////////////////////////////////
+light()
+{
+vputchrs(2, pointy, user_list, pos-29, 30, 90);
+}
+///////////////////////////////////////////////////////////////////////////////
+yn(int def, int b_color)
+{
+int c = -1;
+
+while(strchr("YN^027^013", 0, c) == -1)
+      c = toupper(inkeyw());
+if (c == 27 || c > 255)
+   c = 'N';
+else if (c == 13)
+    c = def;
+if (c == 'Y')
+  {
+  pstraxy("Yes", getx(), gety(), b_color*16+10);
+  return 1;
+  }
+else if (c == 'N')
+   {
+   pstraxy("No ", getx(), gety(), b_color*16+12);
+   return 0;
+   }
+else
+   return 0;
+}    
+////////////////////////////////////////////////////////////////////////////////
+bstoc( str s )
+{
+int x, sum, factor = 1;
+for (x = 0; x <= 7; ++x)
+    {
+    sum = sum + (subchr(s, x)-48)*factor;
+    factor = factor * 2;
+    }
+return sum;
+}
+////////////////////////////////////////////////////////////////////////////////
+itobs(int num, str dest)
+{
+int x, num2;
+num2 = num;
+
+for (x = 0; x <= 7; ++x)
+     {
+      setchr(dest, x, num2%2+48);
+      num2 = num2/2;
+      }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+stat_line( int opt)
+{
+ str line[80];
+
+ if (opt == 1)
+     line = "Esc: Quit  Tab or ^Z: Edit  (S)earch  (Del)ete  (A)dd  ^X^Y Home End PgUp PgDn";
+  else if (opt == 2)
+     line = "Esc: Cancel  F2: Save  F1: Help on Edit  ^X^Y";
+  else if (opt == 3)
+     line = "1=On 0=Off  1:Delete 2:KickOut 3:Scan Msgs 4:Xpert 5:Color 7:Capture  F2: Save";
+  else if (opt == 4)
+     line = "1=On 0=Off  1:SysOp 2:CoSysOp 3-8:General Use";
+  else if (opt == 5)
+     line = "Esc: Cancel  F2: Save  F1: Help on Edit  1=On  0=Off  ^X^Y";
+  else
+      {
+       vputchrs(0, help_line, stat_save, 0, 80, stat_color);
+       return;
+       }
+  vputchrs(0, help_line, line, 0, 80, 112);
+}
+///////////////////////////////////////////////////////////////////////////////
+loadusers( )
+{
+int x;
+str things[30];
+fseek(file, fpos+1, 0);
+user_list = "";
+for (x = 1; x <= 200 && fread(things, 25, file) > 0; ++x)  // load names from file
+  {
+   setchrs(things, strlen(things), 32, 30-strlen(things));
+   inschrs(things, user_list, strlen(user_list), 30);
+   fseek(file, REC_LEN-25, 1);
+   }
+fpos = ftell(file);
+if (x < 500)
+   fpos = 0;
+return;
+}
+///////////////////////////////////////////////////////////////////////////////
+// Save number as [num]-byte integer to string
+put_int( int src, str target, int pos, int num)
+{
+ int x, div, source;
+
+ if (num == 4)
+    div = 16777216;
+ else
+    div = 256;
+
+ source = src;
+
+ for (x = num - 1; x >= 0; --x)
+    {
+     setchr(target, pos + x, source/div);
+     source = source%div;
+     div = div/256;
+     }
+}
+///////////////////////////////////////////////////////////////////////////////
+// transform 4-byte integer on string into number
+get_int( str src, int pos, int num )
+{
+int i, x, mult = 1;
+for (x = 0; x < num; ++x)
+  {
+   i = subchr(src, pos + x) * mult + i;
+   mult = mult * 256;
+  }
+return i;
+}
+///////////////////////////////////////////////////////////////////////////////
+// Find position of help line by looking for vertical bar at various places.
+GetHelpLine( )
+{
+int x, y;
+x = getx();
+y = gety();
+str list0[] = "00244249", things[2];
+help_line = -1;
+while (strlen(list0) > 0)
+      {
+        substr(list0, 0, 2, things);
+        delchrs(list0, 0, 2);
+        gotoxy(16, stoi(things));
+        if (vgetchr()%256 == '³')
+           help_line = stoi(things);
+        }
+gotoxy(x, y);
+}
+///////////////////////////////////////////////////////////////////////////////
+// End of User Editor     //
+///////////////////////////////////////////////////////////////////////////////

@@ -1,0 +1,80 @@
+The following changes have been made to XHost since version 1.10:
+
+Thanks go out to Ricardo Molinar for bug reports and helpful
+suggestions.
+
+New features:
+
+- "List conferences" and "Join conference" commands were added to the
+default sysop menu.
+
+- A new default menu is provided in the file QDMENU.ZIP. It is designed
+to imitate Telix's QDHOST menu.
+
+Bug fixes:
+
+- If a user answered 'No' to the ANSI color prompt, the foreground color
+  would be set to red if the previous user had color turned on.
+
+- After a local logon, the script would not reinitialize the modem into
+auto-answer mode. This was corrected.
+
+- The sysop's color bit was not being used during a quick logon.
+
+- The user editor would run into some trouble if no users were on file
+and it was attempted to edit a user without adding one first using (+).
+
+- The title screen would overwrite the status bar if it was on top of
+the screen. The user editor and file adder had similar glitches.
+
+- The system password was displayed as it was typed at the beginning of
+Setup. Its color was changed to blue on blue to avoid this.
+
+- There was some confusion in the documentation regarding the name of
+the custom menus for file lists, text files and doors. It is now
+consistent.
+
+- More documentation was added regarding text files and the user flags
+(registration, scan) associated with conferences.
+
+- Conferences with no file directory #1 defined will not accept uploads.
+
+
+The following changes have been made to XHost since version 1.00:
+
+New features:
+
+- The editor now has a quote function.
+
+- Users now can toggle whether to import FILE_ID.DIZ description files
+  into the file list. Accordingly, the file list can now support 10
+  lines of description at 46 characters per line. This wasn't really my
+  idea, but a request by Stephen Nix.
+
+- A "Change page length" command is now available in the Info & Setup
+  menu.
+
+Bug fixes:
+
+- Some entries were missing from the default menus: Doors and List
+  contents of EXTRACT.
+
+- The "Move file" command called PACK.EXE with incorrect parameters.
+
+- 'Forced' private messages (ie comments, replies to private messages)
+  were not being marked as private.
+
+- The script now hangs up properly. A flag had the wrong value, causing
+  the routine to be skipped completely.
+
+- Fixed problem with chat greeting to users with names of one word.
+
+- Added some pauses to the end of the archive handling functions.
+
+- The upload directory is now correctly set to the first file dir in
+  the current conference.
+
+- In many cases, the full-screen editor would fail to save the current
+  line before a function was executed (redraw, help). This is fixed.
+
+- The messages which had replies weren't correctly displayed as such.

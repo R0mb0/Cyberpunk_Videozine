@@ -1,0 +1,389 @@
+//-----------------------------------------------------------
+// WILDCAT.SL? Automatic logging into an WILDCAT! system.
+//
+// Please look at the comments through the whole file, and modify to
+// suit your needs, BEFORE you use it. Then recompile with CS WILDCAT.
+//-----------------------------------------------------------
+
+// If you have suggestions for improving this script, please suggest
+// improvements to me via old-fashioned snail-mail to:
+
+// Author:  Inge Vabekk
+//          Hamangskogen 108
+//          N-1300 SANDVIKA
+//          NORWAY
+//          tel. (472) 546 396
+
+str thisBBStype[] = "WILDCAT"// This BBS type.      
+   ,line      [80]           // General input line.
+   ,filelist  [12]           // Name of file list for this BBS.
+   ,myprot     [2]           // Chosen protocol.
+   ,hisprot    [2]           // WILDCAT's translation.
+   ,mypass    [24]           // My password
+   ,User      [24]           // My user name
+
+                             // For the Global storage:
+   ,global   []="GLOBAL"     // Global script.
+   ,bbstype  []="BTYPE"      // BBS type.
+   ,short    []="SHORT"      // Short BBS name.
+   ,cprot    []="CPROT"      // Current protocol.
+   ,hprot    []="HPROT"      // WILDCAT's interpretation of protocol
+   ,prompt   []="PROMPT"     // Current prompt (global name)
+   ,username []="NAME"       // User name.
+   ,alias    []="ALIAS"      // User alias.
+   ,passw    []="PASSW"      // Current password.
+   ,addr     []="ADDR"       // Address
+   ,mail     []="MAIL"       // Mail address
+   ,stabb    []="STABB"      // State abbreviation
+   ,zip      []="ZIP"        // Zip code
+   ,bdate    []="BDATE"      // Birth date
+   ,sex      []="SEX"        // Your sex.
+   ,hfone    []="HTEL"       // Home phone
+   ,Dback    []="DBACK"      // Dial-back number
+   ,mscript  []="MDOOR"      // Name of mail door.
+   ,mailup   []="MAILUP"     // Name of upload mail script.
+   ,Update   []="UPDATE$"    // Name of update program.
+   ,command[10]              // Current prompt (value)
+   ;     
+
+int tol = 300                // No activity for 30 seconds?
+   ,stat, tmark
+   ,t1, t2, t3, t4, t5, t6   // For tracking.        
+   ,t7, t8, t9, t10          // For tracking.        
+   ;
+
+//-----------------------------------------------------------   
+// Script starts here.
+//-----------------------------------------------------------   
+
+main()
+{
+int error;
+
+  entry();                               // Updates colors & status bar. 
+
+// Only if online.
+
+  if (!carrier())  
+  { failtone();
+    status_wind ("Tý: THIS SCRIPT ONLY WORKS IF YOU'RE ONLINE!",20);
+    return (-1);
+  }
+
+  read (bbstype,line);                   // Get current BBS type.
+  if (line != thisBBStype)  
+  { wrongBBS();                          // Doesn't match script!
+    return (-1);
+  }
+
+  error = 1;
+  read (username,User);                  // Get the user name.
+  command = " Command?";                 // Set WILDCAT command prompt.
+  write (prompt,command);
+  write (mscript,mailup);                // Next script.
+
+// Start tracking.
+
+again:
+  t1 = track ("your first name ?",0);    // Name.
+  t2 = track ("N]onStop? [",0);          // Nonstop?
+  t3 = track ("rrectly ? [",0);          // Spelt correctly?
+  t4 = track ("Password? [",0);          // Password?
+
+  tmark = timer_start (tol);             // Wait a minute for login
+  if (error) cputs ("^M");               // Proceed.
+ 
+  while ((stat=trig()) > 0)
+  { if (stat == t1)                      // Want name?
+    { cputs (User);
+      cputs ("^M");
+    }
+    else if (stat == t2)                 // Non Stop?
+      cputs ("^M");
+    else if (stat == t3)
+    { release();
+      error = register();                // Register?
+      if (!error) goto again;
+    }
+    else if (stat == t4)                 // Password:
+    { read (passw,mypass);               // Read password.
+      cputs (mypass);                    // Send password.
+      cputs ("^M");
+    }
+    if (!error) break;
+  }
+  release();                             // Release tracks and timer.
+  if (!carrier()) return (-1);
+
+  t1 = track ("letin menu? [",0);        // View bulletin menu?
+  t2 = track ("[N]onStop? [",0);         // Nonstop?
+  t3 = track ("to Quit: ? [",0);         // Enter to quit.
+  t4 = track ("to continue?",0);         // Enter to continue. 
+  t5 = track (command,0);                // Command prompt.
+
+  tmark = timer_start (tol);             // Wait a minute for login
+ 
+  while ((stat=trig()) > 0)
+  { if (stat == t1)                      // Want bulletin menu?
+      cputs ("n^M");                     // No.
+    else if (stat==t2 || stat==t3        // Enter to continue
+      || stat == t4)
+      cputs ("^M");
+  }
+  release();                             // Release tracks and timer.
+  if (!carrier()) return (-1);
+
+  t1 = track ("[N]onStop? [",0);         // Nonstop?
+
+  tmark = timer_start (tol);             // Wait a minute.
+ 
+  while ((stat=trig()) > 0)              // Wait here.
+  { cputs ("^M");
+  }
+  release();
+  return (0);                            // Return.
+}
+
+//-----------------------------------------------------------
+// Register on WildCat!
+//-----------------------------------------------------------
+
+register()
+{
+int i, j;
+
+  terminal();                            // Update screen.
+  i = gety();                            // All lines on screen:
+  while (i >=0 )
+  { vgetchrs(0,--i,line,0,60);           // Get the line.
+    setchr (line,60,0);
+    if (strposi(line,user,0) > 0) 
+      break;
+  }
+  if (i<=0)                              // Name correct?
+  { cputs ("N^M");                       // No, return for retry.
+    return(0);
+  }
+
+// Register on this BBS.
+
+  t1 = track ("password? [",0);
+  t2 = track ("o verify? [",0);
+
+  tmark = timer_start (tol);             // Set timeout.
+  cputs ("Y^M");                         // Answer Yes.
+ 
+  while ((stat=trig()) > 0)
+  { read (passw,mypass);                 // Read password.
+    cputs (mypass);                      // Send password.
+    if (stat == t2) break;
+    cputs ("^M");
+  }
+  release();                             // Release tracks and timer.
+  if (!carrier()) return (-1);
+
+  t1 = track (" [N]onStop? [",0);        // Nonstop?
+  t2 = track ("reet address?",0);        // Street address
+  t3 = track ("line (if any)",0);        // Second line
+  t4 = track (" you live in?",0);        // What city?
+  t5 = track ("r your state?",0);        // Abbreviation for state
+  t6 = track ("our zip code?",0);        // Zip code
+  t7 = track ("ate of birth?",0);        // Birth date
+  t8 = track ("home phone nu",0);        // Home phone number
+  t9 = track ("data phone nu",0);        // Data phone number
+  t10= track ("le or Female?",0);        // Your gender please?
+
+  tmark = timer_start (tol);             // Set timeout.
+  cputs ("^M");                          // Continue.
+ 
+  while ((stat=trig()) > 0)
+  { if (stat == t1)
+      cputs ("^M");
+    else if (stat == t2)                 // Street address.
+      output (addr);
+    else if (stat == t3)                 // Postal code
+      output (mail);
+    else if (stat == t4)                 // City
+    { for (i=0; (j=subchr(line,i)) > 0; ++i)
+      { if (j >='A') cputc (j);          // Send only letters.
+        if (j < 32) break;
+      }
+      cputs ("^M");
+    }
+    else if (stat == t5)                 // State abbreviation
+      output (stabb);
+    else if (stat == t6)                 // Zip code
+      output (zip);
+    else if (stat == t7)                 // Birth date
+      output (bdate);
+    else if (stat == t8)                 // Home phone
+      output (hfone);
+    else if (stat == t9)                 // Data phone
+      output (dback);
+    else if (stat == t10)                // Gender
+      break;
+  }
+  release();                             // Release tracks and timer.
+  if (!carrier()) return (-1);
+
+  t1 = track ("ish to use? [",0);        // Alias?
+  t2 = track ("C X K A]: ? [",0);        // Select protocol.
+  t3 = track ("ditor mode? [",0);        // Default editor mode
+  t4 = track (command,0);                // Command prompt.
+  t5 = track ("?",0);                    // Question mark extends timeout.
+
+  tmark = timer_start (tol);             // Set timeout.
+  output (sex);                          // Send your gender.
+ 
+  while ((stat=trig()) > 0)
+  { if (stat == t1)
+      output (alias);                    // Alias.
+    else if (stat == t2)                 // Select protocol.
+    { if (read (cprot,myprot)<0)         // Get protocol.
+        myprot = "Z";                    // None: Assume Zmodem.
+      if (myprot=="E")                   // Modify protocol word.
+        hisprot = "G";
+      else if (myprot=="1")              // Xmodem-1K
+        hisprot = "O";
+      else
+        hisprot = myprot;
+      write (Hprot,hisprot);             // Save it for later.
+      cputs (hisprot);                   // Send it.
+      cputs ("^M");
+    }
+    else if (stat == t3)                 // Editor mode:
+      cputs ("F^M");                     // Full screen.
+    else if (stat == t4)                 // Command:
+      break;                             // Break out.
+  }
+  release();                             // Release tracks and timer.
+  if (!carrier()) return (-1);
+
+}
+//-----------------------------------------------------------
+// Wrong BBS type.
+//-----------------------------------------------------------
+
+wrongBBS()
+{
+str help[48];
+
+    failtone();                          // Alarm.    
+    help = "This script is for ";        // Catenate strings.
+    strcat (help,thisBBStype);
+    strcat (help," only!");
+    status_wind (help,20);               // Display message for 2 sec.
+}
+
+//-----------------------------------------------------------
+// Flush incoming text from BBS.
+//-----------------------------------------------------------
+
+flush()
+{
+  do
+  { terminal();                          // Process all echo
+    delay(1);                            // from the BBS.
+  } while (cinp_cnt() > 0);
+}
+
+//-----------------------------------------------------------
+// Play fail tone.
+//-----------------------------------------------------------
+
+failtone()
+{
+  int n;
+  for (n=140; n > 10; n = 100*n/120) 
+  { tone(n*10,12);                       // Fail tone!!
+    terminal();                          // Process text.
+  }
+}
+
+//-----------------------------------------------------------
+// Routine to update colors and status bar.
+//-----------------------------------------------------------
+
+entry ()
+{
+  _back_color = 1;
+  _fore_color = 14;
+  update_term();
+}
+
+//-----------------------------------------------------------
+// Play good tune.
+//-----------------------------------------------------------
+
+goodtone()
+{
+int n;
+  for (n=20; n < 200; n = 144*n/100) 
+  { tone(n*10,6);                        // Good tone!
+    terminal();                          // Process text.
+  }
+}
+
+//-----------------------------------------------------------
+//  Trig loop. Waits here until either one "trig string" is
+//  found, or we have a time-out, or carrier is lost.
+//-----------------------------------------------------------
+
+trig()
+{
+int i;
+  do
+  { terminal();
+  }  while (!time_up (tmark)             // Loop until time-out
+          && carrier()                   // or carrier lost
+          && (i=track_hit(0))==0);       // or we trigged.
+  if (i==0) 
+    i = -1;                              // Error!
+  else
+    timer_restart (tmark,tol);           // Restore timer.
+  return (i);
+}
+
+//-----------------------------------------------------------
+// Free timer and tracking functions.
+//-----------------------------------------------------------
+
+release()
+{
+  timer_free (tmark);                    // free timer channel
+  track_free (0);                        // and all track channels.
+}
+
+//-----------------------------------------------------------
+// Send a global variable to the BBS.
+//-----------------------------------------------------------
+
+output (str name)              // Use only variable name.
+{
+int i;
+
+  read (name,line);            // Get the variable.
+  i = strlen (line)-1;
+  if (subchr (line,i)<=' ')    // Delete any trailing CR.
+  setchr (line,i,0);
+  cputs (line);
+  cputs ("^M");                // Add another CR.
+}
+
+//-----------------------------------------------------------
+// Read a global variable.
+//-----------------------------------------------------------
+
+read (str name, str varname)
+{
+  return (call (global,"R",name,varname));
+}
+
+//-----------------------------------------------------------
+// Write a global variable.
+//-----------------------------------------------------------
+
+write(str name, str varname)
+{ 
+  return (call (global,"W",name,varname));
+}

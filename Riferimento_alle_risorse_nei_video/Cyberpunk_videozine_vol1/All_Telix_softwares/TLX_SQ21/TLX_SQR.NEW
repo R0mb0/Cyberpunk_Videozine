@@ -1,0 +1,143 @@
+          TELIX-SQUARE package by Inge Vabekk. Version 2.1á.
+ 
+                       CHANGES in version 2.1á
+   ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»
+   º             This version has some improvements:             º
+   º             -----------------------------------             º
+   º 1. After logging in to an MBBS system the MBBS script now   º
+   º    issues a CHAT N command, to avoid having chat attempts   º
+   º    from other nodes while the scripts are running. When the º
+   º    automatic part of the session is completed, a CHAT A     º
+   º    command is issued to allow chat requests again.          º
+   ÇÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¶
+   º 2. The timed call scheduler didn't always work. This would  º
+   º    happen because the documentation stated that the envi-   º
+   º    ronment variable SQRTIME" should use colon as a separa-  º
+   º    tor character. When this was defined otherwise in Telix, º
+   º    the comparison would never succeed.                      º
+   º    The script is changed to use the time separator charac-  º
+   º    ter defined in the Telix configuration file.             º
+   ÇÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¶
+   º 3. The GrabMail script has been somewhat improved to avoid  º
+   º    errors during the first blocks of mail transfer.         º
+   ÇÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¶
+   º 4. You now have the possibility of adding your own script   º
+   º    for special tasks to run automatically.                  º
+   º    The name of this script should be the same as the BBS    º
+   º    type plus "HOOK": For MBBS the name is MBBSHOOK, and for º
+   º    PCBoard it is PCBHOOK. To find the name to use, check    º
+   º    what script is entered right after LOGON (this will show º
+   º    in the status line). No more than 4 characters can be    º 
+   º    used from the BBS name; the last 4 must be HOOK.         º
+   º    Naturally, the name extension for the script must be     º
+   º    .SLT for SALT scripts, and .SLC for compiled scripts.    º
+   ÇÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¶
+   º 5. The GrabMail script now sets "Forward" mode as the de-   º
+   º    fault before the mail is downloaded. This means that the º
+   º    oldest messages in a conference come first, contrary to  º
+   º    the default "Ref" mode. I personally dislike this        º
+   º    "threaded" mode. A good offline reader has the option to º
+   º    read by reference.                                       º
+   º    When you delete the first messages in the message base,  º
+   º    you can now rest assured that they are the oldest ones.  º
+   º    If you're using XBoard, however, you can use the "script º
+   º    Configuration" option to define this according to your   º
+   º    own liking. You can also do this by adding a line to the º
+   º    NAME.DAT file:                                           º
+   º    RMODE: R(eference)    { or F(orward), or M(arked) }      º
+   ÇÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¶
+   º 6. After "years" of using the Full Screen Editor in MBBS,   º
+   º    the MailUp script had "forgotten" how to use the line    º
+   º    oriented editor. This has been fixed.                    º
+   ÇÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¶
+   º 7. The UPDATE$ program, used to add new files to the file   º
+   º    list, would write past a CTRL-Z (EOF character) in the   º
+   º    catalog file. When searching the file with the DUPECHK$  º
+   º    or HAVEIT$ programs (used to update the upload and down- º
+   º    load command files), files beyond this point could not   º
+   º    be found.                                                º
+   º    The CTRL-Z character is now removed.                     º
+   ÇÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¶
+   º 8. The PUTLINE.SLT script has been added. This small script º
+   º    is called as a subroutine by other scripts to send com-  º
+   º    mands to the BBS. The script checks the echo returned    º
+   º    from the BBS, and makes corrections if there were entry  º
+   º    errors. This should keep command errors to a minimum.    º
+   ÇÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¶
+   º 9. The UPDOWNF.SLT script has been added. This small script º
+   º    is called as a subroutine by other scripts to send or    º
+   º    receive files to/from the BBS. The script checks for     º
+   º    a possible external protocol program to be used for the  º
+   º    transfer. Up to 10 different external protocols can now  º
+   º    be defined with Telix. See the new parameters defined    º
+   º    to perform these tasks (in the NAME.DAT file) below.     º
+   ÇÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¶
+   º 10.With the extended choice of external protocols, several  º
+   º    new parameters have been defined for the NAME.DAT file.  º
+   º    Up to ten different protocols can be defined, numbered   º
+   º    0 to 9. There are several parameters for each protocol.  º
+   º    In the following, "n" represents the number:             º
+   º    XPROTn : Protocol defined in the Telix phone directory   º
+   º    XPROGn : Name of external program for that protocol      º
+   º    XPRAMn : General parameters for the program              º                                           º
+   º    XRECVn : Receive parameters for the program              º
+   º    XXMITn : Transmit parameters for the program             º
+   º                                                             º
+   º    Sample (part of NAME.DAT file):                          º
+   º                                                             º
+   º    XPROT0: Z          { Use external protocol with Zmodem } º
+   º    XPROG0: GSZ.EXE               { Use GSZ.EXE for Zmodem } º
+   º    XPRAM0: port 2 pV1 pG15 ha cts    { Parameters for GSZ } º
+   º    XRECV0: rz -m             { Receive parameters for GSZ } º
+   º    XXMIT0: sz               { transmit parameters for GSZ } º
+   ÇÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¶
+   º 11.The scripts OPUS.SLT, OPUSREG.SLT and OPUSUP.SLT have    º
+   º    been added. These are presently only rudimentary scripts º
+   º    to perform a simple login and send mail. Mail grabbing   º
+   º    and file up/download have not been implemented yet.      º
+   ÇÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¶
+   º 12.The "GETNAME" script used to read the NAME.DAT file at   º
+   º    startup spent quite some time reading and organizing     º
+   º    the data. This has been somewhat improved, and further   º
+   º    improvement can be expected in the future.               º
+   ÇÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¶
+   º 13.Nice addition for XBoard users: You can now use diffe-   º
+   º    rent login names on each BBS you're calling. Just edit   º
+   º    the "YourName" line in the <BBS>.CFG file for the BBS.   º
+   º    The name specified in the NAME.DAT file will still be    º
+   º    the default.                                             º
+   º    This should overcome the problem with BBS programs that  º
+   º    don't understand characters beyond the English 26-cha-   º
+   º    racter alphabet.                                         º
+   ÇÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¶
+   º 14.Another nice addition for XBoard users: You can now use  º
+   º    XBoard's method for specifying download files, in addi-  º
+   º    tion to the traditional method, using the WISH.LST file. º
+   º    This means that you can use whichever method you prefer. º
+   º    Files names specified for download *must* be listed in   º
+   º    the BBS's file list, however (contrary to XBoard's       º
+   º    scripts, which don't check this).                        º
+   º    The same method will be implemented for uploading files  º
+   º    in the near future. However, I choose to release this    º
+   º    version before this is ready -- just to avoid having     º
+   º    your patience tested. (+:                                º
+   ÇÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¶
+   º 15.The XBoard options to have a list of conferences (MBBS   º
+   º    only) and a list of new files, have been implemented in  º
+   º    the scripts.                                             º
+   ÇÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¶
+   º 16.Last-minute change: The JOIN and RESIGN selections that  º
+   º    you have specified using XBoard will now be executed by  º
+   º    the Telix_Square scripts. If you use one of these, the   º
+   º    conference list will be updated automatically.           º
+   ÇÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¶
+   º  NOTE: This version will be the LAST one with SALT sources  º
+   º   included. This is primarily because of the size of the    º
+   º   complete package. However, a couple of methods will be    º
+   º   used that I prefer not to reveal.                         º
+   º   Still, I *may* make parts of the code available for those º
+   º   genuinely interested. I will also continue to support and º
+   º   help anyone who needs assistance using Telix_Square.      º
+   ÈÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼
+
+       Takk, Danke, Gracias, Merci, Thanks to Colin Sampaleanu.

@@ -1,0 +1,318 @@
+//-----------------------------------------------------------
+// OPUS.SL? Automatic logging into an OPUS system.
+//
+// Please look at the comments through the whole file, and modify to
+// suit your needs, BEFORE you use it. Then recompile with CS OPUS.
+//-----------------------------------------------------------
+
+// If you have suggestions for improving this script, please suggest
+// improvements to me via old-fashioned snail-mail to:
+
+// Author:  Inge Vabekk
+//          Hamangskogen 108
+//          N-1300 SANDVIKA
+//          NORWAY
+//          tel. (472) 546 396
+
+str thisBBStype[] = "OPUS"   // This BBS type.      
+   ,line      [80]           // General input line.
+   ,filelist  [12]           // Name of file list for this BBS.
+   ,myprot     [2]           // Chosen protocol.
+   ,hisprot    [2]           // OPUS's translation.
+   ,User      [32]           // Your own name.      
+
+                             // For the Global storage:
+   ,global   []="GLOBAL"     // Global script.
+   ,username []="NAME"       // User name
+   ,PutLine  []="PUTLINE"    // PutLine script.
+   ,bbstype  []="BTYPE"      // BBS type.
+   ,cprot    []="CPROT"      // Current protocol.
+   ,hprot    []="HPROT"      // OPUS's interpretation of protocol
+   ,prompt   []="PROMPT"     // Current prompt (global name)
+   ,mscript  []="MDOOR"      // Name of mail door.
+   ,password []="PASSWORD"   // Script to send password.
+   ,mailup   []="MAILUP"     // Name of upload mail script.
+   ,Update   []="UPDATE$"    // Name of update program.
+   ,command[10]="Select:"    // Current prompt (value)
+   ;
+
+int tol = 300                // No activity for 30 seconds
+   ,t1, t2, t3, t4, t5       // makes script time out. 
+   ,stat, tmark
+   ,messages                 // Messages to fetch?
+   ,Enter = 13
+   ;
+
+//-----------------------------------------------------------   
+// Script starts here.
+//-----------------------------------------------------------   
+
+main(int ppass)
+{
+int c, i, OK
+   ,langno                             // Language number
+   ;
+
+  entry();                             // Updates colors & status bar. 
+
+// Only if online.
+
+  if (!carrier())  
+  { failtone();
+    status_wind ("Tý: THIS SCRIPT ONLY WORKS IF YOU'RE ONLINE!",20);
+    return (-1);
+  }
+
+  read (bbstype,line);                 // Get current BBS type.
+  if (line != thisBBStype)  
+  { wrongBBS();                        // Doesn't match script!
+    return (-1);
+  }
+
+// Name and password.
+
+  t1 = track ("FIRST name:",0);        // Wait for first name prompt.
+  t2 = 0;
+  t3 = track ("[Y,n]?", 0);            // Name OK?
+  t4 = track ("Language", 0);          // would you like to use?
+  t5 = track ("Password:", 0);         // Password OK?
+  tmark = timer_start (tol);           // Give me a minute.
+
+  OK = 0;
+  do
+  { stat=trig();                       // Check prompts.
+
+    if (stat == t1)                    // User name?
+    { read (username,User);            // Get the user name.
+      call (PutLine,User,Enter);       // Send it.
+      t2 = track (User, 0);            // Check echo.
+    }
+    else if (stat == t2)               // User name again?
+    { OK = 1;
+      track_free (t2);                 // Got it!
+      t2 = 0;
+    }
+    else if (stat == t3)               // User name correct?
+    { if (OK)
+        call (PutLine,"Y",Enter);
+      else
+        call (PutLine,"N",Enter);
+    }
+    else if (stat == t4)                     // Language?
+    { waitfor ("Select:",2);
+      langno = -1;
+      i = gety();                            // Get position.
+      for (c=0; c<=i; ++c)                   // Get screen line.
+      { vgetchrs(0,c,line,0,80);
+        if (strposi (line,"English",0) > 0)  // Language no.?
+        { langno =subchr(line,firstp(line)); // Get language no. to use.
+          break;
+        }
+      }
+      if (langno > 0) cputc (langno);  // Set language.
+      cputc (Enter);
+    }
+    else if (stat == t5)               // Password?
+    { ++OK;  
+      call (password);
+    }
+  } while (OK < 2);                    // Until name+password are OK.
+  release();                           // Release tracks.
+
+  if (OK ==1) call (password);         // Password not recognised.
+
+// Start tracking texts.
+
+  command = "Select:";
+  write (prompt,command);
+
+  t1 = track ("not recogni", 0);       // Not registered!
+  t2 = track ("to continue", 0);       // ENTER to continue
+  t3 = track (command, 0);             // Next command.
+
+  tmark = timer_start (tol);           // Give me a minute.
+
+  cputs ("^M");                        // Send Enter to proceed.
+
+  while ((stat=trig()) > 0)            // Check prompts.
+  { if (stat == t1)                    // Not registered?
+    { release();
+      call ("OPUSREG");                // So do it.
+      break;
+    }
+    else if (stat == t2)
+      cputc (Enter);                   // ENTER to continue
+    else
+      break;
+  }
+  release();
+
+// Check protocol.
+          
+  if (read (cprot,myprot)<0)           // Get protocol.
+    myprot = "Z";
+  if (myprot=="Y")                     // This is kind of
+    hisprot = "YB";                    // a translate table
+  else if (myprot=="E")                // for the protocol.
+    hisprot = "YG";
+  else if (myprot=="1")
+    hisprot = "X";
+  else if (myprot=="D")
+    hisprot = "Z";
+  else
+    hisprot = myprot;
+  write (Hprot,hisprot);               // Save it for later.
+
+  waitfor (command,100);        //!!!!!!!!!!!!!!!!!!!!!!!!
+  write (mscript,mailup);              // Next script.
+  return (0);                          // Return.
+}
+
+//-----------------------------------------------------------
+// Wrong BBS type.
+//-----------------------------------------------------------
+
+wrongBBS()
+{
+  failtone();                          // Alarm.    
+  line = "This script is for ";        // Catenate strings.
+  strcat (line,thisBBStype);
+  strcat (line," only!");
+  status_wind (line,20);               // Display message for 2 sec.
+}
+
+//-----------------------------------------------------------
+// Change the language to English.
+//-----------------------------------------------------------
+
+english() 
+{
+  call (PutLine, "U SPR", Enter);        // Change language.
+  waitfor ("engelsk",1);
+  cputs ("^M");
+  messages = 10;                         // Didn't trig on messages;
+}                                        // assume there are some.
+
+//-----------------------------------------------------------
+// Flush incoming text from BBS.
+//-----------------------------------------------------------
+
+flush()
+{
+  do
+  { terminal();                          // Process all echo
+    delay(2);                            // from the BBS.
+  } while (cinp_cnt() > 0);
+}
+
+//-----------------------------------------------------------
+// Play fail tone.
+//-----------------------------------------------------------
+
+failtone()
+{
+  int n;
+  for (n=140; n > 10; n = 100*n/120) 
+  { tone(n*10,12);                       // Fail tone!!
+    terminal();                          // Process text.
+  }
+}
+
+//-----------------------------------------------------------
+// Routine to update colors and status bar.
+//-----------------------------------------------------------
+
+entry ()
+{
+  _back_color = 1;
+  _fore_color = 14;
+  update_term();
+}
+
+//-----------------------------------------------------------
+// Play good tune.
+//-----------------------------------------------------------
+
+goodtone()
+{
+int n;
+  for (n=20; n < 200; n = 144*n/100) 
+  { tone(n*10,6);                        // Good tone!
+    terminal();                          // Process text.
+  }
+}
+
+//-----------------------------------------------------------
+//  Trig loop. Waits here until either one "trig string" is
+//  found, or we have a time-out, or carrier is lost.
+//-----------------------------------------------------------
+
+trig()
+{
+int i;
+  do
+  { terminal();
+  }  while (!time_up (tmark)             // Loop until time-out
+          && carrier()                   // or carrier lost
+          && (i=track_hit(0))==0);       // or we trigged.
+  if (i==0) 
+    i = -1;                              // Error!
+  else
+    timer_restart (tmark,tol);           // Restore timer.
+  return (i);
+}
+
+//-----------------------------------------------------------
+// Free timer and tracking functions.
+//-----------------------------------------------------------
+
+release()
+{
+  timer_free (tmark);                    // free timer channel
+  track_free (0);                        // and all track channels.
+}
+
+//-----------------------------------------------------------
+// Read a global variable.
+//-----------------------------------------------------------
+
+read (str name, str varname)
+{
+  return (call (global,"R",name,varname));
+}
+
+//-----------------------------------------------------------
+// Write a global variable.
+//-----------------------------------------------------------
+
+write(str name, str varname)
+{ 
+  return (call (global,"W",name,varname));
+}
+
+//-----------------------------------------------------------
+// Trim off spaces.
+//-----------------------------------------------------------
+
+trim (str line)
+{ 
+int i;
+  i=strlen(line);
+  while (subchr(line,--i) <= ' '         // Search for last non-space.
+    && i > -1)
+    ;
+  setchr (line,++i,0);                   // Found: Insert end mark (zero)
+  return (i);                            // and return length.
+}
+
+//-----------------------------------------------------------
+// Find first non-space of a string.
+//-----------------------------------------------------------
+
+firstp (str s) 
+{
+int x, c;
+  if (subchr(s,0)==0) return (-1);       // No string: return -1.
+  for (x=0; subchr(s,x)==' '; ++x) ;     // Search for non-space.
+  return (x);
+}

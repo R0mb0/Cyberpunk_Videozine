@@ -1,0 +1,12 @@
+//
+//
+
+str bye[] = "hangup^M";
+
+main()
+{
+ cputs("^M");
+ clear_scr();
+ prints("Hanging up at this time!!! Press ALT-X to exit Telix");
+ cputs(bye);
+}

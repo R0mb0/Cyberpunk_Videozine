@@ -1,0 +1,22 @@
+N EGA43.COM
+A 100
+MOV	AX,1112		; Load 8x8 Font
+MOV	BL,00
+INT	10
+SUB	AX,AX
+MOV	DS,AX
+PUSH	[0487]		; Save INFO Byte
+OR	BYTE PTR [0487],01
+MOV	CX,0600		; Set cursor size
+MOV	AH,01
+INT	10
+POP	[0487]		; Restore INFO Byte
+MOV	DX,03B4		; Fix up underline
+MOV	AX,0714
+OUT	DX,AX
+INT	20
+
+RCX
+28
+W
+Q

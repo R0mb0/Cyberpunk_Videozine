@@ -1,0 +1,93 @@
+str hh[16]="0123456789ABCDEF";
+int i0 = 1,
+    i1 = 2,
+    i2 = 4,
+    i3 = 8,
+    i4 = 16,
+    i5 = 32,
+    i6 = 64,
+    i7 = 128,
+    i8 = 256,
+    i9 = 512,
+    i10 = 1024,
+    i11 = 2048,
+    i12 = 4096,
+    i13 = 8192,
+    i14 = 16384,
+    i15 = 32768;
+
+main()
+{
+int error;                 // Line 18
+
+  clear_scr();
+  prints (" Key check script. Press X to return to TELIX.");
+  prints (" ");
+  _back_color = 0;
+  _fore_color = 12;
+  update_term();
+
+  do  {
+    printsc (": ");
+    error = inkeyw();
+    printn (error);
+    printsc (" = ");
+    bin (error);
+    printsc (" = ");
+    hex (error);
+  } while (error != 'X');
+  _back_color = 1;
+  _fore_color = 14;
+  clear_scr();
+}
+
+bin(int x) 
+{
+
+  zero (x & i15);
+  zero (x & i14);
+  zero (x & i13);
+  zero (x & i12);
+  printsc (" ");
+  zero (x & i11);
+  zero (x & i10);
+  zero (x & i9);
+  zero (x & i8);
+  printsc (" ");
+  zero (x & i7);
+  zero (x & i6);
+  zero (x & i5);
+  zero (x & i4);
+  printsc (" ");
+  zero (x & i3);
+  zero (x & i2);
+  zero (x & i1);
+  zero (x & i0);
+}
+
+zero(int x)
+{
+  if (x) printc('1'); else printc ('0');
+}
+
+hex(int x) 
+{
+int i, c;
+
+  i = x;
+  if (x<0) i = x & 32767;
+  c = 15 & (i/4096);
+  if (x<0) c = c+8;
+  printc (subchr(hh,c));
+
+  c = 15 & (i/256);
+  printc (subchr(hh,c));
+
+  c = 15 & (i/16);
+  printc (subchr(hh,c));
+
+  c = 15 & i;
+  printc (subchr(hh,c));
+
+  prints ("");
+}

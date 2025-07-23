@@ -1,0 +1,59 @@
+                           - 1 -
+Mon 28-December-1992
+
+About TSTLX in General                          All rights reserved
+======================
+
+This package may be used and distributed freely for NON-COMMERCIAL,
+NON-INSTITUTIONAL, PRIVATE purposes, provided it is not changed in
+any way. (Repacking with another method is ok, though.) For ANY
+other usage, such as use in a business enterprise or a university,
+contact the author for registration. Uploading to bulletin boards is
+encouraged. Please do not distribute any part of this package
+separately.
+
+The material under development. Comments and contacts are solicited.
+If you have any questions, please do not hesitate to use electronic
+mail for communication.
+InterNet address: ts@uwasa.fi          (preferred)
+Bitnet address:   SALMI@FINFUN.BITNET
+
+The author shall not be liable to the user for any direct, indirect
+or consequential loss arising from the use of, or inability to use,
+any script, program or file howsoever caused. No warranty is given
+that the material will work under all circumstances.
+
+Telix is Copyright (C) 1986-92 by deltaComm Development.
+I am not connected to deltaComm Development in any way.
+
+Timo Salmi
+Professor of Accounting and Business Finance
+Faculty of Accounting & Industrial Management
+University of Vaasa
+P.O. BOX 297, SF-65101 Vaasa, Finland
+
+
+Timo Salmi TeLiX, release 1.1 includes the following files:
+*    *     * * *          * *
+
+TSTLX11         Utilities for Telix, T.Salmi
+Filename        Comment
+--------        --------------------------------
+9600E.SLT       Initialize MultiTech MultiModem
+FILE_ID.DIZ     Brief characterization of TSTLX
+FINDPORT.SLT    Test which port has a modem
+FTPGET.SLT      Autodownloading from ftp sites
+IN2.TRN         Scandinavian incoming tr. table
+MBBS.SLT        Connect to an MBBS system
+OUT.TRN         Scandinavian outgoing tr. table
+TIMER.SLT       An elapsed time reminder
+TRANSOFF.SLT    Turn off char translation tables
+TRANSON2.SLT    Turn on both translation tables
+TSPROG.INF      List of PD programs from T.Salmi
+TSTLX.INF       A readme
+TSTLX.NWS       News announcements about tstlx
+TSTLX10.BUG     How the update 1.1 came about
+UNIXHOST.SLT    Connect to Unix host via server
+VAASA.INF       Info: Finland, Vaasa, U of Vaasa
+----            ------             ------  -----
+0016

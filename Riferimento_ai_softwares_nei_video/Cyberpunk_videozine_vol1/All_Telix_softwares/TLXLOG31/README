@@ -1,7 +1,0 @@
-Changes to Version 3.1 -- added command line switch /t to disable the
-file integrity check of Loggit. If you are in a hurry and doing a quick
-scan, this will prevent Loggit from aborting when it finds a corrupted
-entry in the .USE file.
-
-04-12-89
-

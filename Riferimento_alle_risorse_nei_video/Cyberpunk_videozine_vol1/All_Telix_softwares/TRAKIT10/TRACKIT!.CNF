@@ -1,0 +1,52 @@
+; TrackIt! v1.0
+; Configuration File
+;
+; Use semi-colon for comments. Blank lines are ignored.
+; Numbers must start in the first column. The row the
+; numbers are in doesn't matter, as long as they are
+; in order.
+;
+; First number indicates weather or not TrackIt! should
+; save box location to this file when exiting the program.
+; 0 is off. 1 is on.
+1
+
+; Box X and Y location
+19
+05
+
+; Box background color
+7
+
+; Box foreground color
+9
+
+; Box arrow color
+4
+
+; Editing background color
+1
+
+; Editing foreground color
+15
+
+; =========================================================
+; Advanced settings - consult docs for detailed information
+; =========================================================
+
+; Auto prompting on/off
+; WARNING! If you use AutoPrompting, the script will not do re-tracks.
+; 0 off, 1 on
+0
+
+; AutoPrompt delay in 10ths of a second
+20
+
+; Delay for tilde (~) in 10ths of a second
+10
+
+; Inactive re-track delay in 10ths of a second
+50
+
+; Maximum re-tracks before hanging up
+12

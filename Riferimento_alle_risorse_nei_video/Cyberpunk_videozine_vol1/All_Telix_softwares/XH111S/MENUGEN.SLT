@@ -1,0 +1,344 @@
+str out[280];
+main()
+{
+int f;
+f = fopen("\and\menu.def", "w");
+
+fputc(1, f);
+fputc(0, f);
+fputc('G', f);
+fputc(2, f);
+fputc(0, f);
+
+fputc( 1, f);
+fputc( 0, f);
+fputc('Y', f);
+fputc( 3, f);
+fputc( 0, f);
+
+fputc(1, f);
+fputc(0, f);
+fputc('X', f);
+fputc(60, f);
+fputc(0, f);
+
+fputc( 1, f);
+fputc( 0, f);
+fputc('?', f);
+fputc( 1, f);
+fputc( 0, f);
+
+fwrite(out, 80, f);
+
+out = "The SysOp Menu";
+fwrite(out, 25, f);
+
+fputc(1, f);
+fputc(1, f);
+fputc('D', f);  // dos command
+fputc(15, f);
+fputc(0, f);
+
+fputc(1, f);
+fputc(1, f);
+fputc('S', f);  // shut down host
+fputc(10, f);
+fputc(0, f);
+
+fputc(1, f);
+fputc(1, f);
+fputc('R', f);   // read usage log
+fputc(14, f);
+fputc(0, f);
+
+fputc( 1, f);   // add files to list
+fputc( 1, f);
+fputc('F', f);
+fputc( 47, f);
+fputc( 0, f);
+
+fputc( 1, f);  // quit to main
+fputc( 0, f);
+fputc('Q', f);
+fputc( 7, f);
+fputc( 1, f);
+
+fputc( 1, f);   // ANSI on/off
+fputc( 0, f);
+fputc('A', f);
+fputc( 59, f);
+fputc( 0, f);
+
+fputc(5, f);     // Join conference
+fputc(0, f);
+fputc('#', f);
+fputc(23, f);
+fputc(0, f);
+
+fputc(5, f);       // list conferences
+fputc(0, f);
+fputc('L', f);
+fputc(21, f);
+fputc(0, f);
+out = "";
+fwrite(out, 190, f);        // menu 0
+
+out = "The Main Menu";
+fwrite(out, 25, f);
+
+fputc(5, f);
+fputc(0, f);
+fputc('T', f);
+fputc(11, f);
+fputc(0, f);
+
+fputc( 10, f);
+fputc( 0, f);
+fputc('D', f);
+fputc( 12, f);
+fputc( 0, f);
+
+fputc(10, f);
+fputc(0, f);
+fputc('F', f);
+fputc(7, f);
+fputc(2, f);
+
+fputc(5, f);
+fputc(0, f);
+fputc('R', f);
+fputc(16, f);
+fputc(0, f);
+
+fputc(5, f);
+fputc(0, f);
+fputc('S', f);
+fputc(22, f);
+fputc(0, f);
+
+fputc(5, f);
+fputc(0, f);
+fputc('W', f);
+fputc(17, f);
+fputc(0, f);
+
+fputc(5, f);
+fputc(0, f);
+fputc('L', f);
+fputc(21, f);
+fputc(0, f);
+
+fputc(5, f);
+fputc(0, f);
+fputc('#', f);
+fputc(23, f);
+fputc(0, f);
+
+fputc( 1, f);
+fputc( 0, f);
+fputc('A', f);
+fputc( 59, f);
+fputc( 0, f);
+
+fputc( 1, f);
+fputc( 0, f);
+fputc('I', f);
+fputc( 7, f);
+fputc( 4, f);
+
+fputc( 1, f);
+fputc( 0, f);
+fputc('C', f);
+fputc( 4, f);
+fputc( 0, f);
+
+fputc( 1, f);
+fputc( 1, f);
+fputc('Z', f);
+fputc( 7, f);
+fputc( 0, f);
+
+out = "";
+
+fwrite(out, 170, f);
+
+out = "The File Menu";
+fwrite(out, 25, f);
+
+fputc(10, f);
+fputc(0, f);
+fputc('T', f);
+fputc(11, f);
+fputc(0, f);
+
+fputc( 1, f);
+fputc( 0, f);
+fputc('Q', f);
+fputc( 7, f);
+fputc( 1, f);
+
+fputc(10, f);
+fputc(0, f);
+fputc('D', f);
+fputc(45, f);
+fputc(0, f);
+
+fputc(20, f);
+fputc(0, f);
+fputc('R', f);
+fputc(46, f);
+fputc(0, f);
+
+fputc(10, f);
+fputc(0, f);
+fputc('S', f);
+fputc(43, f);
+fputc(0, f);
+
+fputc(10, f);
+fputc(0, f);
+fputc('U', f);
+fputc(44, f);
+fputc(0, f);
+
+fputc(10, f);
+fputc(0, f);
+fputc('#', f);
+fputc(41, f);
+fputc(0, f);
+
+fputc(10, f);
+fputc(0, f);
+fputc('N', f);
+fputc(42, f);
+fputc(0, f);
+
+fputc( 10, f);
+fputc( 2, f);
+fputc('A', f);
+fputc( 47, f);
+fputc( 0, f);
+
+fputc( 1, f);
+fputc( 0, f);
+fputc('A', f);
+fputc( 59, f);
+fputc( 0, f);
+
+fputc(10, f);
+fputc( 0, f);
+fputc('V', f);
+fputc( 7, f);
+fputc( 3, f);
+
+out = "";
+fwrite(out, 175, f);
+
+out = "The Archive Manager";
+fwrite(out, 25, f);
+
+fputc(10, f);
+fputc(0, f);
+fputc('D', f);
+fputc(32, f);
+fputc(0, f);
+
+fputc(10, f);
+fputc(0, f);
+fputc('E', f);
+fputc(35, f);
+fputc(0, f);
+
+fputc(10, f);
+fputc(0, f);
+fputc('L', f);
+fputc(33, f);
+fputc(0, f);
+
+fputc(10, f);
+fputc(0, f);
+fputc('S', f);
+fputc(31, f);
+fputc(0, f);
+
+fputc(10, f);
+fputc(0, f);
+fputc('K', f);
+fputc(34, f);
+fputc(0, f);
+
+fputc(10, f);
+fputc(1, f);
+fputc('A', f);
+fputc(36, f);
+fputc(0, f);
+
+fputc(10, f);
+fputc(0, f);
+fputc('T', f);
+fputc(37, f);
+fputc(0, f);
+
+fputc(10, f);
+fputc(0, f);
+fputc('C', f);
+fputc(38, f);
+fputc(0, f);
+
+fputc( 1, f);
+fputc( 0, f);
+fputc('Q', f);
+fputc( 7, f);
+fputc( 2, f);
+out = "";
+
+fwrite(out, 185, f);
+
+out = "Info & Setup";
+fwrite(out, 25, f);
+
+fputc(1, f);
+fputc(0, f);
+fputc('P', f);
+fputc(55, f);
+fputc(0, f);
+
+fputc(1, f);
+fputc(0, f);
+fputc('D', f);
+fputc(56, f);
+fputc(0, f);
+
+fputc(1, f);
+fputc(0, f);
+fputc('S', f);
+fputc(58, f);
+fputc(0, f);
+
+fputc(1, f);
+fputc(0, f);
+fputc('T', f);
+fputc(57, f);
+fputc(0, f);
+
+fputc(1, f);
+fputc(0, f);
+fputc('L', f);
+fputc(61, f);
+fputc(0, f);
+
+fputc(1, f);
+fputc(0, f);
+fputc('H', f);
+fputc(62, f);
+fputc(0, f);
+
+fputc( 1, f);
+fputc( 0, f);
+fputc('Q', f);
+fputc( 7, f);
+fputc( 1, f);
+out = "";
+fwrite(out, 195, f);
+fclose(f);
+}

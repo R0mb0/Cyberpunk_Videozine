@@ -1,0 +1,54 @@
+///////////////////////////// LIB232.UL ////////////////////////////////////
+//
+// This Upload List is provided to allow you to easily upload The Liberator to
+// your favourite BBS, and to demonstrate how to set up an Upload List.
+//
+// Lines starting with // (as in Telix scripts) are ignored by The Liberator,
+// and are kept on the list.  Lines starting with a 'switch' (/p or /#) or a
+// filename are processed, and the specified file is uploaded if found and if
+// the description is in order.  Switches may be placed on a separate line,
+// or on the same line as the filename, as below.  If the file is successfully
+// uploaded, the proper line is automatically removed from the list, unless the
+// /p switch is used (see below).
+//
+// Before use, it is necessary to have the original LIB232 archive (LIB232.ZIP
+// ...the archive from which you obtained this file) in your Upload Directory,
+// or you may specify a different directory before the filename.  Example:
+// /P C:\UPLOADS\LIB232.ZIP The Liberator 2.3 automates... etc.
+//
+/u-UpPassword  // <-- If a password is required to upload, specify it here.
+//
+/P LIB232.ZIP The Liberator 2.3 automates PCBoard sessions!^MCompletely  unattended operation,  right from dialing to logoff.  Upload and download files on PCBoard or in ProDoor, send/collect E-mail using Qmail, MarkMail or Megamail. LOTS more!
+//
+// The /P switch means that the line is 'Permanent', and will not be removed
+// from the list after a successful upload (this allows for repeated use of
+// the list, for more than one BBS, if necessary).  You may also use the /#
+// switch, (e.g. /P /#2 LIB232.ZIP ...) if you wish to upload to a specific
+// conference, but don't forget that this conference would be joined EVERY
+// time the list was used... even if used on a different BBS.  A better place
+// to specify a conference is in the Liberator BBS Configuration itself,
+// in the 'Conference to Join at startup' entry on screen 1.
+//
+// Note above how the entire description is located on one line (if it isn't,
+// try adjusting your margins to 0 left, 250 right).  You may use this tech-
+// nique to specify multiple-line Upload Descriptions in your own Upload Lists.
+// If the description overflows (if the PCBoard is not set up to accept mult-
+// iple-line descriptions), The Liberator will recognize it, and stop sending
+// characters.  If this happens you may want to take a look on the BBS for a
+// DOOR called 'ProDoor'.  Simply type OPEN from the PCBoard main menu to
+// view the doors.  If a ProDoor is available, enter its number in the
+// proper Liberator BBS Configuration and The Liberator will perform faster
+// batch uploads, and use multiple-line upload descriptions in ProDoor.
+//
+// Once you have modified this list and copied LIB232.ZIP to the proper dir-
+// ectory, write (save) this file to disk, then start up The Liberator and
+// Create/Edit a Command File, using the proper BBS Configuration, or entering
+// a ? in the Configuration File option (this causes The Liberator to prompt
+// you for a Configuration at runtime).  LIB232UL.CMD was provided for demonst-
+// ration.  Simply type "d:\path\LIB232.UL" (no quotes) in the 'Upload List'
+// option.  Substitute d:\path\ with the drive/directory where you have placed
+// the LIB232.UL file (e.g C:\TELIX\LIB232.UL).
+//
+// !THANK YOU! for helping to distribute The Liberator!
+//
+//////////////////////////////////////////////////////////////////////////////

@@ -1,0 +1,383 @@
+//-----------------------------------------------------------
+// MarkMail.SL?   Telix script to fetch mail from a PCBoard BBS.
+//
+// This script is normally called from the script PCBOARD.SLC.
+//
+// Please look at the comments through the whole file, and modify to
+// suit your needs, BEFORE you use it. Then recompile with CS MarkMail.
+//-----------------------------------------------------------
+
+// This script is assumed to be called ONLY after logon
+// to perform routine tasks. This is done from the LOGON
+// script, and the system can ONLY be PCBOARD. Also,
+// we MUST be online in order to arrive here, and the
+// TELIX main directory must be the current one.
+// Therefore, system and online checks are simply skipped.
+
+// If you have suggestions for improving this script, please suggest
+// improvements to me via old-fashioned snail-mail to:
+
+// Author:  Inge Vabekk
+//          Hamangskogen 108
+//          N-1300 SANDVIKA
+//          NORWAY
+//          tel. (472) 546 396
+
+str codename [12]            // BBS code/filename
+   ,myprot    [2]            // My protocol name
+   ,hisprot   [2]            // Board's protocol name
+   ,help     [80]            // Help line.
+   ,runstr   [80]            // DSZ runstring (if used).
+                             // Script and global names:
+   ,global     []="GLOBAL"   // Global script.
+   ,PutLine    []="PUTLINE"  // PutLine script.
+   ,Cprot      []="CPROT"    // Current protocol.
+   ,Hprot      []="HPROT"    // Board's protocol name.
+   ,Cname      []="CNAME"    // Codename of current BBS.
+   ,prompt     []="PROMPT"   // Current command prompt.
+   ,mdir       []="MDIR"     // Mail directory.
+   ,dsz        []="DSZ"      // Code for DSZ (if in use).
+   ;     
+
+int tol = 300                // No activity for 30 sec.
+   ,tmark                    // makes script time out. 
+   ,stat                     // For tracking.
+   ,Enter = 13               // Enter (CR)
+   ;                           
+
+//-----------------------------------------------------------
+// MarkMail script is entered here.                                   
+//-----------------------------------------------------------
+
+main()
+{
+int c
+   ,i
+   ,l
+   ,na
+   ,save
+   ,error                              // Error ind.      
+   ,Mail  
+   ,com                                // command
+   ,pnm                                // Packet name
+   ,stf                                // Start transfer
+   ,don                                // [G]oodbye When Done?
+   ,pro                                // Signal to enter protocol.
+   ;
+
+  pnm = 0;
+  if (read(cname,Codename) < 0)        // If codename is unknown,
+    pnm = track ("ket Name: ",0);      // Get packet name.
+  stf = track ("s Transfer",0);        // Start tracking this now.
+  pro = track ("er)=abort?",0);        // Enter protocol.
+
+  entry();                             // Update status bar.
+  newdir (_telix_dir);                 // Must be in TELIX main directory!
+  read (cprot,myprot);                 // Get current BBS protocol.
+
+  read (hprot,hisprot);                // Get board's protocol name.
+
+  tmark = timer_start (tol);           // Give me a minute.
+  call (PutLine,"U", Enter);           // Send Upload command.
+
+  while ((stat=trig()) > 0)            // answer any questions.
+  { if (stat == pro)                   // Enter protocol?
+      call (PutLine,hisprot, Enter);
+
+    else if (stat == pnm)              // Packet name?
+    { waitfor ("^J",1);                // Wait for linefeed.
+      for (l=gety(); l>=0; --l)        // Find "Packet name" line.
+      { vgetchrs(0,l,help,0,80);
+        if ((i=strposi (help,"ket Name: ",0)) > 0) // Packet name?
+        { i = i+9;
+          na = 0;
+          while ((c=subchr(help,++i)) != '.') // All before decimal point:
+          { setchr(codename,na,c);
+            if (++na > 11) break;
+          }
+          setchr (codename,na,0);      // End the string.
+          write (cname,codename);      // Save BBS ID-code.
+          break;                       // Break out of (inner) loop.
+        }
+      }
+    }
+    else if (stat==stf)                // Start transfer
+      break;
+  }
+  release();                           // Release tracks.
+  if (stat < 0) goto done;             // Time-out or carrier lost.
+
+// Start sending the mail packet.
+
+  help = _up_dir;                      // Get upload dir.
+  i = strlen(help)-1;
+  if (subchr(help,i)!='\')             // Append "\" if  
+    strcat (help,"\");                 // necessary.
+  strcat (help,codename);              // Add name.
+  strcat (help,".REP");                // Add extension.
+  prints ("");
+  printsc ("Tý: Upload mail file: ");
+  prints (help);
+
+  if (filesize(help) <= 0)             // No file to send?
+    goto abort;                        // Abort transfer.
+  else
+  { send_file ();                      // Send it.
+    fdelete (help);                    // Remove the mail file.
+  }
+
+// Start download.
+// Define strings for tracking.
+//-----------------------------------------------------------
+
+  com = track (" Command?",0);         // Back to command.
+  stf = track ("s Transfer",0);        // Start transfer.
+  pnm = track ("No Message",0);        // No messages.
+  don = track ("When Done?",0);        // Wanna receive?
+  pro = track ("er)=abort?",0);        // Enter protocol.
+
+  Mail = 0;
+  tmark = timer_start (tol);           // Give me a minute.
+
+  error = 1;                           // Set to 0 when done.
+  while ((stat=trig()) > 0)            // Answer any questions.
+  { if (stat == pro)                   // Enter protocol?
+      call (PutLine,hisprot, Enter);
+
+    else if (stat == stf)              // Download now?
+      error = get_file();
+
+    else if (stat==pnm)
+      error = 0;                       // No messages. Simulate "done".
+
+    else if (stat==don)                // Wanna receive now?
+      call (PutLine,"Y", Enter);
+
+    else if (stat==com)
+    { if (Mail) break;                 // No mail?
+      call (PutLine,"D", Enter);       // So download now.
+      Mail = 1;
+    }
+  }
+  error = 0;
+  goto done;
+abort:
+  release();                           // Free all tracks and timer.
+  MarkAbort();
+  error = 1;
+done:
+  release();                           // Free all tracks and timer.
+  if (error) 
+    failtone();
+  else
+    goodtone();
+
+  call (PutLine,"Q", Enter);           // Quit MarkMail.
+  return (error);
+}
+
+//-----------------------------------------------------------
+// Routine to update colors and status bar.
+//-----------------------------------------------------------
+
+entry ()
+{
+  _back_color = 1;
+  _fore_color = 14;
+  update_term();
+}
+
+//-----------------------------------------------------------
+// Play fail tone.
+//-----------------------------------------------------------
+
+failtone()
+{
+  int n;
+  for (n=140; n > 10; n = 100*n/120) 
+  { tone(n*10,12);                     // Fail tone!!
+    terminal();                        // Process text.
+  }
+}
+
+//-----------------------------------------------------------
+// Play good tune.
+//-----------------------------------------------------------
+
+goodtone()
+{
+int n;
+  for (n=20; n < 200; n = 144*n/100) 
+  { tone(n*10,6);                      // Good tone!
+    terminal();                        // Process text.
+  }
+}
+
+//-----------------------------------------------------------
+// Free timer and tracking functions.
+//-----------------------------------------------------------
+
+release()
+{
+  timer_free (tmark);                  // free timer channel
+  track_free (0);                      // and all track channels.
+}
+
+//-----------------------------------------------------------
+//  Trig loop. Waits here until either one "trig string" is
+//  found, or we have a time-out, or carrier is lost.
+//-----------------------------------------------------------
+
+trig()
+{
+int i;
+  do
+  { terminal();
+    i = 0;
+    if (!carrier()) break;
+  }  while (!time_up (tmark)           // Loop until time-out
+          && (i=track_hit(0))==0);     // or we trigged.
+  if (i==0) 
+    i = -1;                            // Error!
+  else
+    timer_restart (tmark,tol);         // Restore timer.
+  return (i);
+}
+
+//----------------------------------------------------------
+// Abort MarkMail door.
+//-----------------------------------------------------------
+
+Markabort()
+{
+int i, t1;
+
+  for (i=0; i<3; ++i)                    // Three short beeps.
+  { tone (2400,6);
+    delay(1);
+  }
+
+  mess ("Tý: No upload mail - Attempting to abort MarkMail door");
+
+  t1 = track (" Command?",0);            // Command
+  track (" wait ..",0);                  // Please wait...
+
+  i=0;
+  tmark = timer_start (tol);             // Give me thirty seconds.
+  do  
+  { cputs ("^X");                        // Send Control-X.
+    delay (2);
+    terminal();                          // as long as we're online.
+    if ((stat=track_hit(0)))             // If trigger,
+      timer_restart (tmark,tol);         // reset timer.
+    if (stat==t1)                        // If command, count to
+    { if (++i > 2) break;                // three to remove CNTL-X-es
+      cputs ("^M");                      // from his input buffer.
+    }
+  } while (!time_up(tmark) && carrier());
+
+  return;                                // Return.
+}
+
+//-----------------------------------------------------------
+// Send upload mail file.
+//-----------------------------------------------------------
+
+send_file()
+{
+int error;
+  if (read (dsz,runstr) < 0)             // Are we using DSZ?
+    error = send (subchr(myprot,0),help);// No, use internal.
+  else
+  { strcat (runstr," s");                // Add parameters.
+    strlower (myprot);                   // Use lower case.
+    strcat (runstr,myprot);
+    strcat (runstr," ");
+    while ((error=strchr(help,0,'\')) > 0)
+      setchr (help,error,'/');           // Replace '\' by '/'.
+    strcat (runstr,help);                // Add filename to runstring.
+    error = -exec (dsz,runstr);          // Use DSZ.
+  }
+  return (error > 0);
+}
+
+//-----------------------------------------------------------
+// Get download mail file.
+//-----------------------------------------------------------
+
+get_file()
+{
+int save, Error;
+  save = _zmod_auto;                     // Save auto zmodem indicator.
+  Error = _zmod_auto = 0;
+
+  help = _down_dir;                      // Save download dir.
+  read (mdir,_down_dir);                 // and change to mail directory.
+
+  if (read (dsz,runstr) < 0)             // DSZ not defined:
+  { Error = receive (subchr(myprot,0),"");
+    Error = Error < 0;
+  }
+  else
+  { newdir (_down_dir);                  // DSZ: Change directory.
+    strcat (runstr," r");                // Add parameters: Receive.
+    strlower (myprot);                   // Use lower case.
+    strcat (runstr,myprot);              // Protocol.
+    strcat (runstr," -y");               // OK to overwrite.
+    Error = exec (dsz,runstr);           // Use DSZ.
+    Error = Error > 0;
+    newdir (_telix_dir);                 // Go back to TELIX directory!
+  }
+
+  _zmod_auto = save;                     // Restore auto zmodem indicator.
+  _down_dir = help;                      // Restore download dir.
+  return (Error);
+}
+
+//-----------------------------------------------------------   
+// Print error message on the terminal. In color.
+//-----------------------------------------------------------   
+
+mess(str s)
+{
+  prints ("");
+  pstra (s,78);                          // Print with color.
+  prints ("");
+}
+
+//-----------------------------------------------------------
+// Read a global variable.
+//-----------------------------------------------------------
+
+read (str name, str varname)
+{
+  return (call (global,"R",name,varname));
+}
+
+//-----------------------------------------------------------
+// Write a global variable.
+//-----------------------------------------------------------
+
+write(str name, str varname)
+{ 
+  return (call (global,"W",name,varname));
+}
+
+//-----------------------------------------------------------
+// Execute a program.
+//-----------------------------------------------------------
+
+exec (str prog,str pram)
+{
+str line [80];
+int i;
+  i = run (prog,pram,2);               // Try to run program.
+  if (i >= 0) return (i);              // OK.
+
+  line = "Couldn't find or execute '";
+  strcat (line,prog);
+  strcat (line,".EXE'!");
+  tone (80,80);                        // No success:
+  status_wind (line,20);
+  return (i);
+}

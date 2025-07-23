@@ -1,0 +1,6 @@
+
+This is the file that is shown after the user enters his/her name.
+
+It is ideal for system bulletins, as it is also shown when the user selects
+B)ulletin at the main menu.
+

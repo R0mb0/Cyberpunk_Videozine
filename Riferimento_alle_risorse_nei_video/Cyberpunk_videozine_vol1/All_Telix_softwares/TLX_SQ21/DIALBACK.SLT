@@ -1,0 +1,187 @@
+//-----------------------------------------------------------
+// DialBack.SL?    Telix script for dialback from ProDoor.
+//
+// Please look at the comments through the whole file, and modify to
+// suit your needs, BEFORE you use it. Then recompile with CS DialBack.
+//-----------------------------------------------------------
+
+// If you have suggestions for improving this script, please suggest
+// improvements to me via old-fashioned snail-mail to:
+
+// Author:  Inge Vabekk
+//          Hamangskogen 108
+//          N-1300 SANDVIKA
+//          NORWAY
+//          tel. (472) 546 396
+
+str thisBBStype[]="PCB"                  // Must be PCB to work. 
+   ,phone [32]                           // Phone number.
+   ,bbs_type  [32]                       // BBS type.
+                                         // Global names for:
+   ,DBack       [] = "DBACK"             // DialBack number.
+   ,global      [] = "GLOBAL"            // Name of Global script.
+   ,prompt      [] = "PROMPT"            // This BBS's command prompt.
+   ,bbstype     [] = "BTYPE"             // BBS type codeword.
+   ,command   [10]="Command:"            // Command prompt.
+   ;
+int tmark                                // Trig mark
+   ,tol=300                              // Time-out limit
+   ,t1                                   // Trig variables
+   ,t2
+   ;
+      
+//-----------------------------------------------------------
+// Script is entered here.                                   
+//-----------------------------------------------------------
+
+main()
+{
+int c, i, j;
+
+  entry();                               // Updates colors & status bar. 
+
+// Only if online.
+
+  if (!carrier())  
+  { failtone();
+    status_wind ("Tý: THIS SCRIPT ONLY WORKS IF YOU'RE ONLINE!",20);
+    return -1;
+  }
+  waitfor("numbers only :",2);
+  
+  cputc(8);                   // MUST send a backspace here!
+  delay(4);
+  update_term();              // Update screen.
+
+  read (bbstype,bbs_type);               // Get BBS type.
+  if (bbs_type != thisBBStype)                                         
+  { wrongBBS();                          // Doesn't match script!
+    return -1;
+  }
+  read (prompt,command);                 // Get PCB command prompt.
+  read (Dback,phone);                    // Get DialBack number.
+
+  for (i=0; i<strlen(phone); ++i)        // Send only the digits.
+  { c=subchr(phone,i);
+    if (isdigit(c)) cputc (c);
+  }
+  cputc ('^M'); 
+
+  if (!waitfor ("after first RING",20)) 
+  { printsc ("Dial-back to number ");
+    printsc (phone);
+    prints (" failed!");
+    return -1;
+  }
+
+  hangup();
+  while (carrier())
+    terminal();                          // Wait till offline.
+
+  for (i=0; i<5; ++i)
+  { cputs_tr ("+++~~ATH0^M");
+    if (waitfor ("OK",5)) break;         // Wait for "OK".
+  }
+
+  for (i=0; i<3; ++i) 
+  { prints ("Tý: Waiting for ring...");
+    j = waitfor ("RING",60);             // Wait a minute for ring.
+    if (j) break;             
+  }
+
+  if (j) 
+  { t1 = track (_connect_str,1);
+    t2 = track ("NO CARRIER",0);
+    do
+    { tmark = timer_start (tol);         // Wait 30 seconds.
+      cputs_tr ("+++~~ATA^M");           // Send auto-answer command.
+      while ((i=track_hit(0))==0)        // Get response.
+      terminal();
+    } while (i != t1 && !carrier());
+    release();                           // Free tracks.
+  }
+  else 
+  { prints ("Tý: No ring in 3 minutes!");
+    return -1;
+  }
+
+  waitfor (_connect_str,30);             // Wait for connect string.
+
+  if (!carrier()) 
+  { prints ("Tý: No CONNECT in 30 seconds!");
+    return -1;
+  }
+
+  waitfor (command,30);
+  return 0;
+}
+                                         
+//-----------------------------------------------------------
+// Wrong BBS type.
+//-----------------------------------------------------------
+
+wrongBBS()
+{
+str help[48];
+
+    failtone();                          // Alarm.    
+    help = "This script is for ";        // Catenate strings.
+    strcat (help,thisBBStype);
+    strcat (help," only!");
+    status_wind (help,20);               // Display message for 2 sec.
+}
+
+//-----------------------------------------------------------
+// Flush incoming text from BBS.
+//-----------------------------------------------------------
+
+flush()
+{
+  do 
+  { terminal();                      // Process all echo
+    delay(1);                        // from the BBS.
+  } while (cinp_cnt() > 0);
+}
+
+//-----------------------------------------------------------
+// Play fail tone.
+//-----------------------------------------------------------
+
+ failtone()
+{
+  int n;
+  for (n=140; n > 10; n = 100*n/120) 
+  { tone(n*10,12);                       // Fail tone!!
+    terminal();                          // Process text.
+  }
+}
+
+//-----------------------------------------------------------
+// Routine to update colors and status bar.
+//-----------------------------------------------------------
+
+entry ()
+{
+  _back_color = 1;
+  _fore_color = 14;
+  update_term();
+}
+
+//-----------------------------------------------------------
+// Read a global variable.
+//-----------------------------------------------------------
+
+read (str name, str varname)
+{
+  return (call (global,"R",name,varname));
+}
+
+//-----------------------------------------------------------
+// Free timer and tracking functions.
+//-----------------------------------------------------------
+
+release()
+{
+  timer_free (tmark);                    // free timer channel
+  track_free (0);                        // and all track channels.
+}

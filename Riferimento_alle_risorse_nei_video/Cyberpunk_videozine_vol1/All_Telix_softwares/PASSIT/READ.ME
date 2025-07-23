@@ -1,0 +1,29 @@
+                         Password Script
+
+       This TELIX SALT script allows you to select different 
+       passwords for each BBS you call without having to remember
+       the password or look it up each time you call.
+
+       The script takes the password it finds in the active TELIX 
+       Phone Directory under the number you dialed, adds a 
+       carriage return, and enters it as a macro in function key 
+       3.  If you enter your first name followed by a carriage 
+       return in FK1, your second name plus a carriage return in 
+       FK2 you can answer the common log-on prompts by hitting FK1
+       then FK2 then FK3.  You don't have to write a log-on 
+       script for each BBS.
+
+       The files are as follows:
+
+       READ.ME         This file
+       PASSING.SLT     The source file - very simple
+       PASSING.SLC     The script file (Object)
+
+       Make sure you enter a password in the directory for each 
+       BBS you call and that the script for all BBSs is PASSING.  
+       There should be no macro defined for FK3 in the terminal 
+       or user key tables or they will override the script loaded 
+       macro. Also make sure that the file PASSING.SLC is in the 
+       same directory as TELIX.EXE 
+
+       Herb Lavanhar

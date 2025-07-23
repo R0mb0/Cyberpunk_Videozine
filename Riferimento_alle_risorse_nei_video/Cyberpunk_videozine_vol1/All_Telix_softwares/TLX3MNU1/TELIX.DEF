@@ -1,0 +1,616 @@
+;Telix 3.00 Logitech Mouse Menu
+;By Robert F. Rapp
+;Sun  07-03-1988 12:18:48
+
+BEGIN  LeftB,MidB,RightB,LeftM,RightM,UpM,DownM,25,25
+CHORDS  LMB, LRB, MRB, ALLB
+
+LeftB:  TYPE ENTER
+MidB:   MATCH 2,27,,"Telix ",MAIN,CHECK1
+RightB: TYPE ESC
+Leftm:  TYPE 0,75
+RightM: TYPE 0,77
+UpM:    TYPE 0,72
+DownM:  TYPE 0,80
+
+;*****CHORDS
+LMB:    Type "Y"
+LRB:    MATCH 1,5,,"Dialing",CK1,S
+CK1:    MATCH 3,3,,"  1",END,PGUP  ;For Pgup/Pgdn functions in dialing directory
+MRB:    Type "N"
+ALLB:   MATCH 1,5,,"Dialing",CK2,R
+CK2:    MATCH 3,3,,"136",HOME,PGDN ;
+
+;*****MAIN MENU OVERLAY -
+MAIN:  POPUP 6, 2,BOLD
+text " Dialing directory..Alt-D  Queue Redial #s....Alt-Q ³ Local echo........Alt-E"
+text " Send files.........Alt-S  Receive files......Alt-R ³ DOS command.......Alt-V"
+text " Exit Telix.........Alt-X  Run script (Go)....Alt-G ³ Run editor........Alt-A"
+text " Comm Parameters....Alt-P  cOnfigure Telix....Alt-O ³ Screen Image......Alt-I"
+text " Key defs./macros...Alt-K  Terminal emulation.Alt-T ³ Printer on/off...Ctrl-@"
+text " Capture on/off.....Alt-L  Scroll Back........Alt-B ³ Chat Mode.........Alt-Y"
+text " DOS Functions......Alt-F  Jump to DOS shell..Alt-J ³ Translate Table...Alt-W"
+text " Hang-up modem......Alt-H  Clear screen.......Alt-C ³ Add LF on/off.....S-Tab"
+text "                           Usage Log on/off...Alt-U ³ Send BREAK........C-End"
+text "                                                                             "
+text "                       EXIT  Menu Screen & Session Timer                     "
+
+select  1, 2,24,D
+select  2, 2,24,S
+select  3, 2,24,X
+select  4, 2,24,P
+select  5, 2,24,K
+select  6, 2,24,L
+select  7, 2,24,F
+select  8, 2,24,H
+select  1,28,24,Q
+select  2,28,24,R
+select  3,28,24,G
+select  4,28,24,O
+select  5,28,24,T
+select  6,28,24,B
+select  7,28,24,J
+select  8,28,24,C
+select  9,28,24,U
+select  1,55,24,E
+select  2,55,24,V
+select  3,55,24,A
+select  4,55,24,I
+select  5,55,24,Ctl2
+select  6,55,24,Y
+select  7,55,24,W
+select  8,55,24,ShTab
+select  9,55,24,CtrlEnd
+select 11,23,35,Z
+pend
+
+;*****DIALING MENU OVERLAYS
+CHECK1:   execute CHECKMATCH1
+                ;THIS MAY NEED TO BE MODIFIED IF ANY BOMBS SHOW UP, TO CHECK FOR
+                ;DIALING, EDIT, AND OTHER DIAL MENU FUNCTIONS IN TELIX.
+                ;SO FAR NONE HAVE SHOWED THEMSELVES, BUT HERE IS THE FIX AREA.
+
+;*****SELECT PAGE CHECKS
+CHECKMATCH1:    MATCH 3,3,,"  1",DD1,CHECKMATCH2
+CHECKMATCH2:    MATCH 3,3,," 16",DD2,CHECKMATCH3
+CHECKMATCH3:    MATCH 3,3,," 31",DD3,CHECKMATCH4
+CHECKMATCH4:    MATCH 3,3,," 46",DD4,CHECKMATCH5
+CHECKMATCH5:    MATCH 3,3,," 61",DD5,CHECKMATCH6
+CHECKMATCH6:    MATCH 3,3,," 76",DD6,CHECKMATCH7
+CHECKMATCH7:    MATCH 3,3,," 91",DD7,CHECKMATCH8
+CHECKMATCH8:    MATCH 3,3,,"106",DD8,CHECKMATCH9
+CHECKMATCH9:    MATCH 3,3,,"121",DD9,CHECKMATCH0
+CHECKMATCH0:    MATCH 3,3,,"136",DD0,Z
+
+;*****Dial Select Pages
+;*****Select From Page 1
+DD1:    POPUP 3, 3,BOLD
+        Text "  1"
+        Text "  2"
+        Text "  3"
+        Text "  4"
+        Text "  5"
+        Text "  6"
+        Text "  7"
+        Text "  8"
+        Text "  9"
+        Text " 10"
+        Text " 11"
+        Text " 12"
+        Text " 13"
+        Text " 14"
+        Text " 15"
+        Select  1,1,3,A1
+        Select  2,1,3,A2
+        Select  3,1,3,A3
+        Select  4,1,3,A4
+        Select  5,1,3,A5
+        Select  6,1,3,A6
+        Select  7,1,3,A7
+        Select  8,1,3,A8
+        Select  9,1,3,A9
+        Select 10,1,3,A10
+        Select 11,1,3,A11
+        Select 12,1,3,A12
+        Select 13,1,3,A13
+        Select 14,1,3,A14
+        Select 15,1,3,A15
+PEND
+
+;*****Select From Page 2
+DD2:    POPUP 3, 3,BOLD
+        Text " 16"
+        Text " 17"
+        Text " 18"
+        Text " 19"
+        Text " 20"
+        Text " 21"
+        Text " 22"
+        Text " 23"
+        Text " 24"
+        Text " 25"
+        Text " 26"
+        Text " 27"
+        Text " 28"
+        Text " 29"
+        Text " 30"
+        Select  1,1,3,A16
+        Select  2,1,3,A17
+        Select  3,1,3,A18
+        Select  4,1,3,A19
+        Select  5,1,3,A20
+        Select  6,1,3,A21
+        Select  7,1,3,A22
+        Select  8,1,3,A23
+        Select  9,1,3,A24
+        Select 10,1,3,A25
+        Select 11,1,3,A26
+        Select 12,1,3,A27
+        Select 13,1,3,A28
+        Select 14,1,3,A29
+        Select 15,1,3,A30
+PEND
+
+;*****Select From Page 3
+DD3:    POPUP 3, 3,BOLD
+        Text " 31"
+        Text " 32"
+        Text " 33"
+        Text " 34"
+        Text " 35"
+        Text " 36"
+        Text " 37"
+        Text " 38"
+        Text " 39"
+        Text " 40"
+        Text " 41"
+        Text " 42"
+        Text " 43"
+        Text " 44"
+        Text " 45"
+        Select  1,1,3,A31
+        Select  2,1,3,A32
+        Select  3,1,3,A33
+        Select  4,1,3,A34
+        Select  5,1,3,A35
+        Select  6,1,3,A36
+        Select  7,1,3,A37
+        Select  8,1,3,A38
+        Select  9,1,3,A39
+        Select 10,1,3,A40
+        Select 11,1,3,A41
+        Select 12,1,3,A42
+        Select 13,1,3,A43
+        Select 14,1,3,A44
+        Select 15,1,3,A45
+PEND
+
+;*****Select From Page 4
+DD4:    POPUP 3, 3,BOLD
+        Text " 46"
+        Text " 47"
+        Text " 48"
+        Text " 49"
+        Text " 50"
+        Text " 51"
+        Text " 52"
+        Text " 53"
+        Text " 54"
+        Text " 55"
+        Text " 56"
+        Text " 57"
+        Text " 58"
+        Text " 59"
+        Text " 60"
+        Select  1,1,3,A46
+        Select  2,1,3,A47
+        Select  3,1,3,A48
+        Select  4,1,3,A49
+        Select  5,1,3,A50
+        Select  6,1,3,A51
+        Select  7,1,3,A52
+        Select  8,1,3,A53
+        Select  9,1,3,A54
+        Select 10,1,3,A55
+        Select 11,1,3,A56
+        Select 12,1,3,A57
+        Select 13,1,3,A58
+        Select 14,1,3,A59
+        Select 15,1,3,A60
+PEND
+
+;*****Select From Page 5
+DD5:    POPUP 3, 3,BOLD
+        Text " 61"
+        Text " 62"
+        Text " 63"
+        Text " 64"
+        Text " 65"
+        Text " 66"
+        Text " 67"
+        Text " 68"
+        Text " 69"
+        Text " 70"
+        Text " 71"
+        Text " 72"
+        Text " 73"
+        Text " 74"
+        Text " 75"
+        Select  1,1,3,A61
+        Select  2,1,3,A62
+        Select  3,1,3,A63
+        Select  4,1,3,A64
+        Select  5,1,3,A65
+        Select  6,1,3,A66
+        Select  7,1,3,A67
+        Select  8,1,3,A68
+        Select  9,1,3,A69
+        Select 10,1,3,A70
+        Select 11,1,3,A71
+        Select 12,1,3,A72
+        Select 13,1,3,A73
+        Select 14,1,3,A74
+        Select 15,1,3,A75
+PEND
+
+;*****Select From Page 6
+DD6:    POPUP 3, 3,BOLD
+        Text " 76"
+        Text " 77"
+        Text " 78"
+        Text " 79"
+        Text " 80"
+        Text " 81"
+        Text " 82"
+        Text " 83"
+        Text " 84"
+        Text " 85"
+        Text " 86"
+        Text " 87"
+        Text " 88"
+        Text " 89"
+        Text " 90"
+        Select  1,1,3,A76
+        Select  2,1,3,A77
+        Select  3,1,3,A78
+        Select  4,1,3,A79
+        Select  5,1,3,A80
+        Select  6,1,3,A81
+        Select  7,1,3,A82
+        Select  8,1,3,A83
+        Select  9,1,3,A84
+        Select 10,1,3,A85
+        Select 11,1,3,A86
+        Select 12,1,3,A87
+        Select 13,1,3,A88
+        Select 14,1,3,A89
+        Select 15,1,3,A90
+PEND
+
+;*****Select From Page 7
+DD7:    POPUP 3, 3,BOLD
+        Text " 91"
+        Text " 92"
+        Text " 93"
+        Text " 94"
+        Text " 95"
+        Text " 96"
+        Text " 97"
+        Text " 98"
+        Text " 99"
+        Text "100"
+        Text "101"
+        Text "102"
+        Text "103"
+        Text "104"
+        Text "105"
+        Select 1,1,3,A91
+        Select 2,1,3,A92
+        Select 3,1,3,A93
+        Select 4,1,3,A94
+        Select 5,1,3,A95
+        Select 6,1,3,A96
+        Select 7,1,3,A97
+        Select 8,1,3,A98
+        Select 9,1,3,A99
+        Select 10,1,3,A100
+        Select 11,1,3,A101
+        Select 12,1,3,A102
+        Select 13,1,3,A103
+        Select 14,1,3,A104
+        Select 15,1,3,A105
+PEND
+
+;*****Select From Page 8
+DD8:    POPUP 3, 3,BOLD
+        Text "106"
+        Text "107"
+        Text "108"
+        Text "109"
+        Text "110"
+        Text "111"
+        Text "112"
+        Text "113"
+        Text "114"
+        Text "115"
+        Text "116"
+        Text "117"
+        Text "118"
+        Text "119"
+        Text "120"
+        Select 1,1,3,A106
+        Select 2,1,3,A107
+        Select 3,1,3,A108
+        Select 4,1,3,A109
+        Select 5,1,3,A110
+        Select 6,1,3,A111
+        Select 7,1,3,A112
+        Select 8,1,3,A113
+        Select 9,1,3,A114
+        Select 10,1,3,A115
+        Select 11,1,3,A116
+        Select 12,1,3,A117
+        Select 13,1,3,A118
+        Select 14,1,3,A119
+        Select 15,1,3,A120
+PEND
+
+;*****Select From Page 9
+DD9:    POPUP 3, 3,BOLD
+        Text "121"
+        Text "122"
+        Text "123"
+        Text "124"
+        Text "125"
+        Text "126"
+        Text "127"
+        Text "128"
+        Text "129"
+        Text "130"
+        Text "131"
+        Text "132"
+        Text "133"
+        Text "134"
+        Text "135"
+        Select 1,1,3,A121
+        Select 2,1,3,A122
+        Select 3,1,3,A123
+        Select 4,1,3,A124
+        Select 5,1,3,A125
+        Select 6,1,3,A126
+        Select 7,1,3,A127
+        Select 8,1,3,A128
+        Select 9,1,3,A129
+        Select 10,1,3,A130
+        Select 11,1,3,A131
+        Select 12,1,3,A132
+        Select 13,1,3,A133
+        Select 14,1,3,A134
+        Select 15,1,3,A135
+PEND
+
+;*****Select From Page 10
+DD0:    POPUP 3, 3,BOLD
+        Text "136"
+        Text "137"
+        Text "138"
+        Text "139"
+        Text "140"
+        Text "141"
+        Text "142"
+        Text "143"
+        Text "144"
+        Text "145"
+        Text "146"
+        Text "147"
+        Text "148"
+        Text "149"
+        Text "150"
+        Select 1,1,3,A136
+        Select 2,1,3,A137
+        Select 3,1,3,A138
+        Select 4,1,3,A139
+        Select 5,1,3,A140
+        Select 6,1,3,A141
+        Select 7,1,3,A142
+        Select 8,1,3,A143
+        Select 9,1,3,A144
+        Select 10,1,3,A145
+        Select 11,1,3,A146
+        Select 12,1,3,A147
+        Select 13,1,3,A148
+        Select 14,1,3,A149
+        Select 15,1,3,A150
+PEND
+
+;*****KEY BOARD DEFINITIONS
+
+D:      TYPE 0,32
+P:      TYPE 0,25
+S:      TYPE 0,31
+Y:      TYPE 0,21
+F:      TYPE 0,33
+O:      TYPE 0,24
+PGUP:   TYPE 0,73
+H:      TYPE 0,35
+V:      TYPE 0,47
+E:      TYPE 0,18
+L:      TYPE 0,38
+C:      TYPE 0,46
+R:      TYPE 0,19
+M:      TYPE 0,50
+Q:      TYPE 0,16
+J:      TYPE 0,36
+B:      TYPE 0,48
+X:      TYPE 0,45
+PGDN:   TYPE 0,81
+A:      TYPE 0,30
+I:      TYPE 0,23
+G:      TYPE 0,34
+CtrlEND: TYPE 0,117
+ShTAB:  TYPE 0,67
+Ctl2:   TYPE 0,0
+HOME:   TYPE 0,71
+Z:      TYPE 0,44
+END:    TYPE 0,79
+K:      TYPE 0,37
+T:      TYPE 0,20
+U:      TYPE 0,22
+W:      TYPE 0,17
+NOTHING: NOTHING
+
+;*****DIALING SELECTION DEFINITIONS
+        ;"-" EXECUTES DEFINED PREFIX AS A DEFAULT. IGNORED IF NOT DEFINED.
+        ;SPACE AFTER NUMBER ENABLES QUEUE TO BE DEVELOPED. COULD REPLACE WITH
+        ;,(comma)ENTER IF SINGLE NUMBER ONLY IS USED, TO BYPASS DOUBLE CLICK.
+A1:      Type "-1 "
+A2:      Type "-2 "
+A3:      Type "-3 "
+A4:      Type "-4 "
+A5:      Type "-5 "
+A6:      Type "-6 "
+A7:      Type "-7 "
+A8:      Type "-8 "
+A9:      Type "-9 "
+A10:     Type "-10 "
+A11:     Type "-11 "
+A12:     Type "-12 "
+A13:     Type "-13 "
+A14:     Type "-14 "
+A15:     Type "-15 "
+A16:     Type "-16 "
+A17:     Type "-17 "
+A18:     Type "-18 "
+A19:     Type "-19 "
+A20:     Type "-20 "
+A21:     Type "-21 "
+A22:     Type "-22 "
+A23:     Type "-23 "
+A24:     Type "-24 "
+A25:     Type "-25 "
+A26:     Type "-26 "
+A27:     Type "-27 "
+A28:     Type "-28 "
+A29:     Type "-29 "
+A30:     Type "-30 "
+A31:     Type "-31 "
+A32:     Type "-32 "
+A33:     Type "-33 "
+A34:     Type "-34 "
+A35:     Type "-35 "
+A36:     Type "-36 "
+A37:     Type "-37 "
+A38:     Type "-38 "
+A39:     Type "-39 "
+A40:     Type "-40 "
+A41:     Type "-41 "
+A42:     Type "-42 "
+A43:     Type "-43 "
+A44:     Type "-44 "
+A45:     Type "-45 "
+A46:     Type "-46 "
+A47:     Type "-47 "
+A48:     Type "-48 "
+A49:     Type "-49 "
+A50:     Type "-50 "
+A51:     Type "-51 "
+A52:     Type "-52 "
+A53:     Type "-53 "
+A54:     Type "-54 "
+A55:     Type "-55 "
+A56:     Type "-56 "
+A57:     Type "-57 "
+A58:     Type "-58 "
+A59:     Type "-59 "
+A60:     Type "-60 "
+A61:     Type "-61 "
+A62:     Type "-62 "
+A63:     Type "-63 "
+A64:     Type "-64 "
+A65:     Type "-65 "
+A66:     Type "-66 "
+A67:     Type "-67 "
+A68:     Type "-68 "
+A69:     Type "-69 "
+A70:     Type "-70 "
+A71:     Type "-71 "
+A72:     Type "-72 "
+A73:     Type "-73 "
+A74:     Type "-74 "
+A75:     Type "-75 "
+A76:     Type "-76 "
+A77:     Type "-77 "
+A78:     Type "-78 "
+A79:     Type "-79 "
+A80:     Type "-80 "
+A81:     Type "-81 "
+A82:     Type "-82 "
+A83:     Type "-83 "
+A84:     Type "-84 "
+A85:     Type "-85 "
+A86:     Type "-86 "
+A87:     Type "-87 "
+A88:     Type "-88 "
+A89:     Type "-89 "
+A90:     Type "-90 "
+A91:     Type "-91 "
+A92:     Type "-92 "
+A93:     Type "-93 "
+A94:     Type "-94 "
+A95:     Type "-95 "
+A96:     Type "-96 "
+A97:     Type "-97 "
+A98:     Type "-98 "
+A99:     Type "-99 "
+A100:    Type "-100 "
+A101:    Type "-101 "
+A102:    Type "-102 "
+A103:    Type "-103 "
+A104:    Type "-104 "
+A105:    Type "-105 "
+A106:    Type "-106 "
+A107:    Type "-107 "
+A108:    Type "-108 "
+A109:    Type "-109 "
+A110:    Type "-110 "
+A111:    Type "-111 "
+A112:    Type "-112 "
+A113:    Type "-113 "
+A114:    Type "-114 "
+A115:    Type "-115 "
+A116:    Type "-116 "
+A117:    Type "-117 "
+A118:    Type "-118 "
+A119:    Type "-119 "
+A120:    Type "-120 "
+A121:    Type "-121 "
+A122:    Type "-122 "
+A123:    Type "-123 "
+A124:    Type "-124 "
+A125:    Type "-125 "
+A126:    Type "-126 "
+A127:    Type "-127 "
+A128:    Type "-128 "
+A129:    Type "-129 "
+A130:    Type "-130 "
+A131:    Type "-131 "
+A132:    Type "-132 "
+A133:    Type "-133 "
+A134:    Type "-134 "
+A135:    Type "-135 "
+A136:    Type "-136 "
+A137:    Type "-137 "
+A138:    Type "-138 "
+A139:    Type "-139 "
+A140:    Type "-140 "
+A141:    Type "-141 "
+A142:    Type "-142 "
+A143:    Type "-143 "
+A144:    Type "-144 "
+A145:    Type "-145 "
+A146:    Type "-146 "
+A147:    Type "-147 "
+A148:    Type "-148 "
+A149:    Type "-149 "
+A150:    Type "-150 "
+;*****END OF TELIX DEF FILE

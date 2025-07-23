@@ -1,0 +1,175 @@
+
+
+
+
+
+
+
+
+                               TFE version history
+      
+     Note that many of the changes listed here are due to users' input.  TFE
+     was originally written to meet my needs; it has grown as others have
+     told me what they need from TFE.  If you have a suggestion, please let
+     me know.
+                                                                       -paul
+
+     Changes in version 2.21 (4/29/91)
+     -  Added translation of Procomm+ 2.0 dialing directories.
+     -  Added support for new ANSI terminal emulation.
+     -  Corrected handling of TELIX environment variable -- now works when
+        variable contains only a drive, no directory.
+     -  Now displaying entire name of terminal emulation, rather than just
+        the letter.  This is how Telix does it as well, and I can't recall
+        why I ever did it the other way.
+
+
+     Changes in version 2.20 (7/22/90)
+     -  Added ability to mark/unmark entries.  Ctrl-M marks or unmarks the
+        current entry.  Ctrl-K and Ctrl-U mark or unmark ranges.  The fol-
+        lowing commands work on marked entries (you can still specify a
+        range if none are marked):  Block, Copy, Delete, Export, Move and
+        Print.
+     -  Added ability to translate Procomm 2.4.x, Procomm+, Qmodem 4.x,
+        Telemate 2.x, GT Power 15.50, Boyan D-3, Boyan 4.x and Commo 4.x
+        dialing directories to Telix format.
+     -  Added context-sensitive help.
+     -  Added support for EGA & VGA 43- and 50-line modes.
+     -  Print command is greatly enhanced -- you can select which fields to
+        print (default is those onscreen, like before), including TFE data
+        fields).
+     -  Added support for alternate date formats (DDMMYY and YYMMDD).  We
+        use the format specified in TELIX.CNF, and if a date looks invalid
+        when reading a file, we first try to convert it from another format
+        before declaring it bad.
+     -  When possible, Delete Duplicates (F3) now "merges" the TFE data of
+        duplicate entries.
+     -  When doing Block changes, the "replace-with" string defaults to the
+        value of the current field.
+     -  Added ability to use F1 for script fields.
+     -  Added support for Mark and Space parity.
+     -  No longer forcing blank "Last Call" entries to 01/01/80.
+     -  Fixed Search-and-Replace bug -- it was ignoring the last entry.
+     -  Fixed bug when attempting to read a FON file with an invalid header;
+        results were weird at best, system-hanging at worst.  Now we just
+        stop trying to read the file, which is what was supposed to happen
+        all along.
+     -  When done Recording or Playing Back macros, the portion of the bor-
+        der replaced by the "Recording" or "Playing Back" messages is now
+        restored in the proper color.
+
+
+     Changes in version 2.10 (1/17/90)
+
+
+
+
+
+
+
+     -  If no FON files are found in the current directory, TFE looks in the
+        TELIX directory (if we're not already there).
+     -  Find (Alt-F) function now looks through ALL fields (including TFE
+        data), and goes to the appropriate field when found.
+     -  19200 baud was being displayed as 9200.  A typo which did NOT affect
+        FON file data, just got displayed wrong.
+     -  Added Search-And-Replace.
+
+
+     Changes in version 2.00 (9/2/89)
+     -  Completely rewritten, and while I was at it (in no particular
+        order):
+     -  Added display of current file name.
+     -  Added "TFE Data" editing (F2) (extra info such as sysop name, BBS
+        hours, etc.).  This stuff can be nice, but it REQUIRES that all
+        Insertion and Deletion of entries be done through TFE.
+     -  Can now Sort in ascending or descending order on ANY field, includ-
+        ing TFE Data as a whole.
+     -  Added macro record/playback.
+     -  Print routine now places page feeds more intelligently.
+     -  TFE now searches for the Configuration file in the current direc-
+        tory, PATH directories, and in the TELIX environment variable direc-
+        tory (unless an explicit path is given).
+     -  Added -c command-line option to specify configuration file name.
+     -  Added -v<n> option to override video access method -- 1 = Direct
+        writes, no snow checking; 2 = Direct writes w/checking; 3 = BIOS
+        screen writes.
+     -  Screen rewrites are more intelligent; less flicker involved.
+     -  Added Insert/Overwrite mode indicator -- no longer reset to Insert
+        whenever we hit a new field.
+     -  TFE now correctly handles filenames whose paths include periods
+        (e.g. ..\telix.fon).
+     -  TFE deals with the last-call date now.  It didn't before, so the
+        first time TFE is used on a file, a lot of entries may be 'cleaned-
+        up' if they don't contain valid dates.  Nothing to worry about.
+     -  When Exporting data, you can now append to OR overwrite existing
+        files.
+     -  Added ability to merge entries with duplicate names and numbers
+        (F3).
+     -  Find (Alt-F) now starts its search following the current entry,
+        rather than from the top each time.
+     -  A bit more intelligent about detecting when a file has been changed.
+     -  Now displaying usage message when ?, -h or any invalid parameter is
+        entered at the command line.
+     -  Can now Copy, Move, Add or Insert entries to the END of the direc-
+        tory.  That is, when specifying the destination of a Copy, Move,
+        Add, or Insert, you can point past the current end of the directory.
+     -  Print now prints the fields currently shown on the screen;  no lon-
+        ger always prints the first several fields.
+
+
+     Changes in version 1.10 (12/31/88)
+     -  Added ability to sort indicated ranges only.
+     -  Can now sort by phone number as well as name.
+
+
+
+
+
+
+
+     -  TFE can now create new FON files.
+     -  Fixed various bugs involving insufficient validity-checking of
+        fields.
+     -  Now fairly intelligent about asking for confirmation when reading a
+        new file or exiting, if the current file has been changed but not
+        saved.
+     -  Now handles wildcards at all Read File prompts (and the command
+        line); if no name is specified, TFE will present a menu of all FON
+        files in the current directory (if only one is present, it is simply
+        loaded without fanfare).
+     -  Introduced bold new policy of having other people beta-test new TFE
+        versions BEFORE inflicting them on the general public.
+     -  Screen updates are a bit more intelligent when indicating ranges. 
+        Those using BIOS-video, in particular, should appreciate the differ-
+        ence.
+     -  Data-handling is much more bulletproof now. TFE can intelligently
+        handle invalid data (finally), replacing them with default values,
+        notifying the user, and considering the file to be changed (so the
+        user it prompted to write the file when exiting). This has been
+        tested on all-0, all-FFh, and random-data files.
+     -  Fixed bug when TAB-ing or shift-TAB-ing past the beginning or end of
+        the screen.
+     -  Got rid of infinite loop when sorting and two entries had identical
+        names AND phone numbers.
+     -  Various editing-key changes.
+     -  Changed default protocol to Zmodem.
+     -  Can now select field-menu options by hitting highlighted letter.
+     -  Added on-screen entry numbers.
+     -  Added Find function (Alt-F).
+     -  Added Help screen (Alt-H, Alt-Z).
+     -  Changed impOrt (Alt-O) and Insert (Alt-I) to Import (Alt-I) and Add
+        (Alt-A).
+     -  Changed Read (Alt-R) to Load (Alt-L).
+     -  Added Block Change (Alt-B).
+
+
+     Changes in version 1.01 (11/29/88)
+     -  Fixed bug in initialization of video routines when no TELIX.CNF
+        present.
+     -  Fixed bug in bios-level screen i/o.
+
+
+     Changes in version 1.0 (11/22/88)
+     -  Initial release.
+

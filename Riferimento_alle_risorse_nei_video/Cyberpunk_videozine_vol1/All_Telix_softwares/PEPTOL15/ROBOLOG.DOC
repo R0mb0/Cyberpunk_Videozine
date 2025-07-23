@@ -1,0 +1,65 @@
+                         *  ROBOLOG  v1.0  *
+                TELIX Automated-Timed Script Execution
+                  and Self-Generating Script Writer
+                      Written by Michael Gillum
+                        Last Updated: 03-06-91
+
+
+ROBOLOG is a TELIX script that automatically runs other scripts at a
+predetermined time. If you have: a) Services that you call for
+information or mail on a regular basis, but, will either be out of
+town or unable to access your computer; b) Long distance services that
+could be called during "low-rate" charge periods, then ROBOLOG can
+help.
+
+By using script files to access these services, ROBOLOG can be set to
+automatically execute those scripts. Up to 10 predetermined times, and
+scripts may be configured.
+
+                             For example:
+   You are going out of town for a few days but you still want to
+   be able to collect your mail from a BBS you call regularly -
+   ROBOLOG will take care of it for you! Just tell it the times
+   of day you want to call, and give it the names of the scripts
+   you use for collecting mail, and away it goes.
+
+                                 or:
+   A service you use is not a local call, however, you don't want
+   to stay up late hours when rates are lower to make the calls
+   yourself. ROBOLOG will do it for you!
+
+ROBOLOG has, built into it, an interactive Script Writer. You can dial
+a number and while you are on line ROBOLOG "captures" your session.
+When you hangup ROBOLOG then redisplays your session prompting you for
+the areas that contain "Online Prompts" and responses. A basic script
+is then created to get you through those areas.
+
+The script file ROBOLOG creates is not like some of the others you
+will find with other "Learn" utilities. ROBOLOG's script uses
+"procedural" techniques. Like any "Learn" utility, changes, to some
+extent, will have to be made to handle "special" circumstances such as
+"polling, or looping" in situations that require decision making
+capabilities. An example of this could be:
+
+   A BBS you call has mail prompts that require you to enter
+   responses such as 1,2,3,4 etc; to view your mail. Sometimes
+   you have 3 messages, sometimes you have 20.
+
+A "Learn" utility, like the one in ROBOLOG, makes all analysis based
+on a situation at the time the script was created. Perhaps, tomorrow
+the situation will be different. This is where ROBOLOG scripts differ
+from others. Because of the "procedural" nature of ROBOLOG scripts,
+changes are easier, and overall, keep the script understandable. Many
+other "Learn" programs simply create a "straight line" type of script
+that, when many changes are made, produce a programmers nightmare of
+"spaggheti code."
+
+If all you need is a script generated to get you past the usual
+Identification and Password screens, then no changes should have to be
+made. However, because ROBOLOG is primarily for Automated-Unattended
+Mail and Message collection, the scripts need to do more than simply
+"get you online." The script created by ROBOLOG takes you most of the
+way there. ROBOLOG's script is complete as is, and works without
+error, but "decision making" processes will need to be included, by
+you, so the script can be totally effective.
+

@@ -1,0 +1,727 @@
+                         //  File Add 1.0  \\
+                        //                  \\
+			
+str host_dir[64] = "";
+// "D:\COMMS\HOST\";
+int imprt_diz = 0;
+str file_list[2600],        // Allow up to 200 files
+    temp[80];
+str listline[600],
+    list1[512];
+str things[128];
+int file, 
+    pointy,   // y coordinate
+    help_line,
+    pos;      // position of our "cursor" in list
+
+main()
+{
+ int UP = 18432,     // some pseudo system vars
+     DOWN = 20480, 
+     PGUP = 18688, 
+     PGDN = 20736, 
+     HOME = 18176, 
+     END = 20224, 
+     screen,   // screen saver var
+     c;
+
+ int pos1, 
+     x, 
+     quit,
+     oldkey;
+
+ str files[64], 
+     temp1[80],
+     stuff[82];
+
+ oldkey = _scr_chk_key;
+ _scr_chk_key = 0;
+ 
+ screen = vsavearea(0, 0, 79, 24);
+ gethelpline();
+ cursor_onoff(0);
+
+ files = "*.*";
+ file_list = " ";
+
+ while(filefind(files, 0, temp) && strlen(file_list) < 2588)
+  {
+   setchrs(temp, strlen(temp), 32, 13-strlen(temp));
+   inschrs(temp, file_list, strlen(file_list), 13);
+   files = "";
+   }
+
+ delchrs(file_list, strlen(file_list)-1, 2);  // get rid of floating space
+
+// format: file1      file2       etc.
+// tag_space(1)file_name(12)
+
+  file = fopen("FILES.LST", "r");  // Open FILES list to check files
+
+  if (file)
+   {
+      while(fgets(listline, 600, file) > 0)
+           {
+             setchr(listline, strchr(listline, 0, 32), 0);
+             c = strposi(file_list, listline, 0);
+             if (c > 0 && (subchr(file_list, c-1) == 32))
+                 delchrs(file_list, c-1, 13);
+          }
+    }
+
+ fclose(file);
+
+ if (!file_list)
+   {
+   _scr_chk_key = oldkey;
+   vrstrarea(screen);
+   cursor_onoff(1);
+   return;
+   }
+
+ box(6, 3, 21, 14, 'Û', 0, 8);
+ box(5, 2, 20, 13, 1, 0, 31);
+
+ stat_line(1);
+
+//////////////////////////////////////////////////////////////////////////////
+// POS represents the END of the current element                            //
+//////////////////////////////////////////////////////////////////////////////
+// The length of an element is 13 [12 for filename, 1 for tag]              //
+//////////////////////////////////////////////////////////////////////////////
+// POINTY = current y position                                              //
+//////////////////////////////////////////////////////////////////////////////
+
+ pointy = 2;
+ list(0, 117);
+
+ pos = 12;
+
+ pointy = 3;
+
+ light();
+
+ while(!quit)
+   {
+    c = toupper(inkeyw());
+   
+   if (c == DOWN)
+      {
+      if (pos < strlen(file_list)-1)
+         {
+          if(pointy < 12)
+             {
+             unlight();
+             ++pointy;
+             pos = pos+13;
+            }
+          else if (pos < strlen(file_list)-1)
+            {
+             unlight();
+             pos = pos+13;
+             scroll(6, 3, 19, 12, 1, 23);
+             }
+         light();
+        }
+       continue;
+      }  
+       
+    else if (c == UP) 
+      {
+       if (pointy > 3)
+          {
+          unlight();
+          --pointy;
+          pos = pos-13;
+          light();
+          }
+       else
+        {
+         if (pos <= 12)
+           continue;
+	 
+         unlight();
+         pos = pos-13;
+         scroll(6, 3, 19, 12, -1, 23);
+         light();
+         }
+       continue;
+       }
+
+    else if (c == PGDN) 
+      {
+       if (pos == strlen(file_list)-1)
+           continue;
+
+       if (pointy < 12)
+         {
+          unlight();
+          x = pos+((12-pointy)*13);    // Check if last file is on screen
+          if (x > strlen(file_list)-1)
+             {
+               pos1 = (strlen(file_list)-1-pos)/13;
+               pointy = pointy+pos1;
+               pos = strlen(file_list)-1;
+              }
+           else
+             {
+              pos = x;
+              pointy = 12;
+             }
+          }
+	else
+       {
+          if ((pos+129) > (strlen(file_list)-1))   // to fit ten files on screen
+              pos = strlen(file_list)-130;
+          else
+             ++pos;
+
+          if (pos < 0)
+            pos = 0;
+
+          pointy = 2;
+          pos = list(pos, pos+117) - 1;
+          }
+        light();
+        continue;
+       }
+
+     else if (c == 32)  
+      {
+       if (subchr(file_list, pos-12) == 32)
+           {
+           vputchrs(6, pointy, "ø", 0, 1, 90);
+           setchr(file_list, pos-12, 'ø');
+           setchr(temp, 0, 'ø');
+           }
+       else
+          {
+           setchr(file_list, pos-12, 32);
+           vputchrs(6, pointy, " ", 0, 1, 90);
+           setchr(temp, 0, 32);
+           }
+
+       if (pos != strlen(file_list)-1)
+         {
+          unlight();
+          if(pointy < 12)
+            {
+             ++pointy;
+             pos = pos+13;
+             }
+          else
+             {
+              pos = pos+13;
+              scroll(6, 3, 19, 12, 1, 23);
+              pointy = 12;
+              }
+           light();
+           }
+       continue;
+       }
+    else if (c == PGUP)
+      {
+       if (pos == 12)
+          continue;
+
+       if (pointy > 3)
+         {
+         unlight();
+         pos1 = pointy;
+         pointy = 3;
+         pos = pos-((pos1-3)*13);
+         light();
+         }
+       else
+        {
+         pos = pos-142;
+
+         if (pos < 0)
+           pos = 0;
+
+         pointy = 2;
+         list(pos, pos+117);
+         pos = pos+12;
+         pointy = 3;
+         light();
+         }
+      continue;    
+      }
+     else if (c == HOME)  
+        {
+         if (pos == 12)
+           continue;
+
+       if (pointy > 3 && pos <= 129)
+          {
+           unlight();
+           pos1 = pointy;
+           pointy = 3;
+           pos = pos-((pos1-3)*13);
+           light();
+           continue;
+         }
+           
+     pos = 0;
+
+     pointy = 2;
+     list(pos, pos+117);
+     pointy = 3;
+     pos = 12;
+     light();
+     continue;
+	 }
+
+     else if (c == END)  
+       {
+        if (pos == strlen(file_list)-1)
+           continue;
+
+       if (strlen(file_list)-1 <= (12-pointy)*13+pos)
+         {
+          unlight();
+          pointy = pointy+(strlen(file_list)-1-pos)/13;
+          pos = strlen(file_list)-1;
+          light();
+          continue;
+         }
+
+        pos = strlen(file_list)-130;
+
+        if (pos < 0)
+          pos = 0;
+
+        pointy = 2;
+        list(pos, pos+117);
+        pos = strlen(file_list) - 1;
+        light();
+        continue;
+       }
+
+     else if (c == 27)    // Quit prg
+       {
+       quit = 1;
+       continue;
+       }
+     else if (c == 13)	
+      {
+       stat_line(2);
+       process();
+       stat_line(1);
+       continue;
+       }  
+     else if (c == 'I')  // Info on file
+       {
+        box(24, 5, 60, 7, 1, 0, 112);
+        substr(file_list, pos-11, 12, temp1);
+        itos(filesize(temp1), stuff);
+        vputchrs(27, 6, temp1, 0, 12, 112);
+        vputchrs(41, 6, stuff, 0, 7, 112);
+        date(filetime(temp1), stuff);
+        vputchrs(50, 6, stuff, 0, 8, 112);
+        continue;
+        }
+     else if (c == 'S')
+       {
+       qsort();
+       pointy = 3;
+       pos = 12;
+       light();
+       }
+    }
+ vrstrarea(screen);
+ cursor_onoff(1);
+ _scr_chk_key = oldkey;
+}
+///////////////////////////////////////////////////////////////////////////////
+format(str string, int length)
+{
+  setchrs(string, strlen(string), 32, length-strlen(string));
+}
+///////////////////////////////////////////////////////////////////////////////
+qsort( )
+{
+   str stack[40];               // stack and stack pointer
+   int i, j, limit, sp;        // scan and limit pointers
+   int thresh;                 // size of T elements in bytes
+   int base;                   // base pointer as char *
+
+   base = 0;        // set up base pointer
+   thresh = 91;           // init threshold
+   limit = strlen(file_list);// pointer past end of array
+
+   for ( ;; )
+      {                 // repeat until break...
+      if ( limit - base > thresh )
+         {  // if more than T elements
+                                      //   swap base with middle
+         swap( (limit-base)/13/2*13 + base, base);
+         i = base + 13;             // i scans left to right
+         j = limit - 13;            // j scans right to left
+
+         COMP(i, j, 1);             // Sedgewick's
+                                //    three-element sort
+         COMP(base, j, 1);     //        sets things up
+                          //            so that
+         COMP(i, base, 1);    //      *i <= *base <= *j
+                      // *base is pivot element
+
+         for ( ;; )
+            {                 // loop until break
+            do                        // move i right
+               i = i + 13;             //        until *i >= pivot
+            while ( COMP(i, base, 0) < 0 );
+
+            do                        // move j left
+               j = j - 13;             //        until *j <= pivot
+            while ( COMP(j, base, 0) > 0 );
+
+            if ( i > j )              // if pointers crossed
+               break;                 //     break loop
+            SWAP(i, j);       // else swap elements, keep scanning
+            }
+
+         SWAP(base, j);         // move pivot into correct place
+         if ( j - base > limit - i )
+            {  // if left subfile larger
+            setchr(stack, sp, base/13);             // stack left subfile base
+            setchr(stack, sp+1, j/13);                //    and limit
+            base = i;                 // sort the right subfile
+            }
+         else
+            {                     // else right subfile larger
+            setchr(stack, sp, i/13);  // stack right subfile base
+            setchr(stack, sp+1, limit/13);   //    and limit
+            limit = j;                // sort the left subfile
+            }
+         sp = sp + 2;                     // increment stack pointer
+         }
+      else
+         {      // else subfile is small, use insertion sort
+         j = base;
+         i = j + 13;
+         while (i < limit)
+             {
+              for ( ; COMP(j, j+13, 0) > 0; j = j - 13 )
+                  {
+                   swap(j, j + 13);
+                   if ( j == base )
+                       break;
+                   }
+              j = i;
+              i = i + 13;
+              }
+         if ( sp != 0 )
+           {         // if any entries on stack
+            sp = sp - 2;                  // pop the base and limit
+            base = subchr(stack, sp)*13;
+            limit = subchr(stack, sp+1)*13;
+           }
+         else                       // else stack empty, done
+            break;
+      }
+   }
+   pos = 0;
+   pointy = 2;
+   list(0, 117);
+}
+
+str s1[13], s2[13];
+
+Comp( int one, int two, int swap)
+{
+int tag;
+subchrs(file_list, one+1, 12, s1);
+subchrs(file_list, two+1, 12, s2);
+if (s1 > s2)
+   {
+    if (swap)
+        {
+        tag = subchr(file_list, two);
+        copychrs(s2, file_list, one+1, 12);
+        copychrs(s1, file_list, two+1, 12);
+        setchr(file_list, two, subchr(file_list, one));
+        setchr(file_list, one, tag);
+        }
+    return 1;
+    }
+else if (s2 > s1)
+    return -1;
+else return 0;
+}
+
+swap(int one, int two)
+{
+subchrs(file_list, one, 13, s1);
+subchrs(file_list, two, 13, s2);
+copychrs(s1, file_list, two, 13);
+copychrs(s2, file_list, one, 13);
+}
+process( )
+{
+int xc, start = 1, ret, scrn;
+ str ss[12], ss3[12], ss4[12];
+
+file = fopen("FILES.LST", "a");
+
+if (ferror(file))
+    {
+    fclose(file);
+    return 0;
+   }
+
+xc = strchr(file_list, 0, 'ø');
+
+while (xc >= 0)
+   {
+      substr(file_list, xc+1, 12, ss);
+      itos(filesize(ss), ss3);
+      date(filetime(ss), ss4);
+
+      listline = "";
+      if (imprt_diz)
+          import_diz(ss);
+      if (!listline)
+         {
+      if (start)
+         {
+           box(19, 6, 68, 10, 'Û', 0, 8);
+           box(18, 5, 67, 9, 1, 0, 112);
+           vputchrs(20, 7, "Description:", 0, 12, 112);
+           start = 0;
+          }
+       vputchrs(20, 8, "                                             ", 0, 46, 112);
+
+       vputchrs(20, 6, ss, 0, 12, 127);
+       vputchrs(33, 6, ss4, 0, 8, 112);
+       vputchrs(42, 6, ss3, 0, 7, 112);
+       cursor_onoff(1);
+       getsxy(listline, 45, 20, 8, 127);
+       cursor_onoff(0);
+       }
+
+       if (listline)
+           {
+             delchrs(file_list, xc, 13); // get it off list now that it's on LST
+             --xc;   // so that we don't skip next file by mistake
+             fputs(ss, file);
+             pad(strlen(ss), 14);
+
+             fputs(ss4, file);
+             pad(strlen(ss4)+strlen(ss3), 17);
+
+             fputs(ss3, file);
+             pad(0, 2);
+
+             fputs(listline, file);
+             fputs("^M^J", file);
+          }
+     xc = strchr(file_list, xc+1, 'ø');
+    }
+
+ fclose(file);
+ cursor_onoff(0);
+ clear_scr();
+ box(6, 3, 21, 14, 'Û', 0, 8);
+ box(5, 2, 20, 13, 1, 0, 31);
+ pointy = 2;
+ list(0, 117);
+ pointy = 3;
+ pos = 12;
+ light();
+}
+///////////////////////////////////////////////////////////////////////////////
+quickcat(str string1, str string2)
+{
+ inschrs(string2, string1, strlen(string1), strlen(string2));
+}
+///////////////////////////////////////////////////////////////////////////////
+pad( int length, int padded)
+{
+ str dump[80];
+
+ if (length >= padded)
+     return 0;
+ setchrs(dump, 0, 32, padded-length);
+ fwrite(dump, padded-length, file);
+return 1; 
+}
+///////////////////////////////////////////////////////////////////////////////
+list(int start, int end)
+{
+ int x;
+ str tmp[13];
+
+ box(6, 3, 19, 12, 0, 0, 23);
+
+ for (x = start; x <= end && x <= strlen(file_list)-13; x = x+13)
+   {
+    ++pointy;
+    vputchrs(6, pointy, file_list, x, 13, 23);
+    }
+ return x;
+}
+///////////////////////////////////////////////////////////////////////////////
+light( )
+{
+ vputchrs(6, pointy, file_list, pos-12, 13, 90);
+}
+///////////////////////////////////////////////////////////////////////////////
+unlight()
+{
+ vputchrs(6, pointy, file_list, pos-12, 13, 23);
+}
+///////////////////////////////////////////////////////////////////////////////
+stat_line( int opt)
+{
+ str line[80];
+
+ if (opt == 1)
+     line = "Esc: Quit  Space: Tag  Enter: Process  (I)nfo  (S)ort  ^X^Y Home End PgUp PgDn";
+  else if (opt == 2)
+     line = "Esc: Skip file  Type in description of file";
+  vputchrs(0, help_line, line, 0, 80, 112);
+}
+///////////////////////////////////////////////////////////////////////////////
+GetHelpLine( )
+{
+int x, y;
+x = getx();
+y = gety();
+str list0[] = "00244249", things[2];
+help_line = -1;
+while (strlen(list0) > 0)
+      {
+        substr(list0, 0, 2, things);
+        delchrs(list0, 0, 2);
+        gotoxy(16, stoi(things));
+        if (vgetchr()%256 == '³')
+           help_line = stoi(things);
+        }
+gotoxy(x, y);
+}
+///////////////////////////////////////////////////////////////////////////////
+import_diz( str arcname )
+{
+int f, i, ctrlz;
+// arcname -> complete path
+pstraxy("Attempting to import FILE_ID.DIZ...", 0, 23, 7);
+if (getarc(arcname, "FILE_ID.DIZ") == 1)
+    {
+    if ((f = fopen("FILE_ID.DIZ", "r")) > 0)
+       {
+        i = 1;
+        while ((fgets(things, 50, f) >= 0) && i <= 10)
+              {
+              if ((ctrlz = strchr(things, 0, '^Z')) >= 0)
+                  delchrs(things, ctrlz, 1);
+              if (strlen(things) > 0)
+                 {
+                  if (i > 1)
+                     strcat(listline, "^P");
+                  setchr(things, 46, 0);
+                  inschrs(things, listline, strlen(listline), strlen(things));
+                  ++i;
+                 }
+              }
+        }
+      fclose(f);
+      fdelete("FILE_ID.DIZ");
+    }
+
+}
+///////////////////////////////////////////////////////////////////////////////
+getarc( str one, str two )
+{
+int f, x;
+str ext[4];
+
+if (one)
+  fnstrip(one, 11, ext);
+
+list1 = host_dir;
+strcat(list1, "ARCS.CFG");
+
+if ((f = fopen(list1, "r")) > 0)
+   {
+     while (!feof(f))
+         {
+          if (fgets(list1, 80, f) > 0)
+             {
+              if (strcmpi(list1, ext) == 0)
+                  {
+                   fgets(list1, 255, f);
+                   fgets(list1, 255, f);
+                   fseek(f, 0, 2);      // got command, leave
+                   fgetc(f);
+                   }
+              else
+                  {                  // skip this arc definition
+                   for (x = 1; x <= 5; ++x)
+                        fgets(list1, 255, f);
+                   }
+               }
+            else
+                list1 = "";
+          }
+  fclose(f);
+  }
+else
+   return -1;
+
+if (!list1)
+    {
+    prints("Undefined archive format!");
+    return -1;
+    }
+things = list1;
+
+list1 = one;
+x = strlen(one);
+setchr(list1, x, 1);
+
+copystr(two, list1, x+1, strlen(two));
+x = strlen(list1);
+setchr(list1, x, 1);
+
+params(things, 2);
+
+substr(things, 0, strchr(things, 0, 32), list1);
+delchrs(things, 0, strchr(things, 0, 32)+1);
+x = run(list1, things, 0);
+
+if (x != 0)
+    x = 0;
+else
+    x = 1;
+
+return x;
+}
+///////////////////////////////////////////////////////////////////////////////
+// Params
+
+// Procedure:
+//            all parameters MUST be thrown into ONE large string, possibly
+// LIST1, all separated by ^A (001).
+//
+params( str target, int num )
+{
+int x, pos = 0, old = 0, tpos = 0;
+str nums[4], temp[80];
+for (x = 1; x <= num && old != -1; ++x)
+     {
+      itos(x, nums);
+      inschrs("%", nums, 0, 1);
+      pos = strchr(list1, old, 1);              // look for ^A
+      if ( (tpos = strposi(target, nums, 0)) >= 0)
+         {
+          substr(list1, old, pos - old, temp);
+          delchrs(target, tpos, strlen(nums));
+          inschrs(temp, target, tpos, strlen(temp));
+          }
+      old = pos+1;
+      }
+}
+///////////////////////////////////////////////////////////////////////////////
+// End of Add                                                                //
+///////////////////////////////////////////////////////////////////////////////

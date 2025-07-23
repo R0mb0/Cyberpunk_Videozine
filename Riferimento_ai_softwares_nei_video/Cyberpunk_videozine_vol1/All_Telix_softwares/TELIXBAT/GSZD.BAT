@@ -1,1 +1,0 @@
-gsz rz -rr -m

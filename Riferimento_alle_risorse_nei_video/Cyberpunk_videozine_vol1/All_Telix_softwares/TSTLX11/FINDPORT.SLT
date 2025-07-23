@@ -1,0 +1,54 @@
+// FINDPORT.SLT Telix script by Prof. Timo Salmi, University of
+// Vaasa, Finland. All rights reserved.    Sun 27-December-1992
+//
+// This is establish which port the modem uses
+// Convenient for testing purposes
+//
+// To make this script operative you need to compile it applying
+// CS findport
+
+// ----------------------------------------
+// Definition section, the global variables
+
+int port;
+
+main()
+{
+  prints ("");
+  prints ("Looking for a port with a modem attached");
+  port = firstPort();      // A user-defined function, see below
+  if (port == -1)
+    {
+    prints ("No modem was found");
+    return;                // Exit the main program, that is stop
+    }
+  if (port == -2)
+    {
+    prints ("Port could not be set");
+    return;
+    }
+  printsc ("A modem encountered at port ");
+  printn (port);
+  prints ("");
+} // end of main()
+
+
+//--------------------------------------------------------
+// This user-defined function returns the port which has a
+// modem in it, with the power on. This portable function is
+// quite handy for making one's scripts portable
+
+firstPort()
+  {
+  int i;
+  i = 1;
+  while (i <= 4)
+    {
+    if (not set_port (i)) return -2;
+    cputs ("ATZ^M");           // Send standard modem reset code
+    if (waitfor ("OK", 3))     // Will a modem respond
+      return i;
+    i = i + 1;
+    } // end while
+    return -1;
+  } // end of firstPort()

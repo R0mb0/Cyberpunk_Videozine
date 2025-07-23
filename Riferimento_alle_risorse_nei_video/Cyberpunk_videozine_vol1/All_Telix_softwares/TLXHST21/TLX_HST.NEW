@@ -1,0 +1,52 @@
+USRobotics Courier HST Telix TLX_HST Script, Production Release 2.1
+-------------------------------------------------------------------
+
+    (C) Copyright Andrzej Taramina 1988, 1989, 1990
+
+Release History, New Features and Planned Enhancements
+
+
+3.0 Planned Enhancements:
+
+    - Full support of all HST/DS/144x features and commands
+    - Support of Monochrome and CGA monitors.
+    - Whatever anyone else suggests that I have time for!
+
+2.1 - Minor bug fix: &K0 not set properly with ROM level 964 modem
+
+2.0 - New popup colour menus with arrow-key and mouse support for
+      selection of options.
+    - A more logical grouping of functions into separate popup menus
+    - Verification of PCBoard settings to be consistent with Clark
+      Development's PCBModem routine's settings.
+    - Faster display of all prompts and messages
+    - More Dual-Standard and 1440 feature support
+    - Improved documentation and DS/1440 inclusion
+    - Automatic setting of Telix Modem configuration strings for
+      optimal transmissions
+    - Minor and obscure bug fixes
+
+1.2 - Interim release to allow TLX_HST to run with the new HST 1441
+      Rom Level modems.
+    - Minor bug fixes
+
+1.1 - Interim release to allow TLX_HST to run with the new HST 1440
+      modems.  All of the new features of the 1440 are not supported
+      at this time but are planned for future releases. This release
+      has not been tested with a 1440 as I don't (yet) have one.
+    - Various obscure bugs fixed
+    - Cosmetic fixes were made to insure consistency.
+    - Changes were made by USR within ROM level 964.  Early 964
+      upgrades did not document certain 964 features, and these were
+      not implemented in release 1.8.  All known 964 features
+      (specifically, s-register 15 settings) are in release 1.1
+    - The word "abort" was changed throughout the script to the word
+      "cancel" or "terminate".
+    - Addition to S15 settings mentioned earlier in the fix section.
+    - Addition of S13 register settings as option 21 of main menu.
+
+1.0 - First release of the TLX_HST modem setup script for Telix
+
+Andrzej Taramina
+01/23/89
+

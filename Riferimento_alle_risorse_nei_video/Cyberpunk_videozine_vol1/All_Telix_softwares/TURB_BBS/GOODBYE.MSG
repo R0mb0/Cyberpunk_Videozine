@@ -1,0 +1,4 @@
+
+This is the message displayed to the caller, after they type G)oodbye at the
+main menu.  After this message is displayed, the user is logged off the system.
+

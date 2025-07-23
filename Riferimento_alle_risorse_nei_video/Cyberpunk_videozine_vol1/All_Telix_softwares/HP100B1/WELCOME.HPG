@@ -1,0 +1,6 @@
+[0;1;31mTHIS IS THE ANSI VERSION OF THIS FILE!
+
+[5C[34mThis file is shown to users before they enter their name and password.
+[32mHere you can put the system name, whether you want handles to be real names
+[36mor otherwise, and other things you would want the user to know before logon.
+[0m

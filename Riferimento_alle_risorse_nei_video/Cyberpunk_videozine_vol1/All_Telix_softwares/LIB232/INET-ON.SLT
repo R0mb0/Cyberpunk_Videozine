@@ -1,0 +1,242 @@
+//////////////////////////////// INET-ON.SLT //////////////////////////////////
+//
+//  DESCRIPTION:  This script is included to demonstrate the use of the Custom
+//  Logon Script option that can be defined in each Configuration.  Also see
+//  INET-OFF.SLT for an example of a Custom Logoff Script.
+//
+//  CREDITS:  Password maintenance routine, and some other features modeled
+//  after a script originally created by Robert Wolfe.
+//  
+//  INSTRUCTIONS:  Before using this script, you must compile and run
+//  INETPASS.SLT.  The name of this script should then be placed in the Custom
+//  Logon Script option of a Liberator Configuration File, by typing INET-ON
+//  in the option.  The Liberator will dial the entry #(s) specified in the
+//  Configuration (should be the number for iNet) and open the Capture File
+//  defined (if any) before calling this script.  You can also use the dial
+//  starting time feature, available in each Command File, if you wish.  You
+//  must change the variables below to the proper values before re-saving and
+//  compiling with the command:
+//  CS INET-ON.  
+//  The name INET-OFF should also be placed in the Custom Logoff Script
+//  option. You must also compile INET-OFF.SLT with the command CS INET-OFF.
+//
+//  Note:  Your PCBoard password must be in the Telix dialing directory.
+//              ~~~~~~~
+                
+int d = 5;       // delay before each response (in tenths/sec.)
+
+str datapac_address[] =        "79100900",
+    user_id[] =                "Your.ID",     // change this to your iNet id.
+    inet_logon_command[] =     "A CRS GA";
+
+//
+//////////////////////////////////////////////////////////////////////////////
+//  Nothing below should need changing.  Please remember to compile the script
+//  (CS INET-ON) before using it.
+
+int f,
+    next_pos;
+
+str pointer[3],
+    inet_password[8],
+    next_password[8],
+    password_file[64];
+
+main()
+{
+ int t1,
+     t2,
+     t3,
+     t4,
+     t5,
+     t6,
+     t7,
+     t8;
+
+ int tmark,
+     stat,
+     logon_complete = 0,
+     CR = '^M';
+
+int i;
+str s[80];
+
+ // Carrier detect, and PCBoard password already checked by The Liberator
+ // before calling this script.  If a capture file was defined in the Command
+ // File, it has also been opened by this point.
+
+ if (!get_inet_password())        // Error getting iNet password.  Return
+  return(6);                      // abort code 6 to The Liberator.
+
+ delay_scr(20);
+ cputs("...^M");                 // send 3 periods and a CR (1200 baud)
+
+ if (waitfor("DATAPAC", 30))
+  {
+   delay_scr(d);
+   cputs(datapac_address);
+   cputc(CR);
+  }
+ else
+  return(10);
+
+ t1 = track("/Code d'usager: ", 1);
+ t2 = track("/Code de securite: ", 1);
+ t3 = track("press <CR>", 1);
+ t4 = track("For your security",0);
+ t5 = track("Entered and re-entered",0);
+ t6 = track("Host did not accept Datapac call",1);
+ t7 = track("Unable to logon to host",0);
+ t8 = track("Logon to host computer completed", 1);
+
+ tmark = timer_start(1800);                 // 3 minute max. for logon
+
+ while (!time_up(tmark) && carrier())
+  {
+   terminal();
+   stat = track_hit(0);
+   
+   if (stat == t1)                     // send user-id
+    {
+     delay_scr(d);
+     cputs(user_id);
+     cputc(CR);
+    }
+
+   else if (stat == t2)                     // send password
+    {
+     delay_scr(d);
+     cputs(inet_password);
+     cputc(CR);
+    }
+   
+   else if (stat == t3)                     // Access service from CR prompt
+    {
+     delay_scr(d);
+     cputs(inet_logon_command);
+     cputc(CR);
+    }
+    
+   else if (stat == t4)                     // password needs changing
+    {
+     waitfor("Please enter your old password", 30);
+     delay_scr(10);
+     cputs(inet_password);
+     cputc(CR);
+
+     inet_password = next_password;
+
+     waitfor("Please enter your new password", 30);
+     delay_scr(15);
+     cputs(inet_password);
+     cputc(CR);
+     waitfor("re-enter your new password", 30);
+     delay_scr(10);
+     cputs(inet_password);
+     cputc(CR);
+     f = fopen(password_file, "r+");   // open file to update pointer
+     itos(next_pos, pointer);
+     fwrite(pointer, 3, f);            // change password pointer
+     fclose(f);
+    }
+
+   else if (stat == t5)
+    {
+     delay_scr(d);
+     cputs(inet_password);
+     cputc(CR);
+     waitfor("Please re-enter",10);
+     delay_scr(d);
+     cputs(inet_password);
+     cputc(CR);
+    }
+
+   else if (stat == t6 || stat == t7)       // PCBoard not available/problems
+    break;                                  // say BYE/hangup below
+
+   else if (stat == t8)                     // logon completed
+    {
+     logon_complete = 1;
+     clear_scr();
+     break;
+    }
+  }
+
+ track_free(0);
+
+ if (time_up(tmark) || !carrier() || !logon_complete)
+  {
+   timer_free(tmark);
+   if (Waitfor("iNet command",10))
+    {
+     cputs("BYE");
+     cputc(CR);
+    }
+   while (carrier())
+    {
+     hangup();
+     delay_scr(50);
+    }
+   return(29);          // Unsuccessful logon.  Send abort code.
+  }
+
+ timer_free(tmark);
+ 
+ return(0);            // normal termination
+
+}
+
+//////////////////////////////////////////////////////////////////////////////
+get_inet_password()
+{
+ int pos;
+ 
+ password_file = _script_dir;     // Telix script directory (already checked)
+ strcat(password_file, "INETPASS.WRD");
+
+ if (!filefind(password_file))
+  {
+   clear_scr();
+   prints("INETPASS.WRD file not found!  Disconnecting from iNet...");
+
+   while (carrier())                 // No sense wasting iNet time while the
+    {                                // password file is created
+     hangup();
+     delay_scr(50);
+    }
+
+   if (call("RUNME1ST") == -1)      // Attempt to create a password file
+    prints("Unable to create INETPASS.WRD");
+   delay(50);
+   return(0);                     // Abort the Command File
+  }
+
+ f = fopen(password_file, "r");
+ if (!f)
+  return(0);
+
+ fgets(pointer, 3, f);            // read first 3 char as pointer to password
+ pos = stoi(pointer);             // string to integer
+ fseek(f, pos, 0);                // position to start of password
+ fgets(inet_password, 9, f);      // get current password
+ next_pos = ftell(f);             // get position of next password
+ fgets(next_password, 9 , f);     // get next password as well
+ if (strlen(next_password) < 6)   // beyond last password
+  {
+   next_pos = 3;                  // reset pointer to start of passwords
+   fseek(f, 3, 0);                // set file pointer to start of passwords
+   fgets(next_password, 9, f);    // get next password
+  }
+
+ fclose(f);
+
+ if ((strlen(inet_password) < 6) || (strlen(next_password) < 6))
+  {
+   prints("Current iNet password, or next password in line is not valid.");
+   return(0);
+  }
+
+ return(1);
+}
+
+//////////////////////////////// End of file /////////////////////////////////

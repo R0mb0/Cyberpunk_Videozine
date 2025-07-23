@@ -1,0 +1,574 @@
+///////////////////////////////////////////////////////////////////////////////
+//  Functions Library 1.0  for SALT                                          //
+//  by ACE APE
+///////////////////////////////////////////////////////////////////////////////
+
+
+// Notes on SALT
+//
+// -  Addresses of variables in SLC file
+//
+//    A string variable is indicated by 0x1D (029), and then its address
+//    in a 2-byte integer form: first byte * 256 + second byte + 12 =
+//    location on SLC file.
+//
+//    An integer is signaled by 0x10 (016), and then by the two other
+//    bytes as descibed above.
+
+// -  Shifting color values (vputchr()).
+//
+//  The right color value can be obtained by using chr + color * 256
+//  instead of chr + color << 8 which doesn't work anyways.
+//
+//  VPutChr(Chr + (Color*256)) for displaying at curpos.
+//  VGetChr()%256 will get you the character at curpos.
+//  VGetChr()/256 returns the color at curpos.
+
+//  Documented Error Messages and their causes:
+//
+//  1- Script error: Unrecognized variable type on stack(##)
+//
+//     Cause: User function called with missing parameter
+//     Fix:   Find the function and call it with the right number and type
+//            of parameters
+//
+//  2- Script error: Unrecognized system variable type on stack
+//
+//     Cause: Reference made to an unknown system variable
+//     Fix:   Recompile source, get more recent Telix
+//
+
+//  3- Script error: Unrecognized data type on script stack (##)
+
+//  4- Internal error #1
+
+//  5- Internal error #2
+
+//  6- Internal stack overflow
+//
+//     Cause: Stack space was used up by the script
+//     Fix:   Use less local variables, make sure all vsaved areas are
+//            restored. Or increase stack size by using CS -Snnnnn
+
+//  7- Internal stack underflow
+//
+//     Cause: Stack was empty when it was accessed
+//     Fix:
+//
+
+//  8- System hang
+//
+//     Possible Cause: Negative value used with character-oriented
+//                     functions: subchrs(str1, 0, -1, str2);
+//     Fix:  Implement checking on variables used
+//     Note: Generates QEMM exception if it is present
+
+///////////////////////////////////////////////////////////////////////////////
+// Edit_String()
+
+// Scope: Local
+
+// String input function, going one step further than getsxy(), since it allows
+// you to provide a default string for editing.
+
+// parameters:   String: default string. Shouldn't have any spaces at the end.
+//                       This MUST be a defined string, and not characters
+//                       enclosed in quotes!
+//                       ex.: edit(s,...), not edit("Telix",...).
+//               X:      starting x pos
+//               Y:      starting y pos
+//               Length: maximum length of input string
+//               Color:  color using values provided in the SALT manual
+
+// return value: if ESC is pressed: -1
+//                  DOWN or CR    :  1
+//                  UP            :  2
+//                  F2            : -2
+///////////////////////////////////////////////////////////////////////////////
+
+edit_string( str String, int X, int Y, int Length, int Color)
+{
+
+int scrn;
+
+int UP = 18432, 
+    DOWN = 20480, 
+    HOME = 18176, 
+    END = 20224,
+    LEFT = 19200, 
+    RIGHT = 19712,
+    F2 = 15360,
+    EDIT = 9, 
+    HELP = 15104, 
+    EXIT = 27;
+    
+ str Backup[80], // backup of string to edit.
+     Temp[80];
+
+ int X2,        // current x.pos of cursor
+     Char,      // the char from keyboard
+     Ins = 0,   // insert mode toggle
+     EndX,      // pos of last character
+     TempX = 0, // temporary spaces at end of string
+     RetVal = 0;
+ 
+ X2 = X;
+ gotoxy(X2, Y);
+ EndX = X+strlen(String);
+ if (Length < strlen(String))
+   setchr(String, length-1, 0);
+ Backup = String;
+ setchrs(String, strlen(String), 0, length-strlen(String));
+ vputchrs(X, Y, String, 0, length, color);
+
+ cursor_onoff(1);
+ 
+ while(retval == 0)
+  {
+  Char = inkeyw();
+
+  if (Char == 8)       // BackSpace
+    {
+     if (TempX)
+        {
+          --TempX;
+          --X2;
+          }
+     else if (X2 > X)
+        {
+         vgetchrs(X2, Y, Temp, 0, Endx-X2);
+         vputchrs(X2-1, Y, Temp, 0, Endx-X2+1, color);
+         --X2;
+         --EndX;
+         }
+     gotoxy(X2, Y);
+     continue;
+     }
+     
+ if (Char == 21248)     // Delete char
+     {
+       if (!TempX && X2 < Endx)
+            {
+              vgetchrs(X2+1, Y, Temp, 0, Endx-X2);
+              vputchrs(X2, Y, Temp, 0, Endx-X2, color);
+              --EndX;
+              gotoxy(X2, Y);
+             }
+      continue;
+      }
+  
+  if (Char > 31 && Char < 256)
+     {
+       if (Ins && X2 < EndX && X2 < X+Length-1)
+         {
+          Temp =  "";
+          vgetchrs(X2, Y, Temp, 0, Endx-X2);
+          vputchrs(X2+1, Y, Temp, 0, Endx-x2, color);
+          }
+        vputchr(Char+color*256);
+
+        if (Char == 32)  // if space
+            {
+             if (X2 < EndX)
+                 {
+                  if (Ins)
+                     ++EndX;
+                  }
+             else if (X2 == EndX-1 && !Ins)
+                  {
+                  --EndX;
+                  Tempx = 1;
+                  }
+             else if (X2 < X+Length-1)
+                  ++TempX;
+
+             if (X2 < X+Length-1)
+                  ++X2;
+
+             if (EndX > X+Length)
+               EndX = X+Length;
+
+             gotoxy(X2, Y);
+             continue;
+             }
+
+         if (X2 >= EndX || (Ins && EndX < X+Length))
+            {
+             if (TempX)  // if we were past the end of string
+              {
+               EndX = EndX+TempX;  // add the amount we were past by
+               TempX = 0;          // reset amount
+               }
+             ++EndX;          // Move end pointer
+             }
+
+          if (EndX > X+Length)
+              EndX = X+Length;
+          if (X2 < X+Length-1)
+              ++X2;
+         gotoxy(X2, Y);
+         continue;
+        }
+
+  if (Char == LEFT)
+     {
+      if (X2 == X)
+	continue;
+      --X2;
+      if (TempX)
+        --TempX;
+      gotoxy(X2, Y);
+      continue;
+      }
+      
+  if (Char == RIGHT)
+    {
+      if (X2 < X+Length-1)
+         {
+          ++X2;
+          if (X2 > EndX)
+             ++TempX;
+          gotoxy(X2, Y);
+         }
+     continue;
+     }
+
+  if (Char == END)
+      {
+       if (X2 == EndX || Endx == X)
+          continue;
+       X2 = EndX;
+       if (X2 > X+Length-1)
+         --X2;
+       TempX = 0;
+       gotoxy(X2, Y);
+       continue;
+       }
+
+  if (Char == HOME)
+     {
+      X2 = X;
+      tempX = 0;
+      gotoxy(X2, Y);
+      continue;
+      }
+
+  if (Char == 13 || Char == UP || Char == DOWN || Char == F2)
+    {
+     String = "";
+     vgetchrs(X, Y, String, 0, EndX-X);
+     setchr(String, EndX-X, 0);
+     if (Char == 13 || Char == DOWN)
+        retval = 3;
+     if (Char == UP)
+        retval = 2;
+     if (char == F2)
+        retval = -2;        // save on exit
+     continue;
+     }
+     
+  if (Char == 29952)    // Ctrl-End
+    {
+    if (!TempX)
+     {
+      setchrs(Temp, 0, 0, Length);
+      vputchrs(X2, Y, temp, 0, EndX-X2, color);
+      EndX = X2;
+      gotoxy(X2, Y);
+      }
+     continue;
+     }
+
+  if (Char == EXIT)  // exit
+     {
+      String = Backup;
+      retval = -1;              // don't save on exit
+      continue;
+      }
+
+  if (Char == 30464)    // Ctrl-Home
+     {
+      EndX = strlen(Backup)+X;
+      String = Backup;
+      setchrs(String, strlen(String), 0, Length-strlen(String));
+      vputchrs(X, Y, String, 0, Length, color);
+      X2 = X;
+      TempX = 0;
+      gotoxy(X2, Y);
+      continue;
+     }
+
+  if (Char == 20992)   // Toggles insert
+     {
+      Ins = !Ins;
+      continue;
+      }
+
+  if (Char == HELP)   // HELP!!!
+     {
+      cursor_onoff(0);
+
+      scrn = vsavearea(19, 3, 62, 21);
+
+      box(20, 4, 62, 21, 'Û', 0, 8);
+      box(19, 3, 61, 20, 2, 0, 127);
+
+      pstraxy(" Help ", 37, 3, 124);
+
+      pstraxy("Editing functions:", 21, 4, 112);
+
+      pstraxy("Use   and  ", 21, 6, 112);
+      pstraxy("^[", 25, 6, 122);
+      pstraxy("^Z", 31, 6, 122);
+      pstraxy("to move along the line.", 33, 6, 112);
+
+      pstraxy("Home", 21, 7, 122);
+      pstraxy("goes to the start of the line.", 26, 7, 112);
+
+      pstraxy("End", 21, 8, 122);
+      pstraxy("goes to the end of the line.", 25, 8, 112);
+
+      pstraxy("Use  ,   and", 21, 9, 112);
+      pstraxy("^X", 25, 9, 122);
+      pstraxy("^Y", 28, 9, 122);
+      pstraxy("^QÙ", 34, 9, 122);
+
+      pstraxy("to change lines, ", 37, 9, 112);
+      pstraxy("or to save and exit.", 26, 10, 112);
+
+      pstraxy("Escape", 21, 11, 122);
+      pstraxy("exits using the default string.", 28, 11, 112);
+
+      pstraxy("Backspace", 21, 12, 122);
+      pstraxy("erases the previous character", 31, 12, 112);
+      pstraxy("on the line.", 26, 13, 112);
+
+      pstraxy("Delete", 21, 14, 122);
+      pstraxy("erases the current character.", 28, 14, 112);
+
+      pstraxy("Control-Home", 21, 15, 122);
+      pstraxy("restarts the line with the", 34, 15, 112);
+      pstraxy("default string.", 26, 16, 112);
+
+      pstraxy("Control-End", 21, 17, 122);
+      pstraxy("deletes from the current", 33, 17, 112);
+      pstraxy("character to the end of the line.", 26, 18, 112);
+
+      pstraxy("Insert", 21, 19, 122);
+      pstraxy("toggles insert mode.", 28, 19, 112);
+      inkeyw();
+      vrstrarea(scrn);
+      cursor_onoff(1);
+      }
+   }
+ format(string);
+ return retval;
+}
+///////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////
+// Format()
+
+// Format() Will either trim all trailing blanks off a string or pad it with
+// spaces to a certain length.
+
+// Parameters:   String: String To Pad/Trim
+//               length: for padding only.
+
+format(str string, int length)
+{
+ if (!length)
+  {
+  while(subchr(string,strlen(string)-1) == ' ')
+     delchrs(string,strlen(string)-1,1);
+   }
+ else
+    setchrs(string,strlen(string),' ',length-strlen(string));
+}
+///////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////
+// Yn( )
+
+// Scope: easily adaptable to either
+
+// Yn() is used to get a positive or negative answer, and nothing else.
+// It works with Hotkeys, and pressing Y will print 'Yes' at the current
+// cursor location; N will result in 'No'. Return uses the default ASCII
+// value supplied by Def.
+
+// Here it is used as a local and remote function, where input() checks
+// both the COM port and the keyboard.
+
+// return value:   Yes: 1
+//		   No : 0
+//		   Hangup : 0
+
+yn( int def )
+{
+int c;
+
+while(c != 'Y' && c != 'N' && !finished_caller && C!= 13)
+    c = toupper(input(1,0,0));  // change to inkeyw() if local only
+
+if (finished_caller)  // if end of call (flag set by input()), then return
+   return 0;
+
+if (c == 13)
+    c = def;
+
+if (c == 'Y')
+   {
+    puts("Yes^M^J"); // Puts sends string through COM port and to CON
+    return 1;
+   }
+else if (c == 'N')
+     {
+     puts("No^M^J");
+     return 0;
+     }
+  return def;
+}    
+///////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////
+// Input()
+// Refer to xHost.Slt
+
+///////////////////////////////////////////////////////////////////////////////
+// Shell_Sort()
+//
+// Fastest way of sorting elements yet!
+
+// parameters:  length:  length of an element
+
+// variables:   gap:     size of gap
+//              swap:    swap flag
+//              potr:    a pointer to a pos in the list
+
+shell_sort(int length)
+{
+int gap, swap, potr;
+int pos, pty;
+
+str s1[length],s2[length];
+
+gap = strlen(file_list)/(length*2) - 1;   //  get number of elements
+                              // get first gap (half of number of elements)
+
+while(gap >= 1)
+     {
+      swap = 0;
+      while (swap == 0)
+       {
+        swap = 1;
+
+       for (potr = 1; potr <= strlen(file_list)/length-gap; ++potr)
+           {
+            substr(file_list,(potr-1)*length,length,s1);
+            substr(file_list,(potr-1)*length+(gap*length),length,s2);
+
+            if (s1 > s2)
+                  {
+                   copychrs(s1,file_list,(potr-1)*length+(gap*length),length);
+                   copychrs(s2,file_list,(potr-1)*length,length);
+                   swap = 0;
+                   }
+              }
+           }
+         gap = gap/2;
+        }
+}
+///////////////////////////////////////////////////////////////////////////////
+// Here is a qsort() function, based on qsort.c:
+// (obtained as RG_QSORT.C in SNIP1091.ZIP - Snippets from C echo)
+// qsort.c  --  ANSI Quicksort function                           //
+// Public domain by Raymond Gardner, Englewood CO  February 1991  //
+// Sorts an array starting at base, of length nbr_elements, each  //
+// element of size width_bytes, ordered via compare_function,     //
+// which is called as  (*compare_function)(ptr_to_element1,       //
+// ptr_to_element2) and returns < 0 if element1 < element2,       //
+// 0 if element1 = element2, > 0 if element1 > element2.          //
+// Most refinements are due to R. Sedgewick. See "Implementing    //
+// Quicksort Programs", Comm. ACM, Oct. 1978, and Corrigendum,    //
+// Comm. ACM, June 1979.                                          //
+int size = 12; // Size is the width of an element
+str s1[12], s2[12];     // These two strings must have length
+                        // SIZE. Here SIZE is 12 for an array of
+                        // filenames.
+// Qsort()
+// Public domain by Andras Pattantyus, 12/31/92
+// This will sort a SALT pseudo-array (a SALT string with "elements"
+// padded to the same length with spaces). The LIST array must be
+// global. SIZE and the length of S1 and S2 must be changed to reflect
+// the list that you are sorting. This function can handle a maximum of
+// 255 elements [due to the way the stack is saved; this can easily be
+// changed if you know your SALT]. At last count, this function is 3
+// times faster than my best Shell sort. Worth it.
+
+qsort( ){
+   str stack[40];               // stack and stack pointer
+   int i, j, limit, sp;        // scan and limit pointers
+   int thresh;                 // size of T elements in bytes
+   int base = 0;
+   thresh =  7 * size;  // Threshold. The 7 here is arbitrary, and
+   // other values may be more efficient. It must be at least 3.
+   limit = strlen(list);// pointer past end of array
+   while (1) {                 // repeat until break...
+      if ( limit - base > thresh ) {  // if more than 7 elements
+    swap( (limit-base)/size/2*size + base, base);//swap base with middle
+         i = base + size;             // i scans left to right
+         j = limit - size;            // j scans right to left
+         comp(i, j, 1);          // Sedgewick's three-element sort
+         comp(base, j, 1);       // sets things up so that
+         comp(i, base, 1);       // i <= base <= j
+         while (1){             // loop until break
+            do i = i + size;                  // move i right
+            while ( comp(i, base, 0) < 0 );   // until i >= pivot
+            do j = j - size;                   // move j left
+            while ( comp(j, base, 0) > 0 );    // until j <= pivot
+            if ( i > j ) break; // if pointers crossed, break
+            swap(i, j);        // else swap elements, keep scanning
+            }
+         swap(base, j);         // move pivot into correct place
+         if ( j - base > limit - i ) {  // if left subfile larger
+            setchr(stack, sp, base/size);  // stack left subfile base
+            setchr(stack, sp+1, j/size);   //    and limit
+            base = i; }                    // sort the right subfile
+         else {                         // else right subfile larger
+            setchr(stack, sp, i/size);  // stack right subfile base
+            setchr(stack, sp+1, limit/size);   //    and limit
+            limit = j; }              // sort the left subfile
+         sp = sp + 2; }                   // increment stack pointer
+      else {      // else subfile is small, use insertion sort
+         j = base;
+         i = j + size;
+         while (i < limit)   {
+              for ( ; comp(j, j+size, 0) > 0; j = j - size ) {
+                   swap(j, j + size);
+                   if ( j == base )
+                       break;}
+              j = i;
+              i = i + size; }
+         if ( sp != 0 ) {         // if any entries on stack
+            sp = sp - 2;                  // pop the base and limit
+            base = subchr(stack, sp)*size;
+            limit = subchr(stack, sp+1)*size; }
+         else break; }}}                // else stack empty, done
+comp( int one, int two, int swap) {
+subchrs(list, one, size, s1); subchrs(list, two, size, s2);
+if (s1 > s2) {
+    if (swap) {
+        copychrs(s2, list, one, size);
+        copychrs(s1, list, two, size);  }
+    return 1; }
+else if (s2 > s1)
+    return -1;
+else return 0;}
+swap(int one, int two) {
+subchrs(list, one, size, s1); subchrs(list, two, size, s2);
+copychrs(s1, list, two, size); copychrs(s2, list, one, size); }
+
+///////////////////////////////////////////////////////////////////////////////
+// The E_N_D!
+///////////////////////////////////////////////////////////////////////////////

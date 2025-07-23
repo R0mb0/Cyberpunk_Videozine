@@ -1,0 +1,48 @@
+//    Sample script file to log-onto an RBBS based system. This script is
+//    based on those appearing in the Telix distribution files.
+//
+//    note: _entry_pass is a system variable into which the dialing routines
+//          put whatever is in the password field of the dialing directory
+//          entry which was connected to.
+// 
+// ---->  replace "First" with your first name and replace "Last" with your
+//        last name. So, Joe Smith would put "Joe;Smith" on the line below.
+//        However, leave the punctuation marks alone.
+
+str user_name[] = "First;Last";
+
+//        now save this file and run it thru the CS.EXE program like this:
+//
+//                                CS DBBS.SLT
+
+main()
+
+{
+ alarm(1);
+
+ if (not _entry_pass)                        // no pass, so didn't recog. board
+  {
+   prints ("Sorry, I don't know the password for this BBS!");
+   return;
+  }
+
+ if (not waitfor("FIRST Name", 120))        // if no prompt for name
+  {
+   prints("Log-on failed!");
+   return;                                   // ...abort
+  }
+
+ cputs(user_name);                           // send name
+ cputs("^M");
+
+ if (not waitfor("Password", 30))          // if no prompt for password
+  {
+   prints("Log-on failed!");
+   return;                                   // ...abort
+  }
+
+ cputs(_entry_pass);                         // send pass
+ cputs("^M");
+
+}
+

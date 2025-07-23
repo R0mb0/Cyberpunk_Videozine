@@ -1,0 +1,61 @@
+BICONFIG.TXT
+
+
+Set up the following parameter for your BiModem.
+
+
+BiModem Terminal Options
+
+       ษออออออออออออออ[BiConfig - (C) Copyright Erik Labs 1989]อออออออออออออป
+       บ                                                                    บ
+       บ                                                                    บ
+       บ                                                                    บ
+       บ Baud rate to base estimates on (Modem Rate)       2400             บ
+       บ                                                                    บ
+       บ Communications Port (1-8)                       2                  บ
+       บ                                                                    บ
+       บ Modem Type D - USR Dual Standard                F                  บ
+       บ            H - Half Duplex at high speeds                          บ
+       บ            F - Full Duplex always                                  บ
+       บ                                                                    บ
+>>>>>>>>>CTS/RTS hardware flow control (Y/N)             Y <<<< Must be YES บ
+       บ                                                                    บ
+       บ Signal Loss of carrier on Carrier Detect (Y/N)  Y                  บ
+       บ                                                                    บ
+       บ Signal Loss of carrier on Data Set Ready (Y/N)  N                  บ
+       บ                                                                    บ
+       บ                                                                    บ
+       บ                                                                    บ
+       บ                                                                    บ
+       บ                                                                    บ
+       ศออออออออออออออออออออ[Esc-Exit,Tab,BTab,,,,]อออออออออออออออออออออผ
+
+
+BiModem Filenames and Paths
+
+       ษออออออออออออออ[BiConfig - (C) Copyright Erik Labs 1989]อออออออออออออป
+       บ                                                                    บ
+       บ   Directory that files will be received into                       บ
+>>>>>>>>>D:\COMM\DL\     <<<<< Where Your Download Goes                     บ
+       บ   Directory that aborted files will be renamed into                บ
+>>>>>>>>>D:\COMM\DL\WRK\   <<<<Where aborted files go for later recovery tx.บ
+       บ   Delete aborted destination files (Y/N)        N                  บ
+       บ   Path of file listing directories that determine rejections       บ
+       บ                                                                    บ
+       บ   Directory that files will be sent from. This can point           บ
+       บ   to a file that contains a C/R L/F delimited list of              บ
+       บ   directories to be searched                                       บ
+>>>>>>>>>D:\COMM\TLX\BIPATH.LST  <<<|List of path for BiModem to search.    บ
+                                    Sample file is included to modify.
+       บ   Path to Password file                                            บ
+       บ                                                                    บ
+       บ   Path to UpLoad/Download list file                                บ
+>>>>>>>>>D:\COMM\TLX\BIMODEM.PTH  <<<<|File listing UP/DL files created by  บ
+                                      BIPATH - Usually in default direcrory.บ
+       บ   Path to log file                                                 บ
+>>>>>>>>>D:\COMM\TLX\BIMODEM.LOG  <<<< Stats on file transfer.              บ
+       บ   Are connects/disconnects to be logged (Y/N)        Y             บ
+       บ   Are file transfer statistics to be logged (Y/N)    Y             บ
+       บ                                                                    บ
+       ศออออออออออออออออออออ[Esc-Exit,Tab,BTab,,,,]อออออออออออออออออออออผ
+

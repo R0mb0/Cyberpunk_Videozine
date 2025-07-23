@@ -1,0 +1,12 @@
+main()
+
+{
+ if (not _entry_pass)
+  {
+   prints ("Password unknown to Telix!");
+   return;
+  }
+ cputs(_entry_pass);                // Send password field
+ cputs("^M");                       // send <CR>
+}
+
