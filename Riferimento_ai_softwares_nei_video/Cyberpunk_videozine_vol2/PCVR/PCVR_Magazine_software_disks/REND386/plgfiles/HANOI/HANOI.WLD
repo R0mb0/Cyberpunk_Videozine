@@ -1,0 +1,339 @@
+#============================================================================
+# HANOI.WLD  --  Robot solves the Towers of Hanoi puzzle.
+# by Peter Campbell  (74150.3076@compuserve.com)
+# Copyright 1994      Peter Campbell      All rights reserved.
+# This file may be redistributed provided this notice remains intact.
+#============================================================================
+
+skycolor    0xad
+groundcolor 0x87
+
+stepsize 25
+
+ambient 80
+light -161,218,-183 1
+
+camera 1  312,781,-3906  7,15,0   2 # starting location, orientation and zoom
+camera 2  1136,4000,-801 90,0,0   2
+camera 3  1126,1182,2271 15,180,0 2
+camera 4  4175,1661,-684 27,270,0 2
+camera 5  1100,2500,152  65,180,0 1.5
+
+figure robot=robot.fig  1,1,1   0,0,0   0,0,0
+object frame            1,1,1   0,0,0   0,0,0    0
+object pegbase          1,1,1   0,0,0   0,0,0    0
+object peg1=peg         1,1,1   0,0,0   0,0,0    0
+object peg2=peg         1,1,1   0,0,0   800,0,0  0
+object peg3=peg         1,1,1   0,0,0   1600,0,0 0
+object disk1=disk1      1,1,1   0,0,0   0,300,0  0
+object disk2=disk2      1,1,1   0,0,0   0,200,0  0
+object disk3=disk3      1,1,1   0,0,0   0,100,0  0
+object disk4=disk4      1,1,1   0,0,0   0,0,0    0
+
+# Animation to attach viewpoint to robot gripper.
+# Press F5 to place the viewpoint within the sensor.
+animation 3
+  state 0
+    do robot.hor=postest(700,450,0 850,550,0)[exit][]
+    do sensor(1050,2400,0 1150,2550,50)[exit][]
+    do robot.hor=attach(1)[state=1]
+
+# Main animation.
+animation 150
+  state begin
+    do timer(2)[][state=r0]
+  state r0
+    do robot.hor=step(x,-400,x x,x,x)[][]
+    do robot.hor=poslimit(x,300,x x,x,x)[state=a1][]
+  state a1
+    do robot.hor=step(x,400,x x,x,x)[][]
+    do disk1=step(x,400,x x,x,x)[][]
+    do disk1=poslimit(x,x,x x,500,x)[state=a2][]
+  state a2
+    do robot.vert=step(600,x,x x,x,x)[][]
+    do disk1=step(600,x,x x,x,x)[][]
+    do disk1=poslimit(x,x,x 800,x,x)[state=a3][]
+  state a3
+    do robot.vert=step(-600,x,x x,x,x)[][]
+    do disk1=gravity(0,-200,0 0,-4000,0)[]
+    do disk1=poslimit(x,0,x x,x,x)[][]
+    do robot.vert=poslimit(0,x,x x,x,x)[state=r1][]
+  state r1
+    do robot.finger1=step(-600,x,x x,x,x)[][]
+    do robot.finger2=step(600,x,x x,x,x)[][]
+    do robot.finger1=poslimit(-100,x,x x,x,x)[][]
+    do robot.finger2=poslimit(x,x,x 100,x,x)[][]
+    do robot.hor=step(x,-400,x x,x,x)[][]
+    do robot.hor=poslimit(x,200,x x,x,x)[state=b1][]
+  state b1
+    do robot.hor=step(x,400,x x,x,x)[][]
+    do disk2=step(x,400,x x,x,x)[][]
+    do disk2=poslimit(x,x,x x,500,x)[state=b2][]
+  state b2
+    do robot.vert=step(600,x,x x,x,x)[][]
+    do disk2=step(600,x,x x,x,x)[][]
+    do disk2=poslimit(x,x,x 1600,x,x)[state=b3][]
+  state b3
+    do robot.vert=step(-600,x,x x,x,x)[][]
+    do disk2=gravity(0,-200,0 0,-4000,0)[]
+    do disk2=poslimit(x,0,x x,x,x)[][]
+    do robot.vert=poslimit(800,x,x x,x,x)[state=r2][]
+  state r2
+    do robot.finger1=step(600,x,x x,x,x)[][]
+    do robot.finger2=step(-600,x,x x,x,x)[][]
+    do robot.finger1=poslimit(x,x,x 0,x,x)[][]
+    do robot.finger2=poslimit(0,x,x x,x,x)[][]
+    do robot.hor=step(x,-400,x x,x,x)[][]
+    do robot.hor=poslimit(x,0,x x,x,x)[state=c1][]
+  state c1
+    do robot.hor=step(x,400,x x,x,x)[][]
+    do disk1=step(x,400,x x,x,x)[][]
+    do disk1=poslimit(x,x,x x,500,x)[state=c2][]
+  state c2
+    do robot.vert=step(600,x,x x,x,x)[][]
+    do disk1=step(600,x,x x,x,x)[][]
+    do disk1=poslimit(x,x,x 1600,x,x)[state=c3][]
+  state c3
+    do robot.vert=step(-600,x,x x,x,x)[][]
+    do disk1=gravity(0,-200,0 0,-4000,0)[]
+    do disk1=poslimit(x,100,x x,x,x)[][]
+    do robot.vert=poslimit(0,x,x x,x,x)[state=r3][]
+  state r3
+    do robot.finger1=step(-600,x,x x,x,x)[][]
+    do robot.finger2=step(600,x,x x,x,x)[][]
+    do robot.finger1=poslimit(-200,x,x x,x,x)[][]
+    do robot.finger2=poslimit(x,x,x 200,x,x)[][]
+    do robot.hor=step(x,-400,x x,x,x)[][]
+    do robot.hor=poslimit(x,100,x x,x,x)[state=d1][]
+  state d1
+    do robot.hor=step(x,400,x x,x,x)[][]
+    do disk3=step(x,400,x x,x,x)[][]
+    do disk3=poslimit(x,x,x x,500,x)[state=d2][]
+  state d2
+    do robot.vert=step(600,x,x x,x,x)[][]
+    do disk3=step(600,x,x x,x,x)[][]
+    do disk3=poslimit(x,x,x 800,x,x)[state=d3][]
+  state d3
+    do robot.vert=step(600,x,x x,x,x)[][]
+    do disk3=gravity(0,-200,0 0,-4000,0)[]
+    do disk3=poslimit(x,0,x x,x,x)[][]
+    do robot.vert=poslimit(x,x,x 1600,x,x)[state=r4][]
+  state r4
+    do robot.finger1=step(600,x,x x,x,x)[][]
+    do robot.finger2=step(-600,x,x x,x,x)[][]
+    do robot.finger1=poslimit(x,x,x 0,x,x)[][]
+    do robot.finger2=poslimit(0,x,x x,x,x)[][]
+    do robot.hor=step(x,-400,x x,x,x)[][]
+    do robot.hor=poslimit(x,100,x x,x,x)[state=e1][]
+  state e1
+    do robot.hor=step(x,400,x x,x,x)[][]
+    do disk1=step(x,400,x x,x,x)[][]
+    do disk1=poslimit(x,x,x x,500,x)[state=e2][]
+  state e2
+    do robot.vert=step(-600,x,x x,x,x)[][]
+    do disk1=step(-600,x,x x,x,x)[][]
+    do disk1=poslimit(0,x,x x,x,x)[state=e3][]
+  state e3
+    do robot.vert=step(600,x,x x,x,x)[][]
+    do disk1=gravity(0,-200,0 0,-4000,0)[]
+    do disk1=poslimit(x,100,x x,x,x)[][]
+    do robot.vert=poslimit(x,x,x 1600,x,x)[state=r5][]
+  state r5
+    do robot.finger1=step(-600,x,x x,x,x)[][]
+    do robot.finger2=step(600,x,x x,x,x)[][]
+    do robot.finger1=poslimit(-100,x,x x,x,x)[][]
+    do robot.finger2=poslimit(x,x,x 100,x,x)[][]
+    do robot.hor=step(x,-400,x x,x,x)[][]
+    do robot.hor=poslimit(x,0,x x,x,x)[state=f1][]
+  state f1
+    do robot.hor=step(x,400,x x,x,x)[][]
+    do disk2=step(x,400,x x,x,x)[][]
+    do disk2=poslimit(x,x,x x,500,x)[state=f2][]
+  state f2
+    do robot.vert=step(-600,x,x x,x,x)[][]
+    do disk2=step(-600,x,x x,x,x)[][]
+    do disk2=poslimit(800,x,x x,x,x)[state=f3][]
+  state f3
+    do robot.vert=step(-600,x,x x,x,x)[][]
+    do disk2=gravity(0,-200,0 0,-4000,0)[]
+    do disk2=poslimit(x,100,x x,x,x)[][]
+    do robot.vert=poslimit(0,x,x x,x,x)[state=r6][]
+  state r6
+    do robot.finger1=step(600,x,x x,x,x)[][]
+    do robot.finger2=step(-600,x,x x,x,x)[][]
+    do robot.finger1=poslimit(x,x,x 0,x,x)[][]
+    do robot.finger2=poslimit(0,x,x x,x,x)[][]
+    do robot.hor=step(x,-400,x x,x,x)[][]
+    do robot.hor=poslimit(x,100,x x,x,x)[state=g1][]
+  state g1
+    do robot.hor=step(x,400,x x,x,x)[][]
+    do disk1=step(x,400,x x,x,x)[][]
+    do disk1=poslimit(x,x,x x,500,x)[state=g2][]
+  state g2
+    do robot.vert=step(600,x,x x,x,x)[][]
+    do disk1=step(600,x,x x,x,x)[][]
+    do disk1=poslimit(x,x,x 800,x,x)[state=g3][]
+  state g3
+    do robot.vert=step(-600,x,x x,x,x)[][]
+    do disk1=gravity(0,-200,0 0,-4000,0)[]
+    do disk1=poslimit(x,200,x x,x,x)[][]
+    do robot.vert=poslimit(0,x,x x,x,x)[state=r7][]
+  state r7
+    do robot.finger1=step(-600,x,x x,x,x)[][]
+    do robot.finger2=step(600,x,x x,x,x)[][]
+    do robot.finger1=poslimit(-300,x,x x,x,x)[][]
+    do robot.finger2=poslimit(x,x,x 300,x,x)[][]
+    do robot.hor=step(x,-400,x x,x,x)[][]
+    do robot.hor=poslimit(x,0,x x,x,x)[state=h1][]
+  state h1
+    do robot.hor=step(x,400,x x,x,x)[][]
+    do disk4=step(x,400,x x,x,x)[][]
+    do disk4=poslimit(x,x,x x,500,x)[state=h2][]
+  state h2
+    do robot.vert=step(600,x,x x,x,x)[][]
+    do disk4=step(600,x,x x,x,x)[][]
+    do disk4=poslimit(x,x,x 1600,x,x)[state=h3][]
+  state h3
+    do robot.vert=step(-600,x,x x,x,x)[][]
+    do disk4=gravity(0,-200,0 0,-4000,0)[]
+    do disk4=poslimit(x,0,x x,x,x)[][]
+    do robot.vert=poslimit(800,x,x x,x,x)[state=r8][]
+  state r8
+    do robot.finger1=step(600,x,x x,x,x)[][]
+    do robot.finger2=step(-600,x,x x,x,x)[][]
+    do robot.finger1=poslimit(x,x,x 0,x,x)[][]
+    do robot.finger2=poslimit(0,x,x x,x,x)[][]
+    do robot.hor=step(x,-400,x x,x,x)[][]
+    do robot.hor=poslimit(x,200,x x,x,x)[state=i1][]
+  state i1
+    do robot.hor=step(x,400,x x,x,x)[][]
+    do disk1=step(x,400,x x,x,x)[][]
+    do disk1=poslimit(x,x,x x,500,x)[state=i2][]
+  state i2
+    do robot.vert=step(600,x,x x,x,x)[][]
+    do disk1=step(600,x,x x,x,x)[][]
+    do disk1=poslimit(x,x,x 1600,x,x)[state=i3][]
+  state i3
+    do robot.vert=step(-600,x,x x,x,x)[][]
+    do disk1=gravity(0,-200,0 0,-4000,0)[]
+    do disk1=poslimit(x,100,x x,x,x)[][]
+    do robot.vert=poslimit(800,x,x x,x,x)[state=r9][]
+  state r9
+    do robot.finger1=step(-600,x,x x,x,x)[][]
+    do robot.finger2=step(600,x,x x,x,x)[][]
+    do robot.finger1=poslimit(-100,x,x x,x,x)[][]
+    do robot.finger2=poslimit(x,x,x 100,x,x)[][]
+    do robot.hor=step(x,-400,x x,x,x)[][]
+    do robot.hor=poslimit(x,100,x x,x,x)[state=j1][]
+  state j1
+    do robot.hor=step(x,400,x x,x,x)[][]
+    do disk2=step(x,400,x x,x,x)[][]
+    do disk2=poslimit(x,x,x x,500,x)[state=j2][]
+  state j2
+    do robot.vert=step(-600,x,x x,x,x)[][]
+    do disk2=step(-600,x,x x,x,x)[][]
+    do disk2=poslimit(0,x,x x,x,x)[state=j3][]
+  state j3
+    do robot.vert=step(600,x,x x,x,x)[][]
+    do disk2=gravity(0,-200,0 0,-4000,0)[]
+    do disk2=poslimit(x,0,x x,x,x)[][]
+    do robot.vert=poslimit(x,x,x 1600,x,x)[state=r10][]
+  state r10
+    do robot.finger1=step(600,x,x x,x,x)[][]
+    do robot.finger2=step(-600,x,x x,x,x)[][]
+    do robot.finger1=poslimit(x,x,x 0,x,x)[][]
+    do robot.finger2=poslimit(0,x,x x,x,x)[][]
+    do robot.hor=step(x,-400,x x,x,x)[][]
+    do robot.hor=poslimit(x,100,x x,x,x)[state=k1][]
+  state k1
+    do robot.hor=step(x,400,x x,x,x)[][]
+    do disk1=step(x,400,x x,x,x)[][]
+    do disk1=poslimit(x,x,x x,500,x)[state=k2][]
+  state k2
+    do robot.vert=step(-600,x,x x,x,x)[][]
+    do disk1=step(-600,x,x x,x,x)[][]
+    do disk1=poslimit(0,x,x x,x,x)[state=k3][]
+  state k3
+    do robot.vert=step(600,x,x x,x,x)[][]
+    do disk1=gravity(0,-200,0 0,-4000,0)[]
+    do disk1=poslimit(x,100,x x,x,x)[][]
+    do robot.vert=poslimit(x,x,x 800,x,x)[state=r11][]
+  state r11
+    do robot.finger1=step(-600,x,x x,x,x)[][]
+    do robot.finger2=step(600,x,x x,x,x)[][]
+    do robot.finger1=poslimit(-200,x,x x,x,x)[][]
+    do robot.finger2=poslimit(x,x,x 200,x,x)[][]
+    do robot.hor=step(x,-400,x x,x,x)[][]
+    do robot.hor=poslimit(x,0,x x,x,x)[state=l1][]
+  state l1
+    do robot.hor=step(x,400,x x,x,x)[][]
+    do disk3=step(x,400,x x,x,x)[][]
+    do disk3=poslimit(x,x,x x,500,x)[state=l2][]
+  state l2
+    do robot.vert=step(600,x,x x,x,x)[][]
+    do disk3=step(600,x,x x,x,x)[][]
+    do disk3=poslimit(x,x,x 1600,x,x)[state=l3][]
+  state l3
+    do robot.vert=step(-600,x,x x,x,x)[][]
+    do disk3=gravity(0,-200,0 0,-4000,0)[]
+    do disk3=poslimit(x,100,x x,x,x)[][]
+    do robot.vert=poslimit(0,x,x x,x,x)[state=r12][]
+  state r12
+    do robot.finger1=step(600,x,x x,x,x)[][]
+    do robot.finger2=step(-600,x,x x,x,x)[][]
+    do robot.finger1=poslimit(x,x,x 0,x,x)[][]
+    do robot.finger2=poslimit(0,x,x x,x,x)[][]
+    do robot.hor=step(x,-400,x x,x,x)[][]
+    do robot.hor=poslimit(x,100,x x,x,x)[state=m1][]
+  state m1
+    do robot.hor=step(x,400,x x,x,x)[][]
+    do disk1=step(x,400,x x,x,x)[][]
+    do disk1=poslimit(x,x,x x,500,x)[state=m2][]
+  state m2
+    do robot.vert=step(600,x,x x,x,x)[][]
+    do disk1=step(600,x,x x,x,x)[][]
+    do disk1=poslimit(x,x,x 800,x,x)[state=m3][]
+  state m3
+    do robot.vert=step(-600,x,x x,x,x)[][]
+    do disk1=gravity(0,-200,0 0,-4000,0)[]
+    do disk1=poslimit(x,0,x x,x,x)[][]
+    do robot.vert=poslimit(0,x,x x,x,x)[state=r13][]
+  state r13
+    do robot.finger1=step(-600,x,x x,x,x)[][]
+    do robot.finger2=step(600,x,x x,x,x)[][]
+    do robot.finger1=poslimit(-100,x,x x,x,x)[][]
+    do robot.finger2=poslimit(x,x,x 100,x,x)[][]
+    do robot.hor=step(x,-400,x x,x,x)[][]
+    do robot.hor=poslimit(x,0,x x,x,x)[state=n1][]
+  state n1
+    do robot.hor=step(x,400,x x,x,x)[][]
+    do disk2=step(x,400,x x,x,x)[][]
+    do disk2=poslimit(x,x,x x,500,x)[state=n2][]
+  state n2
+    do robot.vert=step(600,x,x x,x,x)[][]
+    do disk2=step(600,x,x x,x,x)[][]
+    do disk2=poslimit(x,x,x 1600,x,x)[state=n3][]
+  state n3
+    do robot.vert=step(-600,x,x x,x,x)[][]
+    do disk2=gravity(0,-200,0 0,-4000,0)[]
+    do disk2=poslimit(x,200,x x,x,x)[][]
+    do robot.vert=poslimit(800,x,x x,x,x)[state=r14][]
+  state r14
+    do robot.finger1=step(600,x,x x,x,x)[][]
+    do robot.finger2=step(-600,x,x x,x,x)[][]
+    do robot.finger1=poslimit(x,x,x 0,x,x)[][]
+    do robot.finger2=poslimit(0,x,x x,x,x)[][]
+    do robot.hor=step(x,-400,x x,x,x)[][]
+    do robot.hor=poslimit(x,0,x x,x,x)[state=o1][]
+  state o1
+    do robot.hor=step(x,400,x x,x,x)[][]
+    do disk1=step(x,400,x x,x,x)[][]
+    do disk1=poslimit(x,x,x x,500,x)[state=o2][]
+  state o2
+    do robot.vert=step(600,x,x x,x,x)[][]
+    do disk1=step(600,x,x x,x,x)[][]
+    do disk1=poslimit(x,x,x 1600,x,x)[state=o3][]
+  state o3
+    do disk1=gravity(0,-200,0 0,-4000,0)[]
+    do disk1=poslimit(x,300,x x,x,x)[state=p1][]
+

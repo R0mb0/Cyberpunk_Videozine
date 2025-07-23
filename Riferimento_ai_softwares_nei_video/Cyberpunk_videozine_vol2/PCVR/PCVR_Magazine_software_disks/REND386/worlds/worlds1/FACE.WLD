@@ -1,0 +1,78 @@
+#  
+# FACE.WLD
+#
+# A Woman's head, wearing sunglasses
+#
+# 18-Nov-92 Chris Hand cph@dmu.ac.uk
+#
+# Head is based on data produced by Valerie Hall
+#
+
+loadpath face
+
+options a   # camera angles are tilt,pan,roll
+
+stepsize 2
+
+#start 2783,-50,-950  -70,0,0 4
+camera 1 2783,-50,-950  0,-70,0 4
+camera 2 3021 3250 -292 48.828125 -84.648438 0.000000 4.000000
+
+# vis error -- other lens not obscured by nose
+#start 671,100,-1061 -20,0,0 4
+
+# define some colours/surfaces
+
+surfacedef red 0x11ff
+surfacedef orange 0x12ff
+surfacedef grey 0x1eff
+surfacedef beige 0x14ff
+surfacedef pink 0x13ff
+surfacedef yellow 0x16ff
+surfacedef white 0x1fff
+surfacedef black 0x1e7f
+surfacedef blackmetal 0x2e7f   # metallic black
+surfacedef blackglass 0x3e7f   # glass-like black
+surfacedef bmrimmed 0xae7f     # black metal with edges highlighted
+surfacedef bgrimmed 0xbeaf     # black glass with edges highlighted
+
+
+surfacemap face
+surface 1 beige  
+surface 2 red 
+surface 3 grey
+surface 4 white
+surface 5 yellow
+surface 6 orange
+
+surfacemap glasses
+surface 1 bgrimmed
+surface 2 black
+surface 3 grey
+
+surfacemap stem
+surface 1 blackmetal
+
+
+# ===== Do the splits! =====
+
+split 370,0,0 1,0,0  # just behind lenses
+split 0,0,0 0,0,1  # between lenses
+endsplits
+
+# ===== objects =====
+
+object face 1,1,1 -90,0,0 0,0,0 256 face
+
+object lens 1,1,1 0,90,0 375,140,140 256 glasses
+object lens 1,1,1 0,90,0 375,140,-140 256 glasses
+object col20 0.1,0.1,0.8 0,0,0 375,140,0 256 stem
+object col20 0.1,0.1,4 0,105,0 170,140,290 256 stem
+object col20 0.1,0.1,4 0,75,0 170,140,-290 256 stem
+
+# End of face.wld
+
+title A Woman's head, wearing sunglasses
+title by Chris Hand cph@dmu.ac.uk
+title based on data produced by Valerie Hall
+title memory

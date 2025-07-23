@@ -1,0 +1,34 @@
+# Copyright (c) Todd Porter 1993
+# Sega3D.WLD...the 3D glasses circuit in VR!
+# I did this on a whim...Thought it may help out some to visualize the sega
+# board.  However I'm not sure I got all the traces right myself <G>.
+# If anyone would like a definate VR copy of the rend386 3D glasses board
+# let me know and I'll put in the one I built...I set this one up from PCVR 
+# sketches and wasn't exactly sure how it was set up but liked it better since
+# it used less 'jumps' than mine.  Maybe it could help some of those
+# who are having trouble building the circuit.  In any case let me know at 
+# either C$erve 76505,1574 or (best bet) Internet so92332@gsvms2.cc.gasou.edu
+# If you want to see the traces better select the parts and delete them.
+# BTW I built the whole thing in NorthCad in a multiple .plg but broke it 
+# apart to eliminate confusion then put it back together into a .fig file
+# to allow rotation of the board without throwing everything out of place.
+# Just click on the board and everything will rotate around it like the 
+# pelvis of the metalman.
+
+worldscale 1.0
+hither     10
+yon        1000000
+start -7200,8000,-4162 -300,40,0 5
+groundcolor 3
+skycolor 1
+screenclear 1
+ambient 76
+
+split 0,0,0 0,1,0   0  #board split
+
+figure board 1,1,1  0,0,0 0,0,0 . . 256
+
+area 100,100,100 Rend386_Circuit
+area 100,-100,100 Rend386_Circuit
+
+

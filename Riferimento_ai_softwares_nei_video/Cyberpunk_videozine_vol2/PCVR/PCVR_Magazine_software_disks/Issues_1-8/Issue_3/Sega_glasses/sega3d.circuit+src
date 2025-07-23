@@ -1,0 +1,330 @@
+Here is the schematic and C source (for IBM PC) for the Sega 3D glasses
+that was posted on sci.virtual-worlds a while ago.  The switching circuit
+seems simpler than generating a square wave with 0x55 at 4800 baud;
+I'm not certain, but I think the outportb(0x3fc, 1) and outportb(0x3fc, 3)
+commands in the WaitForVerticalRetrace() function alternately set and
+reset the RTS line on the RS-232 port, while keeping the DTR line constant
+as a power supply.  Could someone with PC techs confirm whether bit 0 is
+the DTR line and bit 2 is the RTS line at port 0x3fc on a PC?
+
+I know next to nothing about circuits, and I haven't tried to make
+this one (yet), so I can't say much about it.  I just hope it works
+and that it's controled by the DTR line being constantly on, and the
+RTS line causing one eye's view when set and the other eye's view
+when reset.  Can someone confirm this or add advice?
+
+I'll put this on karazm.math.uh.edu for those with ftp, too.
+
+
+
+From rit!rochester!udel!wupost!zaphod.mps.ohio-state.edu!rpi!dali.cs.montana.edu!milton!hlab Tue Sep 10 14:02:24 EDT 1991
+Article 1626 of sci.virtual-worlds:
+Path: ultb!rit!rochester!udel!wupost!zaphod.mps.ohio-state.edu!rpi!dali.cs.montana.edu!milton!hlab
+>From: frank@cavebbs.gen.nz (Frank van der Hulst)
+Newsgroups: sci.virtual-worlds
+Subject: Sega Glasses / RS-232 interface circuit
+Message-ID: <1991Sep9.155236.6358@milton.u.washington.edu>
+Date: 9 Sep 91 09:49:38 GMT
+Sender: hlab@milton.u.washington.edu (Human Int. Technology Lab)
+Organization: The Cave MegaBBS, Public Access Usenet, Wellington, NZ
+Lines: 77
+Approved: cyberoid@milton.u.washington.edu
+
+
+
+Circuit to connect SEGA 3D glasses to RS-232 port.
+--------------------------------------------------
+
+       RS-232
+     DB25 / DB9
+                                                   10K
+RTS   4      7  Switching signal +/- 10V  --------vvvvv--+
+                                                         |
+                                                         |
+GND   7      5  Ground ----+-------------+--+---------+--|----+
+                           |             |  |         |  |    |
+                           |             |  +-|>|--+  |  |    |
+                           +--|>|--+    ---        |  |  |    |  Transistor
+                                   |    ---  22 uF |  |  |    |   2N2222
+                                   |     |         |  |  |  +-+---------+
+                                   |     |         |  |  |  | Emitter   |
+                                   |     |         |  |  |  |           |
+DTR  20      4  Vdd +10V --|>|-----+-----+         +--|--+--+ Base      |
+                                         |            |     |           |
+                              +--+--+--+-+-vvvvv---+--|-----+ Collector |
+                              |  |  |  |    10K    |  |     |           |
+                              |  |  |  |           |  |     +-----------+
+                      +-------+--+--+--+-----------+--+--+
+                      |       1  9  13 14          5  7  |
+                      |                                  |
+                      |   RCA CD 4030 Quad XOR gate      |
+                      |                                  |
+                      | 2 11  12       3  6  8   10   4  |
+                      +-+--+---+-------+--+--+----+---+--+
+                        |  |   |       |  |  |    |   |
+                        +--+   |       +--+--+    |   +--- Outside of jack
+                           |   |             |    |
+                           |   +-vvvvv-+     |    +------- Middle of jack
+                           |      22K  |     |
+                           |           |     +------------ Centre of jack
+                           +-vvvvv-----+     |
+                              22K      |     |
+                                      ---    |
+                              .01 uF  ---    |
+                                       |     |
+                                       +-----+
+
+Diode:     --|>|--
+
+Resistor:  --vvvvv--
+
+Capacitor:   |
+            ---
+            ---
+             |
+
+This is my best attempt at a rendition of the circuit which connects my
+SEGA glasses to my AT. I didn't design the circuit -- I'm a software
+rather than hardware person. In fact I barely understand it -- as far as
+I can tell, the .01uF capacitor & the 22K resistors act as a delay. The
+outputs of the XOR gates feed back into their own inputs, thus producing
+an oscillator. The "jack" mentioned in the diagram is the mini-jack
+which is connected as standard to the glasses. "Centre", "middle", and
+"outside" relate to the external connections, looking at the thing
+end-on.
+
+Disclaimer: The circuit diagram above may be entirely wrong. My
+description may be wrong.
+
+Caveat emptor... to paraphrase the standard software licence agreement:
+It's as good as I can get it. If it doesn't work or blows up your
+computer or your glasses and blinds you for life, I'll give you back all
+the money you paid me.
+
+Good Luck...    Frank.
+
+-- 
+
+Take a walk on the wild side, and I don't mean the Milford Track.
+Kayaking: The art of appearing to want to go where your boat is taking you.
+
+
+
+
+
+From rit!rochester!udel!wupost!sdd.hp.com!spool.mu.edu!agate!bionet!raven.alaska.edu!milton!hlab Fri Sep 27 18:40:47 EDT 1991
+Article 1742 of sci.virtual-worlds:
+Path: ultb!rit!rochester!udel!wupost!sdd.hp.com!spool.mu.edu!agate!bionet!raven.alaska.edu!milton!hlab
+>From: frank@cavebbs.gen.nz (Frank van der Hulst)
+Newsgroups: sci.virtual-worlds
+Subject: Sega glasses & VGA (C source code)
+Message-ID: <1991Sep25.022127.27830@milton.u.washington.edu>
+Date: 23 Sep 91 08:42:28 GMT
+Sender: hlab@milton.u.washington.edu (Human Int. Technology Lab)
+Organization: The Cave MegaBBS, Public Access Usenet, Wellington, NZ
+Lines: 200
+Approved: cyberoid@milton.u.washington.edu
+
+
+Several people requested info on how to display 3D images, after my post of
+the circuit to hook up Sega glasses to the PC. Following is source code to
+do that.
+
+Frank.
+
+/*
+
+VGA 320 * 400 * 256 * 2 frames routines.
+
+Written by: F van der Hulst, 20/2/91
+
+These routines display pixels in 320*400 mode by modifying the VGA
+registers, as outlined in Programmer's Journal V7.1 (Jan/Feb '89)
+article, pages 18-30, by Michael Abrash.
+
+The advantage of 320 * 400, is that it gives two separate video pages,
+which can be displayed on the screen independently. These can contain
+two views of a scene, taken from slightly different viewpoints. These
+are displayed alternately on the screen, in sync with a pair of
+"chopper glasses", to give a 3D effect.
+*/
+
+#include <conio.h>
+
+typedef unsigned char DacPalette[256][3];
+
+/* Setvgapalette sets the entire 256 color palette     */
+/* PalBuf contains RGB values for all 256 colors       */
+/* R,G,B values range from 0 to 63                         */
+/* Taken from SVGA256.H, by Jordan Hargraphix Software */
+
+void setvgapalette(DacPalette *PalBuf)
+{
+  struct REGPACK reg;
+
+  reg.r_ax = 0x1012;
+  reg.r_bx = 0;
+  reg.r_cx = 256;
+  reg.r_es = FP_SEG(PalBuf);
+  reg.r_dx = FP_OFF(PalBuf);
+  intr(0x10,&reg);
+}
+
+
+unsigned int act_page = 0; /* Current page being written to */
+
+
+#define VGA_SEGMENT        0xa000
+#define SC_INDEX           0x3c4
+#define GC_INDEX           0x3ce
+#define CRTC_INDEX         0x3d4
+#define DISPIO             0x3DA
+
+#define MAP_MASK           2
+#define MEMORY_MODE        4
+#define GRAPHICS_MODE      5
+#define MISCELLANEOUS      6
+#define VRT_bit            8
+#define MAX_SCAN_LINE      9
+#define START_ADDRESS_HIGH 0x0c
+#define UNDERLINE          0x14
+#define MODE_CONTROL       0x17
+
+void writepixel(int x, int y, unsigned char colour)
+{
+long addr;
+
+        addr = ((x >> 2) + 320/4 * y + act_page);
+        addr = ((addr & 0xffff0000l) << 4) + (addr & 0xffffL) + ((long) VGA_SEGM
+ENT << 16);
+        outport(SC_INDEX, (0x100 << (x & 3)) | MAP_MASK);
+        *(char far*)addr = colour;
+}
+
+void set320x400mode(void)
+{
+struct REGPACK regs;
+unsigned char x;
+
+        regs.r_ax = 0x13;                               /* Set 320*200*256 graph
+ics mode via BIOS */
+        intr(0x10, &regs);
+
+/* Change CPU addressing of video memory to linear (not odd/even, chain, or
+        chain 4), to allow access to all 256K of display memory. Each byte will 
+now
+        control one pixel, with 4 adjacent pixels at any given address, one pixe
+l
+        per plane. */
+
+        outportb(SC_INDEX, MEMORY_MODE);
+        x = inportb(SC_INDEX+1);
+        x &= 0xf7;                                                              
+        /* Turn off chain 4  */
+        x |= 4;                                                                 
+        /* Turn off odd/even */
+        outportb(SC_INDEX+1, x);
+        outportb(GC_INDEX, GRAPHICS_MODE);
+        x = inportb(GC_INDEX+1);
+        x &= 0xef;                                                              
+        /* Turn off odd/even */
+        outportb(GC_INDEX+1, x);
+        outportb(GC_INDEX, MISCELLANEOUS);
+        x = inportb(GC_INDEX+1);
+        x &= 0xfd;                                                              
+        /* Turn off chain */
+        outportb(GC_INDEX+1, x);
+
+/* Now clear the whole screen, since the mode 13h set only clears 64K. Do this
+        before switching CRTC out of mode 13h, so that we don't see grabage on t
+he
+        screen. */
+
+        outport(SC_INDEX, 0x0f00 | MAP_MASK);                   /* Write to 4 pl
+anes at once */
+        setmem(MK_FP(VGA_SEGMENT, 0), 0xffff, 0);
+
+/* Change mode to 320*400 by not scanning each line twice. */
+        outportb(CRTC_INDEX, MAX_SCAN_LINE);
+        x = inportb(CRTC_INDEX+1);
+        x &= 0xe0;                                                              
+/* Set maximum scan line to 0 */
+        outportb(CRTC_INDEX+1, x);
+
+/* Change CRTC scanning from doubleword to byte mode, allowing the CRTC to
+        scan more than 64K */
+        outportb(CRTC_INDEX, UNDERLINE);
+        x = inportb(CRTC_INDEX+1);
+        x &= 0xbf;                                      /* Turn off doubleword *
+/
+        outportb(CRTC_INDEX+1, x);
+        outportb(CRTC_INDEX, MODE_CONTROL);
+        x = inportb(CRTC_INDEX+1);
+        x |= 0x40;                                      /* Turn on the byte mode
+ bit, so memory is linear */
+        outportb(CRTC_INDEX+1, x);
+}
+
+void end320x400mode(void)
+{
+struct REGPACK regs;
+
+        regs.r_ax = 3;                          /* Return to text mode */
+        intr(0x10, &regs);
+}
+
+/* Set visible page */
+
+void setvispage(int page)
+{
+        outport(CRTC_INDEX, (page << 15) | START_ADDRESS_HIGH);
+}
+
+/* Set active page (page being written to */
+
+void setactpage(int page)
+{
+        act_page = page ? 0x8000 : 0;
+}
+
+
+void WaitForVerticalRetrace(void)
+{
+static char chopper = 1;
+
+        while (inportb(DISPIO) & VRT_bit) /* wait */ ;
+        while ((inportb(DISPIO) & VRT_bit) == 0) /* wait */ ;
+        if ((chopper++ & 1)== 0)                outportb(0x3fc, 1);
+        else                                                                    
+outportb(0x3fc, 3);
+}
+
+void main(int argc, char *argv[])
+{
+   set320x400mode();
+
+/* Now fill the rgb_palette structure in memory with colour info */
+
+   setvgapalette(&rgb_palette);
+
+   setactpage(0);
+/* Now call writepixel to put stuff on page 0 */
+   setactpage(1);
+/* Now call writepixel to put stuff on page 1 */
+
+   while (!kbhit()) {
+           WaitForVerticalRetrace();
+           setvispage(0);
+           WaitForVerticalRetrace();
+           setvispage(1);
+   }
+   getch();
+   end320x400mode();
+}
+
+-- 
+
+Take a walk on the wild side, and I don't mean the Milford Track.
+Kayaking: The art of appearing to want to go where your boat is taking you.
+
+

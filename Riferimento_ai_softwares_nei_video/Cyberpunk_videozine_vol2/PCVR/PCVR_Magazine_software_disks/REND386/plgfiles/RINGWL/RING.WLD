@@ -1,0 +1,84 @@
+version 5
+options fp
+# World built with the: 2morrow WorldBuilder
+# Written by: Todd Porter & Joe Chicago
+# 2morrow Inc. - Helping You Build Tommorow's Worlds Today
+# For the complete version of the World Builder Contact us at either:
+#
+# Todd Porter
+# Cserve: 76505,1574
+# Internet: 76505.1574@compuserve.com
+#
+# Joe Chicago
+# Cserve: 72207,247
+# Internet: 72207.247@compuserve.com
+#
+# Thanks to Todd Porter not only for 2Morrow World Builder but for the
+# assistance and Star generator which allowed me to make this world.
+#
+# I run this world under REND386 Ver. 5.0 and I haven't tried it under
+# anything else. The stars are created using 1000 polygons which adds quite
+# a load on the system. Here are the stats for with and without stars.
+#
+#               With Stars    No Stars
+#
+# polygons        1,765         765
+#
+# memory usage    452k          371k
+#
+# Frame rate     11-12 fps    15-16 fps   
+# 
+# The frame rate was achieved on a 486/66 w/ VLBus under OS/2 V3.0 "Warp".
+# If you need to turn off the stars, put a pound sign "#" in front of the
+# statement that says "object stars..." on line 52.
+
+stepsize          1000       #I don't think worlds come much bigger.<G>
+loadpath          ringwld    #Where to find objects.
+flymode           1          #Flymode on
+worldscale        1.0        #1.0 mm per unit
+
+groundcolor       0          #Black
+skycolor          0          #Black
+screenclearcolor  0          #Saves render time
+
+hither            1          #Objects closer than this get clipped
+yon               5000000    #Objects farther than this get clipped
+ambient           25         #light level
+
+camera 1 -1090000,-100000,-573000 0,65,0 2.0
+
+#object filename[8] sx,sy,sz rx,ry,rz tx,ty,tz dt . . collide name[15]
+object ball  1,1,1 0,0,0 0,0,0 256 . . 0 fixed
+object stars 500,500,500 0,0,0 -5000000,-2500000,-5000000 2 . . 1 fixed
+
+# ***** Orbital spin of RingWorld *****
+ segment spin=world 0,0,0 0,0,0
+ object ring=ring 1000,1000,1000 90,0,0 0,0,0 0 . spin
+ object wall=ringside 1000,1,1000 0,0,0 0,-50000,0 0 . ring
+ object wall=ringside 1000,1,1000 0,0,0 0,50000,0 0 . ring
+ object clake 40,40,40 -90,0, 9  70000,-20000,496000 256 . ring
+ object bldg  18,18,18 -90,0,-9 -70000,     0,490000 256 . ring
+ object bldg  18,18,18 -90,0,-9 -70000, 10000,490000 256 . ring
+ object bldg  18,18,18 -90,0,-9 -70000, 20000,490000 256 . ring
+ object bldg  18,18,18 -90,0,-9 -70000, 30000,490000 256 . ring
+ object bldg  18,18,18 -90,0,-9 -70000, 40000,490000 256 . ring
+#Adding objects here and attaching them to ring will make them spin.
+
+ animation 150
+  state a
+   do spin=step(x,x,x x,x,.5)[]
+
+# ***** Day and Nite on RingWorld *****
+segment sunrise=world 0,0,0 0,0,0
+object niteday=niteday 5,5,5 90,0,0 0,0,0 2 . sunrise
+mlight -500000,0,0 0 40 niteday
+
+animation 10
+ state a
+  do sunrise=step(x,x,x x,x,-5)[]
+
+# Opening Title
+title      "RingWorld"
+title     
+title by Mark Stanley 1994
+title memory               # free memory after world is loaded

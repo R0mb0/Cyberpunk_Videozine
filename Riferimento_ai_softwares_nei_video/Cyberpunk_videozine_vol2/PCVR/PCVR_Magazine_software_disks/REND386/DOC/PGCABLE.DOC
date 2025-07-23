@@ -1,0 +1,74 @@
+
+      Connecting the Nintendo PowerGlove to a Standard Parallel Port
+                    Written by Bernie Roehl, July 1992
+           (based on an article on page 288 of the July 1990 Byte)
+
+What you're doing is building a cable that does two things: connects control
+signals from your parallel port to the Nintendo PowerGlove, and provides
+power (+5 volts and ground) to the PowerGlove.
+
+The connector you're looking for has 7 pins; if you're looking at a 5-pin
+connector, you've got the wrong cable.
+
+I would strongly suggest getting one of the Curtis "Super Extendo
+Cables", in order to avoid hacking away at the glove cable itself.
+
+The wiring is as follows:
+
+           DB-25 Connector        Nintendo Cable
+                 2                     2     (DATA CLOCK)
+                 3                     3     (LATCH)
+                13                     4     (DATA)
+                18                     1     (GROUND)
+
+In addition, you must supply +5 volts to the Nintendo Cable on pin 7
+(remember to connect ground (pin 1) to the supply's +5 volts!).
+
+You can get the +5 volts from the keyboard cable, or from an external supply.
+
+So which pins are which on the Nintendo cable?  If you look end-on at the
+connector you're building, as if you were the glove interface box, you will
+see that the connector is not rectangular.  It has a bulge out at one corner;
+the pin in the bulging corner is pin 1.  It's actually the first in a column
+of four pins; these are pins 1, 2, 3 and 4.  Continue reading around counter-
+clockwise and up the column of three pins; these are pins 5, 6 and 7.
+
+(If you're not sure about any of this, go to your local library and get the
+July 1990 issue of BYTE magazine; on page 288 you'll find all the info you
+need, including a nice illustration and details about getting power from
+your keyboard).
+
+NOTE: I make absolutely NO WARRANTY whatsoever that any of the above actually
+works as expected, and take NO RESPONSIBILITY for any damage to your computer,
+your PowerGlove or yourself.
+
+If you're not hardware-smart, you may want to contact a fellow named Jim
+Brain -- he's selling little boxes that do it all for you.
+
+Advantages of using his box:
+
+  - It handles all the overhead of talking to the glove, so your computer
+    doesn't have to.
+    
+  - It deals with all the timing-related issues, so your computer doesn't
+    have to.
+    
+  - It doesn't tie up your parallel port.
+  
+  - It provides support for the Sega 3D glasses.
+
+Disadvantages of using his box:
+
+  - It costs money (though not much).
+
+You can contact Jim Brain through the sci.virtual-worlds newsgroup on
+USENET; the email address I have for him looks like a student account,
+so it will probably have expired by the time you read this.
+
+Please don't contact me with questions about this; the above is the sum total
+of all my knowledge of the PowerGlove interface, and virtually all of it came
+from the Byte article.  If you've got questions, go to your library and look
+up that issue.
+
+PowerGlove is a registered trademark of Mattel, Inc U.S.A.
+Nintendo is a registered trademark of Nintendo of America Inc.

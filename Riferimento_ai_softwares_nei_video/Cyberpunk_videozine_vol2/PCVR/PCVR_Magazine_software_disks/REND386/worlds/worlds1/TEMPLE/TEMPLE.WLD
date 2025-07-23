@@ -1,0 +1,174 @@
+#
+# TEMPLE.WLD
+#
+# A Greco-Roman Temple with tree-lined avenue
+#
+# Chris Hand November 1992 for use with the REND386 package.
+#
+
+loadpath r386w\wld\worlds1\temple
+
+worldscale 1.0	        # 1.0 mm per unit
+
+hither            10    # anything closer than this gets clipped
+yon          1000000    # anything farther than this doesn't get rendered
+
+groundcolor 73		# brownish earth
+skycolor    171
+
+light	-50000,100000,-10000	# position of light source
+
+options a   # camera angles are tilt,pan,roll
+
+# Other possible start locations:
+#start 4929,1700,-33000 1436,-710,0 3
+#start 5115,1700,-31896 1436,-724,0 3
+#start 29149,11060,-13291 1382,-706,0 3
+#start 14827,1810,-21951 1410,-726,0 3
+#start 23919,2530,-14675  1392,-726,0 3
+
+#start -5386,490,-24117 1466,-732,0 3
+camera 1 -5386,490,-24117 -732,1466,0 3
+camera 2 -8551 19020 -32286 -692.937500 1463.558594 0.000000 3.000000
+
+# Use the following viewing position to look down on the roof
+# and check for the vis error where the columns and walls poke
+# through the roof:
+#start -8960,11000,-5630 1496,-710,0  3
+# -- fixed by adding split just under the roof (y=8400)
+
+# vis error: trees appear through the walls
+#start  -8648,1500,19994 1596,-730,0 3
+# -- fixed by adding split at z=-9000 (between trees and building)
+
+# error: back wall's edge pokes through side wall
+#start -8914,3850,16976 1576,-710,0 3
+# fixed (I think) by adding splits 7 and 8
+
+ambient 76
+
+# Surface definitions:
+
+surfacedef marble    0x1Df8
+surfacedef steel1    0x28eF
+surfacedef steel2    0x25eF
+surfacedef greystone 0x1faf
+surfacedef ltgreystone 0x1ffe
+surfacedef dkgreystone 0x1efe
+surfacedef newmarble 0x2DF8
+ 
+# ===== Surface mappings =====
+
+surfacemap cphmarble
+surface 1	newmarble
+surface 2	newmarble
+
+surfacemap stone
+surface 1 ltgreystone
+surface 2 ltgreystone
+surface 3 greystone
+
+surfacemap darkstone
+surface 1 dkgreystone
+
+surfacemap basecolors
+surface 1 marble
+surface 2 marble
+surface 3 marble
+surface 4 marble
+surface 5 marble
+surface 6 marble
+
+
+# ===== SPLITS =====
+#
+# (no objects actually "on" any of the splits)
+
+split 0,0,0 	0,1,0	# the ground plane (split number 1)
+#split 0,0,-100 	0,0,1	# vert plane between trees and building
+
+split 0,0,-1000	0,0,1	# divide the steps
+split 0,0,-1500	0,0,1
+split 0,0,-2000	0,0,1 
+split 0,0,-2500	0,0,1 
+split 0,0,-3000	0,0,1 
+split 0,0,-3500	0,0,1 
+
+split 0,1500,0 	0,1,0  	# split number 6 (base is below)
+split 0,8440,0	0,1,0	# divide upper/lower podium
+split 0,7500,0 	0,1,0 	# split number 5 (roof above/walls below)
+split 500,0,0 	1,0,0	# split number 7 (left wall/inside)
+split 6500,0,0	1,0,0	# split no 8 (inside/right wall)
+
+endsplits
+
+# ======== the building =========
+
+
+# ===== Lower parts -- base (podium) and steps =====
+
+#               scale xyz,     rotate,  translate
+
+object unitcube 7500,1500,12000 0,0,0 500,0,-1000	256 stone fixed	# podium
+
+object unitcube 7500,1250,500 0,0,0 500,0,-1500	256 stone fixed	# step 1
+object unitcube 7500,1000,500 0,0,0 500,0,-2000	256 stone fixed	# step 2
+object unitcube 7500,750,500 0,0,0 500,0,-2500	256 stone fixed	# step 3
+object unitcube 7500,500,500 0,0,0 500,0,-3000	256 stone fixed	# step 4
+object unitcube 7500,250,500 0,0,0 500,0,-3500	256 stone fixed	# step 5
+
+# ===== everything above the podium =====
+
+#
+# ===== the columns (orders) =====
+#
+object col20	6,6,60 90,0,0 1500,4500,0	256 darkstone fixed
+object col20	6,6,60 90,0,0 3330,4500,0	256 darkstone fixed
+object col20	6,6,60 90,0,0 5170,4500,0	256 darkstone fixed
+object col20	6,6,60 90,0,0 7000,4500,0	256 darkstone fixed
+
+object col20	6,6,60 90,0,0 1500,4500,1830	256 darkstone fixed
+object col20	6,6,60 90,0,0 7000,4500,1830	256 darkstone fixed
+
+#
+# ===== the walls =====
+#
+#               scale xyz     rotate  translate
+object unitcube 6500,6000,500 0,0,0 1000,1500,10500	256 stone 	# back wall
+object unitcube 500,6000,8000 0,0,0 700,1500,3000	256 stone 	# left wall
+object unitcube 500,6000,8000 0,0,0 7300,1500,3000	256 stone 	# right wall
+
+#
+# ===== the pediment =====
+#
+object unitcube 7500,1000,12000 0,0,0 500,7500,-1000	256 stone fixed	
+object lintel 2,8,125 	0,0,90 4250,9000,5000 		256 darkstone fixed
+#object star	5,5,1	0,0,-18	4200,9600,-1000		256 stone
+
+
+
+
+# A tree-lined drive leading to the door
+
+object fir2 0.7,1,0.7  	0,0,0  1500,0,-10000 	256 . fixed
+object fir2 0.8,1,0.8  	0,0,0  7000,0,-10000 	256 . fixed
+object fir2 0.8, 0.9, 0.8 0,0,0 1500,0,-12000 	256 . fixed
+object fir2 0.8, 0.9, 0.8 0,0,0 7000,0,-12000 	256 . fixed
+object fir2 0.8, 1, 0.8 0,0,0 1500,0,-14000 	256 . fixed
+object fir2 0.8, 0.95, 0.8 0,0,0 7000,0,-14000 	256 . fixed
+object fir2 0.7,1.05,0.7 0,0,0  1500,0,-16000 	256 . fixed
+object fir2 0.8,1,0.8  	0,0,0  7000,0,-16000 	256 . fixed
+object fir2 0.8, 0.95, 0.8 0,0,0 1500,0,-18000 	256 . fixed
+object fir2 0.8, 1, 0.8 0,0,0 7000,0,-18000 	256 . fixed
+object fir2 0.7,1,0.7  	0,0,0  1500,0,-20000 	256 . fixed
+object fir2 0.8,1,0.8  	0,0,0  7000,0,-20000 	256 . fixed
+object fir2 0.8, 1, 0.8 0,0,0 1500,0,-22000 	256 . fixed
+object fir2 0.8, 0.95, 0.8 0,0,0 7000,0,-22000 	256 . fixed
+
+# End of temple.wld
+
+
+
+title Greco-Roman Temple
+title by Chris Hand
+title memory

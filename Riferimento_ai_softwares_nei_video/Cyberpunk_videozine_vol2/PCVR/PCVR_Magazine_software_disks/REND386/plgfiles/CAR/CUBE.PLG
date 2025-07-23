@@ -1,0 +1,31 @@
+#
+# Simple Cube (to be used as buildings or parts of buildings)
+# Created By James F. Moon-Dupree
+#
+# April 1, 1994
+#
+
+cube 8 6
+
+# Vertices
+
+     0      0      0    # 0
+100000      0      0
+100000 100000      0
+     0 100000      0
+
+     0      0 100000
+100000      0 100000
+100000 100000 100000
+     0 100000 100000    # 7
+
+
+# Polygons
+
+0x11FA 4 0 1 2 3 
+0x11FA 4 7 6 5 4
+0x11FA 4 3 7 4 0  
+0x11FA 4 6 2 1 5
+0x11FA 4 6 7 3 2
+0x11FA 4 1 0 4 5
+

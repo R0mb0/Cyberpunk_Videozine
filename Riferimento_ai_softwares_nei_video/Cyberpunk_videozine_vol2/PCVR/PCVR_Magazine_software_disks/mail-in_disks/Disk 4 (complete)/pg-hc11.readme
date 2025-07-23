@@ -1,0 +1,9 @@
+This is the complete 1.1 release of the 68HC11 Power Glove reading code.
+Uudecode this, then un-Zoo it, making sure to supply the option that
+extracts directories also.
+
+Please read the file pg.txt in this archive for more details.
+
+-Ron Menelli
+menelli@tellabs.com
+

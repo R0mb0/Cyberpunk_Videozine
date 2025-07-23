@@ -1,0 +1,77 @@
+#
+# BASE.WLD
+#
+# A Military Base in the desert
+#
+# Created by Jason Barile (barilejb@ctrvax.vanderbilt.edu)
+# for "Virtual World Creations", published by the Waite Group
+#
+
+loadpath base
+stepsize 2
+
+options a   # camera angles are tilt,pan,roll
+
+light 10000, 10000, -200
+
+worldscale 1.0
+
+hither 5
+yon 1000000
+
+#start 4500, 160, -7500 0, 0, 0, 1
+camera 1 4500, 160, -7500 0, 0, 0, 1
+camera 2 5 1960 2528 19.531250 224.609375 0.000000 0.909088
+
+ambient 76
+groundcolor 75  # desert sand
+
+# guard tower 1
+object tower 1,1,1 0,0,0 4795, 0, -4995   0 . fixed
+object tower 1,1,1 0,0,0 -4995, 0, -4995  0 . fixed
+object tower 1,1,1 0,0,0 -4995, 0, 4795   0 . fixed
+object tower 1,1,1 0,0,0 4795, 0, 4795    0 . fixed
+
+# barracks
+object barracks 1,1,1 0,-90,0 -2500,0,-4500 0 . fixed
+object barracks 1,1,1 0,-90,0 -2500,0,-2500 0 . fixed
+object barracks 1,1,1 0,-90,0 -2500,0,-500  0 . fixed
+object barracks 1,1,1 0,-90,0 -2500,0,1500  0 . fixed
+object barracks 1,1,1 0,-90,0 -2500,0,3500  0 . fixed
+
+# flagpole
+object flag 1,1,1 0,-90,0 -2300,0,-3700
+object flag 1,1,1 0,-90,0 -2300,0,-1700
+object flag 1,1,1 0,-90,0 -2300,0,300
+object flag 1,1,1 0,-90,0 -2300,0,2300
+object flag 1,1,1 0,-90,0 -2300,0,4300
+
+# guard booth
+object booth 1,1,1 0,0,0 3800,0,-5300   0 . fixed
+figure gate=gate 1,1,1 0,0,0 4100, 0, -5200
+
+# the fence surrounding the base
+object fence 1,1,1 0,0,0 0,0,0 0 . fixed
+
+animation 15
+
+state closed
+	do gate.gate = selected(1) [] [state=opening]
+
+state opening
+	do gate.gate = step(x,x,x, x,x,15) [] []
+	do gate.gate = rotlimit(x,x,0, x,x,45) [state=open] []
+
+state open
+	do gate.gate = selected(1) [] [state=closing]
+
+state closing
+	do gate.gate = step(x,x,x, x,x,-15) [] []
+	do gate.gate = rotlimit(x,x,0 x,x,45) [state=closed] []
+
+# End of base.wld
+
+title A Military Base in the desert
+title by Jason Barile
+title (barilejb@ctrvax.vanderbilt.edu)
+title memory

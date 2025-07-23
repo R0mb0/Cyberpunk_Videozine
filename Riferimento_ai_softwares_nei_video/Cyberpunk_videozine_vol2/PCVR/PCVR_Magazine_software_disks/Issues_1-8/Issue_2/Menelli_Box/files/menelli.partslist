@@ -1,0 +1,45 @@
+
+Job : j960123.002 : menelli_box
+
+.PARTS
+IC1      DIL16,16pin                        DIL16             --              
+IC2      68HC11,MC68HC11                    DIL48             --              
+XT1      HC33/U,8MHz                        HC33/U            --              
+R1       R0.5W,10M                          RESA12            --              
+R2       R0.5W,4.7k                         RESA12            --              
+R3       R0.5W,4.7k                         RESA12            --              
+R4       R0.5W,10k                          RESA12            --              
+R5       R0.5W,10k                          RESA12            --              
+R6       R0.5W,10k                          RESA12            --              
+R7       R0.5W,10k                          RESA12            --              
+R8       R0.5W,10k                          RESA12            --              
+R9       R0.5W,10k                          RESA12            --              
+R10      R0.5W,10k                          RESA12            --              
+R11      R0.5W,10k                          RESA12            --              
+R12      R0.5W,10k                          RESA12            --              
+R13      R0.5W,10k                          RESA12            --              
+R14      R0.5W,10k                          RESA12            --              
+R15      R0.5W,10k                          RESA12            --              
+R16      R0.5W,10k                          RESA12            --              
+R17      R0.5W,10k                          RESA12            --              
+R18      R0.5W,10k                          RESA12            --              
+R19      R0.5W,4.7k                         RESA12            --              
+R20      R0.5W,10k                          RESA12            --              
+R21      R0.5W,4.7k                         RESA12            --              
+C1       CAPA16,18pF                        CAPA16            --              
+C2       CAPA12E,10u                        CAPA12E           --              
+C3       CAPA12,470F                        CAPA12            --              
+C4       CAPA16,18pF                        CAPA16            --              
+C5       CAPA12E,10u                        CAPA12E           --              
+C6       CAPA12,470F                        CAPA12            --              
+C7       CAPA12E,0.1uF                      CAPA12E           --              
+C8       CAPA12E,10u                        CAPA12E           --              
+PL1      SIL5,SIL5                          SIL5              --              
+J1       D25WYSK,D25WYSK                    D25WYSK           --              
+TP1      TESTPIN,TP                         SIL1              --              
+TP2      TESTPIN,TP                         SIL1              --              
+TP3      TESTPIN,TP                         SIL1              --              
+.ENDPARTS
+testpins used because i couldnt find MC34064p-5 template
+IC1 is for MAX232
+

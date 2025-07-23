@@ -1,0 +1,51 @@
+Errata to _Graphics Gems IV_, first edition, edited by Paul Heckbert
+(Paul.Heckbert@HOSTESS.GRAPHICS.CS.CMU.EDU), Academic Press 1994.  Code
+available online in princeton.edu:pub/Graphics/GraphicsGems/GemsIV.
+
+compiled by Eric Haines (erich@eye.com) from author and reader contributions
+
+version 1.1
+date:  12/13/94
+
+-----
+
+Errors in the text:
+
+p. 129, lines 4,7,10:  changes:
+	    "if (x < 0)" to "if (x >= 0)",
+	    "if (y < 0)" to "if (y >= 0)",
+	    "if (z < 0)" to "if (z >= 0)".
+
+p. 349, for (Moore 1992):  change "Rice University, Houston, TX" to "Cornell
+	University, Ithaca, NY".
+
+-----
+
+The following are errors in the code listings (corrected in the online code at
+princeton.edu:pub/Graphics/GraphicsGems/GemsIV).  Note that many of the code
+listings online are different in minor and major ways from the code in the
+book.
+
+
+Serious errors (ones your compiler cannot or may not catch):
+
+[none so far]
+
+-----
+
+Syntax errors (ones that are not usually harmful, or are easily caught):
+
+[none so far]
+
+-----
+
+The following are typographical errors in the comments:
+
+[none so far]
+
+-----
+
+A new point in polygon test has been added to ptpoly_haines/ptinpoly.c, a
+variation on the Crossings test which is about 15% faster for triangles.
+
+END

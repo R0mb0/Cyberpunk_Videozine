@@ -1,0 +1,21 @@
+#
+# Car Door
+# Created By James F. Moon-Dupree
+#
+# April 1, 1994
+#
+
+car-door 4 2
+
+# Verticies
+
+     0      0  0
+510000      0  0
+510000 400000  0
+     0 400000  0
+
+# Polygons
+
+0x2BFF 4 0 1 2 3
+0x00FF 4 3 2 1 0
+

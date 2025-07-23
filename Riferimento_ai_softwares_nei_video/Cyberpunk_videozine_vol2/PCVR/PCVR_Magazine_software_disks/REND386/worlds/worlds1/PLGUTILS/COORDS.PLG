@@ -1,0 +1,13 @@
+# a 3-axis coordinate system indicator
+# colors match the coordinate compass
+
+coords 4 3
+# X      Y       Z
+ 0       0       0      # center point
+ 1000    0       0      # X axis
+ 0       1000    0      # Y axis
+ 0       0      1000    # Z axis
+
+0x000F 2 0 1    # X axis: white
+0x000D 2 0 2    # Y axis: magenta
+0x000A 2 0 3    # Z axis: yellow

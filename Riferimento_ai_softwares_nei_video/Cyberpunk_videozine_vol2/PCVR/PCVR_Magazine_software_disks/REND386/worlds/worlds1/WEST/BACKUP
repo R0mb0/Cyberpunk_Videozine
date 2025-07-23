@@ -1,0 +1,227 @@
+#
+# A ghost town.  No ghosts, though.
+#
+# Created by Bernie Roehl, November 1992
+#
+
+groundcolor 70
+
+######### SURFACES ########
+
+surfacedef glass 0x31A0
+surfacedef doorpanel 0x12AA
+
+surfacedef roadcolor 0x14AA  # a light brown sandy color
+
+surfacedef salout   0x17AA  # outside wall of saloon
+surfacedef salin    0x19AA  # inside wall of saloon
+surfacedef salroof  0x1AAA  # the roof of the saloon
+surfacedef salceil  0x1BAA  # the ceiling of the saloon
+surfacedef salfloor 0x1CAA  # the floor of the saloon
+
+surfacedef hotelout   0x17AA  # outside wall of hotel
+surfacedef hotelin    0x19AA  # inside wall of hotel
+surfacedef hotelroof  0x1AAA  # the roof of the hotel
+surfacedef hotelceil  0x1BAA  # the ceiling of the hotel
+surfacedef hotelfloor 0x1CAA  # the floor of the hotel
+
+surfacedef churchout   0x17AA  # outside wall of church
+surfacedef churchin    0x19AA  # inside wall of church
+surfacedef churchroof  0x1AAA  # the roof of the church
+surfacedef churchceil  0x1BAA  # the ceiling of the church
+surfacedef churchfloor 0x1CAA  # the floor of the church
+surfacedef churchfront 0x17AA  # the front of the church
+surfacedef crosscolor  0x11AA  # the cross
+
+surfacedef bankout   0x17AA  # outside wall of bank
+surfacedef bankin    0x19AA  # inside wall of bank
+surfacedef bankroof  0x1AAA  # the roof of the bank
+surfacedef bankceil  0x1BAA  # the ceiling of the bank
+surfacedef bankfloor 0x1CAA  # the floor of the bank
+surfacedef bankfront 0x17AA  # the front of the bank
+
+surfacedef stationout   0x17AA  # outside wall of station
+surfacedef stationin    0x19AA  # inside wall of station
+surfacedef stationroof  0x1AAA  # the roof of the station
+surfacedef stationceil  0x1BAA  # the ceiling of the station
+surfacedef stationfloor 0x1CAA  # the floor of the station
+surfacedef stationfront 0x17AA  # the front of the station
+surfacedef platform     0x1DAA  # the train platform
+
+surfacemap saloon
+surface 1 salin
+surface 2 salout
+surface 3 glass
+surface 4 glass
+
+surfacemap hotelcolors
+surface 1 salin
+surface 2 salout
+surface 3 glass
+surface 4 glass
+
+surfacemap hoteldoorcolors
+surface 1 hotelout
+surface 2 doorpanel
+surface 3 doorpanel
+surface 4 hotelout
+surface 5 doorpanel
+surface 6 doorpanel
+
+surfacemap churchdoorcolors
+surface 1 churchfront
+surface 2 doorpanel
+surface 3 doorpanel
+surface 4 churchfront
+surface 5 doorpanel
+surface 6 doorpanel
+
+surfacemap bankdoorcolors
+surface 1 bankout
+surface 2 doorpanel
+surface 3 doorpanel
+surface 4 bankout
+surface 5 doorpanel
+surface 6 doorpanel
+
+surfacemap bankcolors
+surface 1 bankin
+surface 2 bankout
+
+surfacemap stationcolors
+surface 1 stationin
+surface 2 stationout
+
+surfacemap statdoorcolors
+surface 1 stationout
+surface 2 doorpanel
+surface 3 doorpanel
+surface 4 stationout
+surface 5 doorpanel
+surface 6 doorpanel
+
+###### SPLITS ######
+
+split 0,310,0 0,100,0      # ceiling-level
+polyobj2 4 salroof,salceil 400,310,1600 400,310,2800 1100,310,2800 1100,310,1600
+polyobj2 4 hotelroof,hotelceil 1900,310,1800 1900,310,3400 2500,310,3400 2500,310,1800
+polyobj2 4 bankroof,bankceil 600,310,3100 600,310,3700 1100,310,3700 1100,310,3100
+polyobj2 4 stationroof,stationceil 400,310,500 400,310,1200 800,310,1200 800,310,500
+polyobj2 4 stationroof,stationceil 800,310,900 800,310,1200 1000,310,1200 1000,310,900
+
+split 0,0,1 0,100,0        # ground-level
+polyobj  4 salfloor 400,1,1600 400,1,2800 1100,1,2800 1100,1,1600
+polyobj 4 hotelfloor 1900,1,1800 1900,1,3400 2500,1,3400 2500,1,1800
+polyobj  4 bankfloor 600,1,3100 600,1,3700 1100,1,3700 1100,1,3100
+polyobj  4 stationfloor 400,1,500 400,1,1200 800,1,1200 800,1,500
+polyobj  4 stationfloor 800,1,900 800,1,1200 1000,1,1200 1000,1,900
+
+endsplits
+
+#######################
+# A road through town #
+#######################
+
+polyobj 5 roadcolor 1300,1,200 1300,1,800 1500,1,1700 1700,1,900 1700,1,200
+polyobj 5 roadcolor 1300,1,800 1200,1,1700 1400,1,2500 1700,1,2500 1500,1,1700
+polyobj 4 roadcolor 1400,1,2500 1200,1,3100 1600,1,3100 1700,1,2500
+polyobj 4 roadcolor 1400,1,2500 1200,1,3100 1600,1,3100 1700,1,2500
+polyobj 4 roadcolor 1200,1,3100 1500,1,3800 1800,1,3800 1600,1,3100
+polyobj 4 roadcolor 1500,1,3800 2000,1,4100 2200,1,4000 1800,1,3800
+
+##############
+# The Saloon #
+##############
+
+polyobj2 4 salout,salin 400,1,1600 400,310,1600 1100,310,1600 1100,1,1600
+polyobj2 4 salout,salin 400,1,2800 400,310,2800 400,310,1600 400,1,1600
+polyobj2 4 salout,salin 1100,1,2800 1100,310,2800 400,310,2800 400,1,2800
+polyobj2 4 salout,salin 1100,260,2000 1100,310,2000 1100,310,2300 1100,260,2300
+
+object window 5,3.1,1 0,-90,0 1100,1,2300 0 saloon
+object window 4,3.1,1 0,-90,0 1100,1,1600 0 saloon
+
+#############
+# The Hotel #
+#############
+
+polyobj2 4 hotelout,hotelin 1900,1,1800 1900,310,1800 2500,310,1800 2500,1,1800
+polyobj2 4 hotelout,hotelin 2500,1,1800 2500,310,1800 2500,310,3400 2500,1,3400
+polyobj2 4 hotelout,hotelin 2500,1,3400 2500,310,3400 1900,310,3400 1900,1,3400
+
+# Front wall
+
+polyobj2 4 hotelout,hotelin 1900,1,2900 1900,310,2900 1900,310,2800 1900,1,2800
+polyobj2 4 hotelout,hotelin 1900,1,2600 1900,310,2600 1900,310,2500 1900,1,2500
+polyobj2 4 hotelout,hotelin 1900,260,2800 1900,310,2800 1900,310,2600 1900,260,2600
+
+object window 5,3.1,1 0,90,0 1900,1,3400 0 hotelcolors
+object window 7,3.1,1 0,90,0 1900,1,2500 0 hotelcolors
+
+object door 25,26,1 0,90,0 1900,1,2800 0 hoteldoorcolors
+object door 25,26,1 0,-90,0 1900,1,2600 0 hoteldoorcolors
+
+##############
+# The Church #
+##############
+
+polyobj2 4 churchout,churchin 1900,1,500 1900,310,500 3000,310,500 3000,1,500
+polyobj2 4 churchout,churchin 3000,1,1400 3000,310,1400 1900,310,1400 1900,1,1400
+polyobj2 4 churchroof,churchceil 1900,311,500 1900,620,950 3000,620,950 3000,311,500
+polyobj2 4 churchroof,churchceil 3000,311,1400 3000,620,950 1900,620,950 1900,311,1400
+polyobj2 3 churchfront,churchin 1900,310,1400 1900,620,950 1900,310,500
+polyobj2 4 churchfront,churchin 1900,1,1400 1900,310,1400 1900,310,1100 1900,1,1100
+polyobj2 4 churchfront,churchin 1900,260,1100 1900,310,1100 1900,310,700 1900,260,700
+polyobj2 4 churchfront,churchin 1900,1,700 1900,310,700 1900,310,500 1900,1,500
+
+object door 50,26,1 0,90,0 1900,1,1100 0 churchdoorcolors
+object door 50,26,1 0,-90,0 1900,1,700 0 churchdoorcolors
+
+# Cross on roof
+
+polyobj2 4 crosscolor,crosscolor 1989,600,910 1989,1000,910 1989,1000,890 1989,600,890
+polyobj2 4 crosscolor,crosscolor 1989,900,950 1989,920,950 1989,920,850 1989,900,850
+
+polyobj 4 churchfloor 1900,1,500 1900,1,1400 3000,1,1400 3000,1,500
+
+object stglass 60,31,1 0,-90,0 3000,1,500 0
+
+############
+# The Bank #
+############
+
+polyobj2 4 bankout,bankin 600,1,3100 600,310,3100 1100,310,3100 1100,1,3100
+polyobj2 4 bankout,bankin 600,1,3700 600,310,3700 600,310,3100 600,1,3100
+polyobj2 4 bankout,bankin 1100,1,3700 1100,310,3700 600,310,3700 600,1,3700
+
+object dframe 6,3.1,1 0,-90,0 1100,1,3100 0 bankcolors
+object door 50,20.15,1 0,-90,0 1100,1,3300 0 bankdoorcolors
+
+#####################
+# The Train Station #
+#####################
+
+polyobj2 4 stationout,stationin 400,1,500 400,310,500 800,310,500 800,1,500
+polyobj2 4 stationout,stationin 400,1,900 400,310,900 400,310,500 400,1,500
+polyobj2 4 stationout,stationin 400,1,1200 400,310,1200 400,310,1100 400,1,1100
+polyobj2 4 stationout,stationin 1000,1,1200 1000,310,1200 400,310,1200 400,1,1200
+polyobj2 4 stationout,stationin 1000,1,900 1000,310,900 1000,310,1200 1000,1,1200
+polyobj2 4 stationout,stationin 800,1,900 800,310,900 1000,310,900 1000,1,900
+
+polyobj  4 platform 200,50,700 200,50,1100 400,50,1100 400,50,700
+
+# front door
+object dframe 4,3.1,1 0,-90,0 800,1,500 0 stationcolors
+object door 30,20.15,1 0,-90,0 800,1,640 0 statdoorcolors
+
+# back door
+object dframe 2,3.1,1 0,90,0 400,1,1100 0 stationcolors
+object door 15,20.15,1 0,90,0 400,1,1030 0 statdoorcolors
+
+#################
+# The viewpoint #
+#################
+
+start 1656,100,1926 -62,0,0 1
+
+# End of west.wld

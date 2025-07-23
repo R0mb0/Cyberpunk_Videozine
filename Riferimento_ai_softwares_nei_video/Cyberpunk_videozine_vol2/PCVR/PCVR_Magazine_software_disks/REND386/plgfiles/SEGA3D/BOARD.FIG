@@ -1,0 +1,64 @@
+comment = The Rend386 Circuit;
+comment = Created by Todd Porter, April 1993;
+comment = Part of the Sega3D world;
+
+{
+	name = board;
+	plgfile = b11a.plg scale 1,1,1;
+	pos = 0,0,0;
+	{
+		name = part1;
+		plgfile = b1a.plg scale 1,1,1;
+		pos = 0,0,0;
+	 }
+	 {               
+		name = part2;
+		plgfile = b2a.plg scale 1,1,1;
+		pos = 0,0,0;
+	 }
+	 {
+		name = part3;
+		plgfile = b3a.plg scale 1,1,1;
+		pos = 0,0,0;
+	 {
+		name = part4;
+		plgfile = b4a.plg scale 1,1,1;
+		pos = 0,0,0;
+	 }
+	 {
+		name = part5;
+		plgfile = b5a.plg scale 1,1,1;
+		pos = 0,0,0;
+	 }
+	 {
+		name = part6;
+		plgfile = b6a.plg scale 1,1,1;
+		pos = 0,0,0;
+	 }
+	 {
+		name = part7;
+		plgfile = b7a.plg scale 1,1,1;
+		pos = 0,0,0;
+	 }
+	 {
+		name = part8;
+		plgfile = b8a.plg scale 1,1,1;
+		pos = 0,0,0;
+	 }
+	 {
+		name = part9;
+		plgfile = b9a.plg scale 1,1,1;
+		pos = 0,0,0;
+	 }
+	 {
+		name = part10;
+		plgfile = b10a.plg scale 1,1,1;
+		pos = 0,0,0;
+	 }
+	 {
+		name = chip;
+		plgfile = b12a.plg scale 1,1,1;
+		pos = 0,0,0;
+	 }
+}
+

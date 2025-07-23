@@ -1,0 +1,16 @@
+
+Version 1.0d4 of Vort/Art for the Macintosh II.
+Requires 68020+68881.
+
+This is a Macintosh version of the raytracer and image viewing
+tools from vort (the very ordinary rendering toolkit).
+This is free software; all source code is provided.
+
+The vort package comes from the University of Melbourne.
+The original sources, and lots of images, etc, can
+be found at the ftp site gondwana.ecr.mu.oz.au.
+
+The raytracer uses a fairly readable scene description language,
+accepts offiles, allows use of images as surface textures,
+does CSG modelling, and handles arbitrary algebraic surfaces.
+

@@ -1,0 +1,10 @@
+base.plg          325  02-16-93  
+box.plg           209  02-16-93  
+checdem.wld      3697  02-17-93  
+check.plg          65  02-18-93  
+checker.exe     11648  02-18-93  
+column.plg        434  02-16-93  
+column1.plg       454  02-16-93  
+go.bat            195  02-18-93  
+read.me          3468  02-18-93  
+roof.plg          166  02-16-93  

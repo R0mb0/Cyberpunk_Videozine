@@ -1,0 +1,21 @@
+Please note that if you copy eBones-p9.tar.Z you need to replace the
+DES library with the newer libdes.tar.18-05-92.Z (or the version
+posted to comp.sources.misc, patchlevel 2 (version 1.95))
+The bugs fixes since the original des library are.
+
+Version 1.94 05/05/92 eay
+        Fixed an incompatiblity between my string_to_key and the MIT
+         version.  When the key is longer than 8 chars, I was wrapping
+        with a different method.  To use the old version, define
+         OLD_STR_TO_KEY in the makefile.  Thanks to
+         viktor@newsu.shearson.com (Viktor Dukhovni).
+
+Version 1.8 15/10/91 eay
+        Bug in cbc_cksum.
+        Many thanks to Keith Reynolds (keithr@sco.COM) for pointing this
+        one out.
+
+Version 1.40 23/10/1990 eay
+        Fixed des_random_key, it did not produce a random key :-(
+
+

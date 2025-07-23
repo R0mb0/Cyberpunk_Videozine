@@ -1,0 +1,139 @@
+#########################################################################
+#  This is a scenery from a fair. Created at IMPART 5/93                #
+#  Sorry, but the scenery needs real CPU Power (468 recommended,        #
+#  586 prototype better).                                               #
+#  We've build it to collect experience in work with REND386.           #
+#  Most of the objects are created using the OGRE Object Generator.     #
+#  The logo was build using HPGL output file of Corel(Easy to convert   #
+#  into *.PLG (PoLyGrin - format)).                                     #
+#  Maybee there're some splitplanes hanging arround without function,   #
+#  but after all we were to tired to clean up the file.                 #
+#  The screens at the stand are animated with a task-routine called     #
+#  "spinner". I've never seen that it is used in a *.WLD file so far.   #
+#  Oh: The mountains are created by Ed Schindler and "borrowed" from    #
+#  his "POOL.WLD".
+#########################################################################  
+
+# GLOBAL WORLD SETTINGS:
+
+worldscale 1.0         # 1.0 mm per unit
+
+hither 10              # anything closer gets clipped
+yon    40000000        # anything farther doesn't get rendered
+
+start 0,2000,0 180,0,0 1
+light 500,2300,0
+ambient 50
+
+
+# SURFACE SETTINGS (only used once, plg-painting is easier):
+
+# Surface definition:
+surfacedef lgrey 0x19c8
+surfacedef dgrey 0x1980
+
+# Surface mappings:
+surfacemap skelet
+surface 1 lgrey
+surface 2 dgrey
+
+
+# OBJECT PLACEMENT
+
+# The main hall:
+split 0,0,0 0,1,0            0
+object bottom 1,1,1 0,0,0 0,0,0 0 skelet fixed
+split 0,-2,0 0,1,0           1
+object ground 1,1,1 0,0,0 0,0,0
+
+split 0,5001,0 0,1,0         6
+object 2roof 1,1,1 0,0,0 0,0,0 0 skelet fixed
+
+split 0,0,25070 0,0,1        2
+object frntwal 1,1,1 0,0,0 0,0,0 0 . fixed
+object rdoor 1,1,1 0,0,0 0,0,0
+object ldoor 1,1,1 0,0,0 0,0,0
+split -25075,0,0 1,0,0       3
+object lsdewal 1,1,1 0,0,0 0,0,0 0 . fixed
+split  25075,0,0 1,0,0       4
+object rsdewal 1,1,1 0,0,0 0,0,0 0 . fixed
+split 0,0,-25075 0,01        5
+object bckwal 1,1,1 0,0,0 0,0,0 0 . fixed
+
+endsplits
+   
+object 1pillar 1,1,1 0,0,0 0,0,0
+object 2pillar 1,1,1 0,0,0 0,0,0
+object 3pillar 1,1,1 0,0,0 0,0,0
+object 4pillar 1,1,1 0,0,0 0,0,0
+
+
+# The scenery:
+object hall 1,1,1 0,0,0 70000,0,0
+object hall 1,1,1 0,180,0 0,0,100000
+object hall 1,1,1 0,-130,0 70000,0,70000
+
+# Some mountains borrowed from Ed Schindler (comment 'em out if speed slows down)
+object mount1 3,3,3 0,50,0 -120000,1600,80000 768 . fixed
+object mount1 3,3,3 0,120,0 -250000,1600,10000 768 . fixed
+
+# The fair stand:
+
+split 0,0,0 0,1,0            7
+object stfloor 1,1,1 0,0,0 0,0,0 0 . fixed 
+
+split 0,0,4419 0,0,1         8
+object stceil 1,1,1 0,0,0 0,0,0 0 . fixed
+object screen 1,1,1 0,0,0 0,0,0 0 . fixed
+object screen 1,1,1 0,0,0 4000,0,0 0 .fixed
+
+split 0,0,-4419 0,0,1        9
+object stwall 1,1,1 0,0,0 0,0,0 0 . fixed
+object logo 1,1,1 0,0,0 0,0,0 0 . fixed
+
+split 0,0,-2000 0,0,1       10
+object table 1,1,1 0,0,0 0,0,0 0 . fixed  
+
+split 0,0,-1990 0,0,1       11
+object desk 1,1,1 0,0,0 0,2,0 0 . fixed
+split 0,300,0 0,0,1         13
+object moni 1,1,1 0,0,0 1600,0,0 0 . fixed
+object m1=blink 1,1,1 0,0,0 1600,0,0 0 . fixed 
+object moni 1,1,1 0,0,0 -1600,0,0 0 . fixed
+object m2=blink 1,1,1 0,0,0 -1600,0,0 0 . fixed
+split 0,0,-2010 0,0,1       12
+object desk 1,1,1 0,0,0 0,2,0 0 . fixed
+
+split 1000,800,-1000 1,0,0    16
+object stool 1,1,1 0,0,0 1000,800,-1000 0 . fixed
+split -1000,800,-1000 1,0,0   17
+object stool 1,1,1 0,0,0 -1000,800,-1000 0 . fixed
+split 1800,800,-1000 1,0,0    15
+object stool 1,1,1 0,0,0 1800,800,-1000 0 . fixed
+split -1800,800,-1000 1,0,0   18 
+object stool 1,1,1 0,0,0 -1800,800,-1000 0 . fixed
+
+split  0,0,0 0,1,0             20
+object plant 1,1,1 0,0,0 0,300,0 768 . fixed
+split 3500,300,-900 1,0,0      14
+object plant 1,1,1 0,0,0 3500,300,-900 0 . fixed
+split -3500,300,-900 1,0,0     19
+object plant 1,1,1 0,0,0 -3500,300,-900 0 . fixed 
+
+object fn=fan 0.5,0.5,0.5 0,0,0 0,2000,0
+
+endsplits
+
+# TASK SETTINGS
+
+# Fan rotation:
+task sculspin 25 fn;0,18,0
+
+# The mistery "spinner":
+task spinner 10 m1;0,10,0
+task spinner 40 m2;0,10,0
+
+# Thats all for the moment.
+# M.A. 07-05-93
+# Wolfgang Lemke
+# 110117.2264@compuserve.com (INTERNET)

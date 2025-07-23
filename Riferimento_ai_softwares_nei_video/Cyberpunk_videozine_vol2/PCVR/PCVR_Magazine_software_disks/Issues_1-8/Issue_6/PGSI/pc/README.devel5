@@ -1,0 +1,68 @@
+I finally hacked the PGSI into REND386 (actually did this about two
+weeks ago, but had to leave on what turned out to be a two-week
+business trip). 
+
+I've posted this to sunee.uwaterloo.ca under
+pub/vr/incoming/devel5.zip. 
+
+Basically the same as devel4.zip with the following caveats; also,
+I've included the READ.ME  file from the .ZIP. 
+
+1) This is DEFINITELY a hacked version. I used IBMCOM.C (sent to 
+   me by Chris Hand) which replaces the com port interrupt routine
+   in order to keep up with 9600 baud from the PGSI. 
+
+   It does NOT back out gracefully; so if you run rend386 and then
+   try to run mouse-based stuff (such as WINDOZE) then you'll
+   DEFINITELY get some weird crashes. 
+2) If folks look at the code, they'll see that I put in
+   code to "sync" with the PGSI data stream. I know this is wasteful, 
+   but I don't have access to a serial port datascope and this works
+   consistently (at least on my machine). 
+3) I developed this on a 486/40MHZ machine, so if it is unbearably
+   slow I apologize in advance. 
+4) I just today got word that the PGSI test code was posted; I have 
+   downloaded it but haven't looked at it yet. 
++5) My code does NOT support the SEGA glasses at present.
+   Problem is/was that adding the interrupt-driven PowerGlove support
+   required me to rip out the SEGA handling code in order to fit into the
+   brain-damaged DOS memory requirements.
+
+Have fun! Let's get this sucker doing some really cool stuff, like
+using the glove arrows instead of keyboard arrows to move around, etc.
+etc. 
+
+Charlie
+----------------READ.ME file from DEVEL5.ZIP-----------------------
+7/29/93
+
+Contents of this PKZIP file (produced by pkzip 2.03): 
+
+1) Fixes to WORLD.C to allow it to compile under BORLAND C++ version
+   2.0 (already compiles OK under 3.1). I replaced about 80% of the 
+   if/then/else/if/then/else/if/then .. block with a correspondingly
+   huge SELECT statement. 
+2) Modified the makefiles to invoke BCC instead of TCC (Turbo C). 
+3) Also modified the makefiles to append ".c" to the end of the
+   names of source files (this to make the BCC command properly 
+   compile them as C code instead of C++). 
+4) Threw in mods from Chris Hand for support of the Menelli box
+   (see read.me in the SEGA subdirectory for details). 
+
+I'm currently hacking hard to get the PGSI (PowerGlove Serial Port) to work
+with REND386 (starting with Chris' code). 
+
+Charlie Lindahl
+University of Texas at Arlington
+Staff Researcher - Computer Science & Electrical Engineering depts
+EMAIL: lindahl@cse.uta.edu
+
+
+
+
+
+
+
+
+
+

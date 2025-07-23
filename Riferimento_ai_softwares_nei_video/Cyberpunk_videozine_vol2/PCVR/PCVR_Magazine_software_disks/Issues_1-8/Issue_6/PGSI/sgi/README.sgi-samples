@@ -1,0 +1,14 @@
+The files in this directory are sample programs for the 
+Personal Iris, using the AGE 'Power Glove Serial Adapter'
+(PGSA), aka the "black box."
+
+They are supplied "as is," with no warranty implied.
+
+	glove_stream.c	basic program to read glove data
+	flyinghand.c	displays a wireframe graphic
+	surface_flicker.c
+			3D drawing program.  Has 'flicker mode'
+			for use with shutter glasses (which, in 
+			this case, are NOT synched by the Iris)
+	
+Questions etc. should go to:  gbnewby@alexia.lis.uiuc.edu

@@ -1,0 +1,61 @@
+                           Use of Colors in REND386
+                          Version 1.00 -- April 1992
+                                 Bernie Roehl
+
+The REND386 package associates a 16-bit color value with each polygon in the
+rendering database.  They are represented in .plg files as hex numbers.
+
+In 256-color mode, this 16-bit value is interpreted as follows:
+
+         H R SS CCCC BBBBBBBB
+
+The H bit is used internally to mark a polygon as "highlighted"; in the current
+implementation, highlighted polygons are outlined along their edges.
+
+Externally (i.e. in a .plg file) this same bit is used to indicate that the
+color is to be "mapped"; that is, the bottom 15 bits are to be used as an
+index into a color map to get the actual value to be used.
+
+The R bit is reserved for future expansion, and should be set to zero.
+
+The SS bits specify one of four possible surface types, as follows:
+
+     00 -- this polygon should be drawn in a fixed color, with no special
+           effects.  If the CCCC bits are zero, then the BBBBBBBB bits
+           directly specify one of the 256 available colors; if the CCCC
+           bits are non-zero, then they specify one of sixteen "base" colors
+           and the top four bits of BBBBBBBB specify which shade of that color
+           to use.
+
+     01 -- this polygon should be drawn with a constant shading that is
+           determined by the angle at which light is striking it; thus, as
+           the polygon moves around, its apparent brightness will change.
+           The CCCC bits specify one of sixteen "base" colors, and the bottom
+           8 bits BBBBBBBB represent the "brightness" of the color.  This
+           brightness value is multiplied by the cosine of the angle between
+           the polygon's normal vector and the vector from the polygon to the
+           light source; the result is used to specify an offset into the
+           given color's array of shades.
+           Note that if the CCCC value is 0, the color will always be black.
+
+     10 -- this polygon should be treated as being "metallic"; the CCCC bits
+           (which should be non-zero) specify one of the 16 colors, and the
+           top 5 bits of the BBBBBBBB value are used as an offset into a
+           range of shades to cycle through to give the metallic effect,
+           i.e. a starting offset into the color cycle.
+
+     11 -- this polygon should be treated as being "transparent"; it is just
+           like surface type 10, except that alternating rows of dots are used
+           instead of solid colors, allowing you to "see through" the polygon.
+
+Other surface types may be defined later; hence the importance of keeping
+the R bit set to zero.
+
+The actual sequence of colors in the palette is arbitrary; the palette we're
+currently using has (in general) a saturated version of each color, and an
+unsaturated (watered-down) version.
+
+Suggestions for possible new surfaces are welcomed, as are questions
+concerning this specification.  Please direct any comments to
+broehl@sunee.uwaterloo.ca, and I'll try to respond to them as time
+permits.  

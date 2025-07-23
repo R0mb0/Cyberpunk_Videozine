@@ -1,0 +1,19 @@
+	Permission is given to copy and distribute this code as long as this
+comment block is included in full and the code is not used in any commercial
+product without prior permission from the author.  This source code is
+offered without warranty or guarantee of any kind, and the author expressly
+disclaims any responsibility for consequences of its use.
+
+	This code compiles under Borland C++ v3.1.  It works only for DOS,
+not Windows.
+
+	This is some sample code to get the PGSI working in AGE request
+mode.  It simply prints the PGSI data to the screen in an infinite loop
+after it finishes initializing.  It also drives the SEGA glasses, making
+them switch from left to right in the same infinite loop.
+
+	Some of the initialization code is a little messy with delays and
+such due to my lack of understanding of the initial state of the glove and
+pgsi upon power-up.
+
+William Gerlt <gerlt@feenix.metronet.com>

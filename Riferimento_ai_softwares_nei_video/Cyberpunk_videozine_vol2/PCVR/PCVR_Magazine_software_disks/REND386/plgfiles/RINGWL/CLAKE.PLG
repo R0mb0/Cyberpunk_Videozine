@@ -1,0 +1,33 @@
+# 2Morrow Virtual Object Translator/Optimizer v1.3 PLG file.
+# 2Morrow World Builder.  2Morrow, Incorporated.
+# PLG data is grouped by the object designations.
+
+CRATER_LAKE 16 12
+  -500      0      0 	 #VTX 0	      
+  -300      0    300 	 #VTX 1	    
+  -100    250    100 	 #VTX 2	  
+  -200    250      0 	 #VTX 3	    
+     0      0    500 	 #VTX 4	       
+     0    250    200 	 #VTX 5	     
+   400      0    300 	 #VTX 6	     
+   100    250     50 	 #VTX 7	    
+   500      0      0 	 #VTX 8	       
+   100    250   -100 	 #VTX 9	  
+   350      0   -400 	 #VTX 10	    
+    50    250   -150 	 #VTX 11	   
+     0      0   -500 	 #VTX 12	      
+     0    250   -150 	 #VTX 13	    
+  -200      0   -250 	 #VTX 14	   
+  -100    250   -100 	 #VTX 15	 
+0x185a   4  3  2  1  0
+0x185a   4  2  5  4  1
+0x185a   4  5  7  6  4
+0x185a   4  7  9  8  6
+0x185a   4  9 11 10  8
+0x185a   4 11 13 12 10
+0x185a   4 13 15 14 12
+0x185a   4 15  3  0 14
+0x1bfa   3  7  5  2
+0x1bfa   4  7  2  3 15
+0x1bfa   3  9  7 15
+0x1bfa   4 11  9 15 13

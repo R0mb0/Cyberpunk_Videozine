@@ -1,0 +1,69 @@
+Notes on WATTCP Apps
+--------------------
+
+These are a collection of "example" applications that come with the Waterloo
+TCP programmer's package, plus ftp.  You do not need to be connected to
+configure them.
+
+To configure these, edit file WATTCP.CFG.  If you already have a working
+WATTCP.CFG file for another application, or a global WATTCP.CFG that you
+use, you can just make WATTCP.CFG here a one-line deal:
+
+   include=e:\internet\wattcp.cfg
+
+Otherwise, edit the included file.  If you have static IP, set my_ip to your
+static IP address, like so:
+
+   my_ip=204.117.9.33
+
+If you have dynamic IP, comment out that line and put this instead:
+
+   include=e:\internet\ipaddr.cfg
+
+You will have to arrange for IPADDR.CFG to be created at connect time and
+put its pathname here; see README on my site.
+
+Set netmask to this (do *not* use your real netmask):
+
+   netmask=0.0.0.0
+
+If you have a static gateway, put its IP address in like so:
+
+   gateway=199.191.1.70
+
+If your gateway is dynamic, either put in the gateway you *usually* get (as
+I used to, I sometimes got 199.191.1.75 instead, but the above still
+worked), or comment out the gateway line and use this:
+
+   include=e:\internet\gateway.cfg
+
+Again, you will have to make a batch file to create GATEWAY.CFG at connect
+time and give the pathname of the created file; see README.
+
+Set nameserver to your nameserver's IP address:
+
+   nameserver=199.191.1.80
+
+Set domainslist to the empty string (it only slows things down if you give
+your actual domain):
+
+   domainslist=""
+
+Leave include (the one in the file, not the ones you added, of course),
+bootp, bootpto, and ethip commented out.  If you have static IP, you can set
+your hostname to the name of your PC if you like:
+
+   hostname=tvdog.buckeyeweb.com
+
+(For me.)  For dynamic IP, leave hostname commented out.
+
+Set sockdelay to 60 (this helps if some sites are slow to connect):
+
+   sockdelay=60
+
+Set domainto to 20 (this helps with domain lookups, you can make it even
+longer if you need to):
+
+   domainto=20
+
+mss is 512 by default.  That is a good value for it; leave it alone.

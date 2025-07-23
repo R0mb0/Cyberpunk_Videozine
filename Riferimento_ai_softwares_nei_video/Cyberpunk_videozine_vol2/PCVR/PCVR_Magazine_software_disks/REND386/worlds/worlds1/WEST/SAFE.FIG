@@ -1,0 +1,13 @@
+comment = A safe, with a door that opens;
+comment = Created by Bernie Roehl, March 1992;
+comment = Part of the REND386 distribution;
+
+{
+	name = body;
+	plgfile = safe.plg;
+	{
+		name = door;
+		plgfile = safedoor.plg;
+		pos = 10,10,0;
+	}
+}

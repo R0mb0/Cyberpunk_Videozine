@@ -1,0 +1,92 @@
+                          PLG File Format
+                    Version 4.1 -- August 1992
+                     Written by Bernie Roehl
+
+As of version 4.0, the PLG format once again officially supports
+floating-point values for coordinates.  (As far as the code in REND386
+goes, PLG files have always been floating point; we had been trying to
+standardize on a long-integer representation, but have decided there's
+no real problem with floats).
+
+Note -- REND386 still uses an integer format internally.  This means
+that if the floats in a PLG file are too small, you must scale them on
+loading (otherwise they'll all wind up being the same value).
+
+A PLG file basically has three parts: a header line, a list of
+vertices and a list of polygons.
+
+The header line has the object name, the number of vertices, and the number of
+polygons; for example:
+
+kitchen_table 100 35
+
+which would mean that the object "kitchen_table" has 100 vertices in 35
+polygons.
+
+Anything after the polygon count should be ignored, since it may be used for
+future expansion.
+
+Following this line are the vertices, one x,y,z triplet per line (each
+value is a floating-point value, and they're separated by spaces).  For
+example:
+
+18027.56 23025.27 98703.18
+
+Note that only the first three values on the line should be used; anything
+following these values should be ignored.  This allows future support for
+such things as vertex normals.
+
+This is followed by the polygon information, one line per poly; each of these
+lines is of the form "color n v1 v2 v3 ...".  The color is an integer
+specifying the color of this polygon, and v1, v2, v3 and so on are indexes
+into the array of vertices, origin zero.  The 'n' is the number of vertices
+in the poly.  The vertices are listed in a countclockwise order as seen from
+outside the object.  Note that the vertices are counted "origin zero", i.e.
+the first vertex is vertex number 0, not vertex number 1.
+
+For example:
+
+2 4 8 27 5 12
+
+would mean a four-sided polygon bounded by vertices 8,27,5 and 12.  This
+polygon has color number 2.
+
+The color can either be a decimal integer or a 0x or 0X followed by a
+hexadecimal integer value.  For details on colors, see the separate colors.doc
+file.
+
+Note that anything after the list of vertex indices should be ignored;
+this is to allow future support of additional features.
+
+That's it.  Much simpler than OFF format, and yet easy to convert to (or from)
+OFF if need be.  Also has the advantage that you can store multiple objects
+in the same file; you could even store a complete scene description in a
+single file, as opposed to as many as three or four OFF files for each object.
+This makes it faster to load.
+
+The PLG format supports comments.  Anything after a # should be ignored by any
+program that parses PLG files.  In addition, lines beginning with a '*' should
+be ignored (they will eventually be used for adding extra information to
+a .PLG file).
+
+I still recommend and endorse the use of OFF files for sharing of objects,
+since they have lots of additional information (author, creation date,
+copyright info, etc).
+
+As of version 4.00, PLG files can now have multiple copies of an object at
+different resolutions.  PLG files containing such multiple-resolution versions
+of objects must have "#MULTI" as their first line.
+
+For each object defined in such a file, the object name includes a number
+specifying the pixel size of the object on the screen.  The object names
+for each representation must be <name>_####
+where #### is the smallest pixel width to use this representation for.
+For example, TABLE_15 would be a valid name.
+
+If the smallest rep size is zero, then that represenation will be used
+no matter how small the object gets.  If the smallest rep size is 2 or
+greater, the object will vanish if it gets too small.
+
+Within REND386, these files are loaded by a special function, and are stored
+internally as a list of representations.  When a scene is rendered, the
+correct representation is autmatically selected based on screen size.

@@ -1,0 +1,144 @@
+IMPORTANT -- please read this file first!!!
+
+This is the first, last and only release of the floating-point C source code
+for the rendering package written by Dave Stampe and Bernie Roehl of the
+University of Waterloo.
+
+This is a much earlier version of the code than the integer-based libraries
+we call REND386.  It is not compatable with the current version; for
+example, some of the functions take slightly different parameters and many
+(especially those that maintain the object database) are missing altogether.
+
+We are releasiong this code in response to the interest people have expressed
+in the having the source, mostly for the purpose of porting it to platforms
+other than 386 or 486 based systems.
+
+The source code is ANSI C; those of you with non-ANSI-compliant compilers may
+have a lot of editing to do (unless you can find a preprocessor to handle it
+for you).  The code compiles, links and runs under Turbo C++ 1.00, and under
+Borland C; neither Dave nor I have any other compilers, so we were unable to
+test anything else.
+
+The code uses floats for all coordinate values; the size of a float
+is of course implementation-dependent.
+
+The source provided here makes calls to a polygon blitter library; this
+library has never been implemented in C (Dave Stampe wrote it from
+scratch in assembler).  If you are planning to compile under Turbo C,
+you should pick up polyblit.lib from the same place you got this source
+code; that library is common to both the integer and floating-point
+versions of the code.  The source is also available for it, probably
+one directory above this one.  Note that it requires a 386 or 486, since
+it uses the extended instructions available on those processors; apologies
+to anyone still running on a 286 or 8086 or 8088 (or 8080, or Z-80...)
+
+In order to port to a different platform, it will be necessary to
+implement the equivalent of the polyblit code.  It should be clear
+enough from the context what the various routines do.  If necessary,
+you can make renderf.c use the fillpoly() routine in Turbo C (or a
+suitable equivalent in whatever graphics library you have available). 
+Note that the speed of this polygon-drawing routine has a major impact
+on the overall performance of the software!
+
+Those of you who are about to read this code expecting to find some
+fundamentally new breakthroughs in computer graphics are in for a
+disappointment.  Most of what you will find here is a fairly straightforward
+application of existing graphics algorithms.  Ours is a more practical,
+pragmatic and immediately useful form of the routines than you might find
+in the average graphics textbook; however, a thorough understanding of what
+we're doing requires the reader to have at least some knowledge of transforms,
+projections, clipping and so forth.  The comments in the code are no
+substitute for a graphics text.
+
+Those of you who expect to find examples of some black art that gives the
+REND386 library its speed are also going to be disappointed; the REND386
+library is fast because Dave converted the whole thing to integers and
+rewrote major portions of it in assembler (taking full advantage of the
+instructions found only on the 386 and 486).
+
+Essentially, we traded off portability (and readability!) for performance;
+we feel it was a good trade.
+
+We will not be supporting this version of the source, since continuing to
+do development with two divergent libraries is tedious, time-consuming and
+error-prone.  We will be focussing entirely on REND386, and you should not
+hold your breath waiting for new developments of this floating-point version.
+
+Originally, I had planned to retrofit more of the changes made to REND386
+into this version (particularly the routines which separate the world
+database manipulation from the application-specific code).  However, this
+became impractical as the REND386 library continued to evolve day-by-day
+(becoming a classic "moving target").
+
+Rather than continue to delay the release of this source code we decided to
+put it out in its present form.
+
+If some brave soul out on the net would like to make this version compatable
+with the current one, please feel free to do so.  It would be nice to have
+a platform-independent set of rendering calls, so that applications could
+easily be moved around.  A good starting point would be to look at rend386.h
+and library.doc for information about how the current package works.  Note that
+those two files are specific to the *current* version, and neither is
+directly related to the floating-point version of the source.
+
+A note about design: in the current REND386 library, we are going to great
+lengths to encapsulate the world database information.  This is not done
+just for the sake of doing it; the intent is that the code could eventually
+run in a multi-processor environment, with a dedicated video-board processor
+maintaining the world database and doing rendering while the "main" processor
+handles other tasks (deciding how to update the database as an object moves,
+etc).
+
+We urge you to follow the same design.  The only access between the
+higher-level software and the lower-level software should be through the
+functions defined in rend386.h; direct access to the OBJECT, VERTEX, and
+POLY structs should be avoided.
+
+The source code we're releasing here is not intended to be an example of
+clear and elegant programming style.  However, we have tried to keep good
+programming practice in mind, wherever practical.  There is one instance
+where we use a set of "goto" instructions; however, as you'll see from the
+code we do this in a reasonbly "clean" way.  No doubt it is possible to
+re-structure the code to eliminate them.  Feel free to do so.
+
+In order to understand the code, we suggest you start by examining the
+data structures.  They are contained in 3dstrucf.h (the filenames end in
+'f' because this is the Floating-point version of the source).  As with many
+C source files, 3dstrucf.h is best read from bottom-to-top (since the
+definitions for lower-level objects are referenced by higher-level ones
+defined 'later' in the file).
+
+From there, we suggest you read hirendf.c, again proceeding from bottom to
+top.  You should probably start with the render() function, and see what it
+calls, and what routines are called by those routines, and so forth.
+
+The mainf.c program is a distant ancestor of the demo.c program included in
+the current release; those of you who are planning on making this version
+compatable with the current release might set a goal of making demo.c work
+with this version.
+
+A brief note about copyrights: yes, the code is copyrighted.  However, you
+are free to use it for your own work and experimentation, and to write
+software which you plan to release into the public domain.  If you do release
+a public-domain package, we'd appreciate being mentioned somewhere in the
+documentation.  The same is true if you manage to port the library to some
+other platform, or improve upon this version in some way.
+
+If you wish to use the software (or some derivative of it) in a package you
+plan to sell, either commercially or as shareware, we ask that you contact us
+at one of the email addresses below to obtain permission.
+
+We wish you success with using this code.  If you have questions, feel
+free to contact Dave or myself at the address below.  Also remember that
+there's an electronic mailing list for the REND386 library; to be added to
+that list, send e-mail to rend386-request@sunee.uwaterloo.ca and we'll
+take care of it.
+
+Best wishes, and happy programming.
+
+                                    --Bernie Roehl, February 1992
+
+CONTACT INFORMATION:
+
+   dstampe@sunee.uwaterloo.ca     (Dave Stampe)
+   broehl@sunee.waterloo.ca       (Bernie Roehl)

@@ -1,0 +1,50 @@
+/************************************************************
+ *                                                          *
+ *                    P.G. the Mouse                        *
+ *                                                          *
+ *                          by                              *
+ *                                                          *
+ *                    Jay A. Kreibich                       *
+ *                                                          *
+ *  This software and code is ©1993 by the Association for  *
+ *  Computing Machinery Student Chapter at the University   *
+ *  of Illinois, Urbana/Champaign.  No warranty, either     *
+ *  expressed or implied, is given with this software or    *
+ *  code.  The use of this software is at your own risk,    *
+ *  and the neither the ACM@UIUC, ACM National, University  *
+ *  of Illinois, SigArch, nor Jay Kreibich can be held      *
+ *  responsible for any damage of any kind as a result of   *
+ *  it's use.                                               *
+ *                                                          *
+ *  This code may be used, changed, edited, and compiled    *
+ *  assuming that the resulting code, program, and/or       *
+ *  resorces are not sold or charged for in any way beyond  *
+ *  a reasonable media duplication fee.  This code is NOT   *
+ *  in the Public Domain, as ACM@UIUC retains the copyright *
+ *  to all original code, fragments there of, and compiled  *
+ *  program resorces.                                       *
+ *                                                          *
+ *  If you use more than 40% of this code in any single     *
+ *  program, it is requested that you mention ACM@UIUC in   *
+ *  the About Box or simmilarly appropriate place.          *
+ *                                                          *
+ ************************************************************
+ *                                                          *
+ *  If you do use this code in your own programs,  or write *
+ *  any other programs for the PGSI, please  redistribute   *
+ *  it, or mail a copy back to "pgsi@uiuc.edu" so that      *
+ *  others may enjoy your programs.  If you do not wish to  *
+ *  redistribute your code and/or program, then please at   *
+ *  least drop a note to use about what you are using your  *
+ *  PGSI for.                                               *
+ *                                                          *
+ *  If you have comments or questions in general, feel free *
+ *  to mail "pgsi@uiuc.edu", or if you have a Mac specific  *
+ *  question about this code, or about using the PGSI with  *
+ *  a Mac, feel free to mail Jay Kreibich at "jak@uiuc.edu".*
+ *  Also feel free to check out ACM@UIUC's anonymous FTP    *
+ *  site, "ftp.cso.uiuc.edu:/ACM/PGSI" which we will try to *
+ *  keep the latest versions of any software we or others   *
+ *  have written for the PGSI.                              *
+ *                                                          *
+ ************************************************************/

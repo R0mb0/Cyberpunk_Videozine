@@ -1,0 +1,26 @@
+#Object Name:Helicopter blades
+#File Name:cblade01.plg
+#Author: Dennis McKenzie
+#Date: 7/16/95
+#Description:Blades for copter01.plg
+#Comments:Is already translated to fit onto copter01. Spin around the y axis
+##MULTI
+SAVED 9 8 *d
+0 1900 0
+400 1900 3000
+-400 1900 3000
+-400 1900 -3000
+400 1900 -3000
+3000 1900 -400
+3000 1900 400
+-3000 1900 400
+-3000 1900 -400
+0x2FFA 3 1 2 0
+0x2FFA 3 1 0 2
+0x2FFA 3 6 0 5
+0x2FFA 3 6 5 0
+0x2FFA 3 0 3 4
+0x2FFA 3 0 4 3
+0x2FFA 3 0 7 8
+0x2FFA 3 0 8 7
+

@@ -1,0 +1,13 @@
+finger1.plg       206  05-18-92  
+finger2.plg       306  05-18-92  
+frame.plg        1326  10-25-92  
+handsm.fig       1493  10-21-92  
+lounge.plg       5979  10-23-92  
+ltable.plg        717  10-23-92  
+palm.plg          603  05-18-92  
+pool.cfg          303  10-25-92  
+pool.wld         1041  10-25-92  
+run.bat           236  10-25-92  
+thtip.plg         307  05-18-92  
+thumb.plg         205  05-18-92  
+vd256.rvd       10066  10-21-92  

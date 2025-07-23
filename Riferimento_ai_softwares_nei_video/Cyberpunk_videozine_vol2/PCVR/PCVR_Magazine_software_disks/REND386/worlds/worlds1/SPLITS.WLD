@@ -1,0 +1,49 @@
+# a room with 2-sided walls, 2000x2000x2000
+# demonstrates splits
+# Created by Dave Stampe, April 1993
+# for use with the REND386 package.
+#
+
+
+# polyobj2 syntax: makes walls with inside and outside
+# polyobj2 <vertices> <color1> <color2> <x,y,z for vertices>
+
+# split syntax:
+# split <point x,y,z> <normal x,y,z> <flags>
+
+# splitpt syntax:
+# splitpt <point 1 x,y,z> <point 2 x,y,z> <point 3 x,y,z> <flags>
+
+# front wall: constant Z, so normal is 0,0,1
+split  0,0,-1000  0,0,1  0
+polyobj2 4 0x1eff 0x1dff -1000,-1000,-1000  -1000,1000,-1000  1000,1000,-1000  1000,-1000,-1000
+
+# back wall: ditto for normal
+split  0,0,1000  0,0,1  0
+polyobj2 4 0x1dff 0x1eff -1000,-1000,1000  -1000,1000,1000  1000,1000,1000  1000,-1000,1000
+
+
+# left wall: constant X so normal is 1,0,0
+split -1000,0,0  1,0,0  0
+polyobj2 4 0x1dff 0x1eff -1000,-1000,-1000  -1000,1000,-1000  -1000,1000,1000  -1000,-1000,1000
+
+# right wall using splitpt: just clone first 3 vertices as points.
+splitpt  1000,-1000,-1000  1000,1000,-1000  1000,1000,1000 0
+polyobj2 4 0x1eff 0x1dff 1000,-1000,-1000  1000,1000,-1000  1000,1000,1000  1000,-1000,1000
+
+endsplits       # so rest of objects won't be attached to splits
+
+# load cubes close to walls on inside: these would be
+# visible through walls if we didn't use splits
+
+loadpath plgs
+object cubeout 0.1,0.1,0.1 0,0,0 0,0,-900
+object cubeout 0.1,0.1,0.1 0,0,0 0,0,900
+object cubeout 0.1,0.1,0.1 0,0,0 -900,0,0
+object cubeout 0.1,0.1,0.1 0,0,0 900,0,0
+
+loadpath .
+
+title Splits Example
+title by Dave Stampe
+title memory

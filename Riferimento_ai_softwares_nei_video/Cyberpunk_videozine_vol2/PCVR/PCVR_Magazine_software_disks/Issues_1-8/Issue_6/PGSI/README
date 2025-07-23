@@ -1,0 +1,77 @@
+The PowerGlove Serial Interface (PGSI) Project Archive
+
+This file is archived on ftp.acm.uiuc.edu in  /pub/pgsi/README
+
+A project of the Special Interest Group for Computer Architecture
+(SIGARCH), Student Chapter of the Association for Computing Machinery
+at the University of Illinois at Urbana-Champaign (ACM at UIUC).
+
+The documentation is currently version 0.3
+
+Note: This version of the user's manual is somewhat out of date.  We will be
+updating it soon for the second run.
+
+File  	      	      	Description
+----  	      	      	-----------
+
+---Documentation
+README	      	      	This file
+README.sgi-samples      Info file on basic source for Personal Iris
+
+pgsi-faq      	      	The Frequently Asked Questions file for the PGSI
+pgsi-history  	      	A short history of the PGSI
+pgsi-order-form	      	Information on how to order your very own PGSI
+
+pgsi-doc-wfw2 	      	PGSI documentation in Microsoft Word for Windows format
+pgsi-doc-ascii 	      	PGSI documentation in ASCII format
+pgsi-doc-ps 	      	PGSI documentation in postscript format
+pgsi-doc-rtf 	      	PGSI documentation in Rich Text Format format
+pgsi-doc-mw4 	      	PGSI documentation in Microsoft Word for Mac format
+pg-faq	      	      	The Frequently Asked Questions file for the PowerGlove
+pg-timing.gif 	      	PowerGlove Timing diagram in gif format
+
+---Applications
+
+
+DIRECTORY /mac
+
+This directory contains sample programs and code that run on the Macintosh
+and support the PGSI.
+
+README.PGtheMouse	Info file on Mac mouse Driver for the PGSI
+PGtheMouse.sea.hqx	PG the Mouse application
+
+DIRECTORY /pc
+
+README.maestro2      	Info file on Maestro II virtual keyboard instrument
+README.develop5		Info file on REND386 hacked to work with the PGSI
+README.maestro2		Info file on virtual keyboard instrument for windows
+README.gerlt-sample	Info file on sample source for PGSI on PCs in C++
+maestro2.zip		Zipped Maestro II application
+devel5.zip		REND386 hack for the PGSI
+pgsisega.zip            This .ZIP file contains mods to sgsppt.c to support
+      	      	      	the PGSI sega glasses output within REND386. 
+gerlt-sample		Sample code for getting data from the PGSI on the PC
+
+DIRECTORY /sgi
+
+sgi-samples.tar.Z     	Basic Personal Iris code for PGSA (PGSI)
+
+
+DIRECTORY /pictures
+
+---Artwork
+"PGSI_logo is the gloved had reaching into a moniter screen, and PGSI_logo_anti
+is the same picture with some of the lines "smeared" (not true antialiasing,
+but same effect).
+
+The tiffs are in full 24 bit color, and the gifs are what XV decided was a good
+dither of them.  I would disagree, but that was the software at hand...
+
+The gifs aren't compressed because that makes them bigger."
+ -Jay Kreibich
+
+PGSI_logo.xxx           PGSI logo in xxx format
+PGSI_logo_anti.xxx    	PGSI logo in xxx format, antialiased
+
+Please mail any questions, problems, or suggestions to pgsi@uiuc.edu

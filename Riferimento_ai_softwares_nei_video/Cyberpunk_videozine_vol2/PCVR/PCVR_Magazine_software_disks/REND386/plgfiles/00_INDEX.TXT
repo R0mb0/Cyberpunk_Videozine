@@ -1,0 +1,22 @@
+al4bet\         <DIR>     <DIR>  Plg data files Virtual ALPHABET by Andrew
+                               | Kunze]
+amn\            <DIR>     <DIR>  Plg data files
+car\            <DIR>     <DIR>  Plg data files
+chess\          <DIR>     <DIR>  Plg data files
+choppe\         <DIR>     <DIR>  Plg data files
+dactyl\         <DIR>     <DIR>  Plg data files
+fair\           <DIR>     <DIR>  Plg data files
+hanoi\          <DIR>     <DIR>  Plg data files
+multi\          <DIR>     <DIR>  Plg data files
+ncad\           <DIR>     <DIR>  Plg data files
+pool\           <DIR>     <DIR>  Plg data files
+prims\          <DIR>     <DIR>  Plg data files
+ringwl\         <DIR>     <DIR>  Plg data files
+scuba\          <DIR>     <DIR>  Plg data files
+sega3d\         <DIR>     <DIR>  Plg data files
+solair\         <DIR>     <DIR>  Plg data files
+superq\         <DIR>     <DIR>  Plg data files
+valley\         <DIR>     <DIR>  Plg data files
+x29plg\         <DIR>     <DIR>  Plg data files
+read.me          1158  09-28-93  Read text file
+tesserac.plg     1523  08-16-92  Plg data file

@@ -1,0 +1,57 @@
+From dmu.ac.uk!uknet!doc.ic.ac.uk!decwrl!nic.hookup.net!swrinde!cs.utexas.edu!uunet!olivea!koriel!male.EBay.Sun.COM!georwell!wag Sat Jan 15 11:24:34 1994
+Path: dmu.ac.uk!uknet!doc.ic.ac.uk!decwrl!nic.hookup.net!swrinde!cs.utexas.edu!uunet!olivea!koriel!male.EBay.Sun.COM!georwell!wag
+From: wag@georwell.EBay.Sun.COM (Rick Wagoner)
+Newsgroups: comp.robotics
+Subject: New 68HC11 tools
+Date: 14 Jan 1994 17:47:01 GMT
+Organization: Sun Microsystems, Inc.
+Lines: 43
+Distribution: world
+Message-ID: <2h6lql$cnr@male.EBay.Sun.COM>
+Reply-To: wag@georwell.EBay.Sun.COM
+NNTP-Posting-Host: georwell.ebay.sun.com
+
+I pulled this off comp.archives:
+
+----------------------------------------------------
+From biss@ctss02.hydro.qc.ca (Sylvain Bissonnette)
+Newsgroups: comp.archives
+Subject: [sci.electronics] tools for the 68hc11
+Date: 14 Jan 1994 11:16:03 +0100
+
+Archive-Name: auto/sci.electronics/tools-for-the-68hc11
+
+I developped two specific tools that could be very helpful for anyone working with the 68hc11, 6805, 6809,
+etc... The first one is a package deal in which, by running one program named upam, it offers you
+
+	text editor, assembler, communication software and more.
+
+The second one provides you the possibility to program/erase the 68ch11 EEPROM by the boot load by running
+the program bload11.
+
+All these programs are working on PC stations. Both sources and executables are available by anonymous
+ftp to ctss01.cct.hydro.qc.ca in directories pub/biss/upam and pub/biss/bload11.
+
+Please, Email any suggestion to biss@cct.hydro.qc.ca
+
+-----------------------------------------------------------
+
+have fun!
+
+Rick
+
+---
+
++¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-+-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬+
+|               ¡              | Rick Wagoner speaks for himself. Usually no  |
+|               |              | one bothers to listen. If you choose to heed |
+|              /¦\             | these words, do so with the full knowledge   |
+|   _________(](.)[)_________  | that they are MINE, not Sun Microsystems.    |
+|        ö    «¤±¤»     ö      +---------------------------+------------------+
+|                              | rick.wagoner@EBay.sun.com |   408-276-5658   |
++______________________________+---------------------------+------------------+
+| Gone but not forgotten: The Convair F-106 A/B "The Ultimate Interceptor"    |
+|   + 84th Fighter Interceptor Squadron, Hamilton AFB and Castle AFB CA +     |
++¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬-¬+
+
+

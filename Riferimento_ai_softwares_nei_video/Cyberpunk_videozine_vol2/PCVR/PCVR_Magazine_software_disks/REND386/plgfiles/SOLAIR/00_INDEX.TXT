@@ -1,0 +1,13 @@
+earth.plg        2332  11-25-92  
+jupiter.plg      4306  11-25-92  
+mars.plg         1139  11-25-92  
+mercury.plg      1138  11-25-92  
+neptune.plg      2824  11-25-92  
+pluto.plg        1043  11-25-92  
+readme.now      10908  04-11-93  
+saturn.plg       9168  11-25-92  
+solarsys.wld     1825  04-11-93  
+stars.plg        2964  04-06-93  
+sun.plg          3669  11-25-92  
+uranus.plg       2823  11-25-92  
+venus.plg        2332  11-25-92  

@@ -1,0 +1,69 @@
+#
+# POOL.WLD
+#
+# A Swimming Pool with loungers
+#
+# Created by Edmond Schindler (71700.3516@compuserve.com)
+# for "Virtual World Creations", published by the Waite Group
+#
+
+loadpath pool
+
+hither            10
+yon          1000000
+
+stepsize 2
+
+options a   # camera angles are tilt,pan,roll
+
+#start  8680,450,8370 -135,0,0 1
+camera 1  8680,450,8370 0,-135,0 1
+camera 2 3065 4100 5628 51.269531 79.843750 0.000000 1.000000
+
+light  2000,5000,0
+groundcolor 2
+skycolor 11
+ambient 76
+screenclear 0
+
+surfacedef concrete	 0x1ffa
+surfacedef water     0x2a00
+
+# sky split
+split 0,1000,0 0,1,0
+
+# ground split
+split 0,0,0 0,1,0
+
+polyobj 4 water 5000,50,5000 5000,50,9000 7800,50,9000 7800,50,5000
+polyobj 4 concrete 4500,0,4500 4500,0,9250 8500,0,9250 9700,0,4500
+object frame  1,1,1  0,0,0  0,0,0 768 . fixed
+
+# Pool area split
+split 4500,1,4500   1,0,0
+split 10000,1,4501  0,0,1
+split 10001,1,10001 1,0,0
+split 4501,1,10000  0,0,1
+
+# pool objects split
+split 8500,1,7500   0,0,1
+object lounge 1,1,1  0,0,0  0,0,0 768
+object ltable 1,1,1  0,0,0  0,0,0 768
+
+endsplits
+
+area 0,-10,0        Underground
+area 0,1000,0       Sky
+area 7500,1,4499    South
+area 7500,10,7500   Deep_End
+area 6500,10,6500   Shallow_End
+area 4499,1,7500    West
+area 10002,1,7500   East
+area 7500,1,10002   North
+
+# End of pool.wld
+
+title A Swimming Pool
+title by Edmond Schindler
+title (71700.3516@compuserve.com)
+title memory

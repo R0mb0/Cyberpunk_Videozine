@@ -1,0 +1,309 @@
+                               World File Format
+                         Version 2.00 -- August, 1992
+                            Written by Bernie Roehl
+
+The "demo4" program supports a very simple kind of world description file
+format in order to specify the location of objects in a virtual environment
+as well as various other scene characteristics.
+
+The file is entirely ascii.  Each 'record' is one line; anything after the
+first '#' is treated as a comment and ignored.  Blank lines are also ignored.
+
+The format is intended to be highly extensible; any line which cannot be
+recognized should simply be ignored.
+
+Each line (i.e. record) contains some information about the scene; the
+possible types of records are listed below.  Note that new ones may be
+added at any time, but that the definitions given below should not change.
+
+Everything is case-insensitive; keywords are shown below in uppercase, but
+are generally entered in lowercase.
+
+LOADPATH path
+     Specifies a path prefix for loading files.  Any files (whether specified
+     in the world file itself, subsequent world files, or in referenced .fig
+     files) will be loaded from the specified directory.  However, if a
+     filename contains '\' or '/' characters, it is used verbatim (i.e. the
+     LOADPATH setting is ignored).
+
+PALETTE filename
+     Loads a 256-entry binary palette file (3 bytes (R,G,B) for each entry).
+     The file is binary.  Note that alternate palettes may not handle shading
+     as well as the default.
+
+SKYCOLOR index
+     Specifies which of the 256 available colors should be used for the "sky".
+     
+GROUNDCOLOR index
+     Specifies which of the 256 available colors should be used for the
+     "ground". If the sky and ground color are identical, a solid screen
+     clear is used; this is a bit faster.
+
+SCREENCLEAR value
+     If the specified value is non-zero, then the screen will be cleared
+     before each frame; if it's zero, the screen clearing is not done (this
+     is useful if you know that the entire window will be covered by the
+     image, and that no background will show through; in such a situation,
+     specifying this option will improve performance).
+
+AMBIENT value
+     Specifies the level of the ambient light; 76 is the default, and a good
+     value to use.
+
+AMBIENTCOLOR r,g,b
+     Specifies the color of the ambient light; currently not used in REND386.
+
+WORLDSCALE value
+     Specifies the world scale as a floating-point number.  The value is
+     expressed in millimeters per unit.  The default is 1.00, probably a
+     good choice.  This is only used for stereoscopic viewing.
+
+LIGHT x,y,z
+     Specifies the location of the light source in long integer world
+     coordinates.
+
+WINDOW x,y,width,height
+     Specifies the location and size of the viewing window in screen
+     coordinates.  In REND386 using Mode Y, the window's left and right
+     edges must be on an 8-pixel boundary (i.e. x must be a multiple of 8,
+     and (x+width-1) must be a multiple of 8).
+
+START x,y,z pan,tilt,roll zoom
+     Specifies your starting location, viewing direction and zoom factor.
+     The x,y,z values are long integers giving coordinates, the
+     pan,tilt,roll values are floating-point angles, and the zoom is a
+     floating-point number.
+
+HITHER value
+     Specifies the near clipping distance as a long integer in world
+     coordinates.  The value should typically be 10 or more.
+
+YON value
+     Specifies the far clipping distance as a long integer in world
+     coordinates.  The value should typically be 1000000 or more.
+
+EYESPACING value
+     Specifies the distance between your eyes in millimeters (only needed
+     for steroscopic viewing).  The default value is 55.
+
+SCREENDIST value
+     Specifies the distance from your eyes to the screen in millimeters
+     (only needed for stereoscopic viewing).  The default value is 700.
+
+SCREENWIDTH value
+     Specifies the width of the screen in pixels (only needed for stereoscopic
+     viewing).  The default is 250.
+
+CONVERGENCE value
+     Specifies the convergence distance (only needed for stereoscopic
+     viewing).  Should usually be the same as the SCREENDIST value;
+     however, 1200 or so may be easier on the eyes.
+
+OBJECT [objname=]filename sx,sy,sz rx,ry,rz tx,ty,tz depthtype mappings parent
+     Loads an object from a .plg file with the given filename.  If the
+     "objname=" is present, it assigns the newly-loaded object that name for
+     future reference.  The sx,sy,sz values are floating-point scale factors
+     to increase or decrease the size of the object as it's loaded.  The rx,
+     ry,rz values are the angles to rotate the object around each of the three
+     axes; rx is done first, then ry and finally rz.  The tx,ty,tz values
+     translate (move) the object to a new location; this is done after the
+     scaling and rotation.  The depthtype field controls how the depth-
+     sorting for the object is to be handled, and is described elsewhere.
+     The "mappings" feature is explained below.  The "parent" field is
+     the name of the object that this object is a child of.  If omitted,
+     the child moves independently.  If the parentname is the word "fixed",
+     then the object is fixed in space and cannot be moved; this is more
+     efficient in terms of memory usage, since no segment (i.e. motion
+     control) structure needs to be allocated.  All fields are
+     optional, but you must include all the fields prior to the last one
+     you wish to use (i.e. you can only leave things off the end, not off
+     the beginning or out of the middle).
+
+FIGURE [figname=]filename sx,sy,sz rx,ry,rz tx,ty,tz parentname
+     Loads a segmented figure from a .fig file with the given filename.
+     All the parameters have the same meaning as for the OBJECT record
+     described above.
+
+POLYOBJ npts surface x1,y1,z1 x2,y2,z2 [...] x8,y8,z8
+    Directly specifies a polygon to be placed in the scene.  The value
+    npts is the number of points (maximum 8), the surface is a surface name
+    (see below on surfaces) and the vertices are given in long integer
+    world coordinate form.
+
+INCLUDE filename
+     Includes the specified file as if its contents appeared at the current
+     point in the current file.
+
+SPLIT x,y,z nx,ny,nz flags
+     Defines a split; see "split.doc" for details.  All objects defined
+     after a SPLIT line and before an ENDSPLITS line (or another SPLIT line)
+     will be considered to be "on" that split.  The x,y,z values are the
+     location of a point (in long integer world coordinates), and the
+     nx,ny,nz values are a normal to the plane.
+
+SPLITPTS x1,y1,z1 x2,y2,z2 x3,y3,z3 flags
+     An alternative way of defining a split, by giving three vertices (again,
+     in long integer world coordinates).
+
+ENDSPLITS
+     Marks the end of a sequence of splits.
+
+AREA x,y,z name
+     Assigns a name to an area (a chunk of space created by a set of
+     clipping planes).  The x,y,z are again long integer world coordintes,
+     and specify any point within the area.
+
+FLOOR name a,b,c,d
+     Specifies the coordinates of a plane equation describing the slope of
+     the floor in the area of the given name.
+
+FLOORPTS name x1,y1,z1 x2,y2,z2 x3,y3,z3
+     An alternative way of specifying the floor plane equation, by giving
+     three points in the plane.
+
+CEILING name a,b,c,d
+     As for FLOOR, but for the ceiling.
+
+CEILINGPTS name x1,y1,z1 x2,y2,z2 x3,y3,z3
+     As for FLOORPTS, but for the ceiling.
+
+POSITION objname x,y,z
+     Moves (i.e. translates) the specified object to the given x,y,z location.
+
+ROTATE objname rx,ry,rz
+     Rotates the specified object to the given angles about each of the
+     axes.  The angles are specified in floating point, and are measured in
+     degrees.
+
+                       Configuration Settings
+
+VIDEODEV name
+     Loads a video driver (.rvd file) of the given name.
+
+MOUSEDEV name
+     Loads a mouse driver (.mpd file) of the given name.
+
+HEADDEV name x y z rx ry rz
+     Loads a head pointer device of the given name, specifying scaling
+     values for translation and rotation.
+
+GLOVEDEV name x y z rx ry rz
+     Loads a glove pointer device of the given name, specifying scaling
+     values for translation and rotation.
+
+PTRDEV name x y z rx ry rz
+     Loads a generic pointer device of the given name, specifying translation
+     and rotation offsets.
+
+SWITCHDEV name
+     Loads a device driver to control the switch of left eye/right eye images.
+
+GLOVECURSOR filename
+     Specifies a .fig file containing a visual represenation of a glove
+     cursor.
+
+PTRCURSOR filename
+     Specifies a .plg file containing a visual representation of a generic
+     pointer device.
+
+SEGAPORT port mask left right off image
+     Allows configuration of the Sega driver; 'port' is the hardware port
+     address used to control the eye-switching. The 'mask' determines what
+     bits should be changeable at that address (since the port may be used
+     for more than just the Sega glasses).  The 'left', 'right' and 'off'
+     values are the bit patterns to write to clear the left lens (only),
+     the right lens (only) and both lenses.  The 'image' value is what
+     should be written to the other bits in the byte.
+
+PGLOVEPORT in out writemask nonemask latchmask clkmask clklatch datamask image
+     Allows configuration of the PowerGlove driver.  The 'in' and 'out'
+     values specify the hardware port addresses for reading and writing to the
+     glove.  The writemask determines what bits should be changeable at the
+     write address (since the port may be used for more than just the
+     PowerGlove).  The 'nonemask', 'latchmask', 'clkmask' and 'clklatch'
+     values are the bit patterns to write to the glove.  The datamask selects
+     the bit in the 'in' port that has the data, and the 'image' value is
+     the bit pattern that should be written to the unused portion of the byte
+     sent to the 'out' port address.
+
+PGLOVETIME bitdelay bytedelay
+     Allows you to configure the PowerGlove timing.
+
+STEREOSET physdist screenwidth pixelwidth eyespacing convergence
+     Allows you to set the stereo parameters in one line instead of
+     with a series of lines; the meaning of each of the parameters
+     is described in the individual entries above.
+     
+STEREOTYPE [SWITCH | SEPARATE | SPLIT]
+     Specifies the type of stereoscopic display being used.  SWITCH means
+     a system for alternate left eye/right eye frames.  SEPARATE means that
+     you have multiple VGA cards (supported by a .rvd driver) that can
+     display left and right eye images simultaneously.  SPLIT means a
+     split-screen mode, with the left and right eye images displayed
+     simultaneously in different parts of the screen.
+
+STEREOLEFT xoff xflip xrot left top right bottom
+   and
+STEREORIGHT xoff xflip xrot left top right bottom
+     Allows you to further configure steroscopic viewing parameters.  The
+     xoff value gives a horizontal displacement for the image in pixels; 
+     the xflip value allows you to flip (mirror image) the image for that
+     eye.  The xrot value specifies an outward rotation in degrees, and the
+     [left,top,right,bottom] values  specify a window in the physical
+     display.
+
+
+                        Surfaces and Mappings
+
+A two-level scheme for mapping surface colors is used; at first it may seem
+complex, but it provides greater flexibility for the future.
+
+Each polygon in a .plg file can have either an ordinary color value as
+described in "colors.doc" (e.g. 0x1234), or a value with the top bit set
+(e.g. 0x8007) which indicates that the bottom 15 bits are intended as an
+index into a color mapping table.  There can be a number of these mapping
+tables, and each object can refer to a different map.
+
+The color mapping table maps the index into a surface name; if one were
+going to a ray-tracing application, this could be used as-is.  In the case
+of REND386, we must map that surface name into a color value of the type
+described in "colors.doc".
+
+So, the first-stage mapping is from index to name, and the second is from
+name to value.
+
+The first stage is done with any of several mapping tables
+(possibly one per object, though in most cases multiple objects will
+use the same mapping table).  A map is created with a SURFACEMAP record,
+and entries are placed in it with SURFACE records.  Note that when you load
+an object, the color mapping table name can be specified; this allows you to
+have (for example) five chairs all loaded from the same .plg file but with
+different coloration).
+     
+The second stage is done with a single, global mapping table created by
+a series of SURFACEDEF records.
+
+The record formats are as follows:
+
+SURFACEDEF name value
+     Defines a new surface; maps a surface name (such as "wood") to a numeric
+     value of the type described in "colors.doc" (such as 0x12DF).
+
+SURFACEMAP name
+     Marks the start of a new surface map.  All subsequent SURFACE entries
+     will be placed in this map.
+
+SURFACE index name
+     Defines an entry in the current surface map, which takes an index value
+     (the bottom 15 bits of the value in the .plg file) and maps it into a
+     surface name (which is in turn mapped to a 16-bit color value).
+
+     
+                               Future Work
+
+That's it; other types exist, but they're purely experimental at this stage.
+Future releases of the REND386 demo program may or may not support this
+format, and if they do they will certainly implement extensions to it.
+
+As usual, direct any questions to Bernie (broehl@sunee.uwaterloo.ca) or to
+Dave (dstampe@sunee.uwaterloo.ca).

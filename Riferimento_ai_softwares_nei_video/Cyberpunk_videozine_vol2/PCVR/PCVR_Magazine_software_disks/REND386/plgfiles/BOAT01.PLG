@@ -1,0 +1,41 @@
+#Object Name:Boat
+#File Name:boat01.plg
+#Author: Dennis McKenzie
+#Date: 7/16/95
+#Description:A small rowboat 
+#Comments:
+#Modifications: None
+
+#boat
+
+boat 12 14
+
+-500 100 0
+-300 100 -430
+300 100 -430
+500 100 0
+300 100 430
+-300 100 430
+
+-400 0 0
+-250 0 -400
+250 0 -400
+400 0 0
+250 0 400
+-250 0 400
+
+
+0x13cc 4 0 1 7 6
+0x13cc 4 1 2 8 7
+0x13cc 4 2 3 9 8
+0x13cc 4 3 4 10 9
+0x13cc 4 4 5 11 10
+0x13cc 4 5 0 6 11
+0x13cc 4 6 7 1 0
+0x13cc 4 7 8 2 1
+0x13cc 4 8 9 3 2
+0x13cc 4 9 10 4 3
+0x13cc 4 10 11 5 4
+0x13cc 4 11 6 0 5
+0x13cc 6 6 7 8 9 10 11
+0x13cc 6 11 10 9 8 7 6 

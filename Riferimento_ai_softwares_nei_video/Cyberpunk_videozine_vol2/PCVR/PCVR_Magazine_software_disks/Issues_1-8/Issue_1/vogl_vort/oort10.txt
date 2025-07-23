@@ -1,0 +1,4 @@
+This is the code from Nicholas Wilt's "Object Oriented Ray Tracing" book -
+see the readme file in the archive for more info.  Uploaded at his request.
+
+Eric Haines  erich@eye.com

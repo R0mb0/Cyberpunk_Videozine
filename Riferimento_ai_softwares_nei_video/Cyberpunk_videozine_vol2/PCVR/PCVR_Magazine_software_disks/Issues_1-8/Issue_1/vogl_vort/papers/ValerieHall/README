@@ -1,0 +1,57 @@
+
+
+
+Hi,
+
+
+Included on this ftp area is: 
+
+	1) my thesis proposal on Facial Animation (helpful for anyone 
+				looking for references in the area) 
+
+	2) A model of half a face, data points and topology.
+
+	3) my report on Morphing (an introduction to morphing) 
+
+	4) responses to my questions about morphing.
+
+	5) the results of a survey I did on user interfaces. 
+
+	6) the survey responses.
+
+
+You can do whatever you like with them. Let me know what you think, 
+constructive criticism will be greatly appreciated.
+
+
+        site:   marsh.cs.curtin.edu.au
+
+        dir:    pub/graphics/bibliography/Facial_Animation
+        files:  proposal.ps.Z   (My thesis proposal - 1.5M)     
+		valerie.st1	(3-D data for half a face)
+		valerie.top	(topology for facial data)
+        
+        dir:    pub/graphics/bibliography/Morph
+        files:  morph_intro.ps.Z     (My morphing write-up - 1.5M)     
+		m_responses.Z	     (Responses to morphing questions)
+
+        dir:    pub/graphics/bibliography/UI
+	files:  survey.ps.Z	(Writeup for user interfaces survey)
+		responses.Z	(Responses to UI questionaire) 
+
+
+If text files, rather than postscript files, are required, send me
+some email and I'll get them to you.
+
+
+Enjoy!
+
+
+
+Valerie.
+
+Honours student - facial animation
+Curtin University of Technology
+Perth, Western Australia
+val@marsh.cs.curtin.edu.au
+

@@ -1,0 +1,22 @@
+
+    ray4 is a 4D raytracer that I wrote for my master's thesis entitled
+"Four-Space Visualization of 4D Objects", in May 1991.  The thesis is
+available via anonymous FTP in both PostScript and TROFF versions (try
+kpc.com).  The 4D raytracer should run on any platform that supports C and
+floating point, but the display programs are machine (or graphics API)
+specific.
+
+    Included in the ray4 package is a displayer for GL-based workstations;
+there are also programs to convert from ray4 image format to MTV format and
+Sun raster format.
+
+    ray4.tar.Z     --  The ray4 4D raytracing package.
+    r4tomtv.tar.Z  --  Converts r4 images to MTV format.
+    r4torle.c.Z    --  Converts r4 images to Utah Raster Toolkit format.
+
+    Also available via anonymous FTP is my 4D wireframe program, called wire4.
+wire4 runs on most GL platforms.
+
+                                             Steve Hollasch
+                                             hollasch@kpc.com
+                                             6-August-1992

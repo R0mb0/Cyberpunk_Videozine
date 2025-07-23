@@ -1,0 +1,218 @@
+options cp
+# WAITWRLD.WLD
+#
+# Waite's World -- Inspired by MarkP's SOLAR and DaveS's ANICART and GATES
+# Copyright (C) 1993 Waite Group Press, Inc.
+#
+loadpath waitwrld
+camera 1 12000,0,-12000     0,-45,0  2   # starting location, orientation and zoom
+camera 2 0,-100,148000      0,0,0    2   # World 2
+camera 3 0,180,-158000      0,0,0    2   # World 3
+camera 4 150000,180,-4000   0,0,0    2   # World 4
+camera 5 150000,0,147000     0,0,0    2  # World 5
+camera 6 -150000,0,150000   0,0,0     2  # World 6
+camera 7 0,0,-2000          0,0,0    2   # Right in front of worm 1 - go fwd
+
+camera 9 0,0,0              0,0,0    2   # 
+
+GROUNDCOLOR 0
+SKYCOLOR 0
+spacestep 128
+ambient 76
+hither          10       # anything closer than this gets clipped
+yon             35000000    # anything farther than this doesn't get rendered   
+
+# each planet has a pivot, an object def, and a do statement to turn it.
+
+# this is where the pivot is set up. Here we are rotating the axis.
+# This is a DaveS trick to make rotations easier
+segment tele=world     -90,-90,0   0,0,0
+segment fixpivot=world -90,-90,45  0 0 0
+segment pivot=world    -90,-90,0   0,0,0
+segment mpivot=world   -90,-90,0   0,0,0
+segment vpivot=world   -90,-90,0   0,0,0
+segment epivot=world   -90,-90,0   0,0,0
+segment mapivot=world  -90,-90,0   0,0,0
+segment jpivot=world   -90,-90,0   0,0,0
+segment spivot=world   -90,-90,0   0,0,0
+segment upivot=world   -90,-90,0   0,0,0
+segment npivot=world   -90,-90,0   0,0,0
+segment plpivot=world  -90,-90,0   0,0,0
+segment tpivot=world   -90,-90,0   0,0,0
+segment testpivot=world -90,-90,0  0,0,0
+segment 2cenpivot=world -90,-90,0  0,0,0
+
+#---------------------------------------------------------------- 11111
+# 1ST WORLD AT 0,0,0                                              METAL WORLD
+segment cenpivot=world  0,0,0      0,0,0
+# This is worm hole 1 made of three elongated twisted octagons.
+# Go inside and see what happens
+object octwistb=octwistb .5,.5,2       0,0,0     0,0,0   0 . cenpivot
+object octwist2=octwist2 .5,.5,2       0,0,0     1000,0,0   0 . cenpivot
+object octwist3=octwist2 .5,.5,2       0,0,0     -1000,0,0   0 . cenpivot
+
+# This is MarkP's sun. Its centered on 0,0,0
+object sun=sun1           1,1,1   0,0,0,   0,0,0   0 . pivot
+
+# This is MarkP2's dodec.vrb converted by hand to a plg
+object dodec=dodec         100,100,100   0,0,0,  0,0,0   0 . pivot
+# This is a large rotating 20 sided column adapted from the faces.wld
+# Its a huge worm hole
+object col20mb=col20mb   1,1,10   90,0,0,   14000,0,0   0 . testpivot
+
+# The following are two planets with moons spinning round them.
+# This one is as big and slow as Jupiter and on a similar path
+object planeta=s1clr   5,5,5   0,0,0   8000,0,0   0 . tpivot
+object s1moon=s1b      1,1,1   0,0,0   2000,0,0   0 . planeta
+
+# This one is fast and moves on earth's orbit 
+object planetb=s1b     1,1,1   0,0,0   4500,4500,0   0 . epivot
+object s2moon=s1b      .3,.3,.3   0,0,0   500,0,0   0 . planetb
+
+
+# This is someones rocket ship. Its cool looking.
+object ship=ship        1,1,1        90,0,0     4500,0,0   0 . mapivot
+
+
+#----------------------------------------------------------------  22222
+# 2ND WORLD 2 0,0,150000                                           GEAR WORLD
+# This is a gear system that makes up World 2
+segment sfarpivot=world -90,-90,0  0,0,0
+object gear6=gear6         10,10,10      0,90,0   150000,0,0    0 . sfarpivot
+object gear6b=gear6b       10,10,10      0,90,0   150000,0,300  0 . sfarpivot
+object gear6c=gear6b       10,10,10      0,90,0   150000,0,-300 0 . sfarpivot
+object gear6d=gear6b       10,10,10      0,90,0   150000,300,0   0 . sfarpivot
+object gear6e=gear6b       10,10,10      0,90,0   150000,-300,0   0 . sfarpivot
+# A dodec made with VRDraw
+object dodec=dodec         50,50,50    0,0,0,   150000,0,0   0 . sfarpivot
+
+#---------------------------------------------------------------- 33333
+# 3RD WORLD AT 0,0,-150000                                        CYCLE WORLD
+# This is another way to do a world. Here the pivot is set at the center
+# of the world and everything is then relative to it
+segment 3cenpivot=world -90,-90,0  0,0,-150000
+object farsun=sun1     .35,.35,.35   0,0,0   0,0,0   0 . 3cenpivot
+# 2 planets spinning symetrically
+object farplan=s1d      2,2,2   0,0,0    2500,0,0  0 . 3cenpivot
+object farplan2=s1d     2,2,2   0,0,0    -2500,0,0 0 . 3cenpivot
+# 2 lil moons round 1st planet
+object farplan3=s1d     .5,.5,.5   0,0,0   750,0,0   0 . farplan
+object farplan4=s1d     .5,.5,.5   0,0,0   -750,0,0   0 . farplan
+# 2 lil moons round 2nd planet
+object farplan4=s1d     .5,.5,.5   0,0,0   750,0,0   0 . farplan2
+object farplan5=s1d     .5,.5,.5   0,0,0   -750,0,0   0 . farplan2
+# moon of the moon around 1st planet
+object farplan6=s1d     .25,.25,.25   0,0,0   250,0,0   0 . farplan3
+object ship=ship        1,1,1        90,0,0     1500,0,0   0 . farsun
+
+#---------------------------------------------------------------- 44444
+# 4TH WORLD AT 150000,0,0                                         WORM WORLD
+#segment 4cenpivot=world -90,-90,0  150000,0,0
+object dummy=octball   .1,.1,.1     90,0,0     150000,0,0  . 4cenpivot 
+object octball=octball  1,1,1        90,0,0     150000,0,0  . 4cenpivot
+# These are two giant rotating red cylinders spining about Jupiter
+object cyl=cyl          2.5,2.5,2.5     45,0,0    2000,0,0   0 . dummy
+object cyl2=cyl         2.5,2.5,2.5     135,0,0   2000,0,0   0 . dummy
+
+#---------------------------------------------------------------- 55555
+# 5TH WORLD AT 150000,0,150000                                    RING WORLD
+segment 5cenpivot=world -90,-90,0  150000,0,150000
+object dummy2=octball   .1,.1,.1     90,0,0     150000,0,150000  . 5cenpivot 
+# This is a more realistic saturn using rings (multiside Ngons)
+object Ring1=Ring1     .21,.21,.05   45,30,0   0,0,0   0 . 5cenpivot
+object Ring2=Ring2     .16,.16,.05   45,30,0   0,0,0   0 . 5cenpivot
+object Ring3=Ring3     .12,.12,.05   45,30,0   0,0,0   0 . 5cenpivot
+object PlanRing=s1c     1,1,1        0,0,90    0,0,0   0 . 5cenpivot
+
+# cone planet spinning in orbit with small cones spinning round it
+object octcone=octcone   .25,.25,.25    90,0,0    1500,0,0 0  . dummy2
+object octcone2=octcone  .1,.1,.1    0,0,0    200,0,0 0  . octcone
+object octcone3=octcone  .1,.1,.1    0,0,0    -200,0,0 0  . octcone
+
+#---------------------------------------------------------------- 66666
+# 6TH WORLD AT -150000,0,150000                                   WAITE WORLD
+segment 6cenpivot=world -90,-90,0  -150000,0,150000
+object dummy3=octball   .1,.1,.1     -90,0,0     -150000,0,150000  . 6cenpivot 
+# This is the letters Waite
+object W3=WAITE        .5,.5,.5    0,0,180   0,0,0   0 . dummy3
+object W4=WAITE        .15,.15,.15   0,0,90   5500,5500,0   0 . dummy3
+
+# ------------------ A N I M A T I O N ---------------
+# this is the animation section
+animation 150
+ state a
+  # only a few of these are used right now, but they are the proper speed
+  # of real planets in our solar system (m=mercury, v=venus, etc).
+  do pivot=  step(x,x,x  0,0,120)[]
+  do mpivot= step(x,x,x  x,x,83)[]
+  do vpivot= step(x,x,x  x,x,32)[]
+  do epivot= step(x,x,x  x,x,20)[]
+  do mapivot=step(x,x,x  x,x,10.64)[]
+  do jpivot= step(x,x,x  x,x,1.6)[]
+  do spivot= step(x,x,x  x,x,.7)[]
+  do upivot= step(x,x,x  x,x,.23)[]
+  do npivot= step(x,x,x  x,x,.122)[]
+  do plpivot= step(x,x,x  x,x,.122)[]
+  do tpivot=step(x,x,x  x,x,2)[]
+  do planeta=step(x,x,x  x,x,50)[]
+  do s1moon=step(x,x,x  x,x,120)[]
+  do planetb=step(x,x,x  x,x,120)[]
+  do s2moon=step(x,x,x  x,x,120)[]
+  do W4=step(x,x,x  x,x,100)[]
+
+  do ccubea=step(x,x,x  x,x,-100)[]
+  do ccubeb=step(x,x,x  x,x,100)[]
+  do ccubec=step(x,x,x  x,x,100)[]
+  do ccubed=step(x,x,x  x,x,100)[]
+  do Ring1=step(x,x,x  x,x,75)[]
+  do Ring2=step(x,x,x  x,x,35)[]
+  do Ring3=step(x,x,x  x,x,-45)[]
+  do PlanRing=step(x,x,x  x,x,35)[]
+
+  do 3cenpivot=step(x,x,x x,x,35)[]
+  do sfarpivot=step(x,x,x x,x,x)[]
+  do farsun=step(x,x,x x,x,15)[]
+  do farplan=step(x,x,x x,x,40)[]
+  do farplan2=step(x,x,x x,x,40)[]
+  do farplan3=step(x,x,x x,x,70)[]
+
+  do gear6=step(x,x,x  x,x,35)[]
+  do gear6b=step(x,x,x  x,x,-35)[]
+  do gear6c=step(x,x,x  x,x,-35)[]
+  do gear6d=step(x,x,x  x,x,-35)[]
+  do gear6e=step(x,x,x  x,x,-35)[]
+
+  do 4cenpivot(x,x,x  x,x,x)
+  do octball=step(x,x,x  x,x,45)
+  do dummy=step(x,x,x  x,x,2)   
+  do cyl=step(x,x,x  x,x,35)[]
+  do cyl2=step(x,x,x  x,x,35)[]
+
+  do 5cenpivot(x,x,x  x,x,35)
+  do octcone=step(x,x,x  x,x,45)
+  do dummy2=step(x,x,x  x,x,-12)   
+
+  do 6cenpivot(x,x,x  x,x,35)
+  do dummy3=step(x,x,x  x,x,25)
+
+  do col20mb=step(x,x,x  x,x,35)[]
+
+  do octwistb=step(x,x,x  x,x,70)[]
+  do octwist2=step(x,x,x  x,x,70)[]
+  do octwist3=step(x,x,x  x,x,70)[]
+segment teleport=world 0,0,0  0,0,0 # the teleportation segment
+
+animation 10
+state wait
+  do sensor(-700,-100,-700    300,100,300) [exit] []
+  do teleport=attach(0)[]  # detach if previously attached
+  do poptext(1.0) Worm Hole to Gear World
+  do teleport=moveto(0,0,0 x,x,x) [state=do_tele]   # move segment
+state do_tele
+  do teleport=attach(1)[]                           #attach user to seg
+  do teleport=moveto(0,0,148000 x,-25,x) [state=end_tele]
+state end_tele
+  do teleport=attach(0)[state=wait]  # free up user
+
+# title memory
+# End of file

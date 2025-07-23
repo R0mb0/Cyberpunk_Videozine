@@ -1,0 +1,85 @@
+#
+# CUBE3D.WLD
+#
+# A stereo cube demo
+# Created by Dave Stampe, January 1993
+# for use with the REND386 package.
+#
+
+loadpath cube3d
+
+skycolor 0xef
+groundcolor 0xef
+
+start 0,0,-2000 0,2,0 2  # starting location, orientation and zoom
+
+ambient 76
+
+# Surface definitions:
+
+surfacedef rd    0x11ff
+surfacedef blu   0x1bff
+surfacedef yel   0x16ff
+surfacedef grn   0x09ff
+
+surfacedef steel1    0x22eF
+surfacedef steel2    0x2c2F
+
+# Surface mappings:
+
+surfacemap red
+surface 1 rd
+surface 2 rd
+surface 3 rd
+surface 4 rd
+surface 5 rd
+surface 6 rd
+surface 7 grn
+
+surfacemap blue
+surface 1 blu
+surface 2 blu
+surface 3 blu
+surface 4 blu
+surface 5 blu
+surface 6 blu
+surface 7 grn
+
+surfacemap yellow
+surface 1 yel
+surface 2 yel
+surface 3 yel
+surface 4 yel
+surface 5 yel
+surface 6 yel
+surface 7 grn
+
+surfacemap let1
+surface 1 steel1
+surface 2 steel2
+
+surfacemap let2
+surface 1 steel2
+surface 2 steel1
+
+object c1=oblock 0.7,0.7,0.7 0,0,0 0,0,0 0 red
+object oblock 0.7,0.7,0.7 0,0,0 100,100,-100 0 blue   c1
+object oblock 0.7,0.7,0.7 0,0,0 -100,-100,-100 0 yellow c1
+
+object vwlett 45,45,45 0,0,0 0,0,16000 0 let1
+object vwlett 45,45,45 0,0,0 200,200,18000 0 let2
+
+animation 150				# perform animation as fast as possible
+	state in							# start of state "in"
+		do c1=step(x,x,-700 x,x,x)[][]				# move into screen
+		do c1=poslimit(x,x,-700 x,x,x)[state=out][]			# at switch point?
+	state out							# start of state "out"
+		do c1=step(x,x,700 x,x,x)[][]				# move out of screen
+		do c1=poslimit(x,x,x x,x,2000)[state=in][]			# at switch point?
+
+# End of sample file
+
+title A 3D Demonstration
+title by Dave Stampe
+title memory
+

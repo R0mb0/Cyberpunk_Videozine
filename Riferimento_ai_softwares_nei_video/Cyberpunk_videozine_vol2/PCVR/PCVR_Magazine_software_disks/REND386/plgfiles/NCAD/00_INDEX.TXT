@@ -1,0 +1,10 @@
+3rings.plg       5411  03-23-93  
+glass1.plg       1661  03-23-93  
+ncadread.me       887  03-23-93  
+octo1.plg        1465  03-23-93  
+pot.plg          7685  03-23-93  
+sphere.plg       3564  03-23-93  
+springy1.plg     4859  03-23-93  
+stealth1.plg     1415  03-23-93  
+ufo.plg          4661  03-23-93  
+whoknows.plg     9930  03-23-93  

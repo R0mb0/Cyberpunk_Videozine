@@ -1,0 +1,41 @@
+       OS/2 Upload Information Template for ftp-os2.nmsu.edu
+
+Archive Name: voglepm1.01.zip
+
+Program Description:  A VOGLE (a 3D graphics library) driver for OS/2 PM
+
+Operating System:  Tested on OS/2 2.11.  Should work on OS/2 2.x
+
+Program Source:  Claudio Fahey <claudio@uclink.berkeley.edu>
+
+Your name: Claudio Fahey
+Your email address: claudio@uclink.berkeley.edu
+
+Proposed directory for placement:   2_x/graphics
+
+------------------------------------------------------------------------
+
+    VOGLE PM 1.01 (5/10/94)
+    A VOGLE driver for OS/2 Presentation Manager
+
+    VOGLE is a library of C routines for doing line drawings and polygon fills 
+    in 2 and 3 Dimensions.  It handles circles, curves, arcs, patches, 
+    polygons, and software text in a device independent fashion.  Simple 
+    hidden line removal is also available via polygon backfacing.  Access to 
+    hardware text and double buffering of drawings depends on the driver.  
+
+    The compiled examples, voglepm.dll, and the Hershey fonts are included in 
+    this archive in examples.zip.  (NOTE: the emx dlls are required for the 
+    examples)  
+
+    This archive DOES NOT contain everything needed to recompile the VOGLE 
+    library.  The VOGLE documentation and the rest of the source code needed 
+    to compile the library is available from gondwana.ecr.mu.oz.au in
+    /pub/vogle.tar.gz.
+
+    Makefiles for emx/gcc and Borland C++ for OS/2 are included in this 
+    archive.
+
+        Claudio Fahey
+        e-mail: claudio@uclink.berkeley.edu
+

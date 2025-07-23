@@ -1,0 +1,160 @@
+From broehl Tue Aug 24 10:38:33 1993
+Received: by sunee.uwaterloo.ca
+	id <AA22895>; Tue, 24 Aug 93 10:38:32 -0400
+From: Bernie Roehl <broehl>
+Message-Id: <9308241438.AA22895@sunee.uwaterloo.ca>
+Subject: Forwarded mail...
+To: broehl (Bernie Roehl)
+Date: Tue, 24 Aug 93 10:38:32 EDT
+X-Mailer: ELM [version 2.3 PL11]
+Status: OR
+
+According to David Boeren:
+>From boeren@sg4.ist.ucf.edu Tue Aug  3 23:30:22 1993
+Date: Tue, 3 Aug 93 23:00:07 -0400
+From: boeren@sg4.ist.ucf.edu (David Boeren)
+Message-Id: <9308040300.AA06685@sg4.ist.ucf.edu>
+Apparently-To: rend386@sunee
+X-Status: 
+
+# Dactyl Nightmare World
+OBJECT dactyl_world
+OBJECT base_board
+OBJECT north_board
+OBJECT south_board
+OBJECT east_board
+OBJECT west_board
+OBJECT pillar
+OBJECT temp_pillar
+OBJECT ring
+OBJECT temp_ring
+OBJECT arch
+OBJECT temp_arch
+OBJECT stairs
+OBJECT temp_stairs
+
+
+# Some useful constants
+define CHECKSIZE 70
+define UPPER_OFFSET  500
+define UPPER_NEGSET -500
+define UPPER_LEVEL 150
+
+
+# Create the base level
+base_board = checker 5 5 CHECKSIZE CHECKSIZE 20 255 255 255 0 0 255
+base_board = rotx base_board 90
+
+
+# Create a prototype upper level board
+north_board = checker 5 5 CHECKSIZE CHECKSIZE 20 255 255 255 255 0 0
+north_board = rotx north_board 90
+
+
+# Create a generic pillar (YELLOW)
+pillar = revolution 15 8 4 0 [ 10 10 10 10 10 10 20 20 ]
+pillar = paint pillar 255 255 0
+pillar = trans pillar 0 62.5 0
+
+
+# Duplicate to multiple pillars on base board
+temp_pillar = trans pillar  100  0  100
+base_board  = merge base_board temp_pillar
+temp_pillar = trans pillar -100  0  100
+base_board  = merge base_board temp_pillar
+temp_pillar = trans pillar  100  0 -100
+base_board  = merge base_board temp_pillar
+temp_pillar = trans pillar -100  0 -100
+base_board  = merge base_board temp_pillar
+
+
+# Duplicate to multiple pillars on upper boards
+temp_pillar  = trans pillar  100  0  -100
+north_board  = merge north_board temp_pillar
+temp_pillar  = trans pillar -100  0  -100
+north_board  = merge north_board temp_pillar
+
+
+# Create a generic arch
+arch = block 250 50 30
+arch = trans arch 0 140 0
+arch = paint arch 255 0 100
+
+
+# Duplicate to multiple arches on base board
+temp_arch = trans arch 0 0 -110
+base_board = merge base_board temp_arch
+temp_arch = roty temp_arch 90
+base_board = merge base_board temp_arch
+temp_arch = roty temp_arch 90
+base_board = merge base_board temp_arch
+temp_arch = roty temp_arch 90
+base_board = merge base_board temp_arch
+
+
+# Dupicate to multiple arches on upper boards
+temp_arch    = trans arch 0 0 -100
+north_board  = merge north_board temp_arch
+
+
+# Create a generic ring
+ring = torus 32 16 5 3
+ring = trans ring 0 55 0
+
+
+# Duplicate prototype upper board into four copies
+south_board = roty north_board 180
+east_board  = roty north_board  90
+west_board  = roty north_board -90
+
+
+# Add rings to the boards
+temp_ring   = paint ring 200 200 200
+base_board  = merge base_board temp_ring
+temp_ring   = paint ring 255 0 0
+north_board = merge north_board temp_ring
+temp_ring   = paint ring 0 255 0
+south_board = merge south_board temp_ring
+temp_ring   = paint ring 0 0 255
+east_board  = merge east_board temp_ring
+temp_ring   = paint ring 255 255 0
+temp_ring   = roty temp_ring 90
+west_board  = merge west_board temp_ring
+
+
+# Trans the four upper boards into position
+north_board = trans north_board 0  UPPER_LEVEL  UPPER_OFFSET
+south_board = trans south_board 0  UPPER_LEVEL  UPPER_NEGSET
+east_board  = trans east_board  UPPER_OFFSET  UPPER_LEVEL  0
+west_board  = trans west_board  UPPER_NEGSET  UPPER_LEVEL  0
+
+
+# Create a generic staircase
+stairs = block 80 10 212
+stairs = trans stairs 0 0 106
+stairs = rotx stairs -45
+stairs = trans stairs 0 10 175
+stairs = paint stairs 128 128 128
+
+
+# Duplicate into four staircases
+base_board = merge base_board stairs
+temp_stairs = roty stairs 90
+base_board = merge base_board temp_stairs
+temp_stairs = roty stairs 180
+base_board = merge base_board temp_stairs
+temp_stairs = roty stairs 270
+base_board = merge base_board temp_stairs
+
+
+# Merge and save
+dactyl_world = copy base_board
+dactyl_world = merge dactyl_world north_board
+dactyl_world = merge dactyl_world south_board
+dactyl_world = merge dactyl_world east_board
+dactyl_world = merge dactyl_world west_board
+savePLG dactyl_world dactwld.plg
+
+
+
+

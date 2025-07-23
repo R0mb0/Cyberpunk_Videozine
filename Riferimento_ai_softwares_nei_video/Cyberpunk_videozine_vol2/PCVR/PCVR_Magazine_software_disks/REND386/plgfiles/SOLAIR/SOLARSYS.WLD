@@ -1,0 +1,78 @@
+#Copyright 1992, 1993  Mark T. Pflaging
+#Latest update 4/6/93
+
+worldscale 1.0          # 1.0 mm per unit
+
+#STEREOSET physdist screenwidth pixelwidth eyespacing convergence
+#stereoset   600 250 320 3 300 1.0      #These are the default
+#
+# I prefer the following values.  I am using an NTSC converter,
+# so my screen is bigger and I sit farther away, but I think they'll
+# work for a regular monitor too.
+stereoset   600 500 320 50 1200 1.0
+
+# See "Section 1 - Getting a black background" in "README!.NOW"
+GROUNDCOLOR 5
+
+SKYCOLOR 5
+
+SCREENCLEARCOLOR 0
+
+LIGHT 0,0,0
+
+hither            10    # anything closer than this gets clipped
+yon         20000000    # anything farther than this doesn't get rendered
+
+#START x,y,z pan,tilt,roll zoom
+start  -5000,0,-5000 77,0,0 1.0
+
+ambient 76
+
+#OBJECT [objname=]filename sx,sy,sz rx,ry,rz tx,ty,tz depthtype mappings parent
+
+#Sun - 96 Polygons - "Soccer"
+object p0=sun
+
+#Mercury - 32 polygons - "Football"
+object p1=mercury
+
+#Venus - 54 Polygons - "Soccer"
+object p2=venus
+
+#Earth - 54 Polygons - "Soccer"
+object p3=earth
+
+#Mars - 32 Polygons - "Football"
+object p4=mars
+
+#Jupiter - 96 Polygons - "Soccer"
+object p5=jupiter
+
+#Saturn - 96 Polygons - "Soccer"
+object p6=saturn
+
+#Uranus - 72 Polygons - "Football"
+object p7=uranus
+
+#Neptune - 72 Polygons - "Football"
+object p8=neptune
+
+#Pluto - 24 Polygons - "Soccer"
+object p9=pluto
+
+#The Background stars
+object stars 1000,1000,1000 0,0,0 -500000,-500000,-500000
+
+# Tasks:
+task sculspin 100 p0;6,-5,7
+task sculspin 8 p1;0,4.17,0
+task sculspin 8 p2;0,1.61,0
+task sculspin 8 p3;0,1,0
+task sculspin 8 p4;0,.532,0
+task sculspin 8 p5;0,.0836,0
+task sculspin 8 p6;0,.0345,0
+task sculspin 8 p7;0,.0119,0
+task sculspin 8 p8;0,.0061,0
+task sculspin 8 p9;0,.004032,0
+
+

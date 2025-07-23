@@ -1,0 +1,54 @@
+These files are for use with Rend386 (demo4.exe or demo4b.exe).
+
+Rend386 is a PC based virtual reality system.  It is freeware
+and it should be available from the same place you got this file.
+
+VRASP, the Virtual Reality Alliance of Students and Professionals,
+sells Power Gloves and connectors for use with Rend386 and also
+sells Object Glove, an object-oriented C++ library for accessing
+one or two Power Gloves under Windows.  See contact information
+below.
+
+This world was created by Mark Pflaging.
+
+Some notes about this world:
+The six objects you see are from a family of surfaces called
+Superquadrics.  I got the equations for them from the book
+"Graphics Gems III", editied by David Kirk.  The aritcle is
+"Rigid Physically Based Superquadrics" on page 137, by A. H.
+Barr.
+
+These surfaces are really neat, you can't get them by simple
+extrusion, rotation, or volumetric Boolean operations.  The
+curves shown in the world, from left to right, have n, e,
+and a values given in the chart below.
+
+			n	e	a
+		      ---     ---     ---
+Leftmost object		3	1	0
+			3	2	0
+			3	3	0
+			3	1	2
+			3	2	2
+Rightmost object	3	3	2
+
+That's about it I guess.  Good for about 5 or 10 minutes of
+gawking but after that it's kind of boring.
+
+This world was generated completely in about 30 minutes using
+an object-oriented tool for creating .PLG files.  It allows you
+to specify any value for n, e, and a (and the number of divisions
+for u and v), and it generates a .PLG file for you.  This is just
+one of MANY menu selections for creating and modifying .PLG files.
+I'm not ready to say much else about it yet, except that it is
+really great.  If your interested in this, leave me some email or
+somethimg telling me what your interest is.
+
+
+ ---------------------------------------------------------------------
+ |      / |^\        /| |^^^\ |^\      Mark Pflaging, Vice President
+ |    /   |___\    /  | |____ |___\    Senior Editor of Pix-Elation
+ |  /     |\     /----|      ||        70233.1552@CompuServe.COM
+ |/       |  \ /      | \___/ |
+ The Virtual Reality Alliance of Students and Professionals___________
+

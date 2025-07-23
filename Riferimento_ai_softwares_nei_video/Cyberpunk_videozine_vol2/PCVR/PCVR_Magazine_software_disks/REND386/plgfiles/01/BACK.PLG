@@ -1,0 +1,11 @@
+# 2Morrow Virtual Object Translator/Optimizer v1.3 PLG file.
+# 2Morrow World Builder.  2Morrow, Incorporated.
+# PLG data is grouped by the object designations.
+
+NoName 4 2
+0 400 0                  #0
+-400 0 0                 #1
+0 -400 0                 #2
+400 0 0                  #3
+0x1efa 4 0 1 2 3
+0x1efa 4 3 2 1 0

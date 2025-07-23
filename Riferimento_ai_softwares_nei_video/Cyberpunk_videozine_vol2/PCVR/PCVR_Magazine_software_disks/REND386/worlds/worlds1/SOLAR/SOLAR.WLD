@@ -1,0 +1,87 @@
+#
+# SOLAR.WLD
+#
+# The Solar System
+#
+# Copyright 1992, Mark T. Pflaging
+#
+
+loadpath r386w\wld\worlds1\solar
+flymode 1
+worldscale 1.0          # 1.0 mm per unit
+
+GROUNDCOLOR 0
+
+SKYCOLOR 0
+
+SCREENCLEARCOLOR 0
+
+LIGHT 0,0,0
+
+hither            10    # anything closer than this gets clipped
+yon          5000000    # anything farther than this doesn't get rendered
+
+options a   # camera angles are tilt,pan,roll
+
+# START x,y,z pan,tilt,roll zoom
+#start  0,0,-8000 0,0,0 1.0
+camera 1  0,0,-8000 0,0,0 1.0
+camera 2 25311 0 2912 0.000000 247.070312 0.000000 1.000000
+
+ambient 76
+
+# OBJECT [objname=]filename sx,sy,sz rx,ry,rz tx,ty,tz depthtype mappings parent
+
+# Sun
+object p0=sun 1,1,1  0,0,0  0,0,0 256
+
+# Mercury - 32 polygons
+object p1=mercury 1,1,1  0,0,0  0,0,0 256
+
+# Venus - 54 Polygons
+object p2=venus 1,1,1 0,0,0 0,0,0 256
+
+# Earth - 54 Polygons
+object p3=earth 1,1,1  0,0,0  0,0,0 256
+
+# Mars - 32 Polygons
+object p4=mars 1,1,1  0,0,0  0,0,0 256
+
+# Jupiter - 96 Polygons
+object p5=jupiter 1,1,1  0,0,0  0,0,0 256
+
+# Saturn - 96 Polygons
+object p6=saturn 1,1,1  0,0,0  0,0,0 256
+
+# Uranus - 72 Polygons
+object p7=uranus 1,1,1  0,0,0  0,0,0 256
+
+# Neptune - 72 Polygons
+object p8=neptune 1,1,1  0,0,0  0,0,0 256
+
+# Pluto - 24 Polygons
+object p9=pluto 1,1,1  0,0,0  0,0,0 256
+
+# This next line was added by Bernie Roehl, December 1992:
+object s1=ship 1,1,1 0,0,0 20000,0,0 256
+
+# Tasks:
+task sculspin 100 p0;6,-5,7
+task sculspin 8 p1;0,4.17,0
+task sculspin 8 p2;0,1.61,0
+task sculspin 8 p3;0,1,0
+task sculspin 8 p4;0,.532,0
+task sculspin 8 p5;0,.0836,0
+task sculspin 8 p6;0,.0345,0
+task sculspin 8 p7;0,.0119,0
+task sculspin 8 p8;0,.0061,0
+task sculspin 8 p9;0,.004032,0
+
+# Next line added by Bernie, December 1992:
+task sculspin 8 s1;2,5,3.5
+
+# End of solar.wld
+
+title The Solar System
+title by Mark Pflaging
+title memory

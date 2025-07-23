@@ -1,0 +1,52 @@
+#
+# TTOY.WLD
+#
+# A tumbling torus toy
+#
+# Created by Dave Stampe (dstampe@sunee.uwaterloo.ca)
+# for "Virtual World Creations", published by the Waite Group
+#
+
+loadpath ttoy
+stepsize 3
+
+start 0,0,-1200 0,1,0  # starting location, orientation and zoom
+
+#skycolor 0xef
+#groundcolor 0xef
+
+ambient 60
+
+# Surface definitions:
+
+surfacedef rd    0x11ff
+surfacedef blu   0x1bff
+surfacedef yel   0x16ff
+surfacedef grn   0x09ff
+
+# Surface mappings:
+
+surfacemap red
+surface 1 rd
+
+surfacemap blue
+surface 1 blu
+
+surfacemap yellow
+surface 1 yel
+
+object c6=torus2     0.5,0.5,0.5  0,0,0   0,0,0   0 blue
+object c7=torus2     1,1,1        0,0,0   0,0,0   0 red
+object c8=torus2     2,2,2        0,0,0   0,0,0   0 yellow
+
+animation 150
+ state a
+  do c6=step(x,x,x -129,79,-90)[]
+  do c7=step(x,x,x -88,40,-50)[]
+  do c8=step(x,x,x 0,-55,66)[]
+
+title Torus Toy World
+title by Dave Stampe
+title memory
+
+

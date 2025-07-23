@@ -1,0 +1,23 @@
+This collection of files contains color images for my dissertation,
+"Ray Tracing with Amalgams," which is available elsewhere via
+anonymous FTP.  Each file's name corresponds to its image number in the
+dissertation.  For example, file 'img1ab.rle' contains Images 1a and 1b
+from the dissertation.
+
+The files were compressed before packing into the archive file.  To 
+uncompress, give the (Unix) command "uncompress *.Z".
+
+The uncompressed files are in Utah RLE format.  If your site doesn't
+have the Utah Raster Toolkit, you can get it via anonymous FTP from the
+following sources:
+
+        cs.utah.edu (128.110.4.21)
+        weedeater.math.yale.edu (130.132.23.17)
+        freebie.engin.umich.edu (35.2.68.23)
+
+(Site 'weedeater' probably also has the text of the dissertation in
+Postscript.)
+
+-- Kelvin Thompson
+   kelvin@cs.utexas.edu
+   July 1991

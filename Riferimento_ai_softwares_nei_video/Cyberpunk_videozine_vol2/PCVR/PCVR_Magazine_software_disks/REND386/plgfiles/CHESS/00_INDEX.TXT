@@ -1,0 +1,8 @@
+bishop.plg       1173  03-25-93  
+castle.plg        881  03-25-93  
+check.plg          68  03-25-93  
+chess.wld        5567  03-25-93  
+horse.plg         765  03-25-93  
+king.plg         2902  03-25-93  
+pawn.plg          978  03-25-93  
+queen.plg         988  03-25-93  

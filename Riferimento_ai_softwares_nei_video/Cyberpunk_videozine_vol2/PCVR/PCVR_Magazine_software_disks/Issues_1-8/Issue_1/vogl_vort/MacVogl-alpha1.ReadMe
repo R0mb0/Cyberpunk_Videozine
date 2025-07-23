@@ -1,0 +1,25 @@
+This is the first release of MacVogl, a port of the vogl package,
+which is a gl-like graphics library.
+
+The code is still in alpha stage. I am currently optimising
+it for the Mac platform. Use it at your own risk and sanity.
+Do observe that:
+
+1.  ThinkC 5.01 is used for this version.
+2.  Requires at least a 68020 CPU and 68881 FPU.
+3.  Assumes that point 2 is always true. Doesn't check.
+4.  Think C specific code is enclosed within #ifdef THINK_C.
+5.  The Mac II driver is found in MacII.c
+
+I welcome bug reports and fixes. I will try my best to incorporate
+the suggestions in my next release. But no garantees (sp?).
+
+Tai Hou TNG
+Institute of Systems Science
+National University of Singapore
+Heng Mui Keng Terrace
+Singapore 0511
+FAX:7782571
+email: taihou@iss.nus.sg (internet)
+	   isstth@nusvm.bitnet (bitnet)
+

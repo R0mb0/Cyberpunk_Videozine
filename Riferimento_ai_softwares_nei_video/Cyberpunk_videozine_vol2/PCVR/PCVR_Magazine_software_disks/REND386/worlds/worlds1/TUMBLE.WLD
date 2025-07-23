@@ -1,0 +1,46 @@
+#
+# TUMBLE.WLD
+#
+# A tumbling bishop, banana and cube
+#
+# Animation by Dave Stampe
+#
+# Chess piece by Randy Brown, brown@cs.unc.edu
+# copyright (c) Randy Brown, OK to distribute if copyright/author appears 
+#
+# Banana made on Frank Crow's U. Utah surface design system
+# copyright (c) Ohio State Univ. - ok to distribute if copyright appears
+#
+
+loadpath tumble
+
+start 0,0,0 0,1,0  # starting location, orientation and zoom
+camera 2 -700,9100,8400 84,86,0
+
+object c6=bishop    0.8,0.8,0.8     0,0,0   0,-400,8000   0
+object c7=banana    0.8,0.8,0.8     0,0,0   0,0,8000   0
+object c8=metlcc    3,3,3     0,0,0   1000,-200,10000
+
+# Tasks:
+animation 150
+ state a
+  do c6=step(x,x,x -60,99,-15)[]
+  do c7=step(x,x,x -118,60,-90)[]
+
+animation 150
+ state init
+  do c8=moveto(700,-1200,10000 x,x,x)[state=a]
+ state a
+  do c8=gravity(-600,4500,0 0,-4000,0)[]
+  do c8=step(x,x,x 150,130,100)[]
+  do c8=poslimit(x,-1200,x x,x,x)[state=b][]
+ state b
+  do c8=gravity(600,4500,0 0,-4000,0)[]
+  do c8=step(x,x,x -150,-130,-100)[]
+  do c8=poslimit(x,-1200,x x,x,x)[state=a][]
+
+# End of sample file
+
+title Tumbling World
+title by Dave Stampe
+title memory

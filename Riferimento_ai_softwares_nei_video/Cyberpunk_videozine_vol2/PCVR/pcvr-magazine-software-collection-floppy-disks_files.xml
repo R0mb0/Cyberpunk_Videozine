@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files>
+  <file name="PCVRJET/PCVRJET.zip" source="original">
+    <mtime>1652120549</mtime>
+    <size>291728</size>
+    <md5>f0c0e2057c64de04baa919188c1bdfc6</md5>
+    <crc32>5ce3e286</crc32>
+    <sha1>9772de258c6b7023808aaaad22ae40026d1706b1</sha1>
+    <format>ZIP</format>
+    <viruscheck>1661996660</viruscheck>
+    <filecount>48</filecount>
+  </file>
+  <file name="PCVRJET/PCVRJET/00_INDEX.TXT" source="original">
+    <mtime>1652120629</mtime>
+    <size>2249</size>
+    <md5>8817ee72c9c0d6b8f56d4ec51b9b6da7</md5>
+    <crc32>00b3d3aa</crc32>
+    <sha1>ba0e3c7619174b024e892e49deac37d8299d9d5f</sha1>
+    <format>Text</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/BOX.PLG" source="original">
+    <mtime>1652120661</mtime>
+    <size>239</size>
+    <md5>8e327ca3a75fd4c214f37540a93e8159</md5>
+    <crc32>081af45e</crc32>
+    <sha1>64980647ec0b9c3dff2874a77b04d200716f251d</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/BOX2.PLG" source="original">
+    <mtime>1652120627</mtime>
+    <size>257</size>
+    <md5>c70d9bd98833056f79910db4c7f199b9</md5>
+    <crc32>66bdea67</crc32>
+    <sha1>912f9e2623ebd55434baad318ed40a09711f5c94</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/BOX3.PLG" source="original">
+    <mtime>1652120654</mtime>
+    <size>257</size>
+    <md5>ce169d640bbd93fed25c548ee139cc46</md5>
+    <crc32>85c532e2</crc32>
+    <sha1>891e5364a35f29af11ab8a3cb409722cd7930f8d</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/BUTTONS.PLG" source="original">
+    <mtime>1652120594</mtime>
+    <size>241</size>
+    <md5>bebb71b813fff941a321c1b05bcd957b</md5>
+    <crc32>1a767f7b</crc32>
+    <sha1>4484417fdb14c6020e74f7a521327137a0d7bf1c</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/CLOUD.PLG" source="original">
+    <mtime>1652120610</mtime>
+    <size>981</size>
+    <md5>e08054e8e3010d819c5b410ddf9a26b3</md5>
+    <crc32>395bc349</crc32>
+    <sha1>61b3df8fd83f31989bc8f899779ca97285225ee7</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/EXP1.PLG" source="original">
+    <mtime>1652120605</mtime>
+    <size>941</size>
+    <md5>ed139ffab9fe06f7f41bf2cea59ace78</md5>
+    <crc32>ac3615a5</crc32>
+    <sha1>dc111e13bfd5cfde431e2e53b1dedb16a1ee369a</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/EXP2.PLG" source="original">
+    <mtime>1652120596</mtime>
+    <size>949</size>
+    <md5>9e43184c5d336d91e949d40cfcdc4d0d</md5>
+    <crc32>da1c0390</crc32>
+    <sha1>0de71c237f98666c2bd6f7d99b42f36c7d3f97dc</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/EXP3.PLG" source="original">
+    <mtime>1652120638</mtime>
+    <size>965</size>
+    <md5>cc6e5dd91a5c7c826496d5687e07dfd3</md5>
+    <crc32>8432bbaf</crc32>
+    <sha1>43d8c469985f2f32b1e4622d0401dd70d39d5c8e</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/EXP4.PLG" source="original">
+    <mtime>1652120603</mtime>
+    <size>997</size>
+    <md5>30e67163227d7773ca6d1ee6fffc5b7f</md5>
+    <crc32>d9f8d75f</crc32>
+    <sha1>9a6631777ba34f6a99b5c2f08acde29cc1704bec</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/EXP5.PLG" source="original">
+    <mtime>1652120636</mtime>
+    <size>1013</size>
+    <md5>880846c235edcc5de58e6dcc32b92851</md5>
+    <crc32>7817670c</crc32>
+    <sha1>39a362427ca0ceddd4b78a548f07b0a9c10f5ac7</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/EXP6.PLG" source="original">
+    <mtime>1652120681</mtime>
+    <size>1013</size>
+    <md5>7588692739026a5880057e2b1aaf559f</md5>
+    <crc32>051ed072</crc32>
+    <sha1>e04230ea43bec0911ed5a6d47d282dd7bd08f548</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/FINGER1.PLG" source="original">
+    <mtime>1652120632</mtime>
+    <size>206</size>
+    <md5>e9d47dc2511349c9779c74a9b5da8429</md5>
+    <crc32>ad576eff</crc32>
+    <sha1>9fe9bc0f8d5bb7a9779303da7af163da9ea0266f</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/FINGER2.PLG" source="original">
+    <mtime>1652120646</mtime>
+    <size>306</size>
+    <md5>52f6aee307073066dedaad75307835a8</md5>
+    <crc32>f0c8bbd0</crc32>
+    <sha1>996152ac2b21428a0970dad955a66db90acefc08</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/GLASS.PLG" source="original">
+    <mtime>1652120677</mtime>
+    <size>165</size>
+    <md5>395096ba69dc68d5e5abdffdc7a4d9e9</md5>
+    <crc32>bda732b6</crc32>
+    <sha1>a067baa51db4c4ee0ac430406e3fdb12ee848437</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/GLASS1.PLG" source="original">
+    <mtime>1652120587</mtime>
+    <size>155</size>
+    <md5>fde0c6f59c9f2ea4875d6199fd88f722</md5>
+    <crc32>07d59290</crc32>
+    <sha1>a07bb7ff3b84230729eb372c9715353cff921598</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/GLASS2.PLG" source="original">
+    <mtime>1652120644</mtime>
+    <size>155</size>
+    <md5>d4a8a53815eed806078e8c164a37c76d</md5>
+    <crc32>7ee13ab0</crc32>
+    <sha1>06f5e2c42388625d5ecfd59d390af14ea01d1135</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/GLASS3.PLG" source="original">
+    <mtime>1652120622</mtime>
+    <size>155</size>
+    <md5>f2d2a81e525998ed7defa9cca17175b4</md5>
+    <crc32>b318bc9e</crc32>
+    <sha1>4f8fa78761f50df1404531e560ebd508aa80c039</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/GO.BAT" source="original">
+    <mtime>1652120574</mtime>
+    <size>10</size>
+    <md5>eb6cc42ddba4437c4483385b377fd285</md5>
+    <crc32>449033d3</crc32>
+    <sha1>6852c7769acb9740c24905fa1d3eb016ec6f8089</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/HANDSM.FIG" source="original">
+    <mtime>1652120679</mtime>
+    <size>1584</size>
+    <md5>4e23665751625074ec57d5706757ef68</md5>
+    <crc32>4be9abd8</crc32>
+    <sha1>7ec3738cda3a13cd1f03cba2fc132e04e8f54f4a</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/JET.C" source="original">
+    <mtime>1652120648</mtime>
+    <size>33343</size>
+    <md5>0b8f71ed87933156ea2aaf8d53527592</md5>
+    <crc32>08def3cb</crc32>
+    <sha1>30a4bfa9d097948edd60c7b64c27a64d0f8cbf73</sha1>
+    <format>Unknown</format>
+  </file>
+  <file name="PCVRJET/PCVRJET/JET.DOC" source="original">
+    <mtime>1652120634</mtime>
+    <size>3426</size>
+    <md5>43bc2d224ca193818fe040c097bcb806</md5>
+    <crc32>9cbe489f</crc32>
+    <sha1>fb3eaade534f4de6d98e4edfa9a1bad564c68108</sha1>
+    <format>Word Document</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/JET.DSK" source="original">
+    <mtime>1652120671</mtime>
+    <size>1750</size>
+    <md5>dc6780f984c63cb54694ecce4eb05399</md5>
+    <crc32>cf5ffd5f</crc32>
+    <sha1>d163301fa31e77391881b5d9942fb6f3a01f2261</sha1>
+    <format>Storage Media Image</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/JET.EXE" source="original">
+    <mtime>1652120607</mtime>
+    <size>188578</size>
+    <md5>ba25a3133a8e549d91c39603960539b4</md5>
+    <crc32>56966100</crc32>
+    <sha1>9f7db8f96b130912c52191d8956f00f2a7df505c</sha1>
+    <format>Windows Executable</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/JET.FIG" source="original">
+    <mtime>1652120641</mtime>
+    <size>540</size>
+    <md5>87b57ba3b0e6c1b9746044ce9f04d35d</md5>
+    <crc32>1dfeccd3</crc32>
+    <sha1>3e839a943e8b4bac573448c2af7d64e104e5bbc6</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/JET.OBJ" source="original">
+    <mtime>1652120662</mtime>
+    <size>34073</size>
+    <md5>f59b9bb03b48ae35c68711ffc5c59752</md5>
+    <crc32>23742f27</crc32>
+    <sha1>6ded7e7bbe92f88558d96f9f5b53e56d74290c68</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/JET.PLG" source="original">
+    <mtime>1652120675</mtime>
+    <size>223</size>
+    <md5>36d694a08dd28f2fb991b2ed595e7c38</md5>
+    <crc32>df8e61e1</crc32>
+    <sha1>9e1a1fdd96f3c1eaf89333454b87b1a57dd7cbe9</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/JET.PRJ" source="original">
+    <mtime>1652120553</mtime>
+    <size>8271</size>
+    <md5>cfe8f860c284cb87b439fd0ee625a250</md5>
+    <crc32>7bd4fcfa</crc32>
+    <sha1>732601790065e7626c0b65c6a6b0e206384b1871</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/JET.WLD" source="original">
+    <mtime>1652120560</mtime>
+    <size>2698</size>
+    <md5>a53d1a2b866c4311a0815cbca5912c21</md5>
+    <crc32>1a4767d3</crc32>
+    <sha1>2d6abfe411b2492fc26addebe3a8b84de550abf4</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/LINE.PLG" source="original">
+    <mtime>1652120619</mtime>
+    <size>74</size>
+    <md5>5172efe718d8bde40ff34f00bb5fdb93</md5>
+    <crc32>208a0a1d</crc32>
+    <sha1>b940fc6ab15c58a77b11543a5ab93b177ec2650a</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/MAKECLD.C" source="original">
+    <mtime>1652120672</mtime>
+    <size>857</size>
+    <md5>40ef46e161a350f29254f24e0706cdc8</md5>
+    <crc32>a14a388f</crc32>
+    <sha1>e88a6d5d96e3f4744f600750908c531b2dd34fd2</sha1>
+    <format>Unknown</format>
+  </file>
+  <file name="PCVRJET/PCVRJET/MAKECLD.EXE" source="original">
+    <mtime>1652120658</mtime>
+    <size>18175</size>
+    <md5>c777f434801c7afca20157674b43b72b</md5>
+    <crc32>8bd4ad9b</crc32>
+    <sha1>bdfd6e8a57243e56fc586af2fa43f6c162fa9e23</sha1>
+    <format>Windows Executable</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/MAKECLD.OBJ" source="original">
+    <mtime>1652120625</mtime>
+    <size>2128</size>
+    <md5>b96c1c021347d9f11e299a891aa4d0c1</md5>
+    <crc32>7789d96f</crc32>
+    <sha1>b715c9436419ed1f22ccf9139b848d41fb99bc90</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/MENU1.FIG" source="original">
+    <mtime>1652120568</mtime>
+    <size>409</size>
+    <md5>e5ae52fe07afb37fd4193b8bf0965ad4</md5>
+    <crc32>2d9d6874</crc32>
+    <sha1>b52f730a88df4b12d65ba2f63ff1c9797144a13e</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/MENU2.FIG" source="original">
+    <mtime>1652120656</mtime>
+    <size>409</size>
+    <md5>9b9f94b8f803fc1f2ddc134044d42497</md5>
+    <crc32>6eda21fa</crc32>
+    <sha1>69cf47f19befede68d0736bdc205ab4f2f1b2c83</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/MOUSEDRV.RPD" source="original">
+    <mtime>1652120666</mtime>
+    <size>1175</size>
+    <md5>93acc3fc4ce6df3d01fc7876989c350d</md5>
+    <crc32>d315a3b0</crc32>
+    <sha1>15ab598a817039cd0558db9b464f9c263c2960c2</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/PALM.PLG" source="original">
+    <mtime>1652120650</mtime>
+    <size>603</size>
+    <md5>89d7e7012486d5a34c6848dd75d692cc</md5>
+    <crc32>5118becc</crc32>
+    <sha1>3cf59b21317cf6cd11883f326183ceec7ef9cedf</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/PCVRINFO" source="original">
+    <mtime>1652120612</mtime>
+    <size>3145</size>
+    <md5>43ba482d4ad703f31c2e43a67d83c512</md5>
+    <crc32>9e0662c4</crc32>
+    <sha1>c71d5c1a8614cb2db5bda50231f2c1a4fb5701dd</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/PCVRJET.EXE" source="original">
+    <mtime>1652120664</mtime>
+    <size>160682</size>
+    <md5>732b9be9c2c1eab9a962ac0e551db880</md5>
+    <crc32>af64145b</crc32>
+    <sha1>5d5ce8e6b0d513ae932908b2964985ea7291f960</sha1>
+    <format>Windows Executable</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/RB.DSK" source="original">
+    <mtime>1652120615</mtime>
+    <size>1330</size>
+    <md5>2e3942d37288229a26017cf302433bee</md5>
+    <crc32>a67e4124</crc32>
+    <sha1>19e9e8f47e85e986749f169b6abae463ce3d6915</sha1>
+    <format>Storage Media Image</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/RBBALL.DSK" source="original">
+    <mtime>1652120668</mtime>
+    <size>2085</size>
+    <md5>5dc00683d0c8e20961105163d0f80448</md5>
+    <crc32>80e5facd</crc32>
+    <sha1>eb6b3e5594a803a4a71772a7a290da71158c16fa</sha1>
+    <format>Storage Media Image</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/REND386.CFG" source="original">
+    <mtime>1652120652</mtime>
+    <size>129</size>
+    <md5>000ce25c3f3a2b096dac8c3a8e0c955d</md5>
+    <crc32>1adca127</crc32>
+    <sha1>5c2174d8ea10ae28ea5ccef8ff1ee88fcbba1f21</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/THTIP.PLG" source="original">
+    <mtime>1652120599</mtime>
+    <size>307</size>
+    <md5>667cb33b81bc95884f7652d8212ec904</md5>
+    <crc32>dfa3c937</crc32>
+    <sha1>4dca32244c48184cb3e867d1a6c5fb538a7717d8</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/THUMB.PLG" source="original">
+    <mtime>1652120565</mtime>
+    <size>205</size>
+    <md5>37fc80bb9ea554e0e98abee65feb8635</md5>
+    <crc32>35fa15f5</crc32>
+    <sha1>ca37637a5bd80e5c362195c39df12d1a44f2da26</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/VD16.RVD" source="original">
+    <mtime>1652120583</mtime>
+    <size>8920</size>
+    <md5>6d515aa2bfa7f46e3949196bb7f3e74a</md5>
+    <crc32>21ff5dec</crc32>
+    <sha1>3081cfe4fc9e138e475f379de64e8ee50087647e</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/VD256.RVD" source="original">
+    <mtime>1652120571</mtime>
+    <size>9960</size>
+    <md5>e63177509161d80b3c281d77f088543d</md5>
+    <crc32>92eff77d</crc32>
+    <sha1>5e0e4f9c38a1cb037018d786d808909b343cb51c</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/YOKE.FIG" source="original">
+    <mtime>1652120591</mtime>
+    <size>234</size>
+    <md5>842b52d1fc2882008afd843370e9339d</md5>
+    <crc32>26125224</crc32>
+    <sha1>e98a65c8380e80f60c9d0aae49cfbf148a9af7a1</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/PCVRJET/YOKE.PLG" source="original">
+    <mtime>1652120617</mtime>
+    <size>558</size>
+    <md5>1240a3f5667afca2c44907070305fb89</md5>
+    <crc32>a5eb7972</crc32>
+    <sha1>20411efc40a1dd29fd23fa0feaf4c2fc6c9324b9</sha1>
+    <format>Unknown</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVRJET/pcvrjet.exe" source="original">
+    <mtime>1652120546</mtime>
+    <size>160682</size>
+    <md5>732b9be9c2c1eab9a962ac0e551db880</md5>
+    <crc32>af64145b</crc32>
+    <sha1>5d5ce8e6b0d513ae932908b2964985ea7291f960</sha1>
+    <format>Windows Executable</format>
+    <viruscheck>1661996660</viruscheck>
+  </file>
+  <file name="PCVR_Magazine_software_disks.zip" source="original">
+    <mtime>1651731503</mtime>
+    <size>134511856</size>
+    <md5>257a9c48846fed47fa2085cd69fa4f38</md5>
+    <crc32>c9f01b3f</crc32>
+    <sha1>70f5fe4f5feba28cb1d4bee7d8c21f28c08c0227</sha1>
+    <format>ZIP</format>
+    <filecount>1913</filecount>
+  </file>
+  <file name="___ia_thumb.jpg" source="original">
+    <mtime>1651731903</mtime>
+    <size>291888</size>
+    <md5>aa3b31017c686fda03e9d76127ac6555</md5>
+    <crc32>9d8c72ff</crc32>
+    <sha1>33c138985ec951befd93d1fd935a3240e92768e8</sha1>
+    <format>Item Tile</format>
+    <rotation>0</rotation>
+  </file>
+  <file name="__ia_thumb.jpg" source="original">
+    <mtime>1651731924</mtime>
+    <size>8465</size>
+    <md5>f51b0a773fd4ed0db911b386b5413a8b</md5>
+    <crc32>1d4d99da</crc32>
+    <sha1>7a73e016ae3dbb886bd8210b041d57ad5c456a10</sha1>
+    <format>Item Tile</format>
+    <rotation>0</rotation>
+  </file>
+  <file name="parkworld.zip" source="original">
+    <mtime>1661996045</mtime>
+    <size>106490</size>
+    <md5>f12c4014e8d343dd873530f30fbb4d64</md5>
+    <crc32>dec38ff7</crc32>
+    <sha1>8970211a8a740c54134b26d7c9a7952b51c246f8</sha1>
+    <format>ZIP</format>
+    <viruscheck>1661996660</viruscheck>
+    <filecount>22</filecount>
+  </file>
+  <file name="pcvr-magazine-software-collection-floppy-disks_archive.torrent" source="metadata">
+    <btih>88a1a77af0639be0dbc04dfc08a89c57176e2d40</btih>
+    <mtime>1698518334</mtime>
+    <size>16579</size>
+    <md5>12acbd007a5cff387015dd91483580ab</md5>
+    <crc32>e6d21b80</crc32>
+    <sha1>55550d4c7548b2d8f7c7d9c97631570ac038419e</sha1>
+    <format>Archive BitTorrent</format>
+  </file>
+  <file name="pcvr-magazine-software-collection-floppy-disks_files.xml" source="original">
+    <format>Metadata</format>
+    <md5>b9f644ba9fbc73928637c98a754f8886</md5>
+    <summation>md5</summation>
+  </file>
+  <file name="pcvr-magazine-software-collection-floppy-disks_meta.sqlite" source="original">
+    <mtime>1661996048</mtime>
+    <size>110592</size>
+    <md5>b47a270c0b1c6d6e933803ee5fe87fe4</md5>
+    <crc32>39236c3f</crc32>
+    <sha1>72e930ed542c0d61d1739988c57290e4ba1d8eec</sha1>
+    <format>Metadata</format>
+  </file>
+  <file name="pcvr-magazine-software-collection-floppy-disks_meta.xml" source="original">
+    <mtime>1698518330</mtime>
+    <size>13088</size>
+    <md5>2da601b91372a81ded316fff3ab0fa80</md5>
+    <crc32>b28eba85</crc32>
+    <sha1>ced882fdcb88d78638646a8a2796736e8ab5e13d</sha1>
+    <format>Metadata</format>
+  </file>
+</files>

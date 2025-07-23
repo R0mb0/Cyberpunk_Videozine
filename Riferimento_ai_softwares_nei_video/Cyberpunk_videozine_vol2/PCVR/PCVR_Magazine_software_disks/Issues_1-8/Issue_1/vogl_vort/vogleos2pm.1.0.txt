@@ -1,0 +1,10 @@
+    VOGLE PM 1.0 (4/17/94)
+    A VOGLE driver for OS/2 Presentation Manager
+
+    Written by Claudio Fahey
+    e-mail: claudio@uclink.berkeley.edu
+
+    NOTE:  If you don't have Borland C++ for OS/2, you'll have to modify
+           the makefiles to create the library.  I have only tested this
+           driver with Borland C++ 1.0 for OS/2.
+

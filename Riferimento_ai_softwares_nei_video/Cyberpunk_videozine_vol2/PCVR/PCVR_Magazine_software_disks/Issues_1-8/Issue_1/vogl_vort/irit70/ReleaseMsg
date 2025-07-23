@@ -1,0 +1,113 @@
+	This is the release announcement for the IRIT 7.0 solid
+modeling environment.  One can find information on the IRIT environment
+at:
+
+http://www.cs.technion.ac.il/~irit
+
+IRIT 7.0 was fully tested on the following platforms. Previous
+versions were tested on other platforms and it is expected that IRIT
+will compile on them with minor or no revisions at all.
+
+* SGI4D  (IRIX 4.0.1, IRIX 5.x).
+* SUN 4  (SunOS Release 4.1.2, Solaris)
+* Dec    (Alpha AXP running OSF1.3)
+* IBM PC (Window NT 3.5/4.0, Windows 95, OS2 3.0 Warp)
+* Amiga  (AmigaDOS 2.1)
+
+	Many thanks should go to Kriton Kyrimis for the Amiga port.
+
+	The distribution locations below have C sources as
+irit70src.*, documentation is available as postscript files
+(irit70ps.*), man pages (irit70man.*), and http files
+(irit70www.*). Executables for OS2 3.0 as irit70os2.* and
+executables for Windows NT/95 as irit70nt95.*
+
+	You can anonymous ftp IRIT 7.0 from the following locations:
+
+* ftp.cs.technion.ac.il [132.68.32.21], directory /pub/misc/gershon/irit
+  The is the homeland for Irit.
+  (contact person gershon@cs.technion.ac.il (Gershon Elber)).
+
+* ftp.uu.net [192.48.96.9], directory /graphics/irit
+  (contact archive@uunet.uu.net)
+
+* gondwana.ecr.mu.oz.au [128.250.70.62], /pub
+  (contact person bernie@ecr.mu.oz.au (Bernie Kirby)).
+
+* ftp-os2.nmsu.edu [128.123.35.151] os2/graphics.
+  This has only the executables. Sources should be ftp'ed from one
+  of the unix places above.
+ 
+* wuarchive.wustl.edu [128.252.135.4] pub/aminet/gfx/3d
+  has the Amiga port of IRIT 7.0.
+  (contact person kyrimis@cti.gr (Kriton Kyrimis)).
+
+At this time, ftp.technion.ac.il, ftp.uu.net, and gondwana.ecr.mu.oz.au
+all has the new release in place. I expect the os2 and amiga ports to
+be in place in the very near future.
+
+Below you will find the update notes for 7.0.
+
+Enjoy,
+
+Gershon
+-----------------------------------------------------------------------------
+
+Join IRIT mailing list:		gershon@cs.technion.ac.il
+Mailing list:			irit-mail@cs.technion.ac.il
+Bug reports:			irit-bugs@cs.technion.ac.il
+
+-----------------------------------------------------------------------------
+* Display devices for Windows NT/95 and OS2 are now stable.
+* Alpha channel is now properly working in irender.
+* IRIT is now fully working on Windows 95 with no network (use to have
+  IPC problems).
+* Several global name renaming in C space (EPSILON -> IRIT_EPS etc.).
+* New irit2pov - IRIT to POVRAY filter.
+* Primitive constructors (spheres, cones, etc) can now create freeform
+  exact rational surfaces as well as approximated polynomial surfaces.
+* Fix two bugs in BBOX of lists and points.
+* Support for triangular (Bezier) patches has been added.
+* Ability to evaluate a scene at a prescribed animation time in many of the
+  tools, such as irender, poly3d-h and the some filters.
+* Irender now supports surface function texture useful for curvature display
+  as well as contouring texture.
+* Instances of geometry are supported (not completely) via a new instance
+  type.
+* FFCOMPAT also works on trivariates.
+* C/SREPARAM works correctly on float/periodic end conditions.
+* OFFSET and RULEDSRF now works on polyline/gons.
+* SINTERP now allows scattered data (with UV's).
+* New IRIT commands
+  + TMORPH function - trivariate morphing.
+  + TEDITPT function - edit single control point of a trivariate.
+  + COVERPT - uniform point distribution on polygonal models
+  + COVERISO - uniform curves' based coverage of iso surfaces of trivariates.
+  + TVLOAD - load a trivariate out of a data set.
+  + MRCHCUBE - marching cubes on volumeric data sets and trivariates.
+  + TRIANGL - Converts a polygonal model to hold triangles only.
+  + TRAISE - raise the degree of a trivariate (Bezier and linear Bsplines)
+  + TREPARAM - reparameterization of trivariates.
+  + TCRVTR - Curvature properties of iso surfaces of trivariates
+  + PTHMSPR - Point discribution on a hemisphere.
+  + SVISIBLE - Cone visibility decomposition of freeform surfaces.
+  + ORTHOTOMC - K-Orthotomics of curves and surfaces.
+  + SBISECTOR - Bisector surface of a point and a surface.
+  + FFORDER - Returns the order(s) of the freeform.
+  + FFMSIZE - Returns the size of control mesh/polygon of the freeform.
+  + FFKNTVEC - Returns the knot vector(s) of the freeform.
+  + FFCTLPTS - Returns the control mesh/polygon of the freeform.
+  + CNVXHULL - Computes the convex hull of a poly/curve.
+  + CRVPTTAN - All tangents through a point of a curve.
+  + CRV2TANS - All bi-tangents to a given curve.
+  + PDECIMATE - decimation and reduction of polygonal data.
+  + GETATTR - provides a mechanism to fetch attributes.
+  + TSEVAL - evaluation of triangular patches.
+  + TSNORMAL - normals of triangular patches.
+  + TSDERIVE - derivatives of triangular patches.
+  + TSBEZIER, TSBSPLINE - triangular bezier/bspline surface constructors.
+  + CBISECTOR - bisectors of freeform curves and curve/point.
+  + CENVOFF - computes the offset envelope in three space of a planar curve.
+  + FFPTDIST - uniform distribution of points on curves or surfaces.
+  + FFPOLES - checks if a given freeform has poles.
+  + BBOX - returns the Bounding box of the given geometry.

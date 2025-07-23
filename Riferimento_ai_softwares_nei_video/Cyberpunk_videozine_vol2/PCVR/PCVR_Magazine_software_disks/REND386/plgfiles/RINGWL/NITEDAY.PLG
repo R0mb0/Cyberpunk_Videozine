@@ -1,0 +1,21 @@
+# 2Morrow Virtual Object Translator/Optimizer v1.3 PLG file.
+# 2Morrow World Builder.  2Morrow, Incorporated.
+# PLG data is grouped by the object designations.
+
+NITE_N_DAY 8 8
+     0   -125    500                #0
+  -500   -125      0                #1
+  -500    125      0                #2
+     0    125    500                #3
+     0   -125   -500                #4
+     0    125   -500                #5
+   500   -125      0                #6
+   500    125      0                #7
+0x00b4   4  0  1  2  3
+0x00b4   4  3  2  1  0
+0x00b4   4  1  4  5  2
+0x00b4   4  2  5  4  1
+0x3f8a   4  4  6  7  5
+0x3f8a   4  5  7  6  4
+0x3f8a   4  6  0  3  7
+0x3f8a   4  7  3  0  6

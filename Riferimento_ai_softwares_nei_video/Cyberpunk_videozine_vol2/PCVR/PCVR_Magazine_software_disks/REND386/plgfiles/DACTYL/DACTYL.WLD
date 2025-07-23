@@ -1,0 +1,62 @@
+# Copyright (c) Todd Porter 1993
+# May be freely distributed!
+# Dactyl.WLD...the vr game in rend386!
+
+# I suggest running this on a fast machine as it has quite a few polys.
+# I get around 22 fps on my 486dx33 with a diamond speedstar pro VLB.
+# If you are  running a slower machine take out the dactyl.
+
+# Hope everyone enjoys it, it was fun making.  In any case let me know at 
+# either C$erve 76505,1574 or Internet so92332@gsvms2.cc.gasou.edu (best)
+# I have had a few problems with the splits.  When I used them they would 
+# either nock out some of the other polys or screw something else up.  If
+# anyone can solve the prob. let me know as I would like to be able to use
+# splits properly.  I left them in but commented out so just take out the #
+# and see what I mean.
+
+
+worldscale 1.0
+hither     10
+yon        1000000
+start -200,325,-200 0,0,0 2
+groundcolor 3
+skycolor 1
+screenclear 1
+ambient 76
+
+
+
+#split 0,1101,0 0,1,0 1 # upper board splits but it screwed the steps up
+
+object dacupp  1,1,1 0,0,0 3500,1000,0 . . 256 fixed
+object dacupp  1,1,1 0,180,0 -3500,1000,0 . . 256 fixed
+object dacupp2 1,1,1 0,90,0 0,1000,-3500 . . 256  fixed
+object dacupp2 1,1,1 0,-90,0 0,1000,3500 . . 256  fixed
+
+# split 0,101,0 0,1,0   0  
+# When I used the above split I lost the floors of the top layer
+# the lower main board
+
+object dactyl2 1,1,1 0,0,0 0,0,0 . . 256 fixed
+
+
+# steps up
+polyobj 4 steps -1000,100,300 -1000,100,-300 -2650,1100,-300  -2650,1100,300
+
+polyobj 4 steps 2650,1100,300 2650,1100,-300 1000,100,-300 1000,100,300
+
+polyobj 4 steps -300,100,-1500 300,100,-1500 300,1100,-2650 -300,1100,-2650
+
+polyobj 4 steps -300,1100,2650 300,1100,2650 300,100,1500 -300,100,1500
+
+
+endpsplits
+
+# the dactyl flying
+object da=dactyl 1,1,1 -90,15,0 1000,3000,200 . . 256
+
+task sculspin 10 da;0,0,1
+
+
+area 100,100,100 Dactyl_NightMare
+

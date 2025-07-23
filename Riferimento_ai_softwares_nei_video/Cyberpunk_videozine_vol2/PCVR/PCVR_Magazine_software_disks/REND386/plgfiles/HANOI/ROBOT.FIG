@@ -1,0 +1,35 @@
+#============================================================================
+# ROBOT.FIG  --  Hierarchy of parts of robot used in HANOI.WLD.
+# by Peter Campbell  (74150.3076@compuserve.com)
+# Copyright 1994      Peter Campbell      All rights reserved.
+# This file may be redistributed provided this notice remains intact.
+#============================================================================
+
+{
+  name = vert;
+  plgfile = vert.plg scale 1,1,1 shift 0,0,0 sort 0;
+  pos = 0,0,0;
+  rot = 0,0,0;  # X Y Z rotations
+  segnum = 0;
+  {
+    name = hor;
+    plgfile = hor.plg scale 1,1,1 shift 0,0,0 sort 0;
+    pos = 0,500,0;
+    rot = 0,0,0;
+    segnum = 1;
+    {
+      name = finger1;
+      plgfile = finger1.plg scale 1,1,1 shift 0,0,0 sort 0;
+      pos = 0,0,0;
+      rot = 0,0,0;
+      segnum = 2;
+    }
+    {
+      name = finger2;
+      plgfile = finger2.plg scale 1,1,1 shift 0,0,0 sort 0;
+      pos = 0,0,0;
+      rot = 0,0,0; 
+      segnum = 3;
+    }
+  }
+}

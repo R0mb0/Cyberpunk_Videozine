@@ -1,0 +1,179 @@
+
+Papers which are currently available from the Net via anonymous FTP.
+--------------------------------------------------------------------
+Last update July 28, 1991
+
+Updates: Contact to 'Paper Bank'-project maintainer
+  Juhana Kouhia
+  kouhia@nic.funet.fi [128.214.6.100]
+
+
+%O-field tells where from the paper is available.
+
+
+%K HAIN91
+%A Eric A. Haines
+%A John R. Wallace
+%T Shaft Culling for Efficient Ray-Cast Radiosity
+%D July 1991
+%O nic.funet.fi [128.214.6.100]  pub/sci/papers/graphics/hain91.ps.Z
+%O gondwana.ecr.mu.OZ.AU  pub/papers/hain91.ps.Z
+%O weedeater.math.yale.edu  pub/Papers/hain91.ps.Z
+%O coral.cs.jcu.edu.au [137.219.17.4] graphics/papers/hain91.ps.Z
+
+%K HALLE91a
+%A Michael Halle
+%T The Generalized Holographic Stereogram
+%J Master's Thesis
+%D February 1991
+%P 134
+%Z Summary of traditional and advanced holo-stereographic techniques. Heavy on geometrical optics, bandlimiting, optical predistortion.
+%O media-lab.media.mit.edu [18.85.0.2] holography/papers/halle91a/
+%O nic.funet.fi [128.214.6.100]  pub/sci/papers/graphics/hall91a.tar.Z
+
+%K HALLE91b
+%A Michael Halle
+%T The Ultragram: A Generalized Holographic Stereogram
+%J SPIE Practical Holography
+%D February 1991
+%P 15
+%Z Computer-based predistortion techniques for advanced holographic stereograms.
+%O media-lab.media.mit.edu [18.85.0.2] holography/papers/halle91b/
+%O nic.funet.fi [128.214.6.100]  pub/sci/papers/graphics/hall91b.ps.Z
+
+%K KYRI90
+%A George Kyriazis
+%T A Stydy on Architechtural Approaches for High Performance Graphics Systems
+%I Rensselaer Design Research Center, Technical Report No: 90041
+%D September 1990
+%O weedeater.math.yale.edu [128.113.23.17]  pub/Papers/kyri90.ps.Z
+%O nic.funet.fi [128.214.6.100]  pub/sci/papers/graphics/kyri90.ps.Z
+%O iear.arts.rpi.edu [128.113.6.10]  pub/papers/kyri90.ps.Z
+%O coral.cs.jcu.edu.au [137.219.17.4] graphics/papers/kyri90.ps.Z
+%O gondwana.ecr.mu.OZ.AU  pub/papers/kyri90.ps.Z
+
+%K MORE91
+%A Guy Moreillon
+%T Calcul d'interreflexions diffuses (Radiosite)
+%D July 1991
+%Z French language
+%O nic.funet.fi [128.214.6.100] pub/sci/papers/graphics/more91.ps.Z
+
+%K MUSG88
+%A F. Kenton Musgrave
+%T Grid Tracing: Fast Ray Tracing For Height Fields
+%J Research Report YALEU/DCS/RR-639
+%D July, 1988
+%O weedeater.math.yale.edu [128.113.23.17]  pub/Papers/musg88.ms.Z
+%O nic.funet.fi [128.214.6.100]  pub/sci/papers/graphics/musg88.ps.Z
+%O iear.arts.rpi.edu [128.113.6.10]  pub/papers/musg88.ms.Z
+%O coral.cs.jcu.edu.au [137.219.17.4] graphics/papers/musg88.ps.Z
+%O gondwana.ecr.mu.OZ.AU  pub/papers/musg88.[ps|ms].Z
+
+%K MUSG89a
+%A F. Kenton Musgrave
+%T Prisms and Rainbows: a Dispersion Model for Computer Graphics
+%J Proceedings of the Graphics Interface '89 - Vision Interface '89
+%I Canadian Information Processing Society
+%C Toronto, Ontario
+%P 227-234
+%D June, 1989
+%O weedeater.math.yale.edu [128.113.23.17]  pub/Papers/musg89a.ms.Z
+%O nic.funet.fi [128.214.6.100]  pub/sci/papers/graphics/musg89a.ps.Z
+%O iear.arts.rpi.edu [128.113.6.10]  pub/papers/musg89a.ms.Z
+%O coral.cs.jcu.edu.au [137.219.17.4] graphics/papers/musg89a.ps.Z
+%O gondwana.ecr.mu.OZ.AU  pub/papers/musg89a.[ps|ms].Z
+
+%K MUSG89b
+%A F. Kenton Musgrave
+%A Craig E. Kolb
+%A Robert S. Mace
+%T The Synthesis and Rendering of Eroded Fractal Terrains
+%J Computer Graphics (SIGGRAPH '89 Proceedings)
+%V 23
+%N 3
+%D July 1989
+%P 41-50
+%Z info on efficiently ray tracing height fields
+%K fractal, height fields
+%O weedeater.math.yale.edu [128.113.23.17]  pub/Papers/musg89b.ms.Z
+%O nic.funet.fi [128.214.6.100]  pub/sci/papers/graphics/musg89b.ps.Z
+%O coral.cs.jcu.edu.au [137.219.17.4] graphics/papers/musg89b.ps.Z
+%O gondwana.ecr.mu.OZ.AU  pub/papers/musg89b.ps.Z
+
+%K MUUS88
+%A M. J. Muuss
+%T Excerpts from "Workstations, Networking, Distributed Graphics, and Parallel Processing"
+%I BRL Internal Publication  (???)
+%D July 1988
+%Z The paper has been presented at the International Summer Institute, "State of the Art in Computer Graphics", Exeter, UK, 43 pages + 17 p. appendix
+%O freedom.graphics.cornell.edu [128.84.247.85] pub/RTNews/Muuss.parallel.Z
+%O nic.funet.fi [128.214.6.100]  pub/sci/papers/graphics/muuss.parallel.ps.Z
+%O coral.cs.jcu.edu.au [137.219.17.4] graphics/papers/muuss.parallel.ps.Z
+%O gondwana.ecr.mu.OZ.AU  pub/papers/muuss.parallel.ps.Z
+
+%K MUUS??
+%A M. J. Muuss
+%A C. M. Kennedy
+%T The BRL-CAD Benchmark Test
+%I BRL Internal Publication  (???)
+%D ?????
+%O freedom.graphics.cornell.edu [128.84.247.85] pub/RTNews/Muuss.benchmark.Z
+%O nic.funet.fi [128.214.6.100]  pub/sci/papers/graphics/muuss.benchmark.ps.Z
+%O coral.cs.jcu.edu.au [137.219.17.4] graphics/papers/muuss.benchmark.ps.Z
+%O gondwana.ecr.mu.OZ.AU  pub/papers/muuss.benchmark.ps.Z
+
+%K SHIR90a
+%A Peter Shirley
+%T Physically Based Lighting Calculations for Computer Graphics
+%I Thesis
+%D November 1990
+%O weedeater.math.yale.edu [128.113.23.17]  pub/Papers/shir90a/
+%O nic.funet.fi [128.214.6.100]  pub/sci/papers/graphics/shir90a/
+%O coral.cs.jcu.edu.au [137.219.17.4] graphics/papers/shir90a/
+
+%K SHIR90b
+%A Peter Shirley
+%T Monte Carlo Method
+%I Appendix from the SHIR90a
+%D November 1990
+%O nic.funet.fi [128.214.6.100]  pub/sci/papers/graphics/shir90b.ps.Z
+%O coral.cs.jcu.edu.au [137.219.17.4] graphics/papers/shir90b.ps.Z
+
+%K SPEE91
+%A L. Richard Speer
+%T A Cross-Indexed Guide to the Ray Tracing Literature
+%J Computer Graphics Forum
+%D June 1991
+%V 10
+%N 2
+%Z This edition contains 405 citations, a glossary of
+%Z the 118 keywords used and cross-indices by keyword
+%Z and author. Proceedings cited include all from Sig-
+%Z graph, Eurographics, Graphics Interface (Canada),
+%Z Computer Graphics International and Ausgraph through
+%Z February 1991. Please send any corrections and addi-
+%Z tions to speer@cs.colorado.edu.
+%O nic.funet.fi  pub/sci/papers/graphics/spee91.ps.Z
+%O weedeater.math.yale.edu  pub/Papers/speer.raytrace.bib.ps
+%O gondwana.ecr.mu.OZ.AU  pub/papers/speer.raytrace.bib.ps
+%O iear.arts.rpi.edu  pub/graphics/bib/RT.BIB.Speer/
+
+%K THOM91
+%A Karl Kelvin Thompson
+%T Ray Tracing With Amalgams
+%I Thesis, Ph.D
+%D July 1991
+%O nic.funet.fi [128.214.6.100]  pub/sci/papers/graphics/thom91.ps.tar.Z
+
+%K WILS91
+%A Tom Wilson
+%T Ray Tracing Abstracts Survey
+%D June 1991
+%O weedeater.math.yale.edu [128.113.23.17]  pub/Papers/wils.6.91.shar.Z
+%O nic.funet.fi [128.214.6.100]  pub/sci/papers/graphics/wils91.6.shar.Z
+%O coral.cs.jcu.edu.au [137.219.17.4] graphics/papers/wils91.6.shar.Z
+%O gondwana.ecr.mu.OZ.AU  pub/papers/rtabs.6.91.shar.Z
+
+==============================================================================
+

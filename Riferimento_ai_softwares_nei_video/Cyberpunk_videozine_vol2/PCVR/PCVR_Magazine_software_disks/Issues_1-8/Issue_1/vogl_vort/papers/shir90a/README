@@ -1,0 +1,30 @@
+
+Thesis files:
+
+ch1ch2.ps.Z      (125K)  Title page, etc. 
+                         Chapter 1  Introduction
+                         Chapter 2  Basic Optics
+ch3ch4.ps.Z      (105K)  Chapter 3  Global Illumination Problem Formulation
+                         Chapter 4  Surface Reflection Models
+ch5a.ps.Z        (221K)  
+ch5b.ps.Z        (247K)  Chapter 5  Image Space Solution Methods
+ch6a.ps.Z        (261K)  
+ch6b.ps.Z        (250K)  Chapter 6  Zonal Solution Methods
+ch7ch8ch9.ps.Z   (123K)  Chapter 7  Extensions to Basic Methods
+                         Chapter 8  Implementation
+                         Chapter 9  Conclusion
+app.ps.Z          (44K)  Appendices
+bib.ps.Z          (30K)  Bibliography
+ 
+
+
+
+Picture files (ppm format, Makefile, seeppm.c  viewing on SGI Iris.)
+
+bump.ppm.Z (1.3M)   1024 by 768  camera effects, bump map, indirect lighting.
+gal.ppm.Z  (1.2M)   1024 by 768  solid textures, indirect lighting
+dense.ppm.Z (.2M)    512 by 384  dense media(8 volume zones for indirect light)
+sparce.ppm.Z (1.2M) 1024 by 768  sparce "   "   "
+turb.ppm.Z (.3M)     512 by 384  uneven " " " "
+lamp.ppm.Z (.8M)    1024 by 768  diffuse transmission, indirect lighting
+wine.ppm.Z (1.1M)   1024 by 768  fresnel reflection, bw ray tracing

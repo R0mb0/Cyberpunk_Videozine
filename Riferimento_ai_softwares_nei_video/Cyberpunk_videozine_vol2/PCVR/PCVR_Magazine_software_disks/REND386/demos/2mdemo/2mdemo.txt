@@ -1,0 +1,192 @@
+			2Morrow Product Information
+
+
+			    Building Realities
+			  Using 2Morrow's Tools
+		      By Todd Porter & Joseph Chicago
+
+
+Virtual Reality..... 
+
+     Everyone's heard of it. Now there's a PC based set of tools that
+combine the robust features and rendering power of expensive, commercial
+products with an incredibly low price. This is the future - this is 2Morrow
+
+WHAT ARE 2MORROW'S TOOLS? 
+
+     2Morrow's PC Virtual Reality tools are a set of three products;  an
+interactive, graphical (GUI) World Builder, a 3D Object Modeling CAD
+program, and a Runtime Module
+
+WHAT DO THEY DO? 
+
+     We'll get into that on the next page, but in a nutshell, 2Morrow's
+Tools let you design, create, manipulate, and 'enter' 3D Virtual Reality
+Worlds on your own PC. Everything from basic "Walkthru's" to full-blown
+software programs can be designed using the 2Morrow Tools.
+
+OH, SO I SO HAVE TO BE A PROGRAMMER? 
+
+     Not at all! Using the World Builder, Object Modeler, and Runtime
+Module, you can create sophisticated worlds, complete with animation and
+full mobility without ever writing a line of code. If you have the
+experience and you wish to create your own programs using the tools, you
+can do that as well with the Function Library (optional).  The choice is yours,
+depending on your particular needs.
+
+WHAT IF I *CAN* PROGRAM A PC? (optional) 
+
+     Then you'll be limited only by your imagination and talent. 
+2Morrow's Function Library is a complete C-callable set of routines that
+let you render and manipulate 3D objects, move freely throughout 3D
+worlds, add exciting graphics and animation, integrate joystick, mouse,
+gloves, and stereoscopic viewers, and a whole bunch more.
+
+HOW MUCH HORSEPOWER DOES MY PC NEED? 
+
+     2Morrow's Tools run on any 386 or higher machine with standard VGA
+graphics. There's no need to purchase expensive new hardware.  However, if
+the machine has it, the Tools will take full advantage of faster CPU's,
+extended/expanded memory, hi-res graphics, accelerator boards, 3D
+controllers, stereoscopic viewers, power gloves, and a wide array of
+existing hardware products.
+
+NICE, BUT HOW DOES IT COMPARE WITH COMMERCIAL PRODUCTS? 
+
+     That's the beauty of it - on a feature basis, we think it compares
+favorably - on a price basis it's hundreds and even thousands less than
+anything that can touch it. And yes, 2Morrow's Tools do have features that
+are not found anywhere else, at any price.
+
+OKAY, OKAY, WHAT DO THESE TOOLS DO? 
+
+     Okay.....Let's discuss the most fundamental aspect of a Virtual World
+- Objects. An object can be anything from a flat wall to a human figure.
+Pretty much anything that 'shows up' in your world is an object. Although
+the Tools come with about 60 precreated 3D objects, everyone's bound to
+want some special ones.  Perhaps a mockup of a building, a certain car, a
+character, a tree, whatever. Well, the package includes the 2Morrow 3D CAD
+program that you use to 'draw' your objects. This product is as robust as
+they come. You can import/export PLG files, design simple or
+complex objects, tween, surface, rotate, scale, paint, and manipulate
+polygons, and just about anything else you'd want to do.  The Tools also
+support the .PLG file format so you can use any of the hundreds of
+precreated objects floating around modem space.  Alright, objects were
+step one. Next, you arrange your objects in a "World" using the 2Morrow
+World Builder. This product is a mouse- driven, interactive graphic world
+design tool that lets you place, move, paint, scale, rotate, arrange,
+load, delete, and save objects and world files. You can also do things
+like add a gradient-shaded horizon to your world, select sky and ground
+colors, zoom factors, and lighting values...even link in a text script
+file that will animate your objects while you're inside your world! This
+easy-to- use tool includes pull-down menus, a toolbar, icons, mouse and
+joystick support, and hooks to utility programs you can use. Good.  With
+those two tools you've created your very own world, now what?  The 2Morrow
+Runtime Module. This EXE program allows you to 'enter' the worlds you
+create in a real-time atmosphere. You're free to move around, grab
+objects, move things, change lighting, or just walk around and see the
+sights. You can also create an automated effect that leads you through the
+world without you ever having to move around yourself (a flyby.) There, a
+complete Virtual World without any programming! This Module has many
+options and features that can be discovered in the 2Morrow Demo Program.
+We'll tell you how to get a free copy at the end of this article. The
+fourth step, if desired, is a complete C-callable function library (optional) that
+let's programmers use all of the features available in the Runtime Module
+in any way they wish. For writing games, simulations, training
+aids...Anything.
+
+HOW ABOUT SOME SPECIFIC FEATURES?  
+
+Sure. How about these.....  
+
+* runs on any 386 or higher vga system 
+* takes full advantage of extended/expanded memory 
+* includes 3D Modeler, World Builder, and Runtime Module 
+* NO ROYALTIES
+* many 3D objects included 
+* commercial-quality rendering speeds 
+* generates 3D virtual worlds without any programming
+* freely move through your worlds in a real-time atmosphere 
+* link scripts for full animations within your worlds 
+* interact with mouse/joystick/keyboard/glove and 3D devices 
+* multiple camera angles 
+* adjustable lighting, zoom factors, and shading 
+* create your own sky, ground, and horizon effects 
+* view your worlds in stereoscopic 3D 
+* design and create your worlds with interactive, graphics tools 
+* save up to thousands of dollars off comparable products 
+
+SO HOW MUCH *DO* THE 2MORROW TOOLS COST? 
+
+     The complete development environment, including 3D Modeler/CAD
+program, graphics World Builder, and Runtime Module is $89.00 US!
+
+NO WAY! A FAST, RENDERING PACKAGE FOR UNDER 100 BUCKS? 
+
+     That's right. This package was developed by a couple of down to earth
+guys that want to put it in the hands of people who can use and benefit
+from it, not people with huge wallets.  
+
+WHAT CAN THIS PACKAGE BE USED FOR? 
+
+     Just about anything. Architectural walkthrus, games, simulations,
+training programs, design tools, you name it. There's no need
+to purchase anything else, everything from drawing objects to moving
+through worlds is included in the Tools. You could do a mockup of your
+home or office, rearrange furniture, paint walls, and then freely walk
+around and check out your changes in real-time, from any angle!  Using a
+device like the Mattel Power Glove, you can create surgical training aids 
+and simulations. You come up with the idea, 2Morrow's Tools let you bring 
+it to life.
+
+
+	COMPARING 2MORROW'S TOOLS WITH COMMERCIAL PACKAGES
+
+
+     Several VR packages are available today. And, quite frankly, both
+commercial and non-commercial products are very good.  2Morrow's Tools
+bring the power of commercial products and the price of non-commercial
+products together for an unbeatable value.  Let's take a closer look... 
+VREAM is a great package that includes a world builder and runtime module.
+It has textures and acceptable speed, animations, and integrates with
+several 3D devices. It does not offer a programming function library and
+costs about $500.  RENDERWARE is a high-power package that offers
+textures, speed, and runs under the popular windows format. It is strictly
+for programmers, offering no runtime module, no world builder, and costs
+about $10,000.  VIRTUAL REALITY STUDIO is a low-cost, nicely featured
+package. It has no textures, no programming function library, and isn't as
+fast as some of the more expensive products.
+
+  2MORROW'S TOOLS offer speed, a 3D CAD program, World Builder, and 
+Runtime Module. Integrates with several 3D devices, has scripting and
+animations, multiple screen resolutions, and costs under $100. 
+
+     Well, this concludes our discussion of the 2Morrow Tools.  We've
+tried to include as much information as possible in this space. If you'd
+like to see the Tools in action, you can download a demo program from
+CompuServe. Go CyberForum. Library 2, "Building Realities" under the
+filename "2MDEMO.EXE" The authors of the program can be reached on
+CompuServe mail as well.  Or just grab it from the ftp site: 
+gate.net/pub/users/porter/2mdemo.exe
+
+     We would also like to extend a special THANKS to Mark Stanley,
+Compuserve ID# 72632,524, for some excellent BETA testing!!
+
+If you would like to contact us for more information, or would like a 
+demo mailed to you, send a self-addressed, stamped envelope with a 3.5 
+floppy disk to: 
+
+			2Morrow Incorporated
+			Attn: Todd Porter
+			7595 Baymeadows Cir. W. 
+			Suite #1616
+			Jacksonville, FL 32256
+
+
+Or contact us on Compuserve in the CYBERFORUM or at:
+
+Todd Porter:
+C$erve:   76505,1574 
+Internet: porter@gate.net
+
+ 		      Good Luck With Your Own Virtual Worlds! 

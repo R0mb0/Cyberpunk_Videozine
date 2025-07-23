@@ -1,0 +1,1062 @@
+# This is a shell archive.  Remove anything before this line,
+# then unpack it by saving it in a file and typing "sh file".
+#
+# Wrapped by 	Eric Haines <erich@juniper> on Fri Sep  7 11:26:03 1990
+#
+# This archive contains:
+#	Makefile	radhead.nr	rad.refer	roffbib.c	
+#
+
+LANG=""; export LANG
+PATH=/bin:/usr/bin:$PATH; export PATH
+
+echo x - Makefile
+cat >Makefile <<'@EOF'
+ROFF = troff
+
+rad.print: rad.refer roffbib
+	roffbib <rad.refer >temp
+	$(ROFF) -ms radhead.nr temp
+	rm temp
+@EOF
+
+chmod 644 Makefile
+
+echo x - radhead.nr
+cat >radhead.nr <<'@EOF'
+.nr PO 1.35i
+.po 1.35i
+.ce
+\s+4RADIOSITY BIBLIOGRAPHY\s0
+
+.ce 3
+collected and annotated by Eric Haines, 3D/Eye.
+erich@eye.com
+9/90
+.2C
+.ps 8
+.vs 10
+@EOF
+
+chmod 644 radhead.nr
+
+echo x - rad.refer
+cat >rad.refer <<'@EOF'
+%A John M. Airey
+%A M. Ouh-young
+%T Two Adaptive Techniques Let Progressive Radiosity Outperform the Traditional
+Radiosity Algorithm
+%R Technical Report TR89-020
+%I University of North Carolina Department of Computer Science
+%D 1989
+
+%A John M. Airey
+%A John H. Rohlf
+%A Frederick P. Brooks, Jr.
+%T Towards Image Realism with Interactive Update Rates in Complex Virtual
+Building Environments
+%J Computer Graphics (1990 Symposium on Interactive 3D Graphics)
+%V 24
+%N 2
+%D March 1990
+%P 41-50
+
+%A James Arvo
+%T Backward Ray Tracing
+%B SIGGRAPH '86 Developments in Ray Tracing seminar notes
+%V 12
+%D Aug. 1986
+%Z light ray tracing
+%O also appeared in SIGGRAPH '89 Radiosity course notes
+
+%A James Arvo
+%A David Kirk
+%T Particle Transport and Image Synthesis
+%J Computer Graphics (SIGGRAPH '90 Proceedings)
+%V 24
+%N 4
+%D August 1990
+%P 63-66
+%K Boltzmann equation, Monte Carlo, particle transport, ray tracing, rendering
+equation
+
+%A Daniel R. Baum
+%A John R. Wallace
+%A Michael F. Cohen
+%A Donald P. Greenberg
+%T The Back-Buffer Algorithm: An Extension of the Radiosity Method to Dynamic
+Environments
+%J The Visual Computer
+%V 2
+%D 1986
+%P 298-306
+
+%A Daniel R. Baum
+%A James M. Winget
+%T Real Time Radiosity Through Parallel Processing and Hardware Acceleration
+%J Computer Graphics (1990 Symposium on Interactive 3D Graphics)
+%V 24
+%N 2
+%D March 1990
+%P 67-75
+
+%A Daniel R. Baum
+%A Holly E. Rushmeier
+%A James M. Winget
+%T Improving Radiosity Solutions Through the Use of Analytically Determined
+Form-Factors
+%J Computer Graphics (SIGGRAPH '89 Proceedings)
+%V 23
+%N 3
+%D July 1989
+%P 325-334
+
+%A Christian Bouville
+%A Kadi Bouatouch
+%A Pierre Tellier
+%A Xavier Pueyo
+%T A Theoretical Analysis of Global Illumination Models
+%J Proceedings Eurographics Workshop on Phosimulation, Realism and Physics in
+Computer Graphics
+%C Rennes, France
+%D June 1990
+%P 53-66
+%Z energy transport equations
+
+%A Jichun Bu
+%A Ed F. Deprettere
+%T A VLSI System Architecture for High-Speed Radiative Transfer 3D Image
+Synthesis
+%J The Visual Computer
+%V 5
+%N 3
+%D June 1989
+%P 121-133
+
+%A Chris Buckalew
+%A Donald Fussell
+%T Illumination Networks: Fast Realistic Rendering with General Reflectance 
+Functions
+%J Computer Graphics (SIGGRAPH '89 Proceedings)
+%V 23
+%N 3
+%D July 1989
+%P 89-98
+
+%A Chris Buckalew
+%T Illumination Networks
+%R PhD thesis
+%I Computer Science Department, U. of Texas, Austin
+%D August, 1990
+%K global illumination
+
+%A James M. Bullis
+%T Models and Algorithms for Computing Realistic Images Containing Diffuse
+Reflections
+%R Master's thesis
+%I Dept. of Computer Science, University of Minnesota
+%D Aug. 1989
+%K global illumination
+%Z as of 8/90, order from James Bullis, 3306 Richmond Ave, St Paul MN 55126
+
+%A Peter Burger
+%A Duncan Gillies
+%T Interactive Computer Graphics: Functional, Procedural,
+and Device-Level Methods
+%I Addison-Wesley
+%C Wokingham, England
+%D 1989
+%Z Discusses color image quantization, quaternions, and soft (blobby) objects,
+among many other topics.
+
+%A A.T. Campbell,III
+%A Donald S. Fussell
+%T Adaptive Mesh Generation for Global Diffuse Illumination
+%J Computer Graphics (SIGGRAPH '90 Proceedings)
+%V 24
+%N 4
+%D August 1990
+%P 155-164
+
+%A S. Chandrasekar
+%T Radiative Transfer
+%I Oxford University Press
+%D 1950
+
+%A Subdeb Chattopadhyay
+%A Akira Fujimoto
+%T Bi-directional Ray Tracing
+%B Computer Graphics 1987 (Proceedings of CG International '87)
+%E Tosiyasu Kunii
+%I Springer Verlag
+%C Tokyo
+%D 1987
+%P 335-343
+
+%A Hong Chen
+%A En-Hua Wu
+%T An Efficient Radiosity Solution for Bump Texture Generation
+%J Computer Graphics (SIGGRAPH '90 Proceedings)
+%V 24
+%N 4
+%D August 1990
+%P 125-134
+
+%A Shenchang Eric Chen
+%T A Progressive Radiosity Method and its Implementation in a Distributed
+Processing Environment
+%R Master's Thesis
+%I Program of Computer Graphics, Cornell University
+%D January 1989
+
+%A Shenchang Eric Chen
+%T Incremental Radiosity: An Extension of Progressive Radiosity to an
+Interactive Image Synthesis System
+%J Computer Graphics (SIGGRAPH '90 Proceedings)
+%V 24
+%N 4
+%D August 1990
+%P 135-144
+
+%A Michael Cohen
+%T A Radiosity Method for the Realistic Image Synthesis of Complex Diffuse
+Environments
+%R Master's Thesis
+%I Program of Computer Graphics, Cornell University
+%D Aug. 1985
+
+%A Michael Cohen
+%A Donald P. Greenberg
+%T The Hemi-Cube: A Radiosity Solution for Complex Environments
+%J Computer Graphics (SIGGRAPH '85 Proceedings)
+%V 19
+%N 3
+%D Aug. 1985
+%P 31-40
+
+%A Michael Cohen
+%A Donald P. Greenberg
+%A Dave S. Immel
+%A Philip J. Brock
+%T An Efficient Radiosity Approach for Realistic Image Synthesis
+%J IEEE Computer Graphics and Applications
+%V 6
+%N 3
+%D March 1986
+%P 26-35
+
+%A Michael Cohen
+%A Shenchang Eric Chen
+%A John R. Wallace
+%A Donald P. Greenberg
+%T A Progressive Refinement Approach to Fast Radiosity Image Generation
+%J Computer Graphics
+(SIGGRAPH '88 Proceedings)
+%V 22
+%N 4
+%D Aug. 1988
+%P 75-84
+
+%A Robert L. Cook
+%A Thomas Porter
+%A Loren Carpenter
+%T Distributed Ray Tracing
+%J Computer Graphics
+(SIGGRAPH '84 Proceedings)
+%V 18
+%N 3
+%D July 1984
+%P 137-145
+%Z Monte Carlo distribution of rays to get
+gloss, translucency, penumbras, depth of field, motion blur
+%K probabilistic ray tracing, monte carlo, motion blur, stochastic sampling
+
+%A Robert L. Cook
+%T Stochastic Sampling in Computer Graphics
+%J ACM Transactions on Graphics
+%V 5
+%N 1
+%D Jan. 1986
+%P 51-72
+
+%A Robert L. Cook
+%T Practical Aspects of Distributed Ray Tracing
+%B SIGGRAPH '86 Developments in Ray Tracing seminar notes
+%D Aug. 1986
+%K probabilistic ray tracing
+
+%A R.V. Dunkle
+%T Radiant Interchange in an Enclosure with Specular Surfaces and Enclosures
+with Window or Diathermanous Walls
+%B Heat Transfer, Thermodynamics and Education (Boelter Anniversary Volume)
+%E H.A. Johnson
+%I McGraw Hill
+%C New York
+%D 1964
+
+%A E.R.G. Eckert
+%A E.M. Sparrow
+%T Radiative Heat Exchange Between Surfaces with Specular Reflection
+%J International Journal of Heat and Mass Transfer
+%V 3
+%D 1961
+%P 42-54
+
+%A R. Farrell
+%T Determination of Configuration Factors of Irregular Shapes
+%J Journal of Heat Transfer
+%D May 1976
+%P 311-313
+
+%A James D. Foley
+%A Andries van Dam
+%A Steven K. Feiner
+%A John F. Hughes
+%B Computer Graphics, Principles and Practice, Second Edition
+%I Addison-Wesley
+%C Reading, Massachusetts
+%D 1990
+%Z Overview of research to date
+
+%A David W. George
+%A Francois X. Sillion
+%A Donald P. Greenberg
+%T Radiosity Redistribution for Dynamic Environments
+%J IEEE Computer Graphics and Applications
+%V 10
+%N 4
+%D July 1990
+%P 26-34
+
+%A David W. George
+%T A Radiosity Redistribution Algorithm for Dynamic Environments
+%R Master's Thesis
+%I Program of Computer Graphics, Cornell University
+%D August 1990
+%K global illumination
+
+%A Cindy M. Goral
+%A Kenneth E. Torrance
+%A Donald P. Greenberg
+%A Bennett Battaile
+%T Modelling the Interaction of Light Between Diffuse Surfaces
+%J Computer Graphics
+(SIGGRAPH '84 Proceedings)
+%V 18
+%N 3
+%D July 1984
+%P 212-22
+%Z the first article
+
+%A Cindy M. Goral
+%T A Model for the Interaction of Light Between Diffuse Surfaces
+%R Master's Thesis
+%I Program of Computer Graphics, Cornell University
+%D January 1985
+
+%A Donald P. Greenberg
+%A Michael Cohen
+%A Kenneth E. Torrance
+%T Radiosity: A Method for Computing Global Illumination
+%J The Visual Computer
+%V 2
+%D 1986
+%P 291-297
+
+%A Donald P. Greenberg
+%A Michael Cohen
+%A Roy Hall
+%A Holly Rushmeier
+%A John Wallace
+%T Radiosity
+%B SIGGRAPH '89 Radiosity Course Notes
+%D July 1989
+%Z includes new material and article reprints
+
+%A Stefan Haas
+%A Georgios Sakas
+%T Methods for Efficient Sampling of Arbitrary Distributed Volume Densities
+%J Proceedings Eurographics Workshop on Phosimulation, Realism and Physics in
+Computer Graphics
+%C Rennes, France
+%D June 1990
+%P 215-227
+%Z Comparison of methods of sampling atmospheric effects along a ray
+
+%A David E. Hall
+%T An Analysis and Modification of Shao's Radiosity Method
+for Computer Graphics Image Synthesis
+%R Master's Thesis
+%I School of Mechanical Engineering, Georgia Institute of Technoloty
+%D March 1990
+
+%A Roy Hall
+%B Illumination and Color in Computer Generated Imagery
+%I Springer-Verlag
+%C New York
+%D 1989
+%Z includes C code for radiosity algorithms
+
+%A Tariq P. Hamid
+%T The Radiosity Model
+%R Project Report
+%I Dept. of Computer Science, University of Glasgow
+%D May 1988
+
+%A Pat Hanrahan
+%A David Salzman
+%T A Rapid Hierarchical Radiosity Algorithm for Unoccluded Environments
+%J Proceedings Eurographics Workshop on Phosimulation, Realism and Physics in
+Computer Graphics
+%C Rennes, France
+%D June 1990
+%P 151-171
+
+%A Paul Heckbert
+%T Adaptive Radiosity Textures for Bidirectional Ray Tracing
+%J Computer Graphics (SIGGRAPH '90 Proceedings)
+%V 24
+%N 4
+%D August 1990
+%P 145-154
+%K density estimation, texture mapping, quadtree, adaptive subdivision,
+sampling
+
+%A Hoyt C. Hottel
+%A Adel F. Sarofim
+%T Radiative Transfer
+%I McGraw Hill
+%C New York
+%D 1967
+
+%A John R. Howell
+%T A Catalog of Radiation Configuration Factors
+%I McGraw Hill
+%C New York
+%D 1982
+
+%A Dave S. Immel
+%A Michael Cohen
+%A Donald P. Greenberg
+%T A Radiosity Method for Non-Diffuse Environments
+%J Computer Graphics (SIGGRAPH '86 Proceedings)
+%V 20
+%N 4
+%D Aug. 1986
+%P 133-142
+
+%A Masa Inakage
+%T Caustics and Specular Reflection Models for Spherical Objects and Lenses
+%J The Visual Computer
+%V 2
+%N 6
+%D 1986
+%P 379-383
+%Z cheap caustics by using approximations of reflectance/refraction for
+spheres and lenses
+
+%A James T. Kajiya
+%A Brian P. Von Herzen
+%T Ray Tracing Volume Densities
+%J Computer Graphics (SIGGRAPH '84 Proceedings)
+%V 18
+%N 3
+%D July 1984
+%P 165-174
+%K atmospherics
+
+%A James T. Kajiya
+%T The Rendering Equation
+%J Computer Graphics (SIGGRAPH '86 Proceedings)
+%V 20
+%N 4
+%D Aug. 1986
+%P 143-150
+%K shading, diffuse reflection
+
+%A Arjan J.F. Kok
+%A Celal Yilmaz
+%A Laurens H.J. Bierens
+%T A Two-Pass Radiosity Method for Bezier Patches
+%J Proceedings Eurographics Workshop on Phosimulation, Realism and Physics in
+Computer Graphics
+%C Rennes, France
+%D June 1990
+%P 117-126
+
+%A Nadia Magnenat-Thalmann
+%A Daniel Thalmann
+%T Image Synthesis
+%I Springer-Verlag
+%C Tokyo
+%D 1987
+%Z includes summaries of ideas from many articles in this bibliography
+
+%A Thomas J.V. Malley
+%T A Shading Method for Computer Generated images
+%R Master's Thesis
+%I University of Utah
+%D June 1988
+%K ray tracing
+
+%A Gregory M. Maxwell
+%A Michael J. Bailey
+%A Victor W. Goldschmidt
+%T Calculations of the Radiation Configuration Factor Using Ray Casting
+%J Computer-Aided Design
+%V 18
+%N 7
+%D Sept. 1986
+%P 371-379
+
+%A Joseph Marks
+%A Robert Walsh
+%A Jon Christensen
+%A Mark Friedell
+%T Image and Intervisibility Coherence in Rendering
+%J Proceedings of Graphics Interface '90
+%D May 1990
+%P 17-30
+%K ray tracing, coherence
+
+%A Nelson L. Max
+%T Atmospheric Illumination and Shadows
+%J Computer Graphics (SIGGRAPH '86 Proceedings)
+%V 20
+%N 4
+%D Aug. 1986
+%P 117-124
+
+%A Gary W. Meyer
+%A Holly E. Rushmeier
+%A Michael F. Cohen
+%A Donald P. Greenberg
+%A Kenneth E. Torrance
+%T An Experimental Evaluation of Computer Graphics Imagery
+%J ACM Transactions on Graphics
+%V 5
+%N 1
+%D Jan. 1986
+%P 30-50
+%Z side-by-side test of reality vs. a radiosity image
+
+%A Hans Moravec
+%T 3D Graphics and the Wave Theory
+%J Computer Graphics (SIGGRAPH '81 Proceedings)
+%V 15
+%N 3
+%D August 1981
+%P 289-296
+
+%A Tomoyuki Nishita
+%A Isao Okamura
+%A Eihachiro Nakamae
+%T Shading Models for Point and Linear Light Sources
+%J ACM Transactions on Graphics
+%V 4
+%N 2
+%D April 1985
+%P 124-146
+
+%A Tomoyuki Nishita
+%A Eihachiro Nakamae
+%T Continuous Tone Representation of Three-Dimensional Objects Taking Account
+of Shadows and Interreflection
+%J Computer Graphics (SIGGRAPH '85 Proceedings)
+%V 19
+%N 3
+%D July 1985
+%P 23-30
+
+%A Tomoyuki Nishita
+%A Eihachiro Nakamae
+%T Continuous Tone Representation of Three-Dimensional Objects Illuminated by
+Sky Light
+%J Computer Graphics (SIGGRAPH '86 Proceedings)
+%V 20
+%N 4
+%D Aug. 1986
+%P 125-132
+
+%A Tomoyuki Nishita
+%A Yashuhiro Miyawaki
+%A Eihachiro Nakamae
+%T A Shading Model for Atmospheric Scattering Considering Luminous Intensity
+Distribution of Light Sources
+%J Computer Graphics (SIGGRAPH '87 Proceedings)
+%V 21
+%N 4
+%D July 1987
+%P 303-310
+
+%A Laszlo Newmann
+%A Attila Neumann
+%T Photosimulation: Interreflection with Arbitrary Reflectance Models and
+Illumination
+%J Computer Graphics Forum
+%V 8
+%D 1989
+%P 21-34
+
+%A Laszlo Neumann
+%A Attila Neumann
+%T Efficient Radiosity Methods for Non-Separable Reflectance Models
+%J Proceedings Eurographics Workshop on Phosimulation, Realism and Physics in
+Computer Graphics
+%C Rennes, France
+%D June 1990
+%P 83-102
+
+%A Claude Puech
+%A Francois Sillion
+%A Christophe Vedel
+%T Improving Interaction with Radiosity-based Lighting Simulation Programs
+%J Computer Graphics (1990 Symposium on Interactive 3D Graphics)
+%V 24
+%N 2
+%D March 1990
+%P 51-57
+
+%A Werner Purgathofer
+%A Michael Zeiller
+%T Fast Radiosity by Parallelization
+%J Proceedings Eurographics Workshop on Phosimulation, Realism and Physics in
+Computer Graphics
+%C Rennes, France
+%D June 1990
+%P 173-183
+
+%A Rodney J. Recker
+%A David W. George
+%A Donald P. Greenberg
+%T Acceleration Techniques for Progressive Refinement Radiosity
+%J Computer Graphics (1990 Symposium on Interactive 3D Graphics)
+%V 24
+%N 2
+%D March 1990
+%P 59-66
+
+%A Rodney J. Recker
+%T Improved Techniques for Progressive Refinement Radiosity
+%R Master's Thesis
+%I Program of Computer Graphics, Cornell University
+%D January 1990
+
+%A M. Roelens
+%A G. Fertey
+%A B. Peroche
+%T Light Sources in a Ray Tracing Environment
+%J Proceedings Eurographics Workshop on Phosimulation, Realism and Physics in
+Computer Graphics
+%C Rennes, France
+%D June 1990
+%P 195-213
+%Z A method for showing cone of light atmospherics
+
+%A Holly E. Rushmeier
+%T Extending the Radiosity Method to Transmitting and Specularly Reflecting
+Surfaces
+%R Master's Thesis
+%I Program of Computer Graphics, Cornell University
+%D 1986
+
+%A Holly E. Rushmeier
+%T The Zonal Method for Calculating Light Intensities in the Presence of a
+Participating Medium
+%J Computer Graphics (SIGGRAPH '87 Proceedings)
+%V 21
+%N 4
+%D July 1987
+%P 293-302
+%K atmospherics
+
+%A Holly E. Rushmeier
+%T Realistic Image Synthesis for Scenes with Radiatively Participating Media
+%R Doctoral Thesis
+%I Cornell University
+%D 1988
+
+%A Holly E. Rushmeier
+%A Kenneth E. Torrance
+%T Extending the Radiosity Method to Include Specularly Reflecting and
+Translucent Materials
+%J ACM Transactions on Graphics
+%V 9
+%N 1
+%D Jan. 1990
+%P 1-27
+
+%A Holly E. Rushmeier
+%A Daniel R. Baum
+%A David E. Hall
+%T Accelerating the Hemi-Cube Algorithm for Calculating Radiation Form Factors
+%J 5th AIAA/ASME Thermophysics and Heat Transfer Conference
+%C Seattle, Washington
+%D June 1990
+
+%A Holly E. Rushmeier
+%A Stephen D. Tynor
+%T Incorporating the BRDF into an Infrared Scene Generation System
+%J Conference on Characterization, Propagation and Simulation of Infrared
+Scenes, SPIE Proceedings
+%C Orlando, Florida
+%V 1311
+%D April 1990
+
+%A Betrand Le Saec
+%A Christophe Schlick
+%T A Progressive Ray-Tracing-based Radiosity with General Reflectance
+Functions
+%J Proceedings Eurographics Workshop on Phosimulation, Realism and Physics in
+Computer Graphics
+%C Rennes, France
+%D June 1990
+%P 103-116
+
+%A Hanan Samet
+%T Applications of Spatial Data Structures
+%I Addison-Wesley
+%C Reading, Massachusetts
+%D 1990
+%Z short section on radiosity
+%K quadtrees, octrees
+
+%A Min-Zhi Shao
+%A Qun-Sheng Peng
+%A You-Dong Liang
+%T A New Radiosity Approach by Procedural Refinements for Realistic Image
+Synthesis
+%J Computer Graphics (SIGGRAPH '88 Proceedings)
+%V 22
+%N 4
+%D Aug. 1988
+%P 93-101
+
+%A Peter Shirley
+%T A Ray Tracing Method for Illumination Calculation in Diffuse-Specular Scenes
+%J Proceedings of Graphics Interface '90
+%D May 1990
+%P 205-212
+%K stratified sampling
+
+%A Peter Shirley
+%T Physically Based Lighting Calculations for Computer Graphics
+%R PhD thesis
+%I Dept. of CS, U. of Illinois, Urbana-Champaign
+%D September, 1990
+%K global illumination
+
+%A Peter Shirley
+%T Physically Based Lighting Calculations for Computer Graphics: A Modern
+Perspective
+%J Proceedings Eurographics Workshop on Phosimulation, Realism and Physics in
+Computer Graphics
+%C Rennes, France
+%D June 1990
+%P 67-81
+%Z rendering techniques summary and extensions
+
+%A Robert Siegel
+%A John R. Howell
+%T Thermal Radiation Heat Transfer
+%I Hemisphere Publishing Corporation
+%C New York
+%D 1981
+
+%A Francois Sillion
+%A Claude Puech
+%T A General Two-Pass Method Integrating Specular and Diffuse Reflection
+%J Computer Graphics (SIGGRAPH '89 Proceedings)
+%V 23
+%N 3
+%D July 1989
+%P 335-344
+
+%A Brian E. Smits
+%A Gary Meyer
+%T Newton's Colors: Simulating Interference Phenomena in Realistic Image
+Synthesis
+%J Proceedings Eurographics Workshop on Phosimulation, Realism and Physics in
+Computer Graphics
+%C Rennes, France
+%D June 1990
+%P 185-194
+%Z interference effects (e.g. oil slick & soap bubbles)
+
+%A E.M. Sparrow
+%T A New and Simpler Formulation for Radiative Angle Factors
+%J Transactions of the ASME, Journal of Heat Transfer
+%V 85
+%N 2
+%D 1963
+%P 81-88
+
+%A E.M. Sparrow
+%A R.D. Cess
+%T Radiation Heat Transfer
+%I Hemisphere Publishing Corporation
+%C Washington
+%D 1978
+
+%A Stephen N. Spencer
+%T The Hemisphere Radiosity Method: A Tale of Two Algorithms
+%J Proceedings Eurographics Workshop on Phosimulation, Realism and Physics in
+Computer Graphics
+%C Rennes, France
+%D June 1990
+%P 127-135
+
+%A J. Vilaplana
+%A Xavier Pueyo
+%T Exploiting Coherence for Clipping and View Transformations in Radiosity
+Algorithms
+%J Proceedings Eurographics Workshop on Phosimulation, Realism and Physics in
+Computer Graphics
+%C Rennes, France
+%D June 1990
+%P 137-150
+%K hemicube
+
+%A John R. Wallace
+%A Michael F. Cohen
+%A Donald P. Greenberg
+%T A Two-Pass Solution to the Rendering Equation: A Synthesis of Ray Tracing
+and Radiosity Methods
+%J Computer Graphics
+(SIGGRAPH '87 Proceedings)
+%V 21
+%N 4
+%D July 1987
+%P 311-320
+%K probabilistic ray tracing, z-buffer
+
+%A John R. Wallace
+%T A Two-Pass Solution to the Rendering Equation: A Synthesis of Ray Tracing
+and Radiosity Methods
+%R Master's Thesis
+%I Program of Computer Graphics, Cornell University
+%D January 1988
+
+%A John R. Wallace
+%A Kells A. Elmquist
+%A Eric A. Haines
+%T A Ray Tracing Algorithm for Progressive Radiosity
+%J Computer Graphics
+(SIGGRAPH '89 Proceedings)
+%V 23
+%N 3
+%D July 1989
+%P 315-324
+%Z calculating form-factors via ray tracing to avoid hemicube problems
+
+%A John R. Wallace
+%T Radiosity and Ray Tracing: A Comparison of Shading Strategies
+%B SIGGRAPH '90 Advanced Topics in Ray Tracing course notes
+%D Aug. 1990
+
+%A John R. Wallace
+%T Trends in Radiosity for Image Synthesis
+%J Proceedings Eurographics Workshop on Phosimulation, Realism and Physics in
+Computer Graphics
+%C Rennes, France
+%D June 1990
+%P 1-14
+
+%A George N. Walton
+%T Algorithms for Calculating Radiation View Factors Between Plane Convex
+Polygons with Obstructions
+%J Fundamentals and Applications of Radiation Heat Transfer (24th National Heat
+Transfer Conference and Exhibition)
+%V HTD-Vol. 72
+%D Aug. 1987
+%P 45-52
+
+%A Yigong Wang
+%A Wayne A. Davis
+%T Octant Priority for Radiosity Image Rendering
+%J Proceedings of Graphics Interface '90
+%D May 1990
+%P 83-91
+%K hemi-cube, space subdivision
+
+%A Yigong Wang
+%T Image Synthesis Using Radiosity Methods
+%R Dotoral Thesis
+%I University of Alberta
+%D 1990
+
+%A Gregory J. Ward
+%A Francis M. Rubinstein
+%A Robert D. Clear
+%T A Ray Tracing Solution for Diffuse Interreflection
+%J Computer Graphics (SIGGRAPH '88 Proceedings)
+%V 22
+%N 4
+%D Aug. 1988
+%P 85-92
+
+%A Alan Watt
+%T Fundamentals of Three-Dimensional Computer Graphics
+%I Addison-Wesley
+%C Wokingham, England
+%D 1989
+%Z also discusses ray tracing, functionally-based modeling, stochastic sampling,
+and Fourier theory, among other topics.
+
+%A Mark Watt
+%T Light-Water Interaction using Backward Beam Tracing
+%J Computer Graphics (SIGGRAPH '90 Proceedings)
+%V 24
+%N 4
+%D August 1990
+%P 377-385
+%K backward ray tracing, caustics, light beam tracing, specular to diffuse
+transfer
+
+%A John A. Wiebelt
+%T Engineering Radiation Heat Transfer
+%I Holt, Rinehart and Winston, Inc
+%C New York
+%D 1966
+
+%A Hau Xu
+%A Qun-Shang Peng
+%A You-Dong Liang
+%T Accelerated Radiosity Method for Complex Environments
+%B Eurographics '89
+%D 1989
+%P 51-61
+%I Elsevier Science Publishers
+%C New York
+%Z Partitions object space for solutions in subdomains
+
+%A A.C. Yilmaz
+%A S. Hagestein
+%A Ed F. Deprettere
+%A P. Dewilde
+%T A Hardware Solution to the Generalized Two-Pass Approach for Rendering of
+Artificial Scenes
+%J Proceedings Eurographics Hardware Workshop
+%C Hamburg, West Germany
+%D Sept. 1989
+%P 65-79
+%O also appeared in IEEE Computer Architecture & Real Time Graphics Symposium,
+June 1989, Delft
+@EOF
+
+chmod 644 rad.refer
+
+echo x - roffbib.c
+cat >roffbib.c <<'@EOF'
+/*
+ * A very simple version of ROFFBIB
+ *
+ * Paul Heckbert, 1985
+ */
+
+#include <stdio.h>
+
+typedef struct {
+    char *code,*pref,*post;
+} reftrans;
+
+static reftrans reftab[] = {
+    "%A",	"",		",",		/* author (possibly several) */
+    "%B",	"\\fI",		"\\fP,",	/* book title */
+    "%C",	"",		",",		/* city */
+    "%D",	"",		",",		/* date */
+    "%E",	"",		" ed.,",	/* editor of book */
+    "%G",	"NTIS ",	",",		/* government order number */
+    "%I",	"",		",",		/* issuer (publisher) */
+    "%J",	"\\fI",		"\\fP,",	/* journal/magazine */
+    "%K",	"{",		"},",		/* keywords */
+    "%N",	"no. ",		",",		/* number (vol 5 no 3) */
+    "%O",	"(",		"),",		/* other (misc info) */
+    "%P",	"pp. ",		",",		/* pages */
+    "%R",	"",		",",		/* report number */
+    "%T",	"``",		"'',",		/* title */
+    "%V",	"vol. ",	",",		/* volume */
+    "%Y",	"[",		"],",		/* owner(s) of copy */
+    "%Z",	"\\fI",		"\\fP,"		/* comments */
+};
+
+#define NREF (sizeof reftab / sizeof reftab[0])
+static int lno;
+
+main(ac,av)
+int ac;
+char **av;
+{
+    char line[500];
+    int i,j;
+    FILE *fp;
+
+    if (ac==1) fp = stdin;
+    else if ((fp = fopen(av[1],"r"))==NULL) {
+	fprintf(stderr,"Can't find %s\n",av[1]);
+	exit(1);
+    }
+    lno = 0;
+    while (!feof(fp)) {
+	for (j=0; getline(fp,line)>0; j++) {
+	    if (strlen(line)<4 || line[0]!='%' || line[2]!=' ') {
+		fprintf(stderr,"line %d is (%s)\n",lno,line);
+		printf("\n%s\n",line);
+		continue;
+	    }
+	    for (i=0; i<NREF && line[1]!=reftab[i].code[1]; i++);
+	    if (i>=NREF) {
+		fprintf(stderr,"line %d bad code (%s)\n",lno,line);
+		printf("\n%s\n",line);
+		continue;
+	    }
+	    if (j==0 && (line[1]=='A' || line[1]=='E'))
+		surfirst(line);
+	    printf("%s%s%s\n",reftab[i].pref,line+3,reftab[i].post);
+	}
+	printf("\n");
+    }
+    fclose(fp);
+}
+
+getline(fp,str)
+FILE *fp;
+char *str;
+{
+    char *s;
+    int c;
+
+    s = str;
+    do {
+	while ((c = getc(fp))!='\n' && c!=EOF) *s++ = c;
+	*s++ = ' ';
+	lno++;
+    } while ((*s++ = c = getc(fp))!='%' && c!='\n' && c!=EOF);
+    ungetc(c,fp);
+    s[-2] = 0;
+    return strlen(str);
+}
+
+surfirst(str0)					/* put surname first */
+char *str0;
+{
+    char *str,*s,buf[500];
+
+    str = str0+3;
+    s = str+strlen(str)-1;
+    do {
+	while (s>=str && *s!=' ') s--;
+    } while (s>str && *--s==',');
+    if (s>str) {
+	s += 2;
+	s[-1] = 0;
+	sprintf(buf,"%%%c \\fB%s\\fP, %s",str0[1],s,str);
+	strcpy(str0,buf);
+    }
+}
+@EOF
+
+chmod 644 roffbib.c
+
+exit 0
+

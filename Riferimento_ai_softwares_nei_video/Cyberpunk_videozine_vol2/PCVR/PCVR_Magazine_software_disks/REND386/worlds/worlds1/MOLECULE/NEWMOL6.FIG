@@ -1,0 +1,89 @@
+comment = A collection of simple atoms and a molecule
+comment = The objects all consist of spheres and at one time cylinders
+comment = to represent bonds.  The cylinders were removed due to memory
+comment = and speed problems on my lowly 4MB, 16 Mhz 386.
+
+comment = Spheres and cylinders were created with Irit and then
+comment = converted to plg files using irit2plg
+comment = Created by T. K. Larson, Sept. 1992.
+
+comment = This was essentially an experiment to examine the
+comment = resolution and number of spheres my machine could handle.
+comment = Notice that the resolution of the spheres is very low.
+comment = Much higher resolution spheres can be (and were) produced with
+comment = Irit but require a far more significant machine than I have.
+
+{	name = atom 0;comment = this is the parent atom;
+	plgfile = s1a.plg;
+	pos = 0,0,0;
+	comment =rot=r,t,p;
+	segnum = 0;
+	{
+		name = atom 1; comment = this is the atom in the center.  It is the root segment;
+		plgfile = s1.plg;comment =  scale 1,0,0 shift x,y,z sort 0;
+		pos = -600,0,0;
+		comment =rot = r,t,p;
+		segnum = 1;
+		}
+	{
+		name = atom 2;
+		plgfile = s1.plg;
+		pos = -900,0,0;
+		segnum = 2;
+		}
+	{
+		name = atom 3;
+		plgfile = s1.plg;
+		pos = -600,300,0;
+		segnum = 3;
+		}
+	
+	{
+		name = atom 4;
+		plgfile = s1.plg;
+		pos = -600,-300,0;
+		segnum = 4;
+		}
+	{
+		name = atom 5;
+		plgfile = s1.plg;
+		pos = -600,300,-300;
+		segnum = 5;
+		}
+	{
+		name = atom 6;
+		plgfile = s1a.plg;
+		pos = -1200,0,0;
+		segnum = 6;
+		}
+	{
+		name = atom 7;
+		plgfile = s1a.plg;
+		pos = -1800,0,0;
+		segnum = 7;
+		}
+	{
+		name = atom 8;
+		plgfile = s1a.plg;
+		pos = -1800,300,0;
+		segnum = 8;
+		}
+	{
+		name = atom 9;
+		plgfile = s1a.plg;
+		pos = -1800,300,300;
+		segnum = 9;
+		}
+	{
+		name = atom 10;
+		plgfile = s1a.plg;
+		pos = -1800,300,-300;
+		segnum = 10;
+		}
+	{
+		name = atom 11;
+		plgfile = s1a.plg;
+		pos = -1800,300,-600;
+		segnum = 11;
+		}
+}

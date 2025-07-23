@@ -1,0 +1,163 @@
+#
+# CAR.WLD
+#
+# Get aboard the car and take a Sunday ride
+# Created by James F. Moon-Dupree
+# For use with the VR386 package
+#
+# April 1, 1994
+#
+
+loadpath car
+
+groundcolor 70
+light 150000,999000,200000
+
+stepsize 2
+anglesize 5
+
+hither          10
+yon      100000000
+
+worldscale 1.0
+
+
+# Ride onboard the car (F1) or observe from the sidelines (F2 - F4), 
+# above (F5) or below (F6)
+
+camera 1 2100,6400,-181500 0,0,0 1
+camera 2 180000,1000,10000 0,-90,0 1
+camera 3 -195000,3000,10000 0,90,0 1
+camera 4 0,5000,165000 0,180,0 1
+camera 5 100000,300000,12000 90,0,0 1
+camera 6 100000,-300000,10000 -90,0,0 1
+
+segment pivot = world 0,0,0 0,0,0
+
+# Build the car frame up 
+
+object frame =  flrbrd .01,.01,.01 0,0,0 0,1500,-150000 0 . pivot
+
+object road = road 1,1,1 90,0,0 0,0,0 
+
+object rear_axle = rod .002,.002,.05 0,0,0 11600,0,0 0 . frame
+object left_rear = tire_whl .015,.015,.008 0,0,0 0,0,-2900 256 . rear_axle
+object             tire_whl .015,.015,.008 0,180,0 0,0,2900 256 . rear_axle
+object front_axle = rod .002,.002,.05 0,0,0 -2500,0,0 0 . frame
+object left_front = tire_whl .015,.015,.008 0,0,0 0,0,-2900 256 . front_axle
+object              tire_whl .015,.015,.008 0,180,0 0,0,2900 256 . front_axle
+
+object base1 = seatbase .01,.01,.01 0,0,0 1100,941,-1500 0 . frame
+object back1 = seatback .01,.01,.01 0,0,77 2400,0,0 0 . base1
+object base2 = seatbase .01,.01,.01 0,0,0 1100,941,1500 0 . frame
+object back2 = seatback .01,.01,.01 0,0,77 2400,0,0 0 . base2
+object base3 = bnchbase .01,.01,.01 0,0,0 6600,941,0 0 . frame
+object back3 = seatback .01,.01,.0275 0,0,77 2400,0,0 0 . base3
+
+object instrument_panel = ip .01,.01,.01 0,-90,0 -800,4000,-1800 0 . frame
+object tachometer = instru .003,.003,.003 0,0,0 -300,0,-1200 0 . instrument_panel
+object speedometer = instru .003,.003,.003 0,0,0 500,0,-1200 0 . instrument_panel
+object gauge_1 = instru .0015,.0015,.0015 0,0,0 -1000,200,-1200 0 . instrument_panel
+object gauge_2 = instru .0015,.0015,.0015 0,0,0 -1000,-400,-1200 0 . instrument_panel
+object ignition = instru .00025,.00025,.00025 0,0,0 1000,-550,-1200 0 . instrument_panel
+object key = key .5,.5,.5 0,90,0 0,0,-50 0 . ignition
+
+object instruement_panel_a = ip_a .01,.01,.01 0,-90,0 -800,3300,900 0 . frame
+object on_off = instru .0001,.0001,.0001 0,0,0 500,300,-1900 0 . instrument_panel_a
+object tune = instru .0001,.0001,.0001 0,0,0 100,300,-1900 0 . instrument_panel_a
+
+
+object steering_wheel = strwhl .01,.01,.01 45,-90,0 1250,3500,-1500 0 . frame
+object steering_column = rod .003,.003,.02 0,0,0 0,0,1800 0 . steering_wheel
+
+object front_end = frntend .01,.01,.01 0,0,0 0,0,0 4 . frame
+object windshield = wndshld .01,.01,.01 0,0,0 -800,4000,0 0 . front_end
+object rear_end = rearend .01,.01,.01 0,0,0 11600,0,0 4 . frame
+
+object driverdoor = door .01,.01,.01 0,0,0 0,0,-3200 0 . front_end
+object passengerdoor = door .01,.01,.01 180,0,0 0,4000,3200 0 . front_end
+
+object fir 7,10,  7 0,0,0    1500,0,  -10000 256 . fixed
+object fir 8,10,  8 0,0,0   27000,0,  -10000 256 . fixed
+object fir 8, 9,  8 0,0,0  -31500,0,   12000 256 . fixed
+object fir 8, 9,  8 0,0,0    7000,0,   82000 256 . fixed
+object fir 8,10,  8 0,0,0   21500,0,  235000 256 . fixed
+object fir 8, 9.5,8 0,0,0  -51000,0,   64000 256 . fixed
+object fir 7,10.5,7 0,0,0   68500,0,  -66000 256 . fixed
+object fir 8,10,  8 0,0,0 -217000,0,  -16000 256 . fixed
+object fir 8, 9.5,8 0,0,0  211500,0,  210000 256 . fixed
+object fir 8,10,  8 0,0,0   97000,0,  -18000 256 . fixed
+object fir 7,10,  7 0,0,0  291500,0,  190000 256 . fixed
+object fir 8,10,  8 0,0,0  257000,0,  -20000 256 . fixed
+object fir 8,10,  8 0,0,0    1500,0,  -82000 256 . fixed
+object fir 8, 9.5,8 0,0,0   75000,0, -222000 256 . fixed
+
+object cube .1,1,.1 0,0,0 200000,0,-50000 256 . fixed
+object cube .2,.5,.2 0,0,0 200000,0,-40000 256 . fixed
+object cube .7,.5,.2 0,-30,0 50000,0,210000 256 . fixed
+
+# Waiting Pad
+
+polyobj 4 0x11FF -2000,0,-180000 -2000,0,-160000 7500,0,-160000 7500,0,-180000 
+
+# Move up on the waiting pad until the car door opens
+#
+# Move into the driver's seat and the doors shut
+#
+
+animation 15
+        state closed_door
+                do sensor(-2000,x,-180000 7500,x,-160000) [][state = opening_door]
+        state opening_door
+                do driverdoor = step(x,x,x x,10,x) [] []
+                do passengerdoor = step(x,x,x x,-10,x) [] []
+                do driverdoor = rotlimit(x,x,x x,90,x) [state=opened_door] []
+        state opened_door
+                do sensor(1000,x,-153000 2500,x,-150000) [] [state=closing_door]
+        state closing_door
+                do driverdoor = step(x,x,x x,-10,x) [] []
+                do passengerdoor = step(x,x,x x,10,x) [] []
+                do driverdoor = rotlimit(x,0,x x,x,x) [state=closed_door onboard=1][]
+
+# Get aboard the car and take a ride
+# Circle the car world
+# But first you must turn on (select) the ignition key
+
+animation 5
+        state check
+                do key = moveto(x,x,x 0,x,x) [] []
+                if (onboard=1) set[state=ignition_off]
+        state ignition_off
+                do poptext(.5) Select the Ignition Key to Start
+                do key = selected(1) [] [state=turn_on]
+        state turn_on
+                do key = step(x,x,x 10,x,x)
+                do key = rotlimit(90,x,x x,x,x) [ignit=1] []
+
+animation 15        
+        state check
+                if (ignit=1) set[state=go]
+        state go
+                do key = deselect(1) [] []
+                do frame = attach(1) [state=curve_A]
+        state curve_A
+                do pivot = step(x,x,x x,10,x) [] []
+                do pivot = rottest(x,180,x x,210,x) [] [state=back_straight]
+        state back_straight
+                do pivot = step(50000,x,x x,x,x)
+                do pivot = postest(200000,x,x 210000,x,x) [] [state=curve_B]
+        state curve_B
+                do pivot = step(x,x,x x,10,x) [] []
+                do pivot = rottest(x,350,x x,360,x) [] [state=front_straight]
+        state front_straight
+                do pivot = step(-50000,x,x x,x,x)
+                do pivot = postest(-10000,x,x 0,x,x) [] [state=curve_A]
+
+# Rotate the wheels    
+
+animation 100
+        state wheels_still
+                if (ignit=1) set[state=wheels_turn]
+        state wheels_turn
+                do rear_axle = step(x,x,x x,x,250) [] []
+                do front_axle = step(x,x,x x,x,250) [] []

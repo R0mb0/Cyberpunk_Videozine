@@ -1,0 +1,23 @@
+7/29/93
+
+Contents of this PKZIP file (produced by pkzip 2.03): 
+
+1) Fixes to WORLD.C to allow it to compile under BORLAND C++ version
+   2.0 (already compiles OK under 3.1). I replaced about 80% of the 
+   if/then/else/if/then/else/if/then .. block with a correspondingly
+   huge SELECT statement. 
+2) Modified the makefiles to invoke BCC instead of TCC (Turbo C). 
+3) Also modified the makefiles to append ".c" to the end of the
+   names of source files (this to make the BCC command properly 
+   compile them as C code instead of C++). 
+4) Threw in mods from Chris Hand for support of the Menelli box
+   (see read.me in the SEGA subdirectory for details). 
+
+I'm currently hacking hard to get the PGSI (PowerGlove Serial Port) to work
+with REND386 (starting with Chris' code). 
+
+Charlie Lindahl
+University of Texas at Arlington
+Staff Researcher - Computer Science & Electrical Engineering depts
+EMAIL: lindahl@cse.uta.edu
+

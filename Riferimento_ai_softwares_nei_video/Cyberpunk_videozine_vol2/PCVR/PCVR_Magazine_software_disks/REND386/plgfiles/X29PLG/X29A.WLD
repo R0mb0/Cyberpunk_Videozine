@@ -1,0 +1,13 @@
+worldscale 1.0	        # 1.0 mm per unit
+
+hither            10    # anything closer than this gets clipped
+yon         20000000    # anything farther than this doesn't get rendered
+
+start  0,5450,-1340 0,0,0 1.5
+
+ambient 76
+
+object x29a 2,2,2  0,0,0  0,2000,0 256
+
+
+

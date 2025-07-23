@@ -1,0 +1,264 @@
+#
+# GATES.WLD
+#
+# teleporting one-way gates!
+# Created by Dave Stampe, January 1993
+# for use with the REND386 package.
+#
+
+loadpath r386w\wld\worlds1\gates
+
+hither            10    # anything closer than this gets clipped
+yon          4000000    # anything farther than this doesn't get rendered
+
+start 0,1200,0 0,0,0 2
+
+camera 2 43000 79500 -71200 0 35 0
+
+ambient 80
+light 1000,100000,1000 0
+
+skycolor    0xa4
+groundcolor 0x4d
+
+surfacedef cobble    239
+
+surfacemap roadcolors
+surface 1 cobble
+
+# Splits and associated surfaces:
+
+# split 0,0,0 0,1,0        0   # 0  (floor plane)
+
+split 0,19990,0 0,1,0   # sky island
+polyobj2 8 0x002e 0x0074 40000,20000,120000 35000,20000,115000 35000,20000,105000 40000,20000,98000 57000,20000,98000 65000,20000,105000 65000,20000,117000 57000,20000,122000
+split 19900,0,0 1,0,0
+split 0, 9990,0 0,1,0   # the cliffs
+object cliff 1000,1000,1000 0,0,0 0,0,0 0 . fixed
+endsplits
+
+object river 1000,1,1000 0,0,0 0,0,0    0 . fixed
+
+object mcone8 200,250,200 0,0,0 104000,0,86000 0 . fixed
+
+# A road:
+object floor   40,1,20  0,0,0   8800,0,6000     0  roadcolors fixed
+object floor   40,1,20  0,-45,0 12800,0,6000    0  roadcolors fixed
+object floor   40,1,20  0,-90,0 15628,0,8828    0  roadcolors fixed
+object floor   400,1,20 0,0,0   13628,0,12828   0  roadcolors fixed
+
+# some trees:
+
+object tree2     52,52,52        0,0,0   0,1,0           0
+object tree2     18,18,18        0,0,0   58000,1,48000   0
+object tree2     33,26,30        0,0,0   138000,1,57000  0
+
+# fir trees:
+
+object fir2 1,1,1  0,0,0  -16000,10000,115000 256 . fixed
+object fir2 2,2,2  0,0,0   92000,0,2000   256 . fixed
+
+some miscellaneous object:
+
+object ball6    36,16,16        0,0,0   55200,20010,110000   0
+
+# the gates -- bug won't let them be fixed and be multires too.
+
+object octframe 8,15,20 0,180,0 -5000,11500,100000 0 . # fixed
+object octframe 8,15,20 0,-90,0 10000,1500,85000   0 . # fixed
+object octframe 8,15,20 0,180,0 0,11500,60000      0 . # fixed
+object octframe 8,15,20 0,0,0   5000,1500,40000    0 . # fixed
+object octframe 8,15,20 0,90,0  45000,1500,0       0 . # fixed
+object octframe 8,15,20 0,-90,0 35000,1500,65000   0 . # fixed
+object octframe 8,15,20 0,90,0  60000,1500,75000   0 . # fixed
+object octframe 8,15,20 0,0,0   50000,1500,90000   0 . # fixed
+object octframe 8,15,20 0,90,0  75000,1500,60000   0 . # fixed
+object octframe 8,15,20 0,90,0  45000,21500,110000 0 . # fixed
+object octframe 8,15,20 0,180,0 105000,1500,40000  0 . # fixed
+object octframe 8,15,20 0,0,0   100000,1500,65000  0 . # fixed
+object octframe 8,15,20 0,-90,0 125000,1500,85000  0 . # fixed
+
+############## NOW-- THE TELEPORTATION MECHANISM #############
+
+segment tele=world 0,0,0 0,0,0 # used to drag user body around.
+
+animation 10 # gate A to B control
+  state not_in_entry
+    do sensor(-5800,10000,100000 -4200,13000,103000)[][state=in_entry]
+  state in_entry
+		do sensor(-5800,10000,97000 -4200,13000,100000)[g=0][g=1]
+    if (g=0) sensor(-5800,10000,100000 -4200,13000,103000)[state=not_in_entry][]
+		if (g=1) tele=attach(0)[]
+    if (g=1) tele=moveto(-5000,10000,100000 0,0,0)[state=move_1]
+  state move_1
+    do tele=attach(1)[][]
+    do tele=moveto(10000,0,85000 x,-90,x)[state=not_in_entry]
+
+
+animation 10 # gate B to A control
+  state not_in_entry
+    do sensor(10000,0,84200 13000,3000,85800)[][state=in_entry]
+  state in_entry
+    do sensor(7000,0,84200 10000,3000,85800)[g=0][g=1]
+    if (g=0) sensor(10000,0,84200 13000,3000,85800)[state=not_in_entry][]
+    if (g=1) tele=attach(0)[]
+    if (g=1) tele=moveto(10000,0,85000 0,0,0)[state=move_1]
+  state move_1
+    do tele=attach(1)[][]
+    do tele=moveto(-5000,10000,100000 x,-90,x)[state=not_in_entry]
+
+
+animation 10 # gate C to G control
+  state not_in_entry
+    do sensor(-800,10000,60000 800,13000,63000)[][state=in_entry]
+  state in_entry
+    do sensor(-800,10000,57000 800,13000,60000)[g=0][g=1]
+    if (g=0) sensor(-800,10000,60000 800,13000,63000)[state=not_in_entry][]
+    if (g=1) tele=attach(0)[]
+		if (g=1) tele=moveto(0,10000,60000 0,0,0)[state=move_1]
+  state move_1
+		do tele=attach(1)[][]
+    do tele=moveto(60000,0,75000 x,-90,x)[state=not_in_entry]
+
+
+animation 10 # gate D to H control
+  state not_in_entry
+    do sensor(4200,0,37000 5800,3000,40000)[][state=in_entry]
+  state in_entry
+    do sensor(4200,0,40000 5800,3000,43000)[g=0][g=1]
+    if (g=0) sensor(4200,0,37000 5800,3000,40000)[state=not_in_entry][]
+    if (g=1) tele=attach(0)[]
+    if (g=1) tele=moveto(5000,0,40000 0,0,0)[state=move_1]
+  state move_1
+    do tele=attach(1)[][]
+    do tele=moveto(50000,0,90000 x,180,x)[state=not_in_entry]
+
+
+animation 10 # gate E to M control
+  state not_in_entry
+    do sensor(42000,0,-800 45000,3000,800)[][state=in_entry]
+  state in_entry
+    do sensor(45000,0,-800 48000,3000,800)[g=0][g=1]
+    if (g=0) sensor(42000,0,-800 45000,3000,800)[state=not_in_entry][]
+    if (g=1) tele=attach(0)[]
+    if (g=1) tele=moveto(45000,0,0 0,0,0)[state=move_1]
+  state move_1
+    do tele=attach(1)[][]
+		do tele=moveto(125000,0,85000 x,0,x)[state=not_in_entry]
+
+
+animation 10 # gate F to E control
+  state not_in_entry
+    do sensor(35000,0,64200 38000,3000,65800)[][state=in_entry]
+  state in_entry
+    do sensor(32000,0,64200 35000,3000,65800)[g=0][g=1]
+    if (g=0) sensor(35000,0,64200 38000,3000,65800)[state=not_in_entry][]
+    if (g=1) tele=attach(0)[]
+    if (g=1) tele=moveto(35000,0,65000 0,0,0)[state=move_1]
+  state move_1
+    do tele=attach(1)[][]
+    do tele=moveto(45000,0,0 x,180,x)[state=not_in_entry]
+
+
+animation 10 # gate G to D control
+  state not_in_entry
+    do sensor(57000,0,74200 60000,3000,75800)[][state=in_entry]
+  state in_entry
+    do sensor(60000,0,74200 63000,3000,75800)[g=0][g=1]
+    if (g=0) sensor(57000,0,74200 60000,3000,75800)[state=not_in_entry][]
+    if (g=1) tele=attach(0)[]
+    if (g=1) tele=moveto(60000,0,75000 0,0,0)[state=move_1]
+  state move_1
+    do tele=attach(1)[][]
+    do tele=moveto(5000,0,40000 x,-90,x)[state=not_in_entry]
+
+
+animation 10 # gate H to J control
+  state not_in_entry
+		do sensor(49200,0,87000 50800,3000,90000)[][state=in_entry]
+  state in_entry
+    do sensor(49200,0,90000 50800,3000,93000)[g=0][g=1]
+    if (g=0) sensor(49200,0,87000 50800,3000,90000)[state=not_in_entry][]
+    if (g=1) tele=attach(0)[]
+    if (g=1) tele=moveto(50000,0,90000 0,0,0)[state=move_1]
+  state move_1
+    do tele=attach(1)[][]
+    do tele=moveto(45000,20000,110000 x,90,x)[state=not_in_entry]
+
+
+animation 10 # gate I to I control
+  state not_in_entry
+    do sensor(72000,0,59200 75000,3000,60800)[][state=in_entry]
+  state in_entry
+    do sensor(75000,0,59200 78000,3000,60800)[g=0][g=1]
+    if (g=0) sensor(72000,0,59200 75000,3000,60800)[state=not_in_entry][]
+    if (g=1) tele=attach(0)[]
+    if (g=1) tele=moveto(75000,0,60000 0,0,0)[state=move_1]
+  state move_1
+    do tele=attach(1)[][]
+    do tele=moveto(75000,0,60000 x,180,x)[state=not_in_entry]
+
+
+animation 10 # gate J to F control
+  state not_in_entry
+    do sensor(42000,20000,109200 45000,23000,110800)[][state=in_entry]
+	state in_entry
+    do sensor(45000,20000,109200 48000,23000,110800)[g=0][g=1]
+		if (g=0) sensor(42000,20000,109200 45000,23000,110800)[state=not_in_entry][]
+    if (g=1) tele=attach(0)[]
+    if (g=1) tele=moveto(45000,20000,110000 0,0,0)[state=move_1]
+  state move_1
+    do tele=attach(1)[][]
+    do tele=moveto(35000,0,65000 x,0,x)[state=not_in_entry]
+
+
+animation 10 # gate K to L control
+  state not_in_entry
+    do sensor(104200,0,40000 105800,3000,43000)[][state=in_entry]
+  state in_entry
+    do sensor(104200,0,37000 105800,3000,40000)[g=0][g=1]
+    if (g=0) sensor(104200,0,40000 105800,3000,43000)[state=not_in_entry][]
+    if (g=1) tele=attach(0)[]
+    if (g=1) tele=moveto(105000,0,40000 0,0,0)[state=move_1]
+  state move_1
+    do tele=attach(1)[][]
+    do tele=moveto(100000,0,65000 x,0,x)[state=not_in_entry]
+
+
+animation 10 # gate L to K control
+  state not_in_entry
+    do sensor(99200,0,62000 108800,3000,65000)[][state=in_entry]
+  state in_entry
+    do sensor(99200,0,65000 108800,3000,68000)[g=0][g=1]
+    if (g=0) sensor(99200,0,62000 108800,3000,65000)[state=not_in_entry][]
+		if (g=1) tele=attach(0)[]
+    if (g=1) tele=moveto(100000,0,65000 0,0,0)[state=move_1]
+	state move_1
+    do tele=attach(1)[][]
+    do tele=moveto(105000,0,40000 x,0,x)[state=not_in_entry]
+
+
+animation 10 # gate M to C control
+  state not_in_entry
+    do sensor(125000,0,84200 128000,3000,85800)[][state=in_entry]
+  state in_entry
+    do sensor(122000,0,84200 125000,3000,85800)[g=0][g=1]
+    if (g=0) sensor(125000,0,84200 128000,3000,85800)[state=not_in_entry][]
+    if (g=1) tele=attach(0)[]
+    if (g=1) tele=moveto(125000,0,85000 0,0,0)[state=move_1]
+  state move_1
+    do tele=attach(1)[][]
+    do poptext(1) [] Think you can walk on air, eh?
+    do tele=moveto(0,10000,60000 x,-90,x)[state=fall]
+  state fall
+    do tele=gravity(0,0,0 0,-1000,0)[]
+    do tele=poslimit(0,0,0 x,x,x)[state=not_in_entry][]
+
+stepsize 20
+
+title GATES.WLD
+title teleportation maze
+title by Dave Stampe 29/11/92
+title memory
+
+# End of GATES.WLD

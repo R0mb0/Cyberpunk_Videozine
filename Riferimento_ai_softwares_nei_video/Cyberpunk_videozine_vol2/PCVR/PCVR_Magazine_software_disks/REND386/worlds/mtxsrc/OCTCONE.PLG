@@ -1,0 +1,35 @@
+# an octagonal cone visible from the outside, 1000x1000
+octout 9 9
+
+# vertices:
+# X    Y    Z
+		# front face
+-190 -460 -500  # vertex 0
+ 190 -460 -500  # vertex 1
+ 460 -190 -500  # vertex 2
+ 460  190 -500  # vertex 3
+ 190  460 -500  # vertex 4
+-190  460 -500  # vertex 5
+-460  190 -500  # vertex 6
+-460 -190 -500  # vertex 7
+
+		# point
+ 0    0    500  # vertex 8
+
+# polygons: all cosine-lit, assorted colors
+# color #verts vert1 vert2 ...
+
+0x11ff 8 0 1 2 3 4 5 6 7    # front face: counterclockwise
+
+# these faces are facing us in the sketch, thus are CCW
+0x12ff 3 5 4 8  # top
+0x13ff 3 4 3 8
+0x14ff 3 3 2 8
+
+# these faces are away from us in the sketch, and thus CW
+0x15ff 3 2 1 8
+0x16ff 3 1 0 8
+0x17ff 3 0 7 8
+0x18ff 3 7 6 8
+0x19ff 3 6 5 8
+

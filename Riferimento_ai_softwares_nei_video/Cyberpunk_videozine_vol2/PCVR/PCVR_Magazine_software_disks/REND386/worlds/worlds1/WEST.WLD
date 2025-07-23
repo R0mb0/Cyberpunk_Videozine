@@ -1,0 +1,751 @@
+############################################
+#                                          #
+#                 WEST.WLD                 #
+#                                          #
+#  Created by Bernie Roehl, November 1992  #
+#                                          #
+############################################
+
+#
+#  A ghost town.  No ghosts, though.
+#
+
+# debugging by Dave Stampe for visibility errors
+# the scale of this world is not good for stereo--objects are too small
+# also notice problems with glove
+
+loadpath west
+
+worldscale .2  (1/mm per unit)
+
+
+options a   # camera angles are tilt,pan,roll
+
+groundcolor 70
+
+light 1500,1000,2000 
+
+######### SURFACES ########
+
+surfacedef glass        0x31A0
+surfacedef doorbody     0x12AA
+surfacedef doorpanel    0x123A
+
+surfacedef roadcolor    0x04AA  # a light brown sandy color
+
+surfacedef ceilfancolor 0x12AA
+surfacedef barcolor1    0x12AA
+surfacedef barcolor2    0x1E3A
+surfacedef framecolor   0x12AA
+surfacedef mirrorcolor  0x2A00
+
+surfacedef podfrontcolor 0x13AA
+surfacedef podbackcolor  0x14AA
+surfacedef podtopcolor   0x15AA
+surfacedef podbotcolor   0x16AA
+
+surfacedef lorisercolor 0x12AA
+surfacedef hirisercolor 0x1C7A
+
+surfacedef salout   0x179A  # outside wall of saloon
+surfacedef salin    0x15AA  # inside wall of saloon
+surfacedef salroof  0x1E5A  # the roof of the saloon
+surfacedef salceil  0x14AA  # the ceiling of the saloon
+surfacedef salfloor 0x14AA  # the floor of the saloon
+
+surfacedef hotelout   0x11FA  # outside wall of hotel
+surfacedef hotelin    0x15AA  # inside wall of hotel
+surfacedef hotelroof  0x1E5A  # the roof of the hotel
+surfacedef hotelceil  0x13AA  # the ceiling of the hotel
+surfacedef hotelfloor 0x12AA  # the floor of the hotel
+
+surfacedef churchout   0x1FEA  # outside wall of church
+surfacedef churchin    0x0056  # inside wall of church
+surfacedef churchback  0x12EA  # inside back of church
+surfacedef churchroof  0x14BA  # the roof of the church
+surfacedef churchceil  0x14CA  # the ceiling of the church
+surfacedef churchfloor 0x185A  # the floor of the church
+surfacedef churchfront 0x14BA  # the front of the church
+surfacedef crosscolor  0x11AA  # the cross
+
+surfacedef bankout   0x1A7A  # outside wall of bank
+surfacedef bankin    0x147A  # inside wall of bank
+surfacedef bankroof  0x1E5A  # the roof of the bank
+surfacedef bankceil  0x0038  # the ceiling of the bank
+surfacedef bankfloor 0x002A  # the floor of the bank
+
+surfacedef stationout   0x16FA  # outside wall of station
+surfacedef stationin    0x19AA  # inside wall of station
+surfacedef stationroof  0x1E5A  # the roof of the station
+surfacedef stationceil  0x14AA  # the ceiling of the station
+surfacedef stationfloor 0x14AA  # the floor of the station
+surfacedef platform     0x19EA  # the train platform
+
+surfacedef wicketcolor  0x00EC
+surfacedef wicketdesk   0x12AA
+surfacedef pewcolor     0x12AA
+surfacedef benchcolor   0x1F9A
+surfacedef tablecolor1  0x12AA
+surfacedef tablecolor2  0x12AA
+surfacedef deskcolor    0x12AA
+
+surfacedef jewelcolor1  0x2A00
+surfacedef jewelcolor2  0x2100
+surfacedef jewelcolor3  0x2500
+surfacedef jewelcolor4  0x2700
+
+surfacedef safefrnt     0x1FDA
+surfacedef safeside     0x17AA
+surfacedef safeinside1  0x12AA
+surfacedef safeinside2  0x12AA
+surfacedef safedoorout  0x1EDA
+surfacedef safedoorin   0x12AA
+surfacedef safedial1    0x1ACA
+surfacedef safedial2    0x1A0A
+
+###### WALLS, FLOORS AND CEILINGS ######
+
+# First, the ground plane
+
+split  0,0,0  0,1,0
+
+# A road through town
+polyobj 5 roadcolor 1300,1,200 1300,1,800 1500,1,1700 1700,1,900 1700,1,200
+polyobj 5 roadcolor 1300,1,800 1200,1,1700 1400,1,2500 1700,1,2500 1500,1,1700
+polyobj 4 roadcolor 1400,1,2500 1200,1,3100 1600,1,3100 1700,1,2500
+polyobj 4 roadcolor 1200,1,3100 1500,1,3800 1800,1,3800 1600,1,3100
+polyobj 4 roadcolor 1500,1,3800 2000,1,4100 2200,1,4000 1800,1,3800
+
+# next, floors for all the buildings (sort of a "floor plan" <g>)
+polyobj  4 salfloor 400,1,1600 400,1,2800 1100,1,2800 1100,1,1600
+polyobj  4 hotelfloor 1900,1,1800 1900,1,3400 2500,1,3400 2500,1,1800
+polyobj  4 bankfloor 600,1,3100 600,1,3700 1100,1,3700 1100,1,3100
+polyobj  4 stationfloor 400,1,500 400,1,1200 800,1,1200 800,1,500
+polyobj  4 stationfloor 800,1,900 800,1,1200 1000,1,1200 1000,1,900
+polyobj  4 churchfloor 1900,1,500 1900,1,1400 3000,1,1400 3000,1,500
+
+# Now, we divide town down the middle
+
+split 1500,100,2000 1,0,0
+
+# Next we start putting in buildings (with splits along walls)
+# note that if objects loaded on splits are not marked fixed
+# they may not work.  Negative split directions are'nt needed
+
+############
+# The Bank #
+############
+
+surfacemap bankcolors
+surface 1 bankin
+surface 2 bankout
+
+# south wall
+split 800,100,3100 0,0,-1
+polyobj2 4 bankout,bankin 600,1,3100 600,310,3100 1100,310,3100 1100,1,3100
+
+# north wall
+split 800,100,3700 0,0,1
+polyobj2 4 bankout,bankin 1100,1,3700 1100,310,3700 600,310,3700 600,1,3700
+
+# west wall
+split 600,100,3500 -1,0,0
+polyobj2 4 bankout,bankin 600,1,3700 600,310,3700 600,310,3100 600,1,3100
+
+# east wall
+split 1100,100,3500 1,0,0
+object dframe 6,3.1,1 0,-90,0 1100,1,3100 0 bankcolors
+
+# roof
+split 700,310,3300 0,1,0
+polyobj2 4 bankroof,bankceil 600,310,3100 600,310,3700 1100,310,3700 1100,310,3100
+
+split 800,1,3500 1,0,0  # front edge of desk
+# front face of desk:
+polyobj 4 deskcolor 800,1,3300 800,100,3300 800,100,3700 800,1,3700
+
+split 900,1,3600 0,0,1  # front edge of the safe
+
+# The safe (lies on the above split)
+surfacemap safecolors
+surface 1 safefrnt
+surface 2 safeside
+surface 3 safeinside1
+surface 4 safeinside2
+surface 5 safedoorout
+surface 6 safedoorin
+surface 7 safedial1
+surface 8 safedial2
+
+object safe=safe 1,1,1 0,0,0 900,1,3600 0 safecolors fixed
+
+##############
+# The Saloon #
+##############
+
+surfacemap saloon
+surface 1 salin
+surface 2 salout
+surface 3 glass
+surface 4 glass
+
+# south wall
+split 800,100,1600 0,0,-1
+polyobj2 4 salout,salin 400,1,1600 400,310,1600 1100,310,1600 1100,1,1600
+
+# north wall
+split 800,100,2800 0,0,1
+polyobj2 4 salout,salin 1100,1,2800 1100,310,2800 400,310,2800 400,1,2800
+
+# west wall
+split 400,100,2000 -1,0,0
+polyobj2 4 salout,salin 400,1,2800 400,310,2800 400,310,1600 400,1,1600
+
+# east wall
+split 1100,100,2000 1,0,0
+polyobj2 4 salout,salin 1100,260,2000 1100,310,2000 1100,310,2300 1100,260,2300
+polyobj2 4 salout,salin 1100,1,2000 1100,310,2000 1100,310,2100 1100,1,2100
+object window 5,3.1,1 0,-90,0 1100,1,2300 0 saloon  fixed
+object window 4,3.1,1 0,-90,0 1100,1,1600 0 saloon	fixed
+
+# roof
+split 700,310,2000 0,1,0
+polyobj2 4 salroof,salceil 400,310,1600 400,310,2800 1100,310,2800 1100,310,1600
+
+split 700,100,1900 0,1,0  # split to separate tablelegs from tabletops
+
+#####################
+# The Train Station #
+#####################
+
+surfacemap stationcolors
+surface 1 stationin
+surface 2 stationout
+
+# north wall
+split 700,100,1200 0,0,1
+polyobj2 4 stationout,stationin 1000,1,1200 1000,310,1200 400,310,1200 400,1,1200
+
+# west wall split and two wall sections (plus door frame section)
+split 400,100,890 1,0,0
+# southern wall section
+polyobj2 4 stationout,stationin 400,1,900 400,310,900 400,310,500 400,1,500
+# northern wall section
+polyobj2 4 stationout,stationin 400,1,1200 400,310,1200 400,310,1100 400,1,1100
+# back door frame section
+object dframe 2,3.1,1 0,90,0 400,1,1100 0 stationcolors fixed
+
+# south wall
+split 700,100,500 0,0,-1
+polyobj2 4 stationout,stationin 400,1,500 400,310,500 800,310,500 800,1,500
+
+# northeast wall
+split 1000,100,1000 1,0,0
+polyobj2 4 stationout,stationin 1000,1,900 1000,310,900 1000,310,1200 1000,1,1200
+
+# roof
+split 600,310,900 0,1,0
+# two sections to the roof
+polyobj2 4 stationroof,stationceil 400,310,500 400,310,1200 800,310,1200 800,310,500
+polyobj2 4 stationroof,stationceil 800,310,900 800,310,1200 1000,310,1200 1000,310,900
+
+# internal wall split (front door section is along this split)
+split 800,100,700 1,0,0
+# front door
+object dframe 4,3.1,1 0,-90,0 800,1,500 0 stationcolors fixed
+
+# wicket
+polyobj 4 wicketcolor 800,1,1200 800,100,1200 800,100,900 800,1,900
+object dframe 3,1.6,1 0,90,0 800,100,1200 0 stationcolors fixed
+polyobj 4 glass 800,100,1095 800,254,1095 800,254,1005 800,100,1005
+polyobj 4 wicketdesk 800,100,1200 830,100,1200 830,100,900 800,100,900
+
+# west-east wall at east side
+split 850,100,900 0,0,-1
+polyobj2 4 stationout,stationin 800,1,900 800,310,900 1000,310,900 1000,1,900
+
+#############
+# The Hotel #
+#############
+
+# south wall
+split 2200,100,1800 0,0,-1
+polyobj2 4 hotelout,hotelin 1900,1,1800 1900,310,1800 2500,310,1800 2500,1,1800
+
+# east wall
+split 2500,100,2700 1,0,0
+polyobj2 4 hotelout,hotelin 2500,1,1800 2500,310,1800 2500,310,3400 2500,1,3400
+
+# north wall
+split 2200,100,3400 0,0,1
+polyobj2 4 hotelout,hotelin 2500,1,3400 2500,310,3400 1900,310,3400 1900,1,3400
+
+# west wall
+split 1900,100,2700 -1,0,0
+polyobj2 4 hotelout,hotelin 1900,1,2900 1900,310,2900 1900,310,2800 1900,1,2800
+polyobj2 4 hotelout,hotelin 1900,1,2600 1900,310,2600 1900,310,2500 1900,1,2500
+polyobj2 4 hotelout,hotelin 1900,260,2800 1900,310,2800 1900,310,2600 1900,260,2600
+
+surfacemap hotelcolors
+surface 1 hotelin
+surface 2 hotelout
+surface 3 glass
+surface 4 glass
+object window 5,3.1,1 0,90,0 1900,1,3400 0 hotelcolors
+object window 7,3.1,1 0,90,0 1900,1,2500 0 hotelcolors
+
+# roof
+split 2200,310,2700 0,1,0
+polyobj2 4 hotelroof,hotelceil 1900,310,1800 1900,310,3400 2500,310,3400 2500,310,1800
+
+##############
+# The Church #
+##############
+
+# south wall
+split 2500,100,500 0,0,-1
+polyobj2 4 churchout,churchin 1900,1,500 1900,310,500 3000,310,500 3000,1,500
+
+# north wall
+split 2500,100,1400 0,0,1
+polyobj2 4 churchout,churchin 3000,1,1400 3000,310,1400 1900,310,1400 1900,1,1400
+
+# west wall
+split 1900,100,900 -1,0,0
+polyobj2 3 churchfront,churchin 1900,310,1400 1900,620,950 1900,310,500
+polyobj2 4 churchout,churchin 1900,1,1400 1900,310,1400 1900,310,1100 1900,1,1100
+polyobj2 4 churchout,churchin 1900,260,1100 1900,310,1100 1900,310,700 1900,260,700
+polyobj2 4 churchout,churchin 1900,1,700 1900,310,700 1900,310,500 1900,1,500
+
+# east wall
+split 3000,100,900 1,0,0
+surfacemap stgmap
+surface 1 churchback
+surface 2 churchout
+object stglass 60,31,1 0,-90,0 3000,1,500 0 stgmap
+
+# roof
+split 2500,310,900 0,1,0
+
+# north and south halves of roof area
+split 2500,400,900 0,0,1
+
+endsplits
+
+# The train platform  -- will need split to work properly!
+polyobj2 4 platform platform 200,50,700 200,50,1100 400,50,1100 400,50,700
+
+
+# Define areas
+
+area 0,-10,0 Underground
+area 800,100,3500 Bank
+area 700,100,2000 Saloon
+area 700,100,800 Station
+area 900,100,1000 Wicket
+area 200,100,800 Platform
+area 2000,100,2200 Hotel
+area 2000,100,800 Church
+
+# Outdoor objects not on splits...
+
+# The roof of the church
+polyobj2 4 churchroof,churchceil 1900,311,500 1900,620,950 3000,620,950 3000,311,500
+polyobj2 4 churchroof,churchceil 3000,311,1400 3000,620,950 1900,620,950 1900,311,1400
+
+# Cross on roof of church
+polyobj2 4 crosscolor,crosscolor 1899,600,960 1899,1000,960 1899,1000,940 1899,600,940
+polyobj2 4 crosscolor,crosscolor 1899,900,910 1899,920,910 1899,920,990 1899,900,990
+
+# Cross inside of church
+polyobj2 4 crosscolor,crosscolor 2900,1,960 2900,401,960 2900,401,940 2900,1,940
+polyobj2 4 crosscolor,crosscolor 2900,301,910 2900,321,910 2900,321,990 2900,301,990
+
+# Platform in church
+surfacemap risermap1
+surface 1 lorisercolor
+surface 2 lorisercolor
+surface 3 lorisercolor
+surface 4 lorisercolor
+surface 5 lorisercolor
+object riser 2,.25,4 0,0,0 2600,1,750 0 risermap1
+
+surfacemap risermap2
+surface 1 hirisercolor
+surface 2 hirisercolor
+surface 3 hirisercolor
+surface 4 hirisercolor
+surface 5 hirisercolor
+object riser 1,.25,2 0,0,0 2650,25,850 0 risermap2
+
+# podium
+polyobj2 4 podfrontcolor,podbackcolor 2700,51,1000 2700,200,1000 2700,200,900 2700,51,900
+polyobj2 4 podtopcolor,podbotcolor 2700,200,900 2700,200,1000 2750,178,1000 2750,175,900
+
+# Doors
+
+# Hotel
+surfacemap hoteldoorcolors
+surface 1 doorbody
+surface 2 doorpanel
+surface 3 doorpanel
+surface 4 doorbody
+surface 5 doorpanel
+surface 6 doorpanel
+object door 25,26,1 0,90,0 1900,1,2800 0 hoteldoorcolors
+object door 25,26,1 0,-90,0 1900,1,2600 0 hoteldoorcolors
+
+# Bank
+surfacemap bankdoorcolors
+surface 1 doorbody
+surface 2 doorpanel
+surface 3 doorpanel
+surface 4 doorbody
+surface 5 doorpanel
+surface 6 doorpanel
+object bankdoor=door 50,20.15,1 0,-90,0 1100,1,3300 0 bankdoorcolors
+
+# Train station
+surfacemap statdoorcolors
+surface 1 doorbody
+surface 2 doorpanel
+surface 3 doorpanel
+surface 4 doorbody
+surface 5 doorpanel
+surface 6 doorpanel
+object trdoor1=door 30,20.15,1 0,-90,0 800,1,640 0 statdoorcolors
+object trdoor2=door 15,20.15,1 0,90,0 400,1,1030 0 statdoorcolors
+
+# Church
+surfacemap churchdoorcolors
+surface 1 doorbody
+surface 2 doorpanel
+surface 3 doorpanel
+surface 4 doorbody
+surface 5 doorpanel
+surface 6 doorpanel
+object churchdoor1=door 50,26,1 0,90,0 1900,1,1100 0 churchdoorcolors
+object churchdoor2=door 50,26,1 0,-90,0 1900,1,700 0 churchdoorcolors
+
+# Saloon
+surfacemap saloondoorcolors
+surface 1 doorbody
+surface 2 doorpanel
+surface 3 doorpanel
+surface 4 doorbody
+surface 5 doorpanel
+surface 6 doorpanel
+object saldoor1=door 25,13,1 0,-90,0 1100,80,2100 0 saloondoorcolors
+object saldoor2=door 25,13,1 0,90,0 1100,80,2300 0 saloondoorcolors
+
+# Objects inside buildings
+
+surfacemap pewcolors
+surface 1 pewcolor
+surface 2 pewcolor
+surface 3 pewcolor
+surface 4 pewcolor
+surface 5 pewcolor
+surface 6 pewcolor
+object bench .6,.3,.5 0,0,0 2000,1,1100 0 pewcolors
+object bench .6,.3,.5 0,0,0 2200,1,1100 0 pewcolors
+object bench .6,.3,.5 0,0,0 2400,1,1100 0 pewcolors
+object bench .6,.3,.5 0,0,0 2000,1,550 0 pewcolors
+object bench .6,.3,.5 0,0,0 2200,1,550 0 pewcolors
+object bench .6,.3,.5 0,0,0 2400,1,550 0 pewcolors
+
+surfacemap trbenchcolors
+surface 1 benchcolor
+surface 2 benchcolor
+surface 3 benchcolor
+surface 4 benchcolor
+surface 5 benchcolor
+surface 6 benchcolor
+object bench .3,.3,.5 0,0,0 450,1,600 0 trbenchcolors
+object bench .3,.3,.3 0,90,0 450,1,1150 0 trbenchcolors
+
+# Ceiling fan in saloon
+surfacemap fancolors
+surface 1 ceilfancolor
+object fan1=fan .5,.5,.5 0,0,0 800,300,1900 0 fancolors
+object fan2=fan .5,.5,.5 0,0,0 800,300,2500 0 fancolors
+
+# Tables in saloon
+surfacemap tablecolors
+surface 1 tablecolor1
+surface 2 tablecolor2
+object tableleg 1,1,1 90,0,0 800,51,1900 2 tablecolors fixed
+object tabletop 1,1,1 90,0,0 800,111,1900 2 tablecolors fixed
+
+object tableleg 1,1,1 90,0,0 800,51,2500 2 tablecolors fixed
+object tabletop 1,1,1 90,0,0 800,111,2500 2 tablecolors fixed
+
+# The bar
+polyobj 4 barcolor2 600,1,1800 600,100,1800 600,100,2600 600,1,2600
+polyobj 4 barcolor1 500,100,1800 500,100,2600 600,100,2600 600,100,1800
+
+# The mirror in the saloon
+polyobj 4 framecolor  401,150,1800 401,250,1800 401,250,2600 401,150,2600
+polyobj 4 mirrorcolor 402,160,1810 402,240,1810 402,240,2590 402,160,2590
+
+# The desk in the bank
+polyobj 4 deskcolor 800,100,3300 700,100,3300 700,100,3700 800,100,3700
+
+# The inside of the safe
+object safinsid 1,1,1 0,0,0 900,1,3600 0 safecolors
+# The door of the safe (not descended from it, since safe is fixed)
+object safedoor=safedoor 1,1,1 0,0,0 910,10,3599 0 safecolors
+# The dial on the door of the safe
+segment dialholder=safedoor -90,0,0  65,40,0
+object safedial=safedial .05,.05,.05 0,0,0 0,0,0 0 safecolors dialholder
+
+# The jewel's colors
+surfacemap jewel1
+surface 1 jewelcolor1
+surfacemap jewel2
+surface 1 jewelcolor2
+surfacemap jewel3
+surface 1 jewelcolor3
+surfacemap jewel4
+surface 1 jewelcolor4
+
+object jewel=jewel 0.001,0.001,0.002 0,0,0 950,50,3650 0 jewel1
+addrep jewel=jewel 0.001,0.001,0.002 0,0,0 0,0,0 0 jewel2
+addrep jewel=jewel 0.001,0.001,0.002 0,0,0 0,0,0 0 jewel3
+addrep jewel=jewel 0.001,0.001,0.002 0,0,0 0,0,0 0 jewel4
+
+#figure safe=safe 1,1,1 0,0,0 900,1,3300 NULL safecolors
+
+# The railroad tracks
+
+# Main section of track, near town
+object track
+object track 1,1,1 0,0,0 0,0,50
+object track 1,1,1 0,0,0 0,0,100
+object track 1,1,1 0,0,0 0,0,150
+object track 1,1,1 0,0,0 0,0,200
+object track 1,1,1 0,0,0 0,0,250
+object track 1,1,1 0,0,0 0,0,300
+object track 1,1,1 0,0,0 0,0,350
+object track 1,1,1 0,0,0 0,0,400
+object track 1,1,1 0,0,0 0,0,450
+object track 1,1,1 0,0,0 0,0,500
+object track 1,1,1 0,0,0 0,0,550
+object track 1,1,1 0,0,0 0,0,600
+object track 1,1,1 0,0,0 0,0,650
+object track 1,1,1 0,0,0 0,0,700
+object track 1,1,1 0,0,0 0,0,750
+object track 1,1,1 0,0,0 0,0,800
+object track 1,1,1 0,0,0 0,0,850
+object track 1,1,1 0,0,0 0,0,900
+object track 1,1,1 0,0,0 0,0,950
+object track 1,1,1 0,0,0 0,0,1000
+object track 1,1,1 0,0,0 0,0,1050
+object track 1,1,1 0,0,0 0,0,1100
+object track 1,1,1 0,0,0 0,0,1150
+object track 1,1,1 0,0,0 0,0,1200
+object track 1,1,1 0,0,0 0,0,1250
+object track 1,1,1 0,0,0 0,0,1300
+object track 1,1,1 0,0,0 0,0,1350
+object track 1,1,1 0,0,0 0,0,1400
+object track 1,1,1 0,0,0 0,0,1450
+object track 1,1,1 0,0,0 0,0,1500
+object track 1,1,1 0,0,0 0,0,1550
+object track 1,1,1 0,0,0 0,0,1600
+object track 1,1,1 0,0,0 0,0,1650
+object track 1,1,1 0,0,0 0,0,1700
+object track 1,1,1 0,0,0 0,0,1750
+object track 1,1,1 0,0,0 0,0,1800
+
+
+##############
+# Animations #
+##############
+
+# the ceiling fans in saloon
+animation 3
+   state a
+      do fan1=step(x,x,x 0,25,0)[][]
+      do fan2=step(x,x,x 0,25,0)[][]
+
+# the pulsating jewel in the safe
+animation 20
+   state a
+      do jewel=userep(1)[state=b]
+   state b
+      do jewel=userep(2)[state=c]
+   state c
+      do jewel=userep(3)[state=d]
+   state d
+      do jewel=userep(4)[state=a]
+
+# the saloon doors
+animation 5
+  state closed
+       do saldoor1=moveto(x,x,x x,-90,x) [] []
+       do saldoor2=moveto(x,x,x x,90,x) [] []
+       do sensor(1100,1,2100 1300,310,2300) [] [state=opening_in]
+       do sensor( 900,1,2100 1100,310,2300) [] [state=opening_out]
+  state opening_in
+      do saldoor1 = step(x,x,x, x,-30,x) [] []
+      do saldoor2 = step(x,x,x, x,30,x) [] []
+      do saldoor1 = rotlimit(x,-180,x, x,x,x) [state=opened_in] []
+  state opened_in
+      do sensor( 900,1,2100 1300,310,2300) [state=closing_out] []
+  state closing_out
+      do saldoor1 = step(x,x,x, x,30,x) [] []
+			do saldoor2 = step(x,x,x, x,-30,x) [] []
+      do saldoor1 = rotlimit(x,x,x x,-90,x) [state=closed] []
+  state opening_out
+      do saldoor1 = step(x,x,x, x,30,x) [] []
+      do saldoor2 = step(x,x,x, x,-30,x) [] []
+			do saldoor1 = rotlimit(x,x,x, x,0,x) [state=opened_out] []
+  state opened_out
+      do sensor( 900,1,2100 1300,310,2300) [state=closing_in] []
+  state closing_in
+      do saldoor1 = step(x,x,x, x,-30,x) [] []
+      do saldoor2 = step(x,x,x, x,30,x) [] []
+      do saldoor1 = rotlimit(x,-90,x x,x,x) [state=closed] []
+
+# the bank door
+animation 5
+  state closed
+       do bankdoor=moveto(x,x,x x,-90,x) [] []
+       do sensor(1100,1,3300 1300,310,3500) [] [state=opening_in]
+       do sensor( 900,1,3300 1100,310,3500) [] [state=opening_out]
+  state opening_in
+      do bankdoor = step(x,x,x, x,-30,x) [] []
+      do bankdoor = rotlimit(x,-180,x, x,x,x) [state=opened_in] []
+  state opened_in
+      do sensor( 900,1,3300 1300,310,3500) [state=closing_out] []
+  state closing_out
+      do bankdoor = step(x,x,x, x,30,x) [] []
+      do bankdoor = rotlimit(x,x,x x,-90,x) [state=closed] []
+  state opening_out
+      do bankdoor = step(x,x,x, x,30,x) [] []
+      do bankdoor = rotlimit(x,x,x, x,20,x) [state=opened_out] []
+  state opened_out
+			do sensor( 900,1,3300 1300,310,3500) [state=closing_in] []
+  state closing_in
+      do bankdoor = step(x,x,x, x,-30,x) [] []
+      do bankdoor = rotlimit(x,-90,x x,x,x) [state=closed] []
+
+# the church doors; they always open out
+animation 5
+  state closed
+       do door1=moveto(x,x,x x,90,x) [] []
+       do door2=moveto(x,x,x x,-90,x) [] []
+       do sensor(1700,1,700 1900,310,1100) [] [state=opening_out]
+       do sensor(1900,1,700 2100,310,1100) [] [state=opening_out]
+  state opening_in
+      do churchdoor1 = step(x,x,x, x,-30,x) [] []
+      do churchdoor2 = step(x,x,x, x,30,x) [] []
+      do churchdoor1 = rotlimit(x,0,x, x,x,x) [state=opened_in] []
+  state opened_in
+      do sensor(1700,1,700 2100,310,1100) [state=closing_out] []
+  state closing_out
+      do churchdoor1 = step(x,x,x, x,30,x) [] []
+      do churchdoor2 = step(x,x,x, x,-30,x) [] []
+      do churchdoor1 = rotlimit(x,x,x x,90,x) [state=closed] []
+  state opening_out
+      do churchdoor1 = step(x,x,x, x,30,x) [] []
+      do churchdoor2 = step(x,x,x, x,-30,x) [] []
+      do churchdoor1 = rotlimit(x,x,x, x,180,x) [state=opened_out] []
+  state opened_out
+      do sensor(1700,1,700 2100,310,1100) [state=closing_in] []
+  state closing_in
+      do churchdoor1 = step(x,x,x, x,-30,x) [] []
+      do churchdoor2 = step(x,x,x, x,30,x) [] []
+			do churchdoor1 = rotlimit(x,90,x x,x,x) [state=closed] []
+
+# the front door of the train station
+animation 5
+  state closed
+			 do trdoor1=moveto(x,x,x x,-90,x) [] []
+       do sensor( 800,1,640 1000,310,740) [] [state=opening_in]
+       do sensor( 600,1,640 800,310,740) [] [state=opening_out]
+  state opening_in
+      do trdoor1 = step(x,x,x, x,-30,x) [] []
+      do trdoor1 = rotlimit(x,-180,x, x,x,x) [state=opened_in] []
+  state opened_in
+      do sensor( 600,1,640 1000,310,740) [state=closing_out] []
+  state closing_out
+      do trdoor1 = step(x,x,x, x,30,x) [] []
+      do trdoor1 = rotlimit(x,x,x x,-90,x) [state=closed] []
+  state opening_out
+      do trdoor1 = step(x,x,x, x,30,x) [] []
+      do trdoor1 = rotlimit(x,x,x, x,20,x) [state=opened_out] []
+  state opened_out
+      do sensor( 600,1,640 1000,310,740) [state=closing_in] []
+  state closing_in
+      do trdoor1 = step(x,x,x, x,-30,x) [] []
+      do trdoor1 = rotlimit(x,-90,x x,x,x) [state=closed] []
+
+# the back door of the train station
+animation 5
+  state closed
+       do trdoor2=moveto(x,x,x x,90,x) [] []
+       do sensor( 200,1,930 400,310,1030) [] [state=opening_in]
+       do sensor( 400,1,930 600,310,1030) [] [state=opening_out]
+	state opening_in
+      do trdoor2 = step(x,x,x, x,-30,x) [] []
+      do trdoor2 = rotlimit(x,0,x, x,x,x) [state=opened_in] []
+  state opened_in
+      do sensor( 200,1,930 600,310,1030) [state=closing_out] []
+	state closing_out
+      do trdoor2 = step(x,x,x, x,30,x) [] []
+      do trdoor2 = rotlimit(x,x,x x,90,x) [state=closed] []
+  state opening_out
+      do trdoor2 = step(x,x,x, x,30,x) [] []
+      do trdoor2 = rotlimit(x,x,x, x,180,x) [state=opened_out] []
+  state opened_out
+      do sensor( 200,1,930 600,310,1030) [state=closing_in] []
+  state closing_in
+      do trdoor2 = step(x,x,x, x,-30,x) [] []
+      do trdoor2 = rotlimit(x,90,x x,x,x) [state=closed] []
+
+# the combination lock on the safe
+animation 5
+  state zero
+      do safedial=moveto(x,x,x x,0,x) [] []
+      do safedial=selected(1) [] [state=turning_zero]
+  state turning_zero
+      do safedial=step(x,x,x x,-10,x) [] []
+      do safedial=rotlimit(x,-110,x x,x,x) [state=one] []
+  state one
+      do safedial=selected(1) [] [state=turning_one]
+  state turning_one
+      do safedial=step(x,x,x x,5,x) [] []
+      do safedial=rotlimit(x,x,x x,15,x) [state=two] []
+  state two
+			do safedial=selected(1) [] [state=turning_two]
+  state turning_two
+      do safedial=step(x,x,x x,-10,x) [] []
+      do safedial=rotlimit(x,-50,x x,x,x) [state=opening] []
+
+	state opening
+      do safedoor=step(x,x,x x,20,x) [] []
+      do safedoor=rotlimit(x,x,x x,90,x) [state=open] []
+  state open
+      do safedoor=selected(1) [] [state=closing]
+  state closing
+      do safedoor=step(x,x,x x,-20,x) [] []
+      do safedoor=rotlimit(x,0,x x,x,x) [state=zero] []
+         
+#################
+# The viewpoint #
+#################
+
+#start 500,150,700 40,0,0 1
+#camera 1 500,150,700 0,40,0 1
+camera 1 -356 50 835 0.000000 79.062500 0.000000 1.000000
+camera 2 -247 1010 -41 31.250000 48.300781 0.000000 1.000000
+
+# End of west.wld
+
+# camera 1 984 -50 3397 0.000000 714.453125 0.000000 1.000000
+stepsize 1
+
+title West World
+title by Bernie Roehl
+title memory

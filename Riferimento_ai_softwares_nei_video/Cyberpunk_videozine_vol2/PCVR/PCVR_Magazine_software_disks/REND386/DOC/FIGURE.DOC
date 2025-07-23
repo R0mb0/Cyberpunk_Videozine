@@ -1,0 +1,138 @@
+                              Figure File Format
+                          Version 2.00 -- June, 1992
+                            Written by Bernie Roehl
+
+
+The REND386 package now supports "figures" -- multi-segmented, hierarchical
+entities that are useful for animation and certain types of VR applications.
+
+A figure is composed of a tree of "segments", each of which has a translation
+and rotation relative to its parent segment.
+
+Each figure has a "root" segment, with no parent; from this root segment other
+segments descend, and from them still others descend, and so on.
+
+For example, a human figure may have its pelvis as its root segment.
+Its children are the chest and the two upper-leg segments.  The upper legs
+each have one child segment, a lower leg.  The chest has three children -- the
+head, and two upper arm segments.  Each upper arm segment has a single child,
+the lower arm segment.  One could continue this to include hands, feet, fingers,
+toes, and so on.
+
+The syntax of a figure file is simple, and very C-like.  It consists of a series
+of segments, each of which is a root segment.  Each of these root segments can
+possess a set of attributes, as well as child segments.  Each segment is bounded
+by braces.  Attributes are arbitrary text strings ending in a semicolon.
+
+The attribute list is open-ended and extensible; programs that read figure files
+should ignore any attributes they don't recognize.
+
+An example will make all this clearer.
+
+{
+        comment = a human body;
+        name = pelvis;  comment = this is the name of the root segment;
+        {
+                name = chest;
+                { name = left upper arm; { name = left lower arm; }}
+                { name = right upper arm; { name = right lower arm; }}
+                { name = head; }
+        }
+        {
+                name = left upper leg; { name = right lower leg; }
+        }
+        {
+                name = right upper leg; { name = right lower leg; }
+        }
+}
+
+In general, attributes are of the form "keyword = value;", though this is not
+a requirement.  The attributes used above are "name" and "comment".  Note that
+no program ever has to recognize a comment attribute, since by defintion
+comments should be ignored.
+
+The attributes currently defined are as follows:
+
+        name = somestring;
+        pos = x,y,z;
+        rot = x,y,z;
+        plgfile = filename scale x,y,z shift X,Y,Z sort type map filename;
+        segnum = someinteger;
+
+The "pos" is the x,y,z displacement of the origin of this segment relative to
+the parent's coordinate system.  The "rot" is the rotation of this segment
+relative to the parent.  For root objects (which have no parent) these values
+are the absolute location and rotation of the entire figure in world
+coordinates.
+
+The "plgfile" gives the name of a .plg file containing a geometric
+representation of the segment.  Note that the figure file format does NOT
+depend on .plg files; the reason the syntax is "plgfile = " rather than just
+"file =" is because a segment may have a large number of different
+representations and an application can choose whichever one they like.
+
+The "scale", "shift", "sort" and "map" values are all optional, but in order
+to specify any of them you must specify all the preceeding ones (i.e. you
+cannot simply omit the scale parameter).  The "scale" values represent the
+amount by which the object should be scaled along each of its axes when it's
+loaded.  The shift value is the amount by which to shift the object's origin
+at load time.  The "sort" value is the type of depth-sorting to use for this
+segment's representation (default is zero).  The "map" value is the name of
+a file containing a list of unsigned values that are to be used in color
+remapping this segment.  If the top bit of a color value is set in a plg file,
+the bottom fifteen bits are used as an index into this map.
+
+The difference between "shift" and "pos" is important.  The "shift" value is
+used to shift an object relative to its "native" origin, while the "pos" value
+is the amount by which the new origin should be displaced from the parent
+node's origin.
+
+For example, suppose you want to represent the head of a human figure with a
+cube.  The cube may, in the .plg file, be defined with its (0,0,0) point at
+one corner.  Clearly, this origin is inconvenient for the head, since if the
+origin is centered over the neck of the figure then the head will be displaced
+to one side.
+
+Alternatively, the cube might be defined with its (0,0,0) point
+at its geometric center.  However, this is also impractical; your head 
+should not rotate freely about its center.  If it does, stop reading this
+document immediately and seek medical attention.
+
+What you to do is shift the cube so that its origin lies below the center
+of the cube, where your "neck joint" is.  That's what the "shift" value
+in the "plgfile" attribute specifies.
+
+Important note: objects rotate about their [0,0,0] point as loaded.
+
+The "pos" attribute specifies where this neck joint is in relation to the
+origin of the chest segment.  If your chest were longer vertically, then the
+"pos" attribute of the head segment should be increased in the Y direction
+(for example).
+
+The "segnum" attribute associates a simple integer value with a segment,
+which can subsequently be used to refer to the segment when manipulating
+it.  (See the documentation on set_readseg_seglist() in the current version
+of the devel.doc file).
+
+The "minx", "maxx", "miny", "maxy", "minz" and "maxz" values specifiy the
+limits on translational movement for the segment relative to its parent;
+if these values are not specified, then there are no limits.  Similarly
+the "minrx" and other "minr?" values are used to specify rotational limits
+in degrees.  The translation limits are long (32-bit) signed integers, the
+rotation limits are floating-point numbers.
+
+Note that a figure file can in fact contain a series of segments; each of
+these is a root segment, so a figure file can in effect store a complete
+scene description (excluding lights and "cameras", though conceivably these
+could be added to the specification with little or no difficulty).
+
+Comments on possible extensions to the figure file specification are welcomed;
+in particular, if you define new attributes please register them through us,
+to avoid future incompatabilities.
+
+You can contact me broehl@sunee.uwaterloo.ca or via the rend386 mailing list.
+To subscribe to the list, send mail to rend386-request@sunee.uwaterloo.ca and
+I'll be happy to add you.
+
+                                --Bernie Roehl
+

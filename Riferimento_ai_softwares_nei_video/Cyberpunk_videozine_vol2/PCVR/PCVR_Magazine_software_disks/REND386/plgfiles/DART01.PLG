@@ -1,0 +1,43 @@
+#Object Name:Dart
+#File Name:dart01.plg
+#Author: Jon Neill
+#Date: 7/16/95
+#Description:A small throwing dart 
+#Comments:
+
+
+##MULTI
+SAVED 16 17 *d
+100 0 0
+-100 0 0
+0 0 500
+0 0 -200
+0 0 -400
+0 -100 0
+0 100 0
+0 0 700
+0 200 800
+0 200 600
+0 -200 600
+0 -200 800
+-200 0 600
+-200 0 800
+200 0 800
+200 0 600
+0x21FA 3 1 6 2
+0x2BFA 3 1 2 5
+0x21FA 3 5 2 0
+0x2BFA 3 2 6 0
+0x2BFA 3 1 3 6
+0x21FA 3 5 3 1
+0x2BFA 3 5 0 3
+0x21FA 3 0 6 3
+0x0000 2 3 4
+0x11FA 4 11 7 2 10
+0x11FA 4 11 10 2 7
+0x11FA 4 7 8 9 2
+0x11FA 4 7 2 9 8
+0x1BFA 4 14 7 2 15
+0x1BFA 4 14 15 2 7
+0x1BFA 4 7 13 12 2
+0x1BFA 4 7 2 12 13

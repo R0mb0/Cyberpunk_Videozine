@@ -1,0 +1,105 @@
+# This world was created with the help of Checker.exe to make
+# the checkerboard floor...
+
+# Creater: Todd Porter  copywrite (c) 1993 CyTech Interfaces
+# created to demonstrate the uses of checker.exe
+# please distibute freely but keep all the above info included
+
+worldscale 1.0
+hither     10
+yon        10000000
+start 667,1000,5084 -180,0,0 0
+ambient 76
+
+surfacedef white 0x10FA
+surfacedef black 0x100A
+surfacedef metal 0x26fa
+
+surfacemap met1
+surface 1 metal
+
+surfacemap white1
+surface 1 white
+
+surfacemap black1
+surface 1 black
+
+split 0,200,0 0,1,0   0  #floor split
+
+# Row 1
+#object check 1,1,1 0,0,0 0,200,0 0 white1 fixed
+object check 1,1,1 0,0,0 150,200,0 0 black1 fixed
+object check 1,1,1 0,0,0 300,200,0 0 white1 fixed
+object check 1,1,1 0,0,0 450,200,0 0 black1 fixed
+object check 1,1,1 0,0,0 600,200,0 0 white1 fixed
+object check 1,1,1 0,0,0 750,200,0 0 black1 fixed
+#object check 1,1,1 0,0,0 900,200,0 0 white1 fixed
+
+# Row 2
+object check 1,1,1 0,0,0 0,200,150 0 black1 fixed
+object check 1,1,1 0,0,0 150,200,150 0 white1 fixed
+object check 1,1,1 0,0,0 300,200,150 0 black1 fixed
+object check 1,1,1 0,0,0 450,200,150 0 white1 fixed
+object check 1,1,1 0,0,0 600,200,150 0 black1 fixed
+object check 1,1,1 0,0,0 750,200,150 0 white1 fixed
+object check 1,1,1 0,0,0 900,200,150 0 black1 fixed
+
+# Row 3
+object check 1,1,1 0,0,0 0,200,300 0 white1 fixed
+object check 1,1,1 0,0,0 150,200,300 0 black1 fixed
+object check 1,1,1 0,0,0 300,200,300 0 white1 fixed
+object check 1,1,1 0,0,0 450,200,300 0 black1 fixed
+object check 1,1,1 0,0,0 600,200,300 0 white1 fixed
+object check 1,1,1 0,0,0 750,200,300 0 black1 fixed
+object check 1,1,1 0,0,0 900,200,300 0 white1 fixed
+
+# Row 4
+object check 1,1,1 0,0,0 0,200,450 0 black1 fixed
+object check 1,1,1 0,0,0 150,200,450 0 white1 fixed
+object check 1,1,1 0,0,0 300,200,450 0 black1 fixed
+#object check 1,1,1 0,0,0 450,200,450 0 white1 fixed
+object check 1,1,1 0,0,0 600,200,450 0 black1 fixed
+object check 1,1,1 0,0,0 750,200,450 0 white1 fixed
+object check 1,1,1 0,0,0 900,200,450 0 black1 fixed
+
+# Row 5
+object check 1,1,1 0,0,0 0,200,600 0 white1 fixed
+object check 1,1,1 0,0,0 150,200,600 0 black1 fixed
+object check 1,1,1 0,0,0 300,200,600 0 white1 fixed
+object check 1,1,1 0,0,0 450,200,600 0 black1 fixed
+object check 1,1,1 0,0,0 600,200,600 0 white1 fixed
+object check 1,1,1 0,0,0 750,200,600 0 black1 fixed
+object check 1,1,1 0,0,0 900,200,600 0 white1 fixed
+
+# Row 6
+object check 1,1,1 0,0,0 0,200,750 0 black1 fixed
+object check 1,1,1 0,0,0 150,200,750 0 white1 fixed
+object check 1,1,1 0,0,0 300,200,750 0 black1 fixed
+object check 1,1,1 0,0,0 450,200,750 0 white1 fixed
+object check 1,1,1 0,0,0 600,200,750 0 black1 fixed
+object check 1,1,1 0,0,0 750,200,750 0 white1 fixed
+object check 1,1,1 0,0,0 900,200,750 0 black1 fixed
+
+# Row 7
+#object check 1,1,1 0,0,0 0,200,900 0 white1 fixed
+object check 1,1,1 0,0,0 150,200,900 0 black1 fixed
+object check 1,1,1 0,0,0 300,200,900 0 white1 fixed
+object check 1,1,1 0,0,0 450,200,900 0 black1 fixed
+object check 1,1,1 0,0,0 600,200,900 0 white1 fixed
+object check 1,1,1 0,0,0 750,200,900 0 black1 fixed
+#object check 1,1,1 0,0,0 900,200,900 0 white1 fixed
+
+endsplits
+
+object base   1,1,1 0,0,0 0,0,0 0 white1 fixed
+object column 1,1,1 0,0,0 0,200,0 0 met1 fixed
+object column 1,1,1 0,0,0 900,200,0 0 met1 fixed
+object column 1,1,1 0,0,0 900,200,900 0 met1 fixed
+object column 1,1,1 0,0,0 0,200,900 0 met1 fixed
+object roof   1,1,1 0,0,0 0,1250,0 0 white1 fixed
+object column1 1,.3,1 0,0,0 450,200,450 0 met1 fixed
+object bx=box 1,1,1 0,0,0 525,700,525 . fixed
+
+task sculspin 25 bx;5,8,0
+
+

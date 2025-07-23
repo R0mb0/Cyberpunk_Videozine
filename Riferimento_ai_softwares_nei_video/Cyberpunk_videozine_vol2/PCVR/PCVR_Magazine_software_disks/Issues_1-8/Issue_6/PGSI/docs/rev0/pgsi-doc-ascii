@@ -1,0 +1,2161 @@
+
+
+	Power
+	Glove
+	Serial
+
+	  Interface
+
+by The Student Chapter of The Association for Computing Machinery 
+at the University of Illinois, Urbana-Champaign campus
+
+The exciting new device bridging 
+the gap between personal computers and Virtual Reality ! 
+
+Version 0.3
+
+pre-publication proofing draft
+
+FOREWORD
+{XE "FOREWORD" \b}
+Welcome to a whole new plateau of computer-user interfacing in purchasing the PowerGlove‘ Serial Interface.  This interface will increase productivity in the workplace and open a new dimension in the computer entertainment interface arena.  This device will also allow the personal computer or workstation user to easily open the door to the new arena of 3-Dimensional scientific visualization and Virtual Realism software.  
+
+To ensure that the PGSI provides full and satisfying performance, read this manual carefully before using it. This manual consists of the following eight parts.
+
+Part I - General
+Explains the features of your interface and describes the conditions that must be satisfied before installing.  For example, the type of power supply and the operating/storing environments.
+
+Part II - Installation Procedures
+Provides illustrations and an overview of the components, and explains how to set up the interface.
+
+Part III - Operation
+Explains how to specify the emulation mode, packet length, and filter settings through software and through the PowerGlove‘ keypad.
+
+Part IV - Function
+Explains the functions of the shorting blocks and details the two emulation modes supported by your interface.
+
+Part V - Maintenance
+Explains the maintenance procedures such as routine cleaning.
+
+Part VI - Troubleshooting Guide
+Describes potential dificulties in installing the PGSI and remedies. See this section first if you encounter problems.
+
+Part VII - Specifications
+Lists the detailed interface specifications
+
+Part VIII - Appendices
+Explains how to design programs, describes possible incompatibilities with earlier products, and details the history of this product and its development.
+
+
+This manual is provided for informational purposes only. All information included herein is subject to change without notice. The Student Chapter of the Association for Computing Machinery at the University of Illinois, Urbana-Champaign campus (ACM at UIUC) is not responsible for any damages, direct or indirect, arising from or related to the use of this manual.
+
+1992 ACM at UIUC.  Printed in U.S.A.
+
+Acknowledgements
+
+Throughouut the development of this product, a number of people contributed in its design, development, and manufacture.  These people will never receive any monetary compensation foor their efforts, so ACM at UIUC wishes to strongly congratulate the following people for their contributions to this produc:
+
+
+Teresa Johnson, now graduated with a degree in Electrical Engineering, for writing the serial interrupt code used for queued serial data transfer on the PGSI.
+
+Mike Schaffstein, a senior in Computer Engineering, who chaired the group that spawned this project, helped construct prototypes, and served as laison between the design team and the ACM general membership.
+
+Chris Wilson, now graduated with a degree in Computer Science, who both tested versions of the code in the prototypes and wrote initial demonstration programs.
+
+Ben Gross, a sophomore in Liberal Arts and Sciences, who proposed the initial project, served as liason between the design team and the original PGSA designers, and headed up the development team.
+
+Laura Kalman, now graduated with a degree in Electrical Engineering, who served as member-at-large with the development team and provided ideas and scope to the design.
+
+Mike Stangel, a senior in Computer Engineering and Chair of ACM at UIUC, who utilized every opportunity to publicize the product and set tentative timetables for development.
+
+Greg Newby, an assistant professor in the Graduate College of Lbrary and Information Sciences, who served as liason between Ben Gross and the original PGSA designers (AGE), proposed the initial project to Ben, and shaped the design and manufacture of the PGSI.
+
+Jim Brain, a senior in Compiuter Engineering and PGSI head designer, who spent the past year designing the hardware and software that now comprises the Power Glove Serial Interface (PGSI).
+
+
+Table of Contents
+
+Part I - General	I-1
+	1.	Features	I-1
+		1.1	The PowerGlove‘ Interface System	I-2
+		1.2	Flexible power requirements	I-2
+		1.3	Useful Options	I-2
+		1.4	Easy Setup	I-2	
+	2.	Installation Requirements	I-2
+		2.1	Power Supply	I-2
+		2.2	Communications Port	I-3
+		2.3	Operating and Storing Environment	I-3
+	
+Part II - Installation Procedures	II-1
+	1.	Setup	II-1
+		1.1	Interface Components	II-1
+		1.2	Installing the Interface	II-1
+		1.3	General View	II-1
+		1.4	Parts and Controls	II-1
+	2.	Attaching the PowerGlove‘	II-1
+	3.	Attaching the LCD shutter glasses	II-1	
+	4.	Turning the Power On/Off	II-1
+
+Part III - Operation	III-1
+	1.	Start-up message	III-1
+	2.	Software Command Set	III-1
+		2.1	Emulation Mode	III-1
+		2.2	Continuous/Request Mode	III-1
+		2.3	Rotation Filter On/Off	III-1
+		2.4	Hysterisis Filter On/Off	III-1
+		2.5	PowerGlove‘ On/Off	III-1
+		2.6	LCD Lenses On/Off	III-1
+		2.7	Packet Requests	III-1
+		2.8	Baud Rate Changes	III-1
+		2.9	Resetting the PGSI	III-1
+		2.10	Digital Input Selection	III-1
+		2.11	Analog to Digital Input Selection	III-1
+		2.12	Digital Output Selection	III-1
+		2.13	Command Set Overview	III-1
+	3.	PowerGlove‘ Keypad Control	III-1
+	4.	PowerGlove‘ Software Function Library	III-1
+ 
+Part IV - Function	IV-1
+	1.	Customizing the Interface	IV-1
+		1.1	Shorting Jumper Settings	IV-1
+		1.2	Shorting Jumper Functions	IV-1
+	2.	Interface Control Modes	IV-1
+		2.1	Software Alterations	IV-1
+		2.2	Data Packet Summary	IV-1
+		2.3	Interface Command Code Summary	IV-1
+		2.4	Emulation Restrictions	IV-1
+
+Part V - Maintenance		V-1
+	1.	Cleaning the Power Supply Contacts	V-1
+	2.	Cleaning the LCD Shutter Glasses Contacts	V-1
+
+Part VI - Troubleshooting Guide	VI-1
+	1.	Computer/Interface Communications Problems	VI-1
+	2.	LCD Shutter Glasses/Interface Communications Problems	VI-1
+	3.	PowerGlove‘/Interface Communications Problems	VI-1
+
+Part VII - Specifications	VII-1
+	1.	Hardware Specifications	VII-1
+	2.	Interface Specifications	VII-1
+
+Part VIII - Appendices		VIII-1
+	A.	Recommended Program Specifications	VIII-1
+	B.	User Interface Design	VIII-1
+	C.	Transportation and Storage	VIII-1
+	D.	Options and Supplies	VIII-1
+		1.	Battery Pack	VIII-1
+		2.	Power Supply	VIII-1
+		3.	Macintosh Adapter	VIII-1
+		4.	Nintendo” PowerGlove‘	VIII-1
+		5.	LCD Shutter Glasses	VIII-1
+	E.	History of the PGSI	VIII-1
+
+Index
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Trademark Notice:
+PowerGlove‘ is a trademark of Nintendo” Incorporated.
+IBM PC, PC XT, and PC AT are trademarks of International Business Machines Corporation.
+Macintosh and the Apple Logo are trademarks of Apple Computer Corporation.
+SGI is a trademark of Silicon Graphics Incorporated.
+SPARC is a trademark of Sun Microsystems Incorporated.
+
+
+
+Part I-General{XE "Part I-General"}
+
+
+1.	Features
+
+1.1	The PowerGlove‘ Interface System
+The PowerGlove‘ interface system allows the personal computer user to easily and accurately gather 3-dimensional input from the user's hand position and use it as a replacement for other input devices such as light pens, mice, touch screens, and trackballs. It also allows the user to use popular LCD shutter glasses as a means to provide the perception of a 3-dimensional video output device.  The PowerGlove‘ Serial Interface (PGSI) provides this functionality to users at a low cost, and uses available technologies to bring virtual reality to the those without corporate budgets.  It has many advantages over other devices currently on the market, including:
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	The system can be purchased fully assembled upon delivery.  This allows users with no hardware knowledge and users lacking confidence in their soldering skills to enjoy the use of a PowerGlove‘ and LCD Shutter Glasses.
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	The system is fast.  Averaging 23 frames per second, it can keep up with today's faster processor speeds.
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	The system requires no CPU time when it is gathering data.  It only requires CPU clock cycles when data is read in from the interface.
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	The system is compatible with many existing standards.  Thus, it will easily work with software written for earlier technologies
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	The system lends itself well to cross-platform applications.  Since the interface is standardized and uses the EIA-232D specification for communications, minimal programming is needed to convert a program from one system to another.
+
+
+1.2 		Flexible Power Requirements
+
+Your PowerGlove‘ Serial Interface comes standard without a power supply due to the relative commonality of small "brick" style power supplies used to power many small computer peripherals.  The PGSI is designed to handle a wide variety of power supplies made for other uses.  It will work with any power supply generating at least 6 volts AC or DC nor more than 28 volts AC or DC.  The power supplies can be set to either positive polarity or negative polarity, so the user need not worry if the positive pin of the power supply matches the positive pin of the PGSI.  The system will also work off of battery power, so portable operation is possible.
+
+
+1.3	Useful Options
+
+Your interface comes standard without a power supply, so users may opt to purchase one with the system.  This will eliminate the need to purchase a supply after receiving the unit, or finding a compatible supply from existing units.
+
+Macintosh users can use the interface with the purchase of a small cable that converts the 8 pin mini-DIN modem connector on the back of Macintosh computers to the standard 25 pin DB-style connector on the PGSI.
+
+A battery power pack can be purchased to allow portable operation.
+
+A power supply adapter can be purchased to allow use of a power supply with a small coaxial plug to power the PGSI.
+
+ Users who cannot find the Nintendo” PowerGlove‘ can purchase them to allow operation of the PGSI.
+
+Users who cannot find a suitable pair of LCD shutter glasses may purchase them to enhance the operation of the PGSI.
+
+Users who wish to operate the PGSI from a Centronics” standard parallel port will need too purchase the PGSI parallel adapter (available 4th quarter 1993).
+
+Users who wish to operate the PGSI through a MIDI interface can purchase the PGSI MIDI adapter (available 4th quarter 1993).
+
+
+1.4	Easy Setup
+The PowerGlove‘ Serial Interface can be attached to a personal computer in a matter of minutes with no hand tools.  Just plug the unit into the adapter cable (if needed), plug the Nintendo” PowerGlove‘ into the PGSI, plug the LCD shutter glasses into the PGSI (if needed), and plug the adapter cable into the serial port on the host computer.
+
+
+2.	Installation Requirements
+
+Before using the PowerGlove‘ Serial Interface, make sure that all of the following requirements are satisfied.
+
+2.1	Power Supply
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	Use a power supply generating at least 6 volts DC but not more than 35 volts DC at a maximum amperage of 1 Ampere, or use a power supply generating at least 4 volts AC but not more than 28 volts AC at a maximum amperage of 1 Ampere.
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	Use a power supply terminated with a 1/8" (2.5mm) mono audio plug or use an adapter that provides the power supply with that style of connector.
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	Always turn off power to the PGSI unit when not using it by unplugging the power supply from the line voltage first, then unplug it from the PGSI unit.  Never unplug the power from the PGSI while the unit is still operational.
+
+
+2.2 	Communications Port
+
+The host computer must be equipped with a standard EIA-232 port, commonly referred to as RS-232.  Most IBM compatible computers and Amiga systems come equipped with at least one such communication port.  Workstations such as the Silicon Graphics Personal Iris and Sun SPARCstation also come equipped  with an RS-232 port.  However, users of Apple Macintosh computers do not readily have access to a standard RS-232 port.  This can be alleviated by purchasing a Macintosh Modem to RS-232 adapter cable.  The PGSI can be plugged into this cable, and the cable can then be plugged into the Macintosh computer to allow operation of the PGSI.
+
+
+2.3	Operating and Storing Environment
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	Use the interface with the following temperature and humidity ranges.
+
+	Ambient temperature:				5∞ C to 35∞ C (41∞ F to 95∞ F)
+	Ambient humidity:					10% to 90% RH (no condensation)
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	When installed near a window, put up a blind or curtain to protect the interface from sunlight.
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	Do not leave the interface in the vehicle because the temperature can suddenly rise there.
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	Do not install the interface near devices which contain magnets or generate magnetic fields.
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	Do not subject the interface to strong physical shock or vibration.
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	Do not place objects on top of the interface.
+
+
+
+Part II-Installation Procedure{XE "Part II-Installation Procedure"}
+
+
+1.	Setup
+
+1.1	Interface Components
+
+Make sure the following parts are included in the packing box upon shipment.
+
+
+a.	PowerGlove‘ Serial Interface	1
+b.	User's Manual	1
+
+
+1.2 	Installing the Interface
+
+Install the interface according to the following procedure
+
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	Remove all packing material from the interface.
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	Plug all adapter cabling into the DB-25 style RS-232 connector on the interface.
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	Plug the Nintendo” PowerGlove‘ into interface.
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	Plug the LCD shutter glasses into interface (if available).
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	Plug the power supply into interface.
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	Make sure the host computer system is shut off.
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	Attach either the PGSI or the adapter cabling into the host computer.
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	Turn on the host computer.
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	Plug the power supply into an outlet.
+
+
+1.3		General View
+
+The PowerGlove‘ Serial Interface: (As removed from the packing box)
+
+{EMBED MSDraw   \* mergeformat|}
+
+1.4		Parts and Controls
+
+The PowerGlove‘ Serial Interface has a minimum of parts (1) and employs no switches or other controls on the interface physically.  There are a number of jumper pads which determine PGSI functionality available for user switching on the component side of the main circuit board.
+
+2.	Attaching the PowerGlove‘
+
+The PowerGlove‘ comes standard with a 9 pin proprietary connector with which to connect it to the Nintendo” Entertainment System. This is NOT the same as the 9 pin D-subminature connector used to connect the physical glove to the L-bar receiver bracket.  This non-standard connector mates with a connector attached to a wire coming out of the interface.
+
+3.	Attaching the LCD shutter glasses
+
+The LCD shutter glasses come in many different shapes and sizes, varying from the small element SEGA glasses to the much improved optically and physically Toshiba glasses to some wireless models offered on the market.  Any pair of glasses that follows the SEGA design in physical connections will work with the interface.  Just plug the glasses into the port on the side of the interface.
+
+4.	Turning the Power On/Off
+
+The PowerGlove‘ Serial Interface does not have an on/off switch located on the outside of the unit for cost reasons.  Continuous operation of the interface is perfectly safe, but should the need to turn the unit off arise, please follow these simple steps:
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	Unplug the power supply from the outlet.
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	Disconnect the power supply from the interface.
+
+Make sure the order is not reversed, or damage to the interface may result.
+
+
+
+Part III-Operation{XE "Part III-Operation"}
+
+
+
+1.	Start up Message
+
+The PowerGlove‘ Serial Interface, upon powering up, outputs a small identification message through to the serial port of the interface.  Any computer capable of reading information off the serial line will see this message, subject to change:
+
+The PowerGlove Serial Interface:  1992 by the Student Chapter of ACM at UIUC
+Contact: 	ACM at UIUC, 1304 W. Pennsylvania #1225, Urbana, IL   61801.
+Designer: 	Jim Brain, brain@cs.uiuc.edu
+Copyright:	Portions AGE Inc. 1987-90, Unlawful to reproduce 
+Model Number:	6682657378-X
+Serial No#:	XXXXXXXX
+
+2.	Software Command Set
+
+2.1	Emulation Mode
+
+The PowerGlove‘ Serial Interface is capable of emulating two very important earlier technologies in PowerGlove‘-Computer interfaces.  The first, called AGE emulation, is so-named for the originators of the design of the Nintendo” PowerGlove‘.  AGE produced an interface box similar in function to this interface, called the PowerGlove‘ Serial Adapter, with a limited production run.  This interface contains portions of the code originally found in the PGSI, so that the emulation process would be unnoticeable to the end user.  In addition to providing full AGE emulation, the PGSI also provides the emulation of a popular kit-based interface designed by Ron Menelli.    Since major portions of Ron Menelli's code was used in a highly modified form to create this interface,  users are encouraged to seek out the information pertaining to this design and look over the source code used to create the kit-form interface.  
+
+The PGSI transmits information through the RS-232 port in packets, which can be of different lengths depending on which emulation mode is in effect.  Table 3.2.1, 3.2.2, and 3.2.3 describe the standard location and standard length of each field in each of the three packet types.  Note that Menelli emulation has two distinct sizes for the packet, depending on which mode (continuous/request) the interface is in.
+
+Below are a description of some of the functions available to the user.  They are also listed in Table 3.2.20
+
+
+Position in Packet
+Name
+Description
+Range
+
+
+
+
+
+
+00
+Header
+Signals Start of Packet
+0xA0
+
+01
+X 
+X-direction reading
+-128 to 127
+
+02
+Y
+Y-direction reading
+-128 to 127
+
+03
+Z
+Z-direction reading
+-128 to 127
+
+04
+Rotation
+Gives rotation value in 30 degree increments
+0 to 11
+
+05
+Flex
+Gives position of thumb and first three fingers (See Table 2.5)
+(See Table 3.2.4)
+
+06
+Switch
+Gives key codes
+0 to 255
+
+
+Table 3.2.1 - Packet Description in Menelli Emulation/Continuous mode
+
+
+
+
+Position in Packet
+Name
+Description
+Range
+
+
+
+
+
+
+00
+X 
+X-direction reading
+-128 to 127
+
+01
+Y
+Y-direction reading
+-128 to 127
+
+02
+Z
+Z-direction reading
+-128 to 127
+
+03
+Rotation
+Gives rotation value in 30 degree increments
+0 to 11
+
+04
+Flex
+Gives position of thumb and first three fingers (See Table 2.5)
+(See Table 3.2.4)
+
+05
+Switch
+Gives key codes
+0 to 255
+
+
+Table 3.2.2 - Packet Description in Menelli Emulation/Request mode
+
+
+
+Position in Packet
+Name
+Description
+Range
+
+
+
+
+
+
+00
+Header
+Signals Start of Packet
+0x5F
+
+01
+Header
+Signals Start of Packet
+0x5F
+
+02
+X 
+X-direction reading
+-128 to 127
+
+03
+Y
+Y-direction reading
+-128 to 127
+
+04
+Z
+Z-direction reading
+-128 to 127
+
+05
+Rotation
+Gives rotation value in 30 degree increments
+0 to 11
+
+06
+Flex
+Gives position of thumb and first three fingers (See Table 3.2.4)
+(See Table 2.5)
+
+07
+Switch
+Gives key codes
+0 to 255
+
+08
+GSTAT1
+General Status 1
+0- if fingers out
+1- if fingers in
+
+09
+GSTAT2
+General Status 2
+0
+
+10
+RECVALS
+Receiver Values (See Table 3.2.6)
+0 - 0x3F
+
+
+Table 3.2.3 - Packet Description in AGE Emulation/both modes
+
+
+
+Bits in byte
+Description
+
+
+
+
+7:6
+2 bit representation for thumb - (See Table 3.2.5)
+
+5:4
+2 bit representation for first finger - (See Table 3.2.5)
+
+3:2
+2 bit representation for second finger - (See Table 3.2.5)
+
+1:0
+2 bit representation for third finger - (See Table 3.2.5)
+
+
+Table 3.2.4 - Bit representations for Flex byte
+
+
+
+
+Bit Pair - X:X-1
+Description
+
+
+
+
+00
+fully extended
+
+01
+partially extended
+
+10
+partially closed
+
+11
+fully closed
+
+
+Table 3.2.5 - Bit Pair Descriptions
+
+
+
+
+Bit Pair
+Description
+
+
+
+
+7:6
+Not Used
+
+5
+Left Top Receiving Left Transmitter
+(See Table 3.2.7)
+
+4
+Right Bottom Receiving Left Transmitter
+(See Table 3.2.7)
+
+3
+Right Top Receiving Left Transmitter
+(See Table 3.2.7)
+
+2
+Left Top Receiving Right Transmitter
+(See Table 3.2.7)
+
+1
+Right Bottom Receiving Right Transmitter
+(See Table 3.2.7)
+
+0
+Right Top Receiving Right Transmitter
+(See Table 3.2.7)
+
+
+Table 3.2.6 - Bit Pair Representations in RECVALS byte
+
+
+Bit Value
+Meaning
+
+
+
+
+0
+No reception of transmitted signal
+
+1
+Reception of transmitted signal
+
+
+
+Table 3.2.7 - Receiver Values
+
+2.2	Continuous/Request Mode
+
+The PowerGlove‘ Serial Interface can be placed into one of two modes for information retrieval.  The first, called continuous mode, implies that the interface will send a new packet of information  from the PowerGlove‘ as soon as that information is received.  The other mode, known as request mode, allows the users to dictate when a new packet is received by the host computer.  The latter mode is recommended as the most efficient for information retrieval.  The programmer knows exactly when the packet will be sent without needing to worry about waiting for a present packet to finish.  There are four commands to set the mode of the PGSI, two for AGE emulation, and two for Menelli emulation.  Since the emulation mode dictates the type and length of packet sent to the host computer, these commands implicitly switch emulation modes to send the correct type of packet. There is no way to change the emulation mode explicitly, and these commands are 2 of 4 that have the ability to switch emulation modes.  This makes it possible to use Menelli emulation commands while in AGE mode, or (more likely) use AGE commands while in Menelli emulation mode.  Although this complicates matters somewhat, it should not pose a problem to users who stick to one command set or the other.
+
+A full listing of the commands for both command sets is given in Table 3.2.20.
+
+Command Code
+(in HEX)
+Command Code
+(in ASCII)
+Description
+Emulation Available in
+
+
+
+
+
+
+0x01
+none
+Place interface in continuous mode
+AGE
+
+0x02
+none
+Place interface in request mode
+AGE
+
+0x43
+'C'
+Place interface in continuous mode
+Menelli
+
+0x52
+'R'
+Place interface in request mode
+Menelli
+
+
+Table 3.2.8 - Continuous/Request mode commands
+
+
+2.3	Rotation Filter On/Off
+
+The AGE specification included a command to turn on and off the internal rotation value filter.  This is useful while in noisy situation or for those who have earlier versions of the Nintendo” PowerGlove‘ which did not have an internal rotation filter.
+
+Command Code
+(in HEX)
+Command Code
+(in ASCII)
+Description
+Emulation Available in
+
+
+
+
+
+
+0x08
+none
+Turn rotation filter on
+AGE/Menelli
+
+0x09
+none
+Turn rotation filter off
+AGE/Menelli
+
+
+Table 3.2.9 - Rotation Filter mode commands
+
+
+
+2.4	Hysterisis Filter On/Off
+
+The Menelli specification contains a hysterisis deglitching filter written by Dave Stampe.  This has been preserved in the emulation and can be accessed from either emulation mode.  It is recommended for those situation involving high noise levels or reflective surfaces behind the receivers.  
+
+Command Code
+(in HEX)
+Command Code
+(in ASCII)
+Description
+Emulation Available in
+
+
+
+
+
+
+0x2B
+'+'
+Turn hysterisis deglitching on
+AGE/Menelli
+
+0x2D
+'-'
+Turn hysterisis deglitching off
+AGE/Menelli
+
+
+Table 3.2.10 - Continuous/Request mode commands
+
+
+
+2.5	PowerGlove‘ On/Off
+
+It is possible to turn off the PowerGlove‘ and not read data from it.  This may be useful in situations where PowerGlove‘ input is not needed in a program, but other aspects of the interface are being used to their maximum capacity.  
+
+Command Code
+(in HEX)
+Command Code
+(in ASCII)
+Description
+Emulation Available in
+
+
+
+
+
+
+0x0A
+none
+Turn PowerGlove‘ on for input
+AGE/Menelli
+
+0x0B
+none
+Turn PowerGlove‘ off for input
+AGE/Menelli
+
+
+Table 3.2.11 - PowerGlove‘ On/Off commands
+
+
+2.6	LCD Lenses On/Off
+
+It is possible, if the PGSI is properly set up, to control the LCD shutter glasses through software, completely eliminating the need for hardware I/O availability from the host computer.  However, the user is warned that this method is not as fast as controlling the glasses via digital I/O.  Nonetheless, some users may not have access to this hardware I/O or may not be skilled enough to exploit this feature on a particular computer system, so these commands were added to insure complete compatibility with all type of personal computer systems.  There are a variety of these commands for the programmer to use in controlling the LCD shutter glasses.
+
+Command Code
+(in HEX)
+Command Code
+(in ASCII)
+Description
+Emulation Available in
+
+
+
+
+
+
+0x14
+none
+Turn left lens dark, leave right lens in current state
+AGE/Menelli
+
+0x15
+none
+Turn left lens clear, leave right lens in current state
+AGE/Menelli
+
+0x16
+none
+Turn right lens dark, leave left lens in current state
+AGE/Menelli
+
+0x17
+none
+Turn right lens clear, leave left lens in current state
+AGE/Menelli
+
+0x18
+none
+Turn both lenses dark
+AGE/Menelli
+
+0x19
+none
+Turn both lenses clear
+AGE/Menelli
+
+0x1A
+none
+Turn left lens dark and right lens clear
+AGE/Menelli
+
+0x1B
+none
+Turn left lens clear and right lens dark
+AGE/Menelli
+
+0x1D
+none
+Change chopping frequency of LCD lens driver circuitry, range: 16Hz to 5kHz. 
+AGE/Menelli
+
+
+Table 3.2.12 - LCD shutter glasses commands
+
+
+2.7	Packet Requests
+
+When the PGSI is in request mode, the user or programmer must explicitly request a packet to be sent. The following commands can be used.  Note that the AGE command to request a packet is the same as is used to put the system into AGE request mode.  This means that each time you put the PGSI into AGE request mode, it will send out a packet of information.  Also note that each request command implicitly changes the emulation mode to fit the command.
+
+
+Command Code
+(in HEX)
+Command Code
+(in ASCII)
+Description
+Emulation Available in
+
+
+
+
+
+
+0x02
+none
+Request a packet in AGE emulation
+AGE
+
+0x3F
+'?'
+Request a packet in Menelli emulation (Note that this has no effect if PGSI is in continuous mode for either emulation)
+Menelli
+
+
+Table 3.2.13 - Packet Request commands
+
+
+2.8	Baud Rate Changes
+
+The PGSI is equipped to handle a wide variety of baud rates.  Although this command is not overly beneficial to users of version I PowerGlove‘ Serial Interfaces, revision II users will find this beneficial for high speed serial data transfer.  This is a two byte command, requiring the user or programmer to send two values to the PGSI.  The first is the command while the second determines the new baud rate.  The PGSI will not accept any other commands until both bytes have been transmitted.
+
+Command Code
+(in HEX)
+Command Code
+(in ASCII)
+Description
+Emulation Available in
+
+
+
+
+
+
+0x1C, 0x01-0x08
+none
+Change baud rate to value specified after command byte. See Table 3.2.15 for values.
+AGE/Menelli
+
+
+Table 3.2.14 - Baud Rate Change command
+
+
+Secondary Code
+(in HEX)
+Secondary Code
+(in ASCII)
+Description
+Emulation Available in
+
+
+
+
+
+
+0x01
+none
+9600 bps data transfer rate
+AGE/Menelli
+
+0x02
+none
+4800 bps data transfer rate
+AGE/Menelli
+
+0x03
+none
+2400 bps data transfer rate
+AGE/Menelli
+
+0x04
+none
+1200 bps data transfer rate
+AGE/Menelli
+
+0x05
+none
+0600 bps data transfer rate
+AGE/Menelli
+
+0x06
+none
+0300 bps data transfer rate
+AGE/Menelli
+
+0x07
+none
+0150 bps data transfer rate
+AGE/Menelli
+
+0x08
+none
+0075 bps data transfer rate
+AGE/Menelli
+
+
+Table 3.2.15a - Baud Rate Change secondary command code (Revision I PGSI)
+
+
+
+Secondary Code
+(in HEX)
+Secondary Code
+(in ASCII)
+Description
+Emulation Available in
+
+
+
+
+
+
+0x01
+none
+38400 bps data transfer rate
+AGE/Menelli
+
+0x02
+none
+19200 bps data transfer rate
+AGE/Menelli
+
+0x03
+none
+09600 bps data transfer rate
+AGE/Menelli
+
+0x04
+none
+04800 bps data transfer rate
+AGE/Menelli
+
+0x05
+none
+02400 bps data transfer rate
+AGE/Menelli
+
+0x06
+none
+01200 bps data transfer rate
+AGE/Menelli
+
+0x07
+none
+00600 bps data transfer rate
+AGE/Menelli
+
+0x08
+none
+00300 bps data transfer rate
+AGE/Menelli
+
+
+Table 3.2.15b - Baud rate change secondary command code (Revision II PGSI)
+
+
+2.9	Resetting the PGSI
+
+The PGSI is designed to be completely software programmable, but there are some instances where a reset is beneficial.  First, programmers and users are encouraged to initialize the PGSI via reset whenever launching a program.  Second, extensive configuring may result in a inoperable unit.  For these reasons and to adhere to AGE specifications, the following reset commands are available.  Note that the second reset command implicitly changes the emulation to AGE emulation.
+
+Command Code
+(in HEX)
+Command Code
+(in ASCII)
+Description
+Emulation Available in
+
+
+
+
+
+
+0x04
+none
+This command resends the default initialization packet to the PowerGlove‘.  
+AGE/Menelli
+
+0x07
+none
+This commands resets the PGSI to the following parameters:
+Emulation: AGE
+Rotation Filter: On
+Deglitching Filter: On
+AGE/Menelli
+
+
+Table 3.2.16 - Reset commands
+
+
+
+2.10	Digital Input
+
+The PGSI, with the addition of an external I/O cable, is able to provide 8 bits of buffered digital TTL level input.  This information is tacked on to the end of the data packet and appears as the last byte in the packet.  Note that this is available in both emulations and increases the packet length.
+
+Command Code
+(in HEX)
+Command Code
+(in ASCII)
+Description
+Emulation Available in
+
+
+
+
+
+
+0x0E
+none
+Turn on digital inputs 
+AGE/Menelli
+
+0x0F
+none
+Turn off digital inputs
+AGE/Menelli
+
+
+Table 3.2.17 - Digital Input Selection commands
+
+
+2.11 	Analog to Digital Inputs
+
+The PGSI, with the addition of an external I/O cable, is able to provide 8 channels of 8 bit analog-to-digital conversion at sustained rates of up to 4000 Hz.  However, current serial speeds limit this number.  The A/D inputs are grouped into 2 meta-channels of 4 channels each.  These can be read independently of one another or together.  It is possible to read the 2nd meta-channel without reading the first.  Note that this command works in both emulations and increases the packet length by a number determined by the number of meta-channels activated.
+
+Command Code
+(in HEX)
+Command Code
+(in ASCII)
+Description
+Emulation Available in
+
+
+
+
+
+
+0x10
+none
+Turn on first 4 channels of A/D 
+AGE/Menelli
+
+0x11
+none
+Turn off first 4 channels of A/D
+AGE/Menelli
+
+0x12
+none
+Turn on second 4 channels of A/D
+AGE/Menelli
+
+0x13
+none
+Turn off second 4 channels of A/D
+AGE/Menelli
+
+
+Table 3.2.18 - Analog-to-Digital Input Selection commands
+
+
+2.12	Digital Output
+
+The PGSI, with the addition of an external I/O cable, is able to output 8 channels of digital TTL level output.  The command to do this is a two byte command, the first byte being the command and the second being the value to place on the output port.  Note that this works in both emulations and it is only possible to out all 8 channels at one time.
+
+Command Code
+(in HEX)
+Command Code
+(in ASCII)
+Description
+Emulation Available in
+
+
+
+
+
+
+0x1E,0x00-0xFF
+none
+Output digital data to output port (Second byte is value to output)
+AGE/Menelli
+
+
+Table 3.2.19 - Digital Output Selection commands
+
+
+2.13	Command Set Overview
+
+The following commands are available to the user of the PGSI through the RS-232 serial port:
+
+Command Code
+(in HEX)
+Command Code
+(in ASCII)
+Description
+Emulation Available in
+
+
+
+
+
+
+0x01
+none
+Place interface in continuous mode
+AGE
+
+0x02
+none
+Place interface in request mode/request packet
+AGE
+
+0x04
+none
+Resend default initialization packet to the PowerGlove‘
+AGE/Menelli
+
+0x05
+none
+not implemented
+AGE/Menelli
+
+0x06
+none
+not implemented
+AGE/Menelli
+
+0x07
+none
+Reset PowerGlove‘ and PGSI to default configuration
+AGE/Menelli
+
+0x08
+none
+Turn rotation filter on
+AGE/Menelli
+
+0x09
+none
+Turn rotation filter off
+AGE/Menelli
+
+0x0A
+none
+Turn PowerGlove‘ on for input
+AGE/Menelli
+
+0x0B
+none
+Turn PowerGlove‘ off for input
+AGE/Menelli
+
+0x0C
+none
+not implemented
+AGE/Menelli
+
+0x0D
+none
+not implemented
+AGE/Menelli
+
+0x0E
+none
+Turn on digital inputs 
+AGE/Menelli
+
+0x0F
+none
+Turn off digital inputs
+AGE/Menelli
+
+0x10
+none
+Turn on first 4 channels of A/D
+AGE/Menelli
+
+0x11
+none
+Turn off first 4 channels of A/D
+AGE/Menelli
+
+0x12
+none
+Turn on second 4 channels of A/D
+AGE/Menelli
+
+0x13
+none
+Turn off second 4 channels of A/D
+AGE/Menelli
+
+0x14
+none
+Turn left lens dark, leave right lens in current state
+AGE/Menelli
+
+0x15
+none
+Turn left lens clear, leave right lens in current state
+AGE/Menelli
+
+0x16
+none
+Turn right lens dark, leave left lens in current state
+AGE/Menelli
+
+0x17
+none
+Turn right lens clear, leave left lens in current state
+AGE/Menelli
+
+0x18
+none
+Turn both lenses dark
+AGE/Menelli
+
+0x19
+none
+Turn both lenses clear
+AGE/Menelli
+
+0x1A
+none
+Turn left lens dark and right lens clear
+AGE/Menelli
+
+0x1B
+none
+Turn left lens clear and right lens dark
+AGE/Menelli
+
+0x1C,0x01-0x08
+none
+Change baud rate to value specified after command byte
+AGE/Menelli
+
+0x1D
+none
+Change chopping frequency of LCD lens driver circuitry, range: 16Hz to 5kHz. 
+AGE/Menelli
+
+0x1E,0x00-0xFF
+none
+Send digital data to output port (Second byte is value to send)
+AGE/Menelli
+
+0x2B
+'+'
+Turn hysterisis deglitching on
+AGE/Menelli
+
+0x2D
+'-'
+Turn hysterisis deglitching off
+AGE/Menelli
+
+0x3F
+'?'
+Request a packet in Menelli emulation
+Menelli
+
+0x43
+'C'
+Place interface in continuous mode
+Menelli
+
+0x52
+'R'
+Place interface in request mode
+Menelli
+
+
+Table 3.2.20 - Command Set overview
+
+
+
+3.	PowerGlove‘ Keypad Control
+
+The PowerGlove‘ contains a keypad on the cuff of the glove.  The keys on this keypad can be used for a variety of uses, ranging from user input of data to control "hot keys" to enable certain events.  Given this immense flexibility of use, the PGSI also uses the keypad to control internal settings while in a special mode called Setup mode.  A user in setup mode can change attributes like filter settings, emulation mode, and continuous/request settings.  Since this mode changes vital information in the PGSI, it can only be initiated from the keypad using a sequence of keys.  This prevents the user from accidentally enabling Setup mode.
+
+To change from Normal mode to Setup mode, the user must hold down the PROG key and release it, immediately press down the 'A' key and hold until the glove beeps to signal it is again receiving data.  Since the program key resets the PowerGlove‘, it is necessary to position the PowerGlove‘ in front of the receivers to allow the glove to synchronize with the receivers, and the user will have to re-center the glove as well as retrain the finger flex system.  Note that upon pressing the 'A' key, the user will hear a faint beep.  This beep is not the one signaling new data.
+
+The PowerGlove‘ Serial Interface defaults to what is known as AGE emulation normal mode.  This is one of 4 modes the interface can be in at any time.  This mode allows all commands associated with the AGE PowerGlove‘ Serial Adapter to be used without modification.  In this mode the keypad keys can be read under software control via the packets of information returned from the PGSI.  The modes are described below:
+
+AGE Normal mode:	Information packet and command set conforms to AGE Specification. Keypad keys correspond to values in KEYS byte in data packet.
+
+AGE Setup mode:	Information packet and command set conforms to AGE Specification. Keypad keys correspond to values listed in Table 2.1.1
+
+Menelli Normal mode:	Named after the originator of the freeware code for the HC11/PowerGlove‘ setup using these commands.  Information packet and command set conforms to Ron Menelli's specification in his code.  Keypad keys correspond to values in KEYS byte in data packet.
+
+Menelli Setup mode:	Information packet and command set correspond to Ron Menelli's specification in his code.  Keypad keys correspond to values listed in Table 3.3.1.
+
+
+Key on Keypad
+Function in Setup Mode
+Description
+
+
+
+
+
+Prog
+Reset
+emulates command 0x04
+
+Enter
+none
+none
+
+A
+none
+none
+
+B
+none
+none
+
+Start
+none
+none
+
+Select
+none
+none
+
+Center
+Center
+Centers the glove in 3-space
+
+‹
+none
+none
+
+›
+Delay increase
+for debugging
+
+ﬁ
+none
+none
+
+ﬂ
+Delay decrease
+for debugging
+
+0
+Center (redundant)
+Centers the glove in 3-space
+
+1
+AGE continuous mode
+emulates command 0x01
+
+2
+AGE request mode
+emulates command 0x02
+
+3
+Menelli continuous mode
+emulates command 'C'
+
+4
+Menelli request mode
+emulates command 'R'
+
+5
+none
+none
+
+6
+none
+none
+
+7
+AGE Reset
+emulates command 0x07
+
+8
+Rotation filter on
+emulates command 0x08
+
+9
+Rotation filter off
+emulates command 0x09
+
+
+Table 3.3.1 - Keypad functions in Setup mode
+
+
+
+
+
+
+
+
+
+
+
+
+Part IV-Function{XE "Part IV-Function"}
+
+
+1.	Customizing the Interface
+
+Since the PGSI has many configurations, depending on what the user wishes to accomplish with it, the interface has a small group of shorting jumper pads located inside the case on the main circuit board.  These can be fitted with jumper pins, or the user can make jumpers out of small wires.  The jumpers are preshorted using traces upon arrival, but the user is encouraged to try out different settings.
+
+1.1	Shorting Jumper Settings
+
+The device arrives configured for the following functions:
+
+	PowerGlove‘ activated
+	LCD shutter glasses two line driver
+	Internal LCD lens voltage generation
+
+1.2	Shorting Jumper Functions
+
+Shorting juumpers provide the PGSI with a convenient way to change options that are semi-permanent, meaning that these options do not need to be changed on a daily basis.  They may be changed with a hardware upgrade, purchase of new software, or purchase of newer peripheral devices.  It should not be necessary to change these options, but the PGSI includes these juumpers to further increase configurability.
+
+Upon removal of the top cover of the PGSI, one will notice the dense packing of cirrcuitry on the printed circuit board.  This may make location of the PGSI jumper pads tedious.  Below, a drawing of the PGSI circuit board shows the location of the jumper pads.  They are mostly located in the jumper area, the part of the PGSI circuit board near the DB-25 connector.  
+ 
+
+{EMBED MSDraw   \* mergeformat|}
+
+Some PGSI units will have juumper pins soldered to the jumper pads with jumper blocks atached.  Others will merely include the jumper pads with initial connfiguration shorted using a circuit trace.  In both cases, the jumpers are provided to help users re-configure their PGSI for different applications or computer systems.
+
+Although the interface is designed to work right from the box, some users may not be able to access all options in the default configuration.  For this reason, the user may choose to change the configuration by means of the shorting jumpers.  
+
+{EMBED MSDraw   \* mergeformat|}
+
+
+2.	Interface Control Modes
+
+2.1	Software Alterations
+
+The PowerGlove‘ Serial Interface is designed to be trouble free from the moment of arrival, technology continues to advance, and software have been known to appear in the most heavily tested programs.  For this reason, the interface includes the ability to reprogram the firmware installed in the PGSI from a personal computer by merely plugging the interface into the serial port and downloading a new program.  This option is called "field programming" and is selected by a shorting jumper position.  This option was made inaccessible without opening the PGSI, since unwanted operation in this mode could erase the control firmware.  If any such updates to the firmware become necessary or advantageous, they will be made available to owners of the PGSI with complete instructions on how to accomplish this re-programming of the PGSI.
+
+2.2	Data Packet Summary
+
+The PowerGlove‘ Serial Interface, in addition to providing the 3 standard packet types for complete AGE and Menelli emulation, the interface provides an extension to each of the 3 standard packet types to allow for enhancements like A/D and digital input readings.  The three main packet types and their extensions are displayed below to aid programmers and users in understanding the features of the different packet types.
+
+Position in Packet
+Name
+Description
+Range
+
+
+
+
+
+
+00
+Header
+Signals Start of Packet
+0xA0
+
+01
+X 
+X-direction reading
+-128 to 127
+
+02
+Y
+Y-direction reading
+-128 to 127
+
+03
+Z
+Z-direction reading
+-128 to 127
+
+04
+Rotation
+Gives rotation value in 30 degree increments
+0 to 11
+
+05
+Flex
+Gives position of thumb and first three fingers (See Table 3.2.4)
+(See Table 3.2.4)
+
+06
+Switch
+Gives key codes
+0 to 255
+
+
+
+
+
+
+07
+A/D port 1 info
+Give value of first A/D port
+0-255
+
+08
+A/D port 2 info
+Give value of second A/D port
+0-255
+
+09
+A/D port 3 info
+Give value of third A/D port
+0-255
+
+10
+A/D port 4 info
+Give value of fourth A/D port
+0-255
+
+
+
+
+
+
+11
+A/D port 5 info
+Give value of fifth A/D port
+0-255
+
+12
+A/D port 6 info
+Give value of sixth A/D port
+0-255
+
+13
+A/D port 7 info
+Give value of seventh A/D port
+0-255
+
+14
+A/D port 8 info
+Give value of eighth A/D port
+0-255
+
+
+
+
+
+
+15
+Input byte
+Give value of 8 bit input port
+0-255
+
+
+Table 4.2.1 - Complete Packet Description in Menelli Emulation/Continuous mode
+
+Note that the packet can change length depending on what is turned on.  For instance, say the user turns off the PowerGlove‘ for input.  Then, A/D port 1 will be at position 01 instead of 07.  The same holds for turning on and off other options that affect packet size.  There is no way to gather reliable packet data without knowing what parts of the packet are active, so the programmer must know what modes are on before a packet is requested.  However, the programmer will never need to know what order the options are turned on, because the packet cannot be rearranged. That means that the input byte will always appear last if is enabled, A/D ports 1-4 will always precede A/D port 5-8 and so forth.  The breaks in the packet are indicated by blank lines.
+
+
+
+Position in Packet
+Name
+Description
+Range
+
+
+
+
+
+
+00
+X 
+X-direction reading
+-128 to 127
+
+01
+Y
+Y-direction reading
+-128 to 127
+
+02
+Z
+Z-direction reading
+-128 to 127
+
+03
+Rotation
+Gives rotation value in 30 degree increments
+0 to 11
+
+04
+Flex
+Gives position of thumb and first three fingers (See Table 3.2.4)
+(See Table 3.2.4)
+
+05
+Switch
+Gives key codes
+0 to 255
+
+
+
+
+
+
+06
+A/D port 1 info
+Give value of first A/D port
+0-255
+
+07
+A/D port 2 info
+Give value of second A/D port
+0-255
+
+08
+A/D port 3 info
+Give value of third A/D port
+0-255
+
+09
+A/D port 4 info
+Give value of fourth A/D port
+0-255
+
+
+
+
+
+
+10
+A/D port 5 info
+Give value of fifth A/D port
+0-255
+
+11
+A/D port 6 info
+Give value of sixth A/D port
+0-255
+
+12
+A/D port 7 info
+Give value of seventh A/D port
+0-255
+
+13
+A/D port 8 info
+Give value of eighth A/D port
+0-255
+
+
+
+
+
+
+14
+Input byte
+Give value of 8 bit input port
+0-255
+
+
+Table 4.2.2 - Packet Description in Menelli Emulation/Request mode
+
+
+
+Position in Packet
+Name
+Description
+Range
+
+
+
+
+
+
+00
+Header
+Signals Start of Packet
+0x5F
+
+01
+Header
+Signals Start of Packet
+0x5F
+
+02
+X 
+X-direction reading
+-128 to 127
+
+03
+Y
+Y-direction reading
+-128 to 127
+
+04
+Z
+Z-direction reading
+-128 to 127
+
+05
+Rotation
+Gives rotation value in 30 degree increments
+0 to 11
+
+06
+Flex
+Gives position of thumb and first three fingers (See Table 3.2.4)
+(See Table 3.2.4)
+
+07
+Switch
+Gives key codes
+0 to 255
+
+08
+GSTAT1
+General Status 1
+0- if fingers out
+1- if fingers in
+
+09
+GSTAT2
+General Status 2
+0
+
+10
+RECVALS
+Receiver Values (See Table 3.2.6)
+0 - 0x3F
+
+
+
+
+
+
+11
+A/D port 1 info
+Give value of first A/D port
+0-255
+
+12
+A/D port 2 info
+Give value of second A/D port
+0-255
+
+13
+A/D port 3 info
+Give value of third A/D port
+0-255
+
+14
+A/D port 4 info
+Give value of fourth A/D port
+0-255
+
+
+
+
+
+
+15
+A/D port 5 info
+Give value of fifth A/D port
+0-255
+
+16
+A/D port 6 info
+Give value of sixth A/D port
+0-255
+
+17
+A/D port 7 info
+Give value of seventh A/D port
+0-255
+
+18
+A/D port 8 info
+Give value of eighth A/D port
+0-255
+
+
+
+
+
+
+19
+Input byte
+Give value of 8 bit input port
+0-255
+
+
+Table 4.2.3 - Packet Description in AGE Emulation/both modes
+
+
+2.3	Interface Command Code Summary
+
+
+Command Code
+(in HEX)
+Command Code
+(in ASCII)
+Description
+Emulation Available in
+
+
+
+
+
+
+0x01
+none
+Place interface in continuous mode
+AGE
+
+0x02
+none
+Place interface in request mode/request packet
+AGE
+
+0x04
+none
+Resend default initialization packet to the PowerGlove‘
+AGE/Menelli
+
+0x05
+none
+not implemented
+AGE/Menelli
+
+0x06
+none
+not implemented
+AGE/Menelli
+
+0x07
+none
+Reset PowerGlove‘ and PGSI to default configuration
+AGE/Menelli
+
+0x08
+none
+Turn rotation filter on
+AGE/Menelli
+
+0x09
+none
+Turn rotation filter off
+AGE/Menelli
+
+0x0A
+none
+Turn PowerGlove‘ on for input
+AGE/Menelli
+
+0x0B
+none
+Turn PowerGlove‘ off for input
+AGE/Menelli
+
+0x0C
+none
+not implemented
+AGE/Menelli
+
+0x0D
+none
+not implemented
+AGE/Menelli
+
+0x0E
+none
+Turn on digital inputs 
+AGE/Menelli
+
+0x0F
+none
+Turn off digital inputs
+AGE/Menelli
+
+0x10
+none
+Turn on first 4 channels of A/D
+AGE/Menelli
+
+0x11
+none
+Turn off first 4 channels of A/D
+AGE/Menelli
+
+0x12
+none
+Turn on second 4 channels of A/D
+AGE/Menelli
+
+0x13
+none
+Turn off second 4 channels of A/D
+AGE/Menelli
+
+0x14
+none
+Turn left lens dark, leave right lens in current state
+AGE/Menelli
+
+0x15
+none
+Turn left lens clear, leave right lens in current state
+AGE/Menelli
+
+0x16
+none
+Turn right lens dark, leave left lens in current state
+AGE/Menelli
+
+0x17
+none
+Turn right lens clear, leave left lens in current state
+AGE/Menelli
+
+0x18
+none
+Turn both lenses dark
+AGE/Menelli
+
+0x19
+none
+Turn both lenses clear
+AGE/Menelli
+
+0x1A
+none
+Turn left lens dark and right lens clear
+AGE/Menelli
+
+0x1B
+none
+Turn left lens clear and right lens dark
+AGE/Menelli
+
+0x1C,0x01-0x08
+none
+Change baud rate to value specified after command byte
+AGE/Menelli
+
+0x1D
+none
+Change chopping frequency of LCD lens driver circuitry, range: 16Hz to 5kHz. 
+AGE/Menelli
+
+0x1E,0x00-0xFF
+none
+Send digital data to output port (Second byte is value to send)
+AGE/Menelli
+
+0x2B
+'+'
+Turn hysterisis deglitching on
+AGE/Menelli
+
+0x2D
+'-'
+Turn hysterisis deglitching off
+AGE/Menelli
+
+0x3F
+'?'
+Request a packet in Menelli emulation
+Menelli
+
+0x43
+'C'
+Place interface in continuous mode
+Menelli
+
+0x52
+'R'
+Place interface in request mode
+Menelli
+
+
+Table 4.2.4 - Command Set
+2.4	Emulation Restrictions
+
+Since the PowerGlove‘ Serial Interface allows users to choose between two emulation modes, some restrictions are imposed to ensure proper operation of the interface:
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	All commands available in one mode or the other, but not both, can be initiated from any mode, but those commands will immediately change the emulation mode to reflect the emulation mode native to the command selected
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	Since the PGSI powers up in AGE emulation mode, all programs that assume Menelli emulation at start-up, will not work correctly unless the said program is preceded by either programmed or manual switching of the emulation mode to Menelli emulation.
+
+
+
+Part V-Maintenance{XE "Part V-Maintenance"}
+
+
+1.	Cleaning the Power Supply Contacts
+
+After continued use of the PGSI, the user may notice an erratic behavior of the PGSI operation, ranging from a spontaneous reset to complete power loss.  This may be caused by corrosion on the power supply contacts.  Periodically, the user should remove the power supply plug from the PGSI and clean the contacts with either a light eraser or rubbing alcohol.  After cleaning debris and moisture away after cleaning, the plug may be re-inserted into the PGSI for continued operation.
+
+2.	Cleaning the LCD Shutter Glasses Contacts
+
+If, after continued use of the PGSI with a pair of LCD shutter glasses, the shutter lenses glitch or seem to lose contrast, the user should remove the shutter glasses connecting plug from the PGSI and clean with either a light eraser of rubbing alcohol.  After allowing to dry and cleaning eraser residue away, the user should re-insert the plug for operation of the PGSI and the shutter glasses.
+
+
+
+Part VI-Troubleshooting Guide{XE "Part VI-Troubleshooting Guide"}
+
+
+1.	Computer/Interface Communications Problems
+
+If you should encounter trouble in getting the PGSI to interface with a personal computer, make sure the following conditions for operation of the PGSI have been fulfilled:
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	The correct power source is attached to the PGSI and turned on.
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	The PGSI is connected to the host CPU via a "pass-through" modem cable.
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	The host CPU is EIA-232 compliant.
+
+
+
+2.	LCD Shutter Glasses/Interface Communications Problems
+
+If repeated attempts to use the LCD shutter glasses fail, please check the following list:
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	Is your CPU capable of the LCD control selected: 1 wire, 2 wire, no wire ?   (Some computers cannot utilize some modes. example: Macintosh computers cannot use two wire mode.)
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	Is the interface cable plugged in ?
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	Are the LCD shutter glasses plugged into the PGSI
+
+
+
+3.	PowerGlove‘/Interface Communications Problems
+
+It always works.
+
+
+
+
+Part VII-Specifications{XE "Part VII-Specifications"}
+
+
+1.	Hardware Specifications
+
+The PowerGlove‘ Serial Interface is built around the Motorola MC68HC11E2 microprocessor, an 8 bit central processing unit ideally suited to embedded systems like the PGSI.  It has many features useful in the PGSI, including:
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	On board RAM capacity of 256 bytes
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	On board RS-232 interface.
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	On board 2 kilobytes of Electrically Erasable Read Only Memory (EEPROM)
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	32 bits of general-purpose buffered digital input/output
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	8 channels of 8 bit digital to analog conversion.
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	5 volt DC operation.
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	clock speeds up to 8 MHz.
+
+{SYMBOL 183 \f "Symbol" \s 10 \h}	Small printed circuit board footprint in 52 PLCC version.
+
+
+2.	Interface Specifications
+
+
+The PGSI uses a standard EIA-232 serial communications protocol to interface itself to the host system.  The data rate is 9600 bps, no parity, 1 stop bit, and 8 data bits.  Although the typical voltages used in RS-232 are +10 and -10 volts DC, the PGSI will accept voltages as small as +5 to -5 volts DC.  The unit can be programmed to operate at lower baud rates.
+
+
+
+Part VIII-Appendices
+
+
+A.	Recommended Program Specifications
+
+B.	Suggested User Interface Design
+
+C.	Transportation and Storage
+
+D.	Options and Supplies
+
+1.	Battery Pack
+
+2.	Power Supply
+
+3.	Macintosh Adapter
+
+4.	Nintendo” PowerGlove‘
+
+5.	LCD Shutter Glasses
+
+E.	History of the PowerGlove‘ Serial Interface Development
+
+
+
+Index{XE "Index"}
+
+
+
+
+
+{EMBED MSDraw   \* mergeformat|}
+{PAGE|v}
+
+
+I-{PAGE|3}
+
+
+II-{PAGE|1}
+
+
+III-{PAGE|1}
+
+
+
+IV-{PAGE|6}
+
+
+V-{PAGE|1}
+
+
+VI-{PAGE|1}
+
+
+VII-{PAGE|1}
+
+
+VIII-{PAGE|1}
+
+
+
+
+
+

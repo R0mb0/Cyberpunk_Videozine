@@ -1,0 +1,59 @@
+Errata to _Graphics Gems V_, first edition, edited by Alan Paeth
+(awpaeth@okanagan.bc.ca), Academic Press 1995.  Code available online in
+princeton.edu:pub/Graphics/GraphicsGems/GemsV.
+
+compiled by Eric Haines (erich@eye.com) from author and reader contributions
+
+version 1.0
+date:  4/25/95
+
+-----
+
+Errors in the text:
+
+The following proof changes might not appear in the book's 1st printing but
+are correct on the floppy disk and FTP mirror versions:
+
+p. 85, bottom (code line) now reads:
+
+                 ...    if ((t = a - b) < 0) {a -= t; b += t; } }
+
+                                 ^   ^          ^       ^
+      ('a','b' and '+','-' were transposed)
+
+p. 86, top (code):
+	...  + 16*d)/ ...
+	       ^^ replaces the ' 4' presently there
+
+p. 323 - no cedilla in "Francois" in author's name (cp. p 405, bottom)
+
+-----
+
+The following are errors in the code listings (corrected in the online code at
+princeton.edu:pub/Graphics/GraphicsGems/GemsV).  Note that some of the code
+listings online are different in minor and major ways from the code in the
+book.
+
+
+Serious errors (ones your compiler cannot or may not catch):
+
+[none so far]
+
+-----
+
+Syntax errors (ones that are not usually harmful, or are easily caught):
+
+There are various "lint" type errors in the text's and diskette's code which
+have been cleaned up in the FTP distribution.  The only serious changes were
+to the axd.c code in ch3-6, as the code was out of sync with the macros it
+used from ch7-7/mactbox.  The corrected code is in the FTP distribution.
+
+-----
+
+The following are typographical errors in the comments:
+
+[none so far]
+
+-----
+
+END

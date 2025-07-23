@@ -1,0 +1,416 @@
+
+      REND386 -- A 3-D Polygon Rendering Package for the 386 and 486
+                  Written by Dave Stampe and Bernie Roehl
+
+                           DEMO4 Documentation
+                       Version 4.10 - August 1992
+
+This document describes how to use the new REND386 demo, called "demo4.exe".
+
+To run the demo, just type "demo4" or "demo4 filename" where 'filename' is the
+name of a .plg file, a .fig file, or a .wld file you want to have loaded.
+
+The demo4.exe program is designed to illustrate some of the capabilities of
+REND386, a polygon rendering library for 386 and 486 systems with VGA
+displays.
+
+The libraries are available for free; the only reason for making the demo
+a separate set of files is to give people who aren't interested in writing
+software a chance to see just what can be done on widely-available hardware.
+
+The system is fast.  How fast, you ask?  Well, speed is not a straightforward
+thing to measure.  There is a relationship between the speed of the processor,
+the complexity of the scene, and the number of frames per second.
+
+With this software, a 512-polygon scene can be rendered at speeds up to
+15 frames/second on a 486/25; this corresponds to a speed of over 7000
+polys/second.  If you have a 486/33, it'll go slightly faster; if you have
+a 386/33, it'll go slightly slower.  You get the idea.  If you want more
+frames/second, use a simpler scene (i.e. fewer polygons).
+
+To use this demo, you MUST have a 386 or 486; it will not run at all on
+a 286 or below.  You must also have a standard VGA display.
+
+This version now support stereoscopic viewing; the assumption is that you
+have the Sega 3D glasses and the interface described in sega.txt installed.
+
+The Nintendo Powerglove is also supported: see the July 1990 Byte page 288
+for a schematic showing how to wire up an adapter.  Version 4 of the demo
+uses the glove to manipulate objects as well.
+
+When the demo starts up, it looks for a REND386.cfg file; if one is found,
+it is loaded the same way a world file is.  We recommend keeping all your
+hardware configuration information in this file; that way you won't have
+to specify an extra file on the command line each time.
+
+The system now supports a 'loadpath'; this path is used to load any files
+that do not have explicit directory specifiers in them.  In other words,
+any file (including .wld, .fig, .plg and palette files) whose names do not
+contain '\' or '/' will be loaded from the loadpath.  This includes .plg
+files specified inside .fig files.
+
+The loadpath may be set in a .wld file, or in the REND386.CFG file.  It
+can also be set in the REND386 environment variable.  Note that the settings
+in the REND386.CFG file will override the setting of the environment variable.
+Also note that the REND386.CFG file is always loaded from the current
+directory, not from the loadpath specified in the REND386 environment
+variable (this is subject to change).
+
+The system now supports loadable drivers.  If no other video driver is
+specified in REND386.CFG or a world file, then "vd256.rvd" is loaded; this
+is the standard 256-color "Mode Y" driver.
+
+
+SECTION 0 -- Command-line Parameters
+
+The following parameters are supported (all are preceeded with a - or a / and
+are not case sensitive:
+
+   -x    ensable stereo (use if you don't have sega glasses)
+   -m    use mirror stereo
+   -r    reverse eyes (left-for-right); useful if your wiring is wrong
+   -c d  set the convergence distance
+   -s d  set the world scale
+   -e d  set the interocular spacing (space between your eyes, in millimeters)
+   -j    sort by object (default is to sort by polys)
+   -p    depth sort by polys (the default)
+   -a    depth sort by object average depth
+   -1    use COM1 for Sega glasses
+   -2    use COM2 for Sega glasses
+   -b    force monochrome ('black and white') mode
+   -g    enable the Nintendo Powerglove using the interface from Byte
+         magazine (July, 1990 issue)
+
+
+SECTION 1 -- Viewpoint control and miscelleneous keys
+
+You can use either the joystick or the keyboard to move around.
+
+Moving the joystick forward will move you forward, moving it backward
+will move you backward.  Moving it to the left turns you to your left,
+and moving it to the right turns you to your right.
+
+To move sideways without turning, hold down either button and move the
+stick left or right.
+
+Moving the stick forward and back with one button down will tilt your
+head to let you look down or look up.  Moving the stick forward and back
+with the other button lets you move vertically.
+
+Holding both buttons down lets you control your zoom (by moving the
+stick forward and backward) and the tilt of your head (by moving the
+stick left and right).
+
+There are two 'keyboard movement modes' supported.
+
+In the default mode, the keys work as follows:
+
+    LEFT ARROW and RIGHT ARROW move you forwards and backwards
+    UP ARROW and DOWN ARROW turn you left or right
+    PGUP and PGDN let you look up or look down
+    CTRL LEFT ARROW and CTRL RIGHT ARROW move you sideways left or right
+    CTRL PGUP and CTRL PGDN move you vertically up or down
+    CTRL HOME and CTRL END tilt your head counterclockwise and clockwise
+    + and - change your zoom factor
+    U executes a 'U-turn', turning your viewpoint around 180 degrees
+
+In the 'spherical' mode, the keys work as follows:
+
+    LEFT ARROW and RIGHT ARROW change your "longitude"
+    UP ARROW and DOWN ARROW change your "latitude"
+    CTRL LEFT ARROW and CTRL RIGHT ARROW tilt your head left and right
+    PGUP moves you towards the center of the sphere, PGDN moves you away
+    SHIFT LEFT ARROW and SHIFT RIGHT ARROW move the sphere's center in X
+    SHIFT UP ARROW and SHIFT DOWN ARROW move the sphere's center in Y
+    SHIFT PGUP and SHIFT PAGE DOWN move the sphere's center in Z
+    CTRL PGUP and CTRL PGDN change your zoom factor
+    * makes the current view identical to the initial default view.
+
+In both keyboard movement modes, the following keys are available:
+
+   R repeats your last move 100x (good for doing timings)
+   1 through 9 and 0 set your step size, with 0 being 10 (see the Options menu)
+   C changes your hither/yon clipping (see below)
+   G prompts you for an x,y,z location to jump to
+   Q or ESC quits
+   ? or H shows help
+   D displays your current status
+   L loads .plg files,  S saves them; see "plg.doc" for file format
+   M loads multi-resolution .plg files
+   I gives information about the current object database
+   P displays the color palette used by the system
+   F loads figure files (see below)
+   Z performs object and figure manipulation (see below)
+   O sets system options (see below)
+   X handles painting (see below)
+   ^ saves the screen as a PC Paintbrush (.PCX) file
+
+In stereoscopic mode, the following keys apply; they're basically just
+holdovers from some	HMD software, but you might get a kick out of them:
+
+  [ and ] adjust the vertical offset of the display
+  { and } adjust the horizontal offset of the display
+
+
+SECTION 2 -- Clipping and Visibility
+
+The near clipping plane splits polys that transect it, while the yon
+clipping plane just ignores polys that are beyond it; thus the effects are
+slightly different.  When part of an object gets clipped by the front
+plane, you can see right through the entire object (i.e. you don't see
+inside of the far side of the object through the "hole" created by
+clipping).  The same is true if you actually move yourself inside an
+object; from inside, it's perfectly transparent.
+
+You may find occasional visibility errors with certain combinations of objects;
+future versions of the software should eliminate these.
+
+
+SECTION 3 -- Object and figure manipulation
+
+In order to manipulate objects and figures in the scene, you must have a
+mouse.  Use the mouse to select an object by clicking on it; it will be
+highlighted to indicate that it has been selected.  If you click on it again,
+the object will be de-selected.
+
+Once you've selected an object, hitting the Z key pops up a menu of
+operations you can perform on that object.  These operations are as follows:
+
+   M -- moves an object around in 3D, tracking the mouse.  Moving the mouse
+        horizontally or vertically moves the selected object in the same
+        direction; moving the mouse vertically while holding down the right
+        mouse button moves the selected object away from you or towards you.
+        Clicking the left mouse button "places" the object, but leaves it
+        selected.
+        
+   R -- rotates the object around in 3D, tracking the mouse (much as for the
+        'M' operation described above).
+
+   T -- "twirl" is similar to rotate, but instead of controlling the actual
+        rotation the mouse now controls the speed of rotation about each of
+        the three axes.
+
+   I -- gives you information about the selected object, including the
+        the total number of vertices and the total number of polygons.
+
+   D -- deletes the selected object
+
+   S -- saves the selected object to a file
+
+   A -- alters an object or figure's surface attributes (see "colors.doc"
+        for details)
+
+   P -- paints the selected object in the current color and surface type
+        (see the color selection menu described below)
+
+   H -- "hacks off" (i.e. disconnects) a segment from its parent segment
+
+   J -- joins a segment to another segment, which becomes its parent
+
+   F -- pops up a "figure" menu, which lets you select the entire figure
+        of which the selected object is a part, or obtain information about
+        the figure of which the selected object is a part, as well as saving
+        or deleting the entire figure.
+
+   U -- unselects the selected object
+
+   N -- selects the "next" resolution of the object (if the object has more
+        than one)
+
+
+SECTION 4 -- Painting and Surface Types
+
+There are two ways to "paint" objects in the demo: you can paint one
+polygon at a time, or paint the entire object.  To select a paint color
+and surface type, you use the X key; the surface type and paint color
+can be selected independently, but the interpretation of the paint color
+will be different depending on the surface type (see colors.doc for details).
+From the X menu you can also select P for Paint Polys, which allows you to
+paint individual polygons simply by clicking on them with the left mouse
+button.  To leave this polygon-painting mode, just click the right mouse
+button.  To paint a number of objects the same color, just select the objects
+and use Z P to paint them.  They will all be painted with the current surface
+type and color.
+
+
+SECTION 5 -- Figures and Scenes
+
+This version of REND386 contains support for segmented figures.  To load
+a segmented figure, use the F key; you'll be prompted for a figfile name.
+Try the figure "body.fig", for example.  For details on the construction
+of figure files, see "figure.doc".
+
+Note that figures are composed of objects, and that movement operations
+performed on objects that are part of a figure behave slightly differently
+than operations on "plain" objects.
+
+Moving an object that is a descendant of another object moves it relative
+to its parent, and also affects any descendents it may have.  In the case
+of body.fig, the pelvis is the "root" object; moving it moves the entire
+figure as a unit.  However, if you select the chest instead of the pelvis,
+only the upper half of the body will rotate; if you select only the left
+upper arm, only it and the left lower arm will rotate, and so on.
+
+You almost never want to move a segment object relative to its parent; the
+correct position should be set in the original figure file.  Of course,
+rotating a child segment relative to its parent is something you do a lot.
+
+This reflects the "real world"; you rotate your body segments at joints, but
+you rarely remove your arm from your shoulder and flail it about.
+
+
+SECTION 6 -- Options
+
+The O key allows you to set several options.
+
+The "background" option toggles the use of a fancy background (just a color
+cycle, really) on or off.
+
+The "reflection" option toggles the use of a "reflecting pool" at the bottom
+of the screen on or off.
+
+The "logo" option toggles the use of a "REND386" logo on or off.
+The logo is stored in PCX file called "logo.pcx".  You can, if you wish,
+create a different logo with a paint program and store it in "logo.pcx".
+Only the first 30 lines are copied onto the screen, and the file you
+create must be in standard 320x200 8-bit (256 color) format.
+
+The logo.pcx file provided with the demo is intended to be used with the
+fancy background activated (the logo.pcx file contains a copy of the part
+of the background that would be covered by the logo).
+
+Note that the background, the logo and the reflecting pool are basically
+just gimmicks.  They were included in the demo mainly in response to
+people who had seen the Ultraforce demo and were asking "why can't rend386
+do that".  Well, it can.  We also included the pseudo-metallic surfaces you
+see in the Ultraforce demo, since they're a nice (but not exactly novel)
+effect.  We also added the pseudo-transparent surfaces you see in the
+SuperScape demo, and in fact combined them with the pseudo-metallics to
+give a "shiny" window effect.
+
+The "screen clear" option allows you to control screen pre-clearing.  If
+the scene you're looking at has no "sky" or "ground" showing, this is a
+good option to use (since it will increase rendering speed).  However, if
+you have any parts of the screen not obscured by a polygon, you'll get
+strange and ugly effects.
+
+The "ambient light" option allows you to control the overall brightness of
+the scene.  The default value is 76.
+
+The "directional light" option allows you to toggle the single light source
+between "spot" or "point source".  The difference is that the spot is
+at an infinite distance.
+
+The "horizon" option allows you to toggle between simple screen clears and a
+more sophisticated sky/ground horizon clear.
+
+The "motion step size" lets you set the increment to use for space movements
+or angular movements.  This gives you separate control over each, whereas the
+use of the 0-9 keys controls both together.
+
+The "keyboard mode" option lets you switch between the "default" mode
+and the "spherical" mode (both described above).
+
+The "position display" option toggles the display of your current (x,z)
+coordinates on or off.
+
+The "compass display" option toggles the 3-D compass on or off.
+
+The "frame rate display" option toggles the frame rate display on or off.
+
+
+SECTION 7 -- Powerglove suppoprt
+
+If you have a Nintendo PowerGlove hooked up to your parallel port using the
+cable described in Byte Magazine (July 1990 issue, page 288) then you can
+specify the -g option on the command line to enable glove support.
+
+If you find the glove fingers are twitching (and your real fingers aren't),
+then make a fist a few times.
+
+Note the gesture display on the screen.  There's a half-second deglitch time,
+so hold a gesture a bit before you move.
+
+Four gestures are used: flat (neutral), point (select), fist (grab),
+and pinch (twist).  Pinch is the hardest to do: bend your index finger
+(thumb optional) while keeping you other fingers straight.  Other
+gestures are detected but not yet used.
+
+     Flat does nothing.
+
+     Point selects an object your virtual hand is close to.  You may find
+     objects "competing" with each other for selection; just move around
+     until the one you want is the one selected.
+     
+     Fist grabs the selected object and moves it (even at a distance!).
+
+     Pinch grabs a line between your fingers and the object center (or joint
+     for a jointed object) and rotates the object by it.  This code is not
+     quite right yet; we may replace it with trackball rotation in a future
+     release.
+
+
+SECTION 8 -- Final notes
+
+Feel free to create your own objects; read the various .doc files 
+for a description of the format the demo uses.  Note that .plg
+format is not in any way tied into the REND386 library; it's just a
+convenient format used for the demo.  In fact, plg is not our recommended
+polygon format.
+
+We're encouraging people to standardize on OFF as a graphics file format;
+the OFF documentation can be found on sunee.uwaterloo.ca in the pub/vr
+directory.
+
+OFF is a reasonably good, open format that encodes author/copyright
+information along with geometry and colors.  While it's a bit of a
+nuisance to parse, it's very easy to generate.  It's also extensible,
+which is important for long-term success.  We're putting the finishing
+touches on an OFF2PLG converter that will let you use all kinds of OFF
+objects with this demo.
+
+Some of our data files were converted from OFF files using off2plg: the
+bishop and the banana.  Below is the author/copyright information from
+their .aoff files:
+
+name		bishop8
+description	chess piece - bishop
+author		Randy Brown, brown@cs.unc.edu
+copyright	(c) Randy Brown, OK to distribute if copyright/author appears 
+
+name		banana
+description	Banana made on Frank Crow's U. Utah surface design system
+copyright	(c) Ohio State Univ. - ok to distribute if copyright appears
+
+Several of the objects in the room demo were created by Gershon Elber's
+IRIT program, and converted to .plg format using a converter contributed
+by Gershon Elber himself.
+
+The major contribution others can make to the project at this stage is
+to write converters from other polygon formats to OFF.  In particular,
+a DXF to OFF converter would let us create objects with most CAD packages.
+
+If you enjoy using the package, and are interested in developing your own
+applications, you can obtain the latest version of the libraries and
+documentation via anonymous ftp from sunee.uwaterloo.ca in the pub/rend386
+directory.
+
+If you have any questions, or would like to help work on future projects
+related to this package or other VR-related hardware and software, feel
+free to contact us:
+
+        Bernie Roehl (broehl@sunee.uwaterloo.ca)
+        Dave Stampe (dstampe@sunee.uwaterloo.ca)
+
+(For those who are curious, sunee.uwaterloo.ca is in the Electrical and
+Computer Engineering Department of the University of Waterloo in Ontario,
+Canada).
+
+There is also a mailing list, rend386@sunee.uwaterloo.ca (to be added
+to the list, send mail to rend386-request@sunee.uwaterloo.ca).  Traffic
+should be reasonbly low; if it gets too high, we're willing to go to a digest
+format.
+
+Have fun!
+
+                                   -- Bernie Roehl, August 1992

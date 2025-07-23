@@ -1,0 +1,110 @@
+comment = Car;
+comment = created by James F. Moon-Dupree;
+comment = February 28, 1994;
+
+{       
+        name = floorboard;
+        plgfile = flrbrd.plg scale 1,1,1 shift 0,0,0;
+        pos = 0,0,0;
+        {
+                name = steering_wheel;
+                plgfile = strwhl.plg scale 1,1,1 shift 0,0,0;
+                rot = 45,-90,0;
+                pos = 125000,350000,-150000;
+                {
+                        name = steering_column;
+                        plgfile = rod.plg scale .3,.3,2 shift 0,0,100000;
+                        pos = 0,0,80000;
+                }
+        }
+        {       
+                name = front_base1;
+                plgfile = seatbase.plg scale 1,1,1 shift -240000,-5858,0;
+                pos = 350000,100000,-150000;
+                {       
+                        name = front_back1;
+                        plgfile = seatback.plg scale 1,1,1 shift 0,0,0;
+                        pos = 0,20000,0;
+                        rot = 0,0,77;
+                }
+        }
+        {       
+                name = front_base2;
+                plgfile = seatbase.plg scale 1,1,1 shift -240000,-5858,0;
+                pos = 350000,100000,150000;
+                {       
+                        name = front_back2;
+                        plgfile = seatback.plg scale 1,1,1 shift 0,0,0;
+                        pos = 0,20000,0;
+                        rot = 0,0,77;
+                }
+        }
+        {       
+                name = rear_base1;
+                plgfile = seatbase.plg scale 1,1,1 shift -240000,-5858,0;
+                pos = 900000,100000,-150000;
+                {       
+                        name = rear_back1;
+                        plgfile = seatback.plg scale 1,1,1 shift 0,0,0;
+                        pos = 0,20000,0;
+                        rot = 0,0,77;
+                }
+        }
+        {       
+                name = rear_base2;
+                plgfile = seatbase.plg scale 1,1,1 shift -240000,-5858,0;
+                pos = 900000,100000,150000;
+                {       
+                        name = rear_back2;
+                        plgfile = seatback.plg scale 1,1,1 shift 0,0,0;
+                        pos = 0,2000,0;
+                        rot = 0,0,77;
+                }
+        }
+        {       
+                name = front_axle;
+                plgfile = rod.plg scale .2,.2,5.4 shift 0,0,0;
+                pos = -350000,-20000,0;
+                {       
+                        name = front_left_wheel;
+                        plgfile = rod.plg scale 1.5,1.5,.8 shift 0,0,50000;
+                        pos = 0,-20000,-270000;
+                }
+                {       
+                        name = front_right_wheel;
+                        plgfile = rod.plg scale 1.5,1.5,.8 shift 0,0,-50000;
+                        pos = 0,-20000,270000;
+                }
+        }
+        {       
+                name = rear_axle;
+                plgfile = rod.plg scale .2,.2,5.4 shift 0,0,0;
+                pos = 1160000,-20000,0;
+                {       
+                        name = left_wheel;
+                        plgfile = rod.plg scale 1.5,1.5,.8 shift 0,0,50000;
+                        pos = 0,-20000,-270000;
+                }
+                {       
+                        name = right_wheel;
+                        plgfile = rod.plg scale 1.5,1.5,.8 shift 0,0,-50000;
+                        pos = 0,-20000,270000;
+                }
+        }
+        {       
+                name = instrument_panel;
+                plgfile = ip.plg scale 1,1,1 shift 0,5000,0;
+                rot = 0,-90,0;
+                pos = -80000,400000,-180000;
+        }
+        {
+                name = front_end;
+                plgfile = frntend.plg scale 1,1,1 shift 0,0,0;
+                pos = 0,0,0;
+        }
+        {
+                name = rear_end;
+                plgfile = rearend.plg scale 1,1,1 shift 0,0,0;
+                pos = 1160000,0,0;
+        }
+}

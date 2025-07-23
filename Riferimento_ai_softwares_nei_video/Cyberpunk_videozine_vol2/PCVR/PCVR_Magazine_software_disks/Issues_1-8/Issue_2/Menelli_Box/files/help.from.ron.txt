@@ -1,0 +1,63 @@
+Date: Fri, 26 Mar 93 09:20:38 CST
+From: menelli@com.tellabs
+Message-Id: <9303261520.AA02585@sunl13.tellabs.com>
+To: cph%de-montfort.ac.uk%uunet@NET.UU.uunet
+Subject: Re: More questions on the "Menelli Box"
+
+>Is this an error on the schematic, or are there different pin-outs of
+>this device available?  All the other pins seem the same, with 9..12
+>being the TTL levels and 7/8/13/14 being the RS-232 level pins, it's
+>just the actual functions that seem different.
+>
+
+Well, actually, I have the spec sheets from MAXIM, and they don't specify any
+RS232 signal names in the pinout. This sort of makes sense, because all the
+chip does is shift voltage levels irregardless of what signal is connected.
+There are two RS232 to TTL converters and two TTL to RS232 converters in the
+chip. It seems that your catalog simply chose the other pair of pins to connect
+to TxD and RxD. Either method of connection should work.
+
+>Also, the docs for your PG interface don't mention the cable used to
+>connect the device to the serial port -- I presume you used a 
+>null-modem cable?  In which case the standalone board should be
+>wired up as if it's a DTE, yes?
+
+No, actually the circuit is wired as a DCE device. Connect it as you would a
+modem with a straight through cable.
+
+>
+>Finally (phew!) is there any *easy* way for me to tell whether my
+>'HC11 is actually alive when I power it up?  Something like
+>"connect to the port using kermit and type 'HELLO?'" would be
+>very useful.  Makes you realise how much you take power-on self-test
+>stuff for granted!
+>
+
+Well, if everything is installed (program code and Power Glove included), the
+power glove should beep, the lights on the PG sensor array should start 
+flashing, and data should start appearing on whatever you have connected to the
+serial port. Unfortunately, there are no other low level tests that I have 
+installed.
+
+>Thanks for your help -- I'm really excited about getting this thing
+>working, then I can hook up my PG to our HP workstations and get some
+>*real* MIPS on the job.
+>
+
+Good luck!
+
+>Cheers,
+>
+>Chris
+>
+>--
+>Chris Hand, Lecturer                Internet mail: cph@dmu.ac.uk
+>Dept of Computing Science,          Voice: +44 533 551551 x8476
+>De Montfort University, The Gateway,  Fax: +44 533 541891  FIDOnet: 2:440/32.50
+>LEICESTER, UK   LE1 9BH             >> Linux: *free* unix for IBM PCs! <<
+
+-Ron Menelli
+menelli@tellabs.com
+
+
+ 

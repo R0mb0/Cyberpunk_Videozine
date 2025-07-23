@@ -1,0 +1,663 @@
+%!PS-Adobe-3.0
+%%Title: menelli_box
+%%Creator: fishwj
+%%CreationDate: Tuesday 23rd January 1996     
+%%For: fishwj
+/M{moveto}def /L{lineto}def /S{stroke}def /SP{strokepath}def
+/GS{gsave}def /GR{grestore}def /N{newpath}def /BD{bind def}bind def
+/T{translate}def /R{rotate}def /CF{closepath fill}BD
+/SLW{setlinewidth}def /SLC{setlinecap}def /SLJ{setlinejoin}def
+/FF{/R3vff findfont}BD /SSF{scalefont setfont}BD
+/Ranger3 120 dict def
+Ranger3 begin
+/FontType 3 def
+/FontMatrix [1 0 0 1 0 0] def
+/FontBBox [0 -3 6 9] def
+/Encoding 256 array def
+0 1 255 {Encoding exch /.notdef put} for
+Encoding  33 /! put
+Encoding  34 /" put
+Encoding  35 /# put
+Encoding  36 /$ put
+Encoding  37 /pc put
+Encoding  38 /& put
+Encoding  39 /' put
+Encoding  40 /lrb put
+Encoding  41 /rrb put
+Encoding  42 /* put
+Encoding  43 /+ put
+Encoding  44 /, put
+Encoding  45 /- put
+Encoding  46 /. put
+Encoding  47 /sl put
+Encoding  48 /0 put
+Encoding  49 /1 put
+Encoding  50 /2 put
+Encoding  51 /3 put
+Encoding  52 /4 put
+Encoding  53 /5 put
+Encoding  54 /6 put
+Encoding  55 /7 put
+Encoding  56 /8 put
+Encoding  57 /9 put
+Encoding  58 /: put
+Encoding  59 /; put
+Encoding  60 /la put
+Encoding  61 /= put
+Encoding  62 /ra put
+Encoding  63 /? put
+Encoding  64 /@ put
+Encoding  65 /A put
+Encoding  66 /B put
+Encoding  67 /C put
+Encoding  68 /D put
+Encoding  69 /E put
+Encoding  70 /F put
+Encoding  71 /G put
+Encoding  72 /H put
+Encoding  73 /I put
+Encoding  74 /J put
+Encoding  75 /K put
+Encoding  76 /L put
+Encoding  77 /M put
+Encoding  78 /N put
+Encoding  79 /O put
+Encoding  80 /P put
+Encoding  81 /Q put
+Encoding  82 /R put
+Encoding  83 /S put
+Encoding  84 /T put
+Encoding  85 /U put
+Encoding  86 /V put
+Encoding  87 /W put
+Encoding  88 /X put
+Encoding  89 /Y put
+Encoding  90 /Z put
+Encoding  91 /lsb put
+Encoding  92 /bsl put
+Encoding  93 /rsb put
+Encoding  94 /^ put
+Encoding  95 /_ put
+Encoding  96 /` put
+Encoding  97 /a put
+Encoding  98 /b put
+Encoding  99 /c put
+Encoding 100 /d put
+Encoding 101 /e put
+Encoding 102 /f put
+Encoding 103 /g put
+Encoding 104 /h put
+Encoding 105 /i put
+Encoding 106 /j put
+Encoding 107 /k put
+Encoding 108 /l put
+Encoding 109 /m put
+Encoding 110 /n put
+Encoding 111 /o put
+Encoding 112 /p put
+Encoding 113 /q put
+Encoding 114 /r put
+Encoding 115 /s put
+Encoding 116 /t put
+Encoding 117 /u put
+Encoding 118 /v put
+Encoding 119 /w put
+Encoding 120 /x put
+Encoding 121 /y put
+Encoding 122 /z put
+Encoding 123 /lcb put
+Encoding 124 /| put
+Encoding 125 /rcb put
+Encoding 126 /~ put
+Encoding 127 / put
+/CharProcs 100 dict def
+CharProcs begin
+/.notdef { } def
+/! { 2 0 M 3 0 L 3 1 L 2 1 L 2 0 L S 2 2 M 2 6 L 3 6 L 3 2 L 2 2 L S}BD
+/" { 0 6 M 1 6 L 1 4 L 0 6 L S 2 6 M 3 6 L 3 4 L 2 6 L S}BD
+/# { 0 0 M 1 5 L S 3 0 M 4 5 L S 0 1 M 4 1 L S 0 4 M 4 4 L S}BD
+/$ { 0 1 M 1 0 L 3 0 L 4 1 L 4 2 L 3 3 L 1 3 L 0 4 L 0 5 L 1 6 L 3 6 L 4 5 L S 2 6 M 2 0 L S}BD
+/pc { 1 1 M 4 5 L S 3 1 M 3 2 L 4 2 L 4 1 L 3 1 L S 1 4 M 2 4 L 2 5 L 1 5 L 1 4 L S}BD
+/& { 4 2 M 3 0 L 1 0 L 0 1 L 0 2 L 3 4 L 3 6 L 1 6 L 1 4 L 4 0 L S}BD
+/' { 2 6 M 3 6 L 2 4 L 2 6 L S}BD
+/lrb { 3 0 M 1 2 L 1 4 L 3 6 L S}BD
+/rrb { 1 0 M 3 2 L 3 4 L 1 6 L S}BD
+/* { 2 0 M 2 6 L S 0 3 M 4 3 L S 4 5 M 0 1 L S 0 5 M 4 1 L S}BD
+/+ { 0 3 M 4 3 L S 2 1 M 2 5 L S}BD
+/, { 1 -2 M 2 -1 L 2 1 L 1 1 L 1 0 L 2 0 L S}BD
+/- { 0 3 M 4 3 L S}BD
+/. { 1 0 M 2 0 L 2 1 L 1 1 L 1 0 L S}BD
+/sl { 1 0 M 1 1 L 3 5 L 3 6 L S}BD
+/0 { 0 1 M 1 0 L 3 0 L 4 1 L 4 5 L 3 6 L 1 6 L 0 5 L 0 1 L S 4 6 M 0 0 L S}BD
+/1 { 3 0 M 3 6 L 1 4 L S}BD
+/2 { 4 0 M 0 0 L 0 2 L 1 3 L 3 3 L 4 4 L 4 5 L 3 6 L 1 6 L 0 5 L S}BD
+/3 { 0 1 M 1 0 L 3 0 L 4 1 L 4 2 L 3 3 L 2 3 L 4 6 L 0 6 L S}BD
+/4 { 3 0 M 3 6 L 0 3 L 4 3 L S}BD
+/5 { 0 1 M 1 0 L 3 0 L 4 1 L 4 2 L 3 3 L 0 3 L 0 6 L 4 6 L S}BD
+/6 { 0 3 M 3 3 L 4 2 L 4 1 L 3 0 L 1 0 L 0 1 L 0 5 L 1 6 L 4 6 L S}BD
+/7 { 0 6 M 4 6 L 1 0 L S}BD
+/8 { 0 1 M 1 0 L 3 0 L 4 1 L 4 2 L 3 3 L 4 4 L 4 5 L 3 6 L 1 6 L 0 5 L 0 4 L 1 3 L 0 2 L 0 1 L S 1 3 M 3 3 L S}BD
+/9 { 0 1 M 1 0 L 3 0 L 4 1 L 4 5 L 3 6 L 1 6 L 0 5 L 0 4 L 1 3 L 4 3 L S}BD
+/: { 1 1 M 2 1 L 2 2 L 1 2 L 1 1 L S 1 4 M 2 4 L 2 5 L 1 5 L 1 4 L S}BD
+/; { 2 1 M 1 1 L 1 2 L 2 2 L 2 0 L 1 -1 L S 1 5 M 2 5 L 2 4 L 1 4 L 1 5 L S}BD
+/la { 3 1 M 0 3 L 3 5 L S}BD
+/= { 0 2 M 4 2 L S 0 4 M 4 4 L S}BD
+/ra { 0 1 M 3 3 L 0 5 L S}BD
+/? { 3 2 M 3 3 L 4 4 L 4 5 L 3 6 L 2 6 L 2 6 L 1 5 L S 3 1 M 3 0 L S}BD
+/@ { 4 1 M 3 0 L 1 0 L 0 1 L 0 4 L 1 5 L 3 5 L 4 4 L 4 2 L 3 1 L 2 1 L 1 2 L 1 3 L 2 4 L 3 4 L 4 3 L S}BD
+/A { 0 0 M 0 5 L 1 6 L 3 6 L 4 5 L 4 0 L S 0 3 M 4 3 L S}BD
+/B { 0 0 M 3 0 L 4 1 L 4 2 L 3 3 L 0 3 L S 0 0 M 0 6 L 3 6 L 4 5 L 4 4 L 3 3 L S}BD
+/C { 4 1 M 3 0 L 1 0 L 0 1 L 0 5 L 1 6 L 3 6 L 4 5 L S}BD
+/D { 0 0 M 0 6 L S 0 6 M 3 6 L 4 5 L 4 1 L 3 0 L 0 0 L S}BD
+/E { 4 0 M 0 0 L 0 6 L 4 6 L S 3 3 M 0 3 L S}BD
+/F { 0 0 M 0 6 L 4 6 L S 3 3 M 0 3 L S}BD
+/G { 2 2 M 4 2 L 4 1 L 3 0 L 1 0 L 0 1 L 0 5 L 1 6 L 3 6 L 4 5 L S}BD
+/H { 0 0 M 0 6 L S 0 3 M 4 3 L S 4 0 M 4 6 L S}BD
+/I { 2 0 M 2 6 L S 1 6 M 3 6 L S 1 0 M 3 0 L S}BD
+/J { 0 1 M 1 0 L 2 0 L 3 1 L 3 6 L S 1 6 M 4 6 L S}BD
+/K { 0 0 M 0 6 L S 4 6 M 0 3 L 4 0 L S}BD
+/L { 0 6 M 0 0 L 4 0 L S}BD
+/M { 0 0 M 0 6 L 2 3 L 4 6 L 4 0 L S}BD
+/N { 0 0 M 0 6 L 4 0 L 4 6 L S}BD
+/O { 0 1 M 1 0 L 3 0 L 4 1 L 4 5 L 3 6 L 1 6 L 0 5 L 0 1 L S}BD
+/P { 0 0 M 0 6 L 3 6 L 4 5 L 4 4 L 3 3 L 0 3 L S}BD
+/Q { 1 0 M 0 1 L 0 5 L 1 6 L 3 6 L 4 5 L 4 1 L 3 0 L 1 0 L S 2 2 M 4 0 L S}BD
+/R { 0 0 M 0 6 L 3 6 L 4 5 L 4 4 L 3 3 L 0 3 L 4 0 L S}BD
+/S { 0 1 M 1 0 L 3 0 L 4 1 L 4 2 L 3 3 L 1 3 L 0 4 L 0 5 L 1 6 L 3 6 L 4 5 L S}BD
+/T { 2 0 M 2 6 L S 0 6 M 4 6 L S}BD
+/U { 0 6 M 0 1 L 1 0 L 3 0 L 4 1 L 4 6 L S}BD
+/V { 0 6 M 2 0 L 4 6 L S}BD
+/W { 0 6 M 0 0 L 2 3 L 4 0 L 4 6 L S}BD
+/X { 0 0 M 4 6 L S 0 6 M 4 0 L S}BD
+/Y { 2 0 M 2 3 L 4 6 L S 0 6 M 2 3 L S}BD
+/Z { 4 0 M 0 0 L 4 6 L 0 6 L S}BD
+/lsb { 3 0 M 1 0 L 1 6 L 3 6 L S}BD
+/bsl { 1 6 M 1 5 L 3 1 L 3 0 L S}BD
+/rsb { 1 0 M 3 0 L 3 6 L 1 6 L S}BD
+/^ { 0 4 M 2 6 L 4 4 L S}BD
+/_ { 0 0 M 4 0 L S}BD
+/` { 0 6 M 1 6 L 2 4 L 0 6 L S}BD
+/a { 4 3 M 4 1 L 3 0 L 1 0 L 0 1 L 0 3 L 1 4 L 3 4 L 4 3 L S 4 4 M 4 0 L S}BD
+/b { 0 6 M 0 0 L S 0 1 M 1 0 L 3 0 L 4 1 L 4 3 L 3 4 L 1 4 L 0 3 L S}BD
+/c { 4 1 M 3 0 L 1 0 L 0 1 L 0 3 L 1 4 L 3 4 L 4 3 L S}BD
+/d { 4 6 M 4 0 L 1 0 L 0 1 L 0 3 L 1 4 L 4 4 L S}BD
+/e { 4 0 M 0 0 L 0 4 L 4 4 L 4 2 L 0 2 L S}BD
+/f { 1 -1 M 1 4 L 2 5 L 3 5 L 4 4 L S 0 2 M 2 2 L S}BD
+/g { 0 -2 M 1 -3 L 3 -3 L 4 -2 L 4 4 L 1 4 L 0 3 L 0 1 L 1 0 L 4 0 L S}BD
+/h { 0 0 M 0 6 L S 0 4 M 3 4 L 4 3 L 4 0 L S}BD
+/i { 2 0 M 2 4 L S 2 5 M 2 6 L S}BD
+/j { 0 -2 M 1 -3 L 2 -3 L 3 -2 L 3 4 L S 3 5 M 3 6 L S}BD
+/k { 1 0 M 1 6 L S 4 0 M 1 2 L 4 4 L S}BD
+/l { 2 0 M 2 6 L S}BD
+/m { 0 0 M 0 4 L S 0 3 M 1 4 L 3 4 L 4 3 L 4 0 L S 2 4 M 2 0 L S}BD
+/n { 0 0 M 0 4 L S 0 3 M 1 4 L 3 4 L 4 3 L 4 0 L S}BD
+/o { 0 1 M 1 0 L 3 0 L 4 1 L 4 3 L 3 4 L 1 4 L 0 3 L 0 1 L S}BD
+/p { 0 -3 M 0 4 L 3 4 L 4 3 L 4 1 L 3 0 L 0 0 L S}BD
+/q { 4 -3 M 4 4 L 1 4 L 0 3 L 0 1 L 1 0 L 4 0 L S}BD
+/r { 0 0 M 0 4 L S 0 3 M 1 4 L 3 4 L 4 3 L S}BD
+/s { 0 1 M 1 0 L 3 0 L 4 1 L 3 2 L 1 2 L 0 3 L 1 4 L 3 4 L 4 3 L S}BD
+/t { 2 0 M 2 5 L S 1 4 M 3 4 L S}BD
+/u { 0 4 M 0 1 L 1 0 L 3 0 L 4 1 L 4 4 L S}BD
+/v { 0 4 M 2 0 L 4 4 L S}BD
+/w { 0 4 M 1 0 L 2 2 L 3 0 L 4 4 L S}BD
+/x { 0 4 M 4 0 L S 4 4 M 0 0 L S}BD
+/y { 0 -2 M 1 -3 L 3 -3 L 4 -2 L 4 4 L S 4 0 M 1 0 L 0 1 L 0 4 L S}BD
+/z { 0 4 M 4 4 L 0 0 L 4 0 L S}BD
+/lcb { 3 0 M 2 1 L 2 5 L 3 6 L S 2 3 M 1 3 L S}BD
+/| { 2 6 M 2 4 L S 2 2 M 2 0 L S}BD
+/rcb { 1 0 M 2 1 L 2 5 L 1 6 L S 2 3 M 3 3 L S}BD
+/~ { 0 5 M 1 6 L 3 6 L 4 5 L 4 1 L 3 0 L 1 0 L 0 1 L 0 5 L S 2 8 M 2 -2 L S}BD
+/ { 1 6 M 3 6 L 3 4 L 1 4 L 1 6 L S}BD
+end
+/BuildGlyph{6 0 setcharwidth exch /CharProcs get exch 2
+copy known not {pop /.notdef} if get exec}BD
+/BuildChar {1 index /Encoding get exch get 1 index /BuildGlyph get exec}BD
+currentdict
+end
+/R3vff exch definefont pop
+
+initgraphics  0.072 0.072 scale
+1 SLW
+1 SLC
+1 SLJ
+6434 3546 M
+1434 3546 L
+1434 7546 L
+6434 7546 L
+6434 3546 L
+S
+/pad0
+{GS T 1 SLW
+0 0 M
+-75 0 L
+0 0 75 179 89 arcn
+0 75 L
+0 0 L
+CF
+1 SLW
+0 0 M
+75 0 L
+0 0 75 0 269 arcn
+0 -75 L
+0 0 L
+CF
+GR}def
+6434 7546 pad0
+1434 7546 pad0
+1434 3546 pad0
+/pad1
+{GS T 1 SLW
+-29 -39 M
+-29 39 L
+29 39 L
+29 -39 L
+-29 -39 L
+CF
+GR}def
+/pad2
+{GS T 1 SLW
+39 0 M
+0 0 39 0 179 arc
+-39 0 L
+0 0 39 179 0 arc
+39 0 L
+CF
+GR}def
+/pad3
+{GS T 1 SLW
+39 0 M
+0 0 39 0 179 arc
+-39 0 L
+0 0 39 179 0 arc
+39 0 L
+CF
+GR}def
+/pad4
+{GS T 1 SLW
+49 0 M
+0 0 49 0 179 arc
+-49 0 L
+0 0 49 179 0 arc
+49 0 L
+CF
+GR}def
+/pad5
+{GS T 1 SLW
+-15 -10 M
+15 -10 L
+14 0 10 275 84 arc
+15 10 L
+-15 10 L
+-15 0 10 89 269 arc
+-15 -10 L
+CF
+GR}def
+/pad6
+{GS T 1 SLW
+69 0 M
+0 0 69 0 179 arc
+-69 0 L
+0 0 69 179 0 arc
+69 0 L
+CF
+GR}def
+5284 7046 pad1
+5184 7046 pad1
+5084 7046 pad1
+4984 7046 pad1
+4884 7046 pad1
+4784 7046 pad1
+4684 7046 pad1
+4584 7046 pad1
+4584 7346 pad1
+4684 7346 pad1
+4784 7346 pad1
+4884 7346 pad1
+4984 7346 pad1
+5084 7346 pad1
+5184 7346 pad1
+5284 7346 pad1
+5134 4596 pad1
+5034 4596 pad1
+4934 4596 pad1
+4834 4596 pad1
+4734 4596 pad1
+4634 4596 pad1
+4534 4596 pad1
+4434 4596 pad1
+4334 4596 pad1
+4234 4596 pad1
+4134 4596 pad1
+4034 4596 pad1
+3934 4596 pad1
+3834 4596 pad1
+3734 4596 pad1
+3634 4596 pad1
+3534 4596 pad1
+3434 4596 pad1
+3334 4596 pad1
+3234 4596 pad1
+3134 4596 pad1
+3034 4596 pad1
+2934 4596 pad1
+2834 4596 pad1
+2834 5196 pad1
+2934 5196 pad1
+3034 5196 pad1
+3134 5196 pad1
+3234 5196 pad1
+3334 5196 pad1
+3434 5196 pad1
+3534 5196 pad1
+3634 5196 pad1
+3734 5196 pad1
+3834 5196 pad1
+3934 5196 pad1
+4034 5196 pad1
+4134 5196 pad1
+4234 5196 pad1
+4334 5196 pad1
+4434 5196 pad1
+4534 5196 pad1
+4634 5196 pad1
+4734 5196 pad1
+4834 5196 pad1
+4934 5196 pad1
+5034 5196 pad1
+5134 5196 pad1
+3084 6746 pad2
+3084 6246 pad2
+2334 5396 pad3
+2934 5396 pad3
+4534 5996 pad2
+4534 5396 pad2
+4384 5996 pad2
+4384 5396 pad2
+4234 5396 pad2
+4234 5996 pad2
+4083 5396 pad2
+4083 5996 pad2
+3934 5396 pad2
+3934 5996 pad2
+3784 5396 pad2
+3784 5996 pad2
+4834 5996 pad2
+4834 5396 pad2
+3634 5396 pad2
+3634 5996 pad2
+3484 5396 pad2
+3484 5996 pad2
+3334 5396 pad2
+3334 5996 pad2
+3184 5396 pad2
+3184 5996 pad2
+5534 5846 pad2
+5534 5246 pad2
+5134 5996 pad2
+5134 5396 pad2
+4984 5996 pad2
+4984 5396 pad2
+5134 4496 pad2
+5134 3896 pad2
+4734 4396 pad2
+4734 3796 pad2
+4434 4296 pad2
+4434 3696 pad2
+2134 4546 pad3
+2734 4546 pad3
+4584 4496 pad2
+4584 3896 pad2
+5584 4096 pad2
+5584 4696 pad2
+2033 6696 pad4
+2834 6696 pad4
+1684 5946 pad2
+1684 6546 pad2
+4984 6196 pad2
+4984 6796 pad2
+2033 6196 pad4
+2834 6196 pad4
+4334 6846 pad2
+4334 6246 pad2
+5284 6246 pad2
+5284 6846 pad2
+2934 3746 pad2
+2934 4346 pad2
+5534 6546 pad2
+5534 5946 pad2
+4034 3946 pad2
+4034 4046 pad2
+4034 4146 pad2
+4034 4246 pad2
+4034 4346 pad2
+6284 7003 pad5
+6284 6893 pad5
+6284 6784 pad5
+6284 6674 pad5
+6284 6565 pad5
+6284 6455 pad5
+6284 6346 pad5
+6284 6237 pad5
+6284 6127 pad5
+6284 6018 pad5
+6284 5908 pad5
+6284 5799 pad5
+6284 5689 pad5
+6184 6948 pad5
+6184 6839 pad5
+6184 6729 pad5
+6184 6620 pad5
+6184 6510 pad5
+6184 6401 pad5
+6184 6291 pad5
+6184 6182 pad5
+6184 6072 pad5
+6184 5963 pad5
+6184 5853 pad5
+6184 5744 pad5
+6234 7246 pad6
+6234 5446 pad6
+5584 4996 pad3
+5734 5246 pad3
+5834 4996 pad3
+18 SLW
+4634 4596 M
+4634 4546 L
+4584 4496 L
+S
+2834 6196 M
+2834 5446 L
+2884 5396 L
+2934 5396 L
+S
+3084 6246 M
+3084 5446 L
+3034 5396 L
+2934 5396 L
+S
+2834 6696 M
+2834 6346 L
+2734 6246 L
+2734 5446 L
+2684 5396 L
+2334 5396 L
+S
+3034 4596 M
+3034 3796 L
+2984 3746 L
+2934 3746 L
+S
+4083 5396 M
+4083 5246 L
+4034 5196 L
+S
+3934 5396 M
+3934 5196 L
+S
+3784 5396 M
+3784 5246 L
+3834 5196 L
+S
+3634 5396 M
+3634 5296 L
+3734 5196 L
+S
+3484 5396 M
+3584 5246 L
+3634 5196 L
+S
+5134 4496 M
+5134 4596 L
+S
+4734 4396 M
+4734 4596 L
+S
+4534 4596 M
+4484 4546 L
+4484 4346 L
+4434 4296 L
+S
+4384 5396 M
+4384 5246 L
+4334 5196 L
+S
+4534 5396 M
+4534 5296 L
+4434 5196 L
+S
+5134 5396 M
+5134 5346 L
+5084 5296 L
+5034 5296 L
+4934 5196 L
+S
+4984 5396 M
+4984 5346 L
+4834 5196 L
+S
+4834 5396 M
+4834 5296 L
+4734 5196 L
+S
+4234 5396 M
+4234 5296 L
+4134 5196 L
+S
+4584 7346 M
+4584 7146 L
+4634 7096 L
+4634 5296 L
+4534 5196 L
+S
+4684 7346 M
+4684 7146 L
+4734 7096 L
+4734 5296 L
+4634 5196 L
+S
+5284 7046 M
+5284 6846 L
+S
+5084 7046 M
+5084 6296 L
+5134 6246 L
+5284 6246 L
+S
+4984 7046 M
+4984 6796 L
+S
+4884 7046 M
+4884 6246 L
+4934 6196 L
+4984 6196 L
+S
+5184 7046 M
+5184 6596 L
+5234 6546 L
+5534 6546 L
+S
+4984 7346 M
+4984 7196 L
+5034 7146 L
+5084 7146 L
+5134 7096 L
+5134 6396 L
+5184 6346 L
+5334 6346 L
+5384 6296 L
+5684 6296 L
+5689 6291 L
+6184 6291 L
+S
+6284 6455 M
+6334 6396 L
+6334 6287 L
+6284 6237 L
+S
+5084 7346 M
+5084 7196 L
+5134 7146 L
+5534 7146 L
+5584 7096 L
+5584 6596 L
+5634 6546 L
+5784 6546 L
+5803 6565 L
+6284 6565 L
+S
+6284 6455 M
+6284 6565 L
+S
+5584 4696 M
+5584 4996 L
+S
+40 SLW
+5184 7346 M
+5184 7446 L
+4484 7446 L
+4484 6246 L
+4334 6246 L
+S
+2033 6696 M
+2033 6196 L
+S
+1684 5946 M
+1684 5196 L
+2834 5196 L
+S
+2934 4596 M
+2934 4346 L
+S
+2834 5196 M
+2834 5096 L
+2934 5096 L
+2934 4596 L
+S
+2033 6696 M
+1934 6696 L
+1934 5946 L
+1684 5946 L
+S
+4334 6846 M
+4234 6846 L
+4234 6096 L
+S
+5534 5846 M
+5534 5946 L
+S
+5834 4996 M
+5834 4096 L
+5584 4096 L
+S
+5534 5846 M
+5434 5846 L
+5434 5196 L
+5134 5196 L
+S
+5134 3896 M
+5209 3896 L
+5209 5196 L
+5134 5196 L
+S
+showpage
+

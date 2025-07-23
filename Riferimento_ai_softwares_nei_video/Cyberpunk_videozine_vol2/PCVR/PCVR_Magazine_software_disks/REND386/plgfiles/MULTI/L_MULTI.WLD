@@ -1,0 +1,24 @@
+worldscale 1.0	        # 1.0 mm per unit
+
+hither            10    # anything closer than this gets clipped
+yon         20000000    # anything farther than this doesn't get rendered
+
+start  8581,650,3769 5,0,0 1
+light  0,5000,0
+skycolor 12      #  Dave, this does'nt work
+groundcolor 39
+ambient 76
+screenclear 0
+
+split 0,0,0 1,0,0 1
+#object 3door 1,1,1  0,0,0  0,0,0 256
+#object group3 .4,.4,.4  0,-60,0  8800,300,-6900 256
+#object three 1,1,1  0,0,0  0,0,0 256 . fixed
+object l_multi 1,1,1  0,0,0  0,0,0 256
+object ltable 1,1,1  0,0,0  0,0,0 256
+object l_multi 1,1,1  0,0,0  300,0,-1200 256
+object ltable 1,1,1  0,0,0  300,0,-1200 256
+object l_multi 1,1,1  0,0,0  600,0,-2400 256
+object ltable 1,1,1  0,0,0  600,0,-2400 256
+
+endsplits

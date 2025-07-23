@@ -1,0 +1,263 @@
+The Official PowerGlove Serial Interface (PGSI) Frequently Asked Questions
+(FAQ) post.
+
+Last modified:  3-1-95
+
+Stored on:  ftp.acm.uiuc.edu in PGSI/ as pgsi-faq
+
+Questions that will be answered in this FAQ:
+
+ 1  What is the PGSI?
+ 2  What products do you sell?  Do you have a catalog?
+ 3  Will the PGSI work on my machine?
+ 4  What advantages does the PGSI have over parallel port glove interfaces?
+ 5  What does the PGSI package include?
+ 6  What software is available for the PGSI?
+ 7  What are the capabilities of the SEGA driver circuitry?
+ 8  Does the PGSI come with a power supply?
+ 9  Where can I find more information about the PGSI, PowerGlove,
+    and Virtual Reality?
+ 10 Can I purchase the PGSI as a kit?
+ 11 Is it possible to obtain the user's manual, and is it on FTP?
+ 12 Is it possible to use two PowerGloves with the PGSI at once?
+ 13 How much is a PGSI?
+ 14 How do I order a PGSI?
+ 15 How can I pay for a PGSI?
+ 16 Can a PGSI be shipped overseas?
+ 17 How long will I have to wait for my PGSI?
+
+The ftp site has been moved, so please make sure you use ftp.acm.uiuc.edu .
+
+Questions and Answers:
+
+1  What is the PGSI?
+
+The PowerGlove Serial Interface (PGSI) is a small black box that allows
+the Mattel PowerGlove to be interfaced to any computer which has a standard 
+RS-232 serial port.  The device measures 3.35" by 1" by 1.5" and connects to
+to any DB-25 style RS-232 connector.  The PGSI will work with any IBM,
+IBM-compatible, Amiga, Macintosh, Workstation, or other type of computer that
+has a standard serial port.  The device interfaces the PowerGlove and/or
+SEGA-style shutter glasses to the computer, and communicates with them using
+standard RS-232 data values.  The interface emulates both the AGE and the
+Menelli command sets, has extensions to allow the user to read in values from
+either 8 Analog-Digital Ports or 1 digital port consisting of 8 pins, and
+can be reprogrammed with code updates by the end-user.
+
+2  What products do you sell?
+
+Despite popular belief, we are not a company.  We have no catalog, and
+We carry only one product, our own PowerGlove Serial Interface.  We do,
+however, sell the following items to support the PowerGlove Serial Interface,
+but these are ONLY AVAILABLE WITH THE PURCHASE OF A PGSI:
+	PowerGloves--
+	 	We have several used gloves.
+	Power Supplies--
+		We sell a 12 volt, 300 ma power supply to be used with
+		the PowerGlove Serial Interface
+	Macintosh Mini-din to DB-25 RS232 cables
+		For those who wish to use the PGSI with a Macintosh,
+		we also sell the cable to connect the PGSI to a Macintosh.
+
+Unfortunately, we DO NOT have shutter glasses of any type, and we cannot
+sell PowerGloves without the purchase of a PGSI.  (One glove per PGSI,
+please.)
+
+3  Will the PGSI work on my machine? 
+
+The PGSI will work with your machine if it has an RS-232 (EIA-232) port.
+The IBM, Amiga, and workstations typically have a port that will work
+directly.  Macintosh users will need to purchase a Mac MiniDin 8 to DB-25
+adapter (also available through ACM at UIUC).  If you have a 9 pin serial
+port you will need to purchase a nine to twenty-five pin converter from an
+electronics or computer store.
+
+
+4  What advantages does the PGSI have over parallel port glove interfaces?
+
+Parallel port glove interfaces use CPU time on their host machine.  They
+depend on the host CPU for timing purposes, which means that in many
+cases they make your host machine wait in a timing loop in order to clock
+data out of the PowerGlove.  As a result, your computer has less processor
+time to do calculations, and the end effect is that your computer seems
+slower.  The PGSI contains its own micro-controller, dedicated to receiving
+data from the PowerGlove and sending it in serial packets to the host
+machine.  This minimizes the amount of host processor time used.
+
+Another disadvantage of parallel interfaces is the fact that they use a
+parallel port.  Since some machines made today-- including many
+workstations--do not have parallel ports, parallel interfaces may limit
+availability for some users.  In addition, the parallel port may not be
+standard across all platforms.  The PGSI works with the serial port, which
+is standard on nearly every machine made today.
+
+5  What does the PGSI package include?
+
+An assembled PGSI
+A printed user's manual
+Demo programs (Mac or IBM)
+
+All code and program updates will be put on our anonymous FTP site.
+
+6  What software is available for the PGSI?
+
+We currently have a functional Mac mouse driver replacement written by one
+of our members, Jay Kreibich (jak@uiuc.edu).  We will include the binary
+and the source code with the PGSI Mac distribution.  Jay is also working on
+a set of Mac libraries.
+
+Chris Wilson has written a Windows 3.1 application called Maestro II, for
+the PC.  Maestro allows you to use the glove on a virtual keyboard that
+outputs to a MIDI device.
+
+Charlie Lindahl (lindahl@cse.uta.edu) has written code to allow the PGSI to
+work with REND386.  His code is not yet complete, and does not support all
+of the functions of the PGSI.  His code does NOT presently support the SEGA
+glasses.
+
+If anyone is interested in writing drivers or other software for the PGSI,
+we will gladly take submissions and redistribute them.  If you wish to make
+a submission, please uuencode your files and mail them to pgsi@uiuc.edu.
+If possible please include a short description or readme.  Also, please
+make sure you tell me what compression programs if any you may have used
+and what version.  As of this date, we have no plans to sell any of the
+software for the PGSI and will distribute applications under a GNU-type
+license unless the authors wish otherwise.  All of our available software
+will be placed on our ftp site.
+
+7  What are the capabilities of the SEGA driver circuitry?
+
+The SEGA driver circuitry will work with either the Toshiba or the SEGA
+shutter glasses.
+
+The SEGA driver circuitry is capable of the following:
+
+One-wire control (LEFTON/RIGHTOFF, LEFTOFF/RIGHTON)
+Two-wire control (LEFTON/RIGHTOFF, LEFTOFF/RIGHTON
+      	          LEFTOFF/RIGHTOFF, LEFTON/RIGHTON)
+No-wire control (Use software RS-232 commands to emulate 
+      	          two-wire control)
+
+The SEGA circuitry is used to power LCD shutter glasses, which can be used
+with a monitor to present the illusion of a 3-Dimensional on-screen
+picture.  One-wire control uses one of the handshake lines to control which
+lens is transparent.  Two-wire control uses both handshake lines to control
+the lenses independently.  Software emulation (no-wire control) uses serial
+commands to control the LCD shutters.
+
+Note: We have no SEGA or Toshiba glasses for sale
+
+8  Does the PGSI come with a power supply?
+
+The PGSI is not sold with a power supply, although it does require
+one.  It uses a standard "brick"-type supply.  The PGSI can accept a wide
+variety of input voltages.  Anything from 9 volts to 24 volts at 500 - 1000
+mA is acceptable.  The polarity of the plug is not important, as the PGSI
+has its own rectifier (built-in polarity converter) to maintain the correct
+polarity.  Power supplies can be purchased from ACM at UIUC if necessary.
+
+
+9  Where can I find more information about the PGSI, PowerGlove, and
+   Virtual Reality?
+
+More information is available via:
+	The Web at http://www.acm.uiuc.edu/sigarch/pgsi/
+	FTP at ftp.acm.uiuc.edu in /pub/pgsi/
+
+The USENET group sci.virtual-worlds has discussions on both the PGSI and
+the PowerGlove as well as many other aspects of virtual reality.  The group
+sci.virtual-worlds.apps discusses various working applications that
+incorporate virtual reality.  The newsgroups are moderated.  Archives of
+sci.virtual-worlds are located on ftp.u.washington.edu in
+pub/user-supported/virtual-worlds/postings.  Archives of
+sci.virtual-worlds.apps are located on kth.se in
+pub/sci.virtual-worlds.apps.  Many of the applications discussed in these
+newsgroups are also located on these ftp sites.
+
+There is also a mailing list called homebrew-vr that carries discussions
+about the PowerGlove, PGSI, and other homebuilt VR devices.  You can subscribe
+to it by sending email to: homebrew-vr-request@acm.uiuc.edu
+
+	with "subscribe" in the subject of the message.
+
+For those without USENET access there are listservs called virtu-l and
+vrapp-l.  They contain reposts from sci.virtual worlds and
+sci.virtual-worlds.apps.  You can subscribe by sending a message to
+listserv@vmd.cso.uiuc.edu or listserv@uiucvmd on Bitnet) with a message
+body containing: subscribe virtu-l Your_Full_Name or subscribe vrapp-l
+Your_Full_Name
+
+10 Can I purchase the PGSI as a kit?
+
+No.  We no longer offerthe PGSI in kit form.
+
+11  Is it possible to obtain the user's manual, and is it on FTP?
+
+The original version of the user's manual (version 1.0) is available on our
+new FTP site:
+                      ftp.acm.uiuc.edu in /pub/pgsi
+
+The appendix to the new manual is also available on the ftp site, though
+the full electronics text of the second revision was lost.  Only hard
+copies remain. :(
+
+12  Can two gloves be used with the PGSI at the same time?
+
+The PGSI was designed to accept two PowerGloves at the same time.  The code
+for two-glove support has not yet been written, and in truth, may never be
+completed.  It is our hope that the use of two gloves will be supported at some time,
+but at present there is no one working on it.
+
+Note: Two PGSI single-glove units will not work together, since the devices
+are not synchronized and the glove units will interfere.
+
+ 13 How much is a PGSI?
+
+Current prices for the PowerGlove Serial Interface and attachments are:
+
+	PowerGlove Serial Interface		$115
+	12 Volt Power Supply (optional)		$12
+	Mac Mini-din to RS232 cable (optional)	$12
+	Used PowerGlove				$20
+
+This price includes shipping within the US.
+
+ 14 How do I order a PGSI?
+
+Ordering a pgsi is very simple.  You just fill out the order form
+(located on the ftp site ftp.acm.uiuc.edu in /pub/pgsi/order-form),
+print it out, and send us the printout along with your check or
+money order.  If you are over seas, please mail us about shipping
+costs.  We will then send your order as soon as we can.
+
+ 15 How can I pay for a PGSI?
+
+ACM is a non-profit organization, not a company.  This limits the ways
+in which we can accept payment.  We prefer a personal or coroporate check,
+or money order, though purchase orders are acceptable if you get them
+approved by us first.
+
+ 16 Can a PGSI be shipped overseas?
+
+Yes.  We will ship overseas, but additional shipping fees apply.
+
+ 17 How long will I have to wait for my PGSI?
+
+We currently have about 50 PGSI's available.  These units are available
+for immediate shipment.  We are, however, not a company.  Our members do
+not get paid in any way for their time with our organization.   This means
+that we are often a little bit slow with shipping, especially around finals
+and exam times (We're all students).  In the US, you should have your
+PGSI about 2 weeks after you oder it, unless we get busy.
+
+18 What exactly comes with the PGSI?
+
+The PGSI comes with the PowerGlove Serial Interface, a bound manual with
+instructions on how to use the interface, and the examples from the
+ftp site ftp.acm.uiuc.edu for either the PC or the Macintosh (whichever
+you chose).  Additionally, you can order a powersupply, Mac minidin to rs232
+cable, and PowerGlove.
+
+The PGSI Team
+ACM at UIUC
+pgsi@uiuc.edu

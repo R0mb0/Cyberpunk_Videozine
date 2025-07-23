@@ -1,0 +1,46 @@
+---------------------------------------------------------------------------
+Anonymous FTP server:	cherupakha.media.mit.edu (18.85.0.47)
+This file:		pub/miniboard/README
+Last updated:		Thu Mar 11 14:28:41 1993
+---------------------------------------------------------------------------
+
+This directory contains information about the Mini Board 2.0, a
+6811-based robotic controller board.
+
+These subdirectories contain the following:
+
+miniboard/docs/		Manual for the Mini Board controller.  Must
+			be printed on a PostScript printer.
+
+miniboard/mac/		Macintosh compiled applications and source
+			code for the DLM downloader and Motorola's
+			AS11 assembler.
+
+miniboard/ms-dos/	MS-DOS binary and C source code for code
+			downloader.  Used to download assembled
+			6811 code to the Mini Board.  Motorola's AS11
+			assembler for DOS.
+
+miniboard/unix/		source code for downloader, ready to compile
+			on Unix machine.
+
+miniboard/lib11/	C and assembler libraries to allow use of
+			Dave Dunfield's Micro-C system with the
+			Mini Board.  More information in the docs.
+
+miniboard/hexmon/	Program to allow interaction with Mini Board
+			hardware (e.g., motor control and sensor
+			input) over standard serial line.
+
+miniboard/layout/	Macintosh file (archived using StuffIt and
+			BinHex) creating using PCB layout program
+			"Professional Layout"; Gerber-format copies
+			of the board as well.
+
+miniboard/rb-archive/	Archive of "robot-board" mailing list.
+			Lots of Q & A about the Mini Board.
+
+Make sure that you transfer MS-DOS executables using the FTP binary
+mode.
+
+For more info, contact Fred Martin (fredm@media.mit.edu).

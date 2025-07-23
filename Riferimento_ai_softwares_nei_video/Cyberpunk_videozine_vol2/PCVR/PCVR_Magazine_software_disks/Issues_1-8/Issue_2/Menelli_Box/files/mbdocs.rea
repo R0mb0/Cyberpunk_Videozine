@@ -1,0 +1,59 @@
+---------------------------------------------------------------------------
+Anonymous FTP server:	cher.media.mit.edu (18.85.0.47)
+This file:		~ftp/pub/miniboard/docs/README
+Last updated:		Thu Nov  5 10:40:27 1992
+---------------------------------------------------------------------------
+
+This directory contains the documentation for the Mini Board 2.0, in
+PostScript form. 
+
+The main document is split into parts of about ten pages each, named
+mb1.PS through mb5.PS.  Each of these documents should print on any
+PostScript compatible printer.
+
+A schematic diagram for the design is contained in the main document.
+
+The files "mbserial.txt" and "mbspi.txt" provide technical information
+about the operation of the Mini Board's serial port and serial
+peripheral interface, respectively, which has not yet been integrated
+into the main Mini Board manual.
+
+The file "sensors.PS" in an excerpt from the "6.270 Robot Builder's
+Guide," the course manual for the MIT LEGO Robot Design Competition.
+This illustrates how to build a variety of common robotics sensors
+which are compatible with the Mini Board.
+
+The file "chapter6.PS.Z" is a link to the Chapter 6 from the Builder's
+Guide, which describes the theory of operation of the sensors
+illustrated in the previous pages.  (Note that this file is stored in
+binary compressed form, using Unix compress, so it must be transferred
+using FTP binary mode.)
+
+The file "6811intr.PS" is a 40-page introduction to assembly language
+programming on the 6811.  If you are a novice to the 6811 and assembly
+language in general, this would be a good document to get you started.
+
+----
+
+PRINTING NOTES:
+
+You will need a PostScript printer to print any of the .PS files.  All
+of the printouts will work fine on an Apple LaserWriter and most other
+PostScript laser printers as well, though there may be some problems
+some of the time.
+
+The most common printing problem will occur when you are printing the
+doc's to a printer on a Macintosh network.  If the printer has been
+used by a Mac running Mac OS System 6, it will have had installed in
+its RAM a LaserPrep dictionary that will conflict with my PostScript
+files, causing printing to stop on particular pages.
+
+The solution to this is to reboot the printer and then re-print the
+file, submitting the print job *before* any other Mac print job is
+allowed to run.
+
+If you still have printing problems, or if you're not using a
+Macintosh system at all and you're experiencing difficulties, try
+downloading the files "mb1.PS" through "mb9.PS" in the directory
+"small."  These files contain the documentation in five-page
+increments and may be easier for your printer to deal with.

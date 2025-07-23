@@ -1,0 +1,52 @@
+#
+# MOLECULE.WLD
+#
+# World file containing molecules
+#
+# Created by TKL September 1992
+# for use with the REND386 package.
+# For more information, contact tkl@inel.gov
+
+loadpath r386w\wld\worlds1\molecule
+
+skycolor 250
+groundcolor 250
+
+hither            10    # anything closer than this gets clipped
+yon          1000000    # anything farther than this doesn't get rendered
+
+stepsize 5
+
+options a   # camera angles are tilt,pan,roll
+
+#start 500,600,-6000 0,0,0 2  # starting location, orientation and zoom
+camera 1 500,600,-6000 0,0,0 2  # starting location, orientation and zoom
+camera 2 90 12700 -2000 85.937500 21.484375 0.000000 2.000000
+
+ambient 76	# ambient lighting
+
+#object name=filename sx,sy,sz rx,ry,rz tx,ty,tz depthtype mappings parent
+
+#a small brown atom on rhs of screen
+object m1=s1b 2.,2.,2. 0,0,0 2000,200,-1000 #depthtype mappings parent
+
+#a large multicolored atom in the upper rhs of screen
+object m3=s1c 3.,3.,3. 0,0,0 2000,1500,-1000 #depthtype mappings parent
+
+#grand molecule using s1.plg and s1a.plg.  Connecting bonds (cylinders)
+#have been removed.
+figure m2=newmol6	1.,1.,1. 0.,0.,0. 500.,200,.-200.
+
+#tasks.  Spin all of the objects?  Does the grand molecule spin???
+# note uneven speed when close to middle.  Animations would help...
+
+task sculspin 1 m1;0,-15,0 # spin the single molecule
+task sculspin 5 m2;0, 15,0 # spin the whole molecule
+task sculspin 5 m3;0, 15,0 # spin the secone single moleule
+
+# End of molecule.wld
+
+title Molecules
+title Created by TKL
+title contact tkl@inel.gov
+title memory

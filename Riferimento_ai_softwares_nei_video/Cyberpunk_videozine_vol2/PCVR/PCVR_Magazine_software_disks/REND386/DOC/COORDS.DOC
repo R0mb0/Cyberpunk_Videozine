@@ -1,0 +1,33 @@
+
+                      Coordinate Systems in REND386
+                   Written by Bernie Roehl, August 1992
+
+REND386 uses what's called a "left-handed" coordinate system.  If the X axis
+points to your right, and the Y axis points up, then the Z axis points away
+from you into the screen.  A horizontal plane extends out in X and Z, and
+has a constant Y value.
+
+In order to achieve good performance, REND386 uses 32 bit integer
+coordinates.  Because of internal precision requirements, you should not use
+the full 32 bits; in fact, you should not allow any coordinate value to be
+greater than 2^24 (i.e. about 4 million).
+
+Rotation angles are specified in floating-point on input, but are stored
+internally as 32-bit values scaled values.  Angles are always given in
+degrees, not radians.  
+
+As mentioned above, we use a left-handed coordinate system.  What this means
+is that if you were to wrap your left hand around any of the three axes (X,
+Y or Z) with your thumb pointing in the positive direction along that axis,
+your fingers would curl in the direction of a positive rotation around that
+axis.  Put another way, a positive rotation around X of 90 degrees would
+transform the positive Y axis into the positive Z axis (and so on).
+
+Note that releases of REND386 prior to late August of 1992 (the second release
+of version 4 of the demo) used a slightly different coordinate system; this
+has since been corrected.  Exisiting .plg files will not be affected; however,
+.fig files that specify rotations may have to be modified and .wld files will
+almost certainly have to be.
+
+The advantage of the change is that we are now using a system that is
+consistent with other graphics packages (such as POV-Ray, for example).

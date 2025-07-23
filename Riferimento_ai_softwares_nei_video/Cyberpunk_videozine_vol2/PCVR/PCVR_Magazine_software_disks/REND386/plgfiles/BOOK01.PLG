@@ -1,0 +1,62 @@
+#Object Name:Book
+#File Name:book01.plg
+#Author: Dennis McKenzie
+#Date: 7/16/95
+#Description:A thick book laying open 
+#Comments:
+
+
+#book
+
+book 24 12
+
+#left leaf
+-500 0 0
+-450 150 0
+-100 150 0
+0 50 0
+0 0 0
+-500 0 700
+-450 150 700
+-100 150 700
+0 50 700
+0 0 700
+
+#right leaf
+500 0 0
+450 150 0
+100 150 0
+0 50 0
+0 0 0
+500 0 700
+450 150 700
+100 150 700
+0 50 700
+0 0 700
+
+#binder
+-550 0 -50
+550 0 -50
+550 0 750
+-550 0 750
+
+
+#binder
+0x1000 4  20 21 22 23
+0x1000 4  23 22 21 20 
+
+#left leaf 
+0x1fff 5   0 4 3 2 1
+0x1fff 4   0 1 6 5
+0x1fff 4   1 2 7 6
+0x1fff 4   2 3 8 7
+0x1fff 5   5 6 7 8 9
+
+#right leaf 
+0x1fff 5   10 11 12 13 14 
+0x1fff 4   13 12 17 18
+0x1fff 4   12 11 16 17
+0x1fff 4   11 10 15 16
+0x1fff 5   19 18 17 16 15
+
+

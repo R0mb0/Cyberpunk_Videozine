@@ -1,0 +1,198 @@
+
+Well, here it is.  Rev 0.0. :-)
+
+--- cut here ---
+Mattel PowerGlove FAQ version 0.0, 23 Feb 1993
+Written by jet@nas.nasa.gov (j. eric townsend)
+ with *significant* help and input from randysh@microsoft.com (Randy Shedden)
+
+This is still in a very rough state (I haven't even spellchecked it
+yet :-) .  I hope to go to texinfo sometime in the near future.
+Please send changes/adds/deletes to jet@nas.nasa.gov
+
+
+0.0 Introduction
+  This document assumes you have a basic familiarity with the terms and
+concepts related to virtual reality.  It is written in flat ascii,
+formatted to 80 columns, and contains no control codes.  Future
+versions will probably be written in texinfo.
+
+0.1 What is a powerglove?
+ In 198? Mattel (the toy company) introduced the PowerGlove, a
+handtracking device based on a glove.  The PowerGlove was intended to
+work with the Nintendo Entertainment System (NES) in place of a
+regular controller.  The PowerGlove can track  motion of the glove in
+three-space, finger position, and has a set of buttons/switches on the
+top of the wrist.  It has two modes "hires" and "lores".  In "hires"
+mode, the PG reports the position in threespace, the orientation, and
+configuration of fingers along with the SELECT, START, A, B, CENTER
+and ARROW CLUSTER switches (which are a part of the NES standard
+controller).  In lores mode the glove reports position on the hand on
+the x and y axis and the buttons (thus emulating a NES controller
+completely and allowing one to use the glove with non-glove-specific
+games).
+
+0.2 Why use a PowerGlove instead of VPL's dataglove or Fubar's CoolDevice?
+  PowerGloves cost < $100.  If you don't know what a Dataglove costs,
+you probably can't afford it.
+
+0.3 What are the fundamental problems of using a PowerGlove
+  No official hardware/software support from Mattel, and the gloves
+aren't being produced any longer.
+  No official hardware/software support from any third party
+companies.
+  Everything you use was written by a fellow hacker.
+  This detailed list from Randy Shedden:
+   1. The ultrasonics involved in tracking your hand are somewhat
+      sensitive to the environment, ie. the PG will give faulty
+      readings if the sound bounces off the wall.  Which it is
+      susceptible to.
+   2. In order register your hand position, you must point your
+      knuckles at the reciever array.  It gets tiring holding your
+      hand up for extended periods.
+   3. The only information about hand orientation that get is rotation.
+      This is also called roll.  From flight technology, if you raise
+      one wing while you lower the other, this is called rolling the
+      plane.  Ascribing this behaviour to your hand, if you raise your
+      pinky while lowering your thumb, this would also be called roll.
+      If a plane moves it's nose to the left while the tail moves to the
+      right, the plane is said to yawl.  If you do the same thing with your
+      hand, the ultrasonic transmitters would point away from the sensor
+      array and you would lose all orientation information.
+      If a plane lowers it's nose while the tail is raised, the plane is
+      said to pitch.  If you do the same thing with your hand, again
+      you lose all orientation information.
+      So, while the VPL DataGlove can track yawl, pitch and roll.
+      The PG can only track roll (commonly called rotation).
+   4. The information about how your hand is configured is not
+      very accurate.  As mentioned above, the material that covers the
+      thumb and fingers has different electrical resistance depending
+      on how much it is flexed.  So, when you have a finger fully extended,
+      the material is not flexed at all.  When you have a finger fully
+      clenched, the material is flexed to it's functional limits.
+      This is expressed in terms of a degree of flexure (bentness)
+      for each digit.  This degree is one of 4 integer values.
+      0 means the digit is fully extended.
+      1 means the digit is a little bent
+      2 means the digit is more bent than straight and
+      3 means the digit is fully bent.
+      For each digit, this resolution isn't very good.  Aside from that,
+      it is hard to flex the material to reproduce the desire degree of
+      flexature.  For instance, it is not a trivial matter to do a gesture
+      that requires that the ring finger be at state 1 (a little bent).
+      This digital (no pun intended) value is also hard to maintain once
+      you have it, because moving the neighboring digits can have an effect
+      on the flexure of the digit in question.  Try bending your middle
+      finger without also bending your ring finger.
+      Additionally, Only the thumb and THREE of your fingers are tracked
+      at all.  For some reason, the PG doesn't keep track of your pinky.
+      In conparison, the VPL DataGlove gives much better resolution on
+      ALL of your digits and material (a small fiber optic cable) is
+      much easier to use than the bulky PG material.
+
+
+1.0 Resources
+  1.1 The PowerGlove mailing list
+    The PowerGlove mailing list is run by jet@nas.nasa.gov (J. Eric
+Townsend) from the machine boxer.nas.nasa.gov.  It operates on an
+automated listserv-type package, which means it can do lots of neat
+things, but users need to pay close attention to the instructions.
+    To subscribe, send a message to listserv@boxer.nas.nasa.gov with a
+body of "subscribe glove-list your-full-name".  Send this message from
+the account you want to recieve the list.  You cannot subscribe
+another person, or a different email address.  (If you would like to
+subscribe a local reflector, please email jet@nas.nasa.gov.)
+    The glove-list software supports file transfer by email, the
+moderator makes a serious attempt to have current versions of
+powerglove related software and mailing list archives available via
+the mail server.
+
+  1.2 sci.virtual-worlds (sci.v-r)
+    sci.v-r is a moderated usenet group dealing with virtual-reality issues.
+
+  1.3 ftp sites 
+    schmidt@cogsci.uwo.ca has offered the use of cogsci.uwo.ca as a
+powerglove related ftp site.  Check: /pub/vr for a variety of
+glove-list relted stuff.  karazm.math.uh.edu is no longer the
+powerglove ftp site.
+
+  1.4 Misc Resources
+    PCVR (Personal Computer Virtual Reality) magazine, contact
+gradecki@rodeo.uwyo.edu
+    rend386 mailing list. rend386 is a great rendering package for
+the 386, PG can be used as an input device.
+
+  1.n Other people who are working with it / Previous Works
+    This is sort of a history, I'm not sure of the exact order, but
+the facts are sort of correct.
+    Howard Eglestein (sp?) had an article in the July 1990 issue of
+Byte showing how to hook the PG to an IBM PC's parallel port and
+decoding the lores mode.
+    Greg Newby posted his results of decoding hires mode in
+sci.electronics.
+    Manfred Krauss figured out the timing of hires mode and wrote some
+code to run hires on an Atari ST.
+    Several people are using it as a MIDI input device.  PCVR has
+released a racketball game based on rend386 that uses the PG and the
+Sega 3D glasses.    
+    
+
+2.0 Hardware Interfaces
+
+  2.1 AGE built a serial interface device and sold them to a few
+universities.  They aren't generally available and have an almost
+mythical status.
+
+  2.2 Nugget/Goldbrick
+    Transfinite Systems Co. Inc built a PG interface that duplicated
+the AGE box, but only works with the Mac.  The Nugget was the "end
+user" box, while the Goldbrick was a "developer's interface".
+    Transfinite Systems Co. Inc
+    Post Office Box N
+    MIT Branch Post Office
+    Cambridge, MA 02139-0903
+    (617) 969-9570
+
+  2.3 PGSI
+    [insert summary of Jim Brain's box]
+
+  2.4 Ron Menelli built a 68HC11-based box that duplicates the AGE box
+and has made the schematics and code available via ftp.
+
+3.0 Software 
+
+  3.1 Amiga
+    [blank]
+  3.2 Mac
+    [blank]
+  3.3 PC
+    [blank]
+  3.4 Unix
+    [blank]
+    3.4.1 NeXT
+    [blank]
+    3.4.2 SGI
+    [blank]
+    3.4.3 Sun
+    [blank]
+
+4.0 Legal Issues
+    [blank]
+
+5.0 Related homebrew stuff
+  5.1 Sega glasses
+      Sega had a game that competed with the NES called "Sega Master
+system".  One of the neat doodads Sega made was a set of LCD shutter
+glasses, similar to Haitex goggles (and the shutter glasses many SGI
+visualization tools support).  They are discontinued, so check Toys R
+Us.  You can order a refurbished pair from SEGA for $34.95+$2.80 s/h; 1-800-USA-SEGA.
+  5.2 UForce controller
+      Broderbund makes/sells a NES-controller compatible 3space
+sensor.  Two plates at right angles contain a set of infrared emitters
+and detectors.  It has an NES-controller-mode and (yet another)
+"analog" mode.  No one has decoded the analog information and made it
+available to the net.  The UForce is currently available.
+
+--- cut here ---
+
+

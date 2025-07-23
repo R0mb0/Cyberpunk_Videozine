@@ -1,0 +1,21 @@
+The .ZIP file VOGLEPLG has all the source files in the VOGLE hierarchy.
+Just restore it over the top of an existing VOGLE installation.
+
+There are two demos. One is a simple implementation of BALLS.C. The
+other is a Visual C++ version that implements three of the samples:
+BALLS CUBE and LICOSA. I've also included a compiled version of the
+C++ demo. Don't try to display two windows at the same time, since
+it fucks up very well.
+
+In order to support calling from C++, I added C++ compatible prototypes
+to vogle.h. The only problem is that there are lots of compilation
+complaints  about incompatible parameters for various routines. It all
+seems to work though.
+
+The driver itself is in .../drivers/ibmpc/mswinext.c. It includes support
+for saving/restoring VOGLE instances, which needs to be supported in VOGLE
+itself for it to be implemented properly.
+
+I also changed drivers.c and makefile.win to introduce the new
+driver ("mswinext").
+

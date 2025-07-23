@@ -1,0 +1,41 @@
+# A handful of geometric primitives in IRIT input format
+
+# Written by Bernie Roehl, October 1992
+
+# Set resolution to desired value before running this; for example:
+#   resolution = 12; include("prims.irt");
+
+# Use irit2plg to convert the resulting .dat files to .plg format,
+# then use combvert to combine redundant vertices; in other words,
+#
+#    irit2plg box.dat | combvert >box.plg
+#
+
+origin = vector(0,0,0);
+top = vector(0,1,0);
+size = 1;
+
+# View matrix is the identity matrix:
+
+oldview = view_mat;
+view_mat = rotx(0);
+
+cube = box(origin,size,size,size);
+prism = extrude(poly(list(origin,vector(1,1,0),vector(1,0,0))),vector(0,0,1));
+con = cone(origin,top,size);
+truncone = con2(origin,top,size,size/2);
+cylinder = cylin(origin,top,size);
+sph = sphere(origin,size);
+donut = torus(origin,top,size,size/2);
+
+save("box", list(cube,view_mat));
+save("prism", list(prism,view_mat));
+save("cone", list(con,view_mat));
+save("truncone", list(truncone,view_mat));
+save("cylinder", list(cylinder,view_mat));
+save("sphere", list(sph,view_mat));
+save("torus", list(donut,view_mat));
+
+view_mat = oldview;
+
+# End of prims.irt

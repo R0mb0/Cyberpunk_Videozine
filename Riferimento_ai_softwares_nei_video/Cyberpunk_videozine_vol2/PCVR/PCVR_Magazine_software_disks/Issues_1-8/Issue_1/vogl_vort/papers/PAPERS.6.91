@@ -1,0 +1,255 @@
+
+PAPERS:
+=======
+Papers which are currently available from the Net via anonymous FTP.
+--------------------------------------------------------------------
+Last update June 15, 1991
+
+Updates: Contact to 'Paper Bank'-project maintainer
+  Juhana Kouhia
+  kouhia@nic.funet.fi [128.214.6.100]
+
+
+%O-field tells where from the paper is available.
+
+
+%K HAIN91
+%A Eric A. Haines
+%A John R. Wallace
+%T Shaft Culling for Efficient Ray-Traced Radiosity
+%D May 1991
+%O nic.funet.fi [128.214.6.100]  pub/graphics/papers/papers/hain91.ps.Z
+%O gondwana.ecr.mu.OZ.AU  pub/papers/hain91.ps.Z
+
+%K HALLE91a
+%A Michael Halle
+%T The Generalized Holographic Stereogram
+%J Master's Thesis
+%D February 1991
+%P 134
+%Z Summary of traditional and advanced holo-stereographic techniques. Heavy on geometrical optics, bandlimiting, optical predistortion.
+%O media-lab.media.mit.edu [18.85.0.2] holography/papers/halle91a/
+%O nic.funet.fi [128.214.6.100]  pub/graphics/papers/papers/hall91a.tar.Z
+
+%K HALLE91b
+%A Michael Halle
+%T The Ultragram: A Generalized Holographic Stereogram
+%J SPIE Practical Holography
+%D February 1991
+%P 15
+%Z Computer-based predistortion techniques for advanced holographic stereograms.
+%O media-lab.media.mit.edu [18.85.0.2] holography/papers/halle91b/
+%O nic.funet.fi [128.214.6.100]  pub/graphics/papers/papers/hall91b.ps.Z
+
+%K KYRI90
+%A George Kyriazis
+%T A Stydy on Architechtural Approaches for High Performance Graphics Systems
+%I Rensselaer Design Research Center, Technical Report No: 90041
+%D September 1990
+%O weedeater.math.yale.edu [128.113.23.17]  pub/Papers/kyri90.ps.Z
+%O nic.funet.fi [128.214.6.100]  pub/graphics/papers/papers/kyri90.ps.Z
+%O iear.arts.rpi.edu [128.113.6.10]  pub/papers/kyri90.ps.Z
+%O coral.cs.jcu.edu.au [137.219.17.4] graphics/papers/kyri90.ps.Z
+%O gondwana.ecr.mu.OZ.AU  pub/papers/kyri90.ps.Z
+
+%K MUSG88
+%A F. Kenton Musgrave
+%T Grid Tracing: Fast Ray Tracing For Height Fields
+%J Research Report YALEU/DCS/RR-639
+%D July, 1988
+%O weedeater.math.yale.edu [128.113.23.17]  pub/Papers/musg88.ms.Z
+%O nic.funet.fi [128.214.6.100]  pub/graphics/papers/papers/musg88.ps.Z
+%O iear.arts.rpi.edu [128.113.6.10]  pub/papers/musg88.ms.Z
+%O coral.cs.jcu.edu.au [137.219.17.4] graphics/papers/musg88.ps.Z
+%O gondwana.ecr.mu.OZ.AU  pub/papers/musg88.[ps|ms].Z
+
+%K MUSG89a
+%A F. Kenton Musgrave
+%T Prisms and Rainbows: a Dispersion Model for Computer Graphics
+%J Proceedings of the Graphics Interface '89 - Vision Interface '89
+%I Canadian Information Processing Society
+%C Toronto, Ontario
+%P 227-234
+%D June, 1989
+%O weedeater.math.yale.edu [128.113.23.17]  pub/Papers/musg89a.ms.Z
+%O nic.funet.fi [128.214.6.100]  pub/graphics/papers/papers/musg89a.ps.Z
+%O iear.arts.rpi.edu [128.113.6.10]  pub/papers/musg89a.ms.Z
+%O coral.cs.jcu.edu.au [137.219.17.4] graphics/papers/musg89a.ps.Z
+%O gondwana.ecr.mu.OZ.AU  pub/papers/musg89a.[ps|ms].Z
+
+%K MUSG89b
+%A F. Kenton Musgrave
+%A Craig E. Kolb
+%A Robert S. Mace
+%T The Synthesis and Rendering of Eroded Fractal Terrains
+%J Computer Graphics (SIGGRAPH '89 Proceedings)
+%V 23
+%N 3
+%D July 1989
+%P 41-50
+%Z info on efficiently ray tracing height fields
+%K fractal, height fields
+%O weedeater.math.yale.edu [128.113.23.17]  pub/Papers/musg89b.ms.Z
+%O nic.funet.fi [128.214.6.100]  pub/graphics/papers/papers/musg89b.ps.Z
+%O coral.cs.jcu.edu.au [137.219.17.4] graphics/papers/musg89b.ps.Z
+%O gondwana.ecr.mu.OZ.AU  pub/papers/musg89b.ps.Z
+
+%K MUUS88
+%A M. J. Muuss
+%T Excerpts from "Workstations, Networking, Distributed Graphics, and Parallel Processing"
+%I BRL Internal Publication  (???)
+%D July 1988
+%Z The paper has been presented at the International Summer Institute, "State of the Art in Computer Graphics", Exeter, UK, 43 pages + 17 p. appendix
+%O freedom.graphics.cornell.edu [128.84.247.85] pub/RTNews/Muuss.parallel.Z
+%O nic.funet.fi [128.214.6.100]  pub/graphics/papers/papers/muuss.parallel.ps.Z
+%O coral.cs.jcu.edu.au [137.219.17.4] graphics/papers/muuss.parallel.ps.Z
+%O gondwana.ecr.mu.OZ.AU  pub/papers/muuss.parallel.ps.Z
+
+%K MUUS??
+%A M. J. Muuss
+%A C. M. Kennedy
+%T The BRL-CAD Benchmark Test
+%I BRL Internal Publication  (???)
+%D ?????
+%O freedom.graphics.cornell.edu [128.84.247.85] pub/RTNews/Muuss.benchmark.Z
+%O nic.funet.fi [128.214.6.100]  pub/graphics/papers/papers/muuss.benchmark.ps.Z
+%O coral.cs.jcu.edu.au [137.219.17.4] graphics/papers/muuss.benchmark.ps.Z
+%O gondwana.ecr.mu.OZ.AU  pub/papers/muuss.benchmark.ps.Z
+
+%K SHIR90a
+%A Peter Shirley
+%T Physically Based Lighting Calculations for Computer Graphics
+%I Thesis
+%D November 1990
+%O weedeater.math.yale.edu [128.113.23.17]  pub/Papers/shir90a/
+%O nic.funet.fi [128.214.6.100]  pub/graphics/papers/papers/shir90a/
+%O coral.cs.jcu.edu.au [137.219.17.4] graphics/papers/shir90a/
+
+%K SHIR90b
+%A Peter Shirley
+%T Monte Carlo Method
+%I Appendix from the SHIR90a
+%D November 1990
+%O nic.funet.fi [128.214.6.100]  pub/graphics/papers/papers/shir90b.ps.Z
+%O coral.cs.jcu.edu.au [137.219.17.4] graphics/papers/shir90b.ps.Z
+
+%K WILS91
+%A Tom Wilson
+%T Ray Tracing Abstracts Survey
+%D June 1991
+%O weedeater.math.yale.edu [128.113.23.17]  pub/Papers/wils.6.91.shar.Z
+%O nic.funet.fi [128.214.6.100]  pub/graphics/papers/papers/wils91.6.shar.Z
+%O coral.cs.jcu.edu.au [137.219.17.4] graphics/papers/wils91.6.shar.Z
+%O gondwana.ecr.mu.OZ.AU  pub/papers/rtabs.6.91.shar.Z
+
+==============================================================================
+
+
+INFO:
+=====
+
+==============================================================================
+
+                  "P A P E R   B A N K"   P R O J E C T
+                  -------------------------------------
+                              Juhana Kouhia
+
+
+INTRODUCTION
+------------
+
+I'm a computer science student in my second year at Tampere University of
+Technology, Finland.
+
+I have organized and run the 'Paper Bank' project for computer graphics papers
+since December 1990.  The idea of this project is to distribute through the
+international computer network in electronic format theses, reports, or any
+papers which are freely distributable.  This allows faster and wider
+dissemination than traditional methods.  For example, people can take a new
+thesis from the other side of the world, print it out, and make copies of it
+for people at their site.
+
+There have been a couple of misunderstandings about this project, so I wish to
+clarify the distribution policy:
+
+  -I do not distribute unpublished papers.
+  -I do not forward unpublished papers to organizations like ACM or
+   IEEE for publishing in their journals.
+  -Theses and papers published in journals have been reviewed by
+   experts.
+  -Every paper is in the Net by permission of the author; I do not
+   assume responsibility for distributing papers illegally if the
+   author does not have permission to distribute her/his paper.
+  -My work is only to take the paper and put it onto the anonymous FTP
+   site(s) and update the list of the papers currently on the Net.
+
+I'm doing this in my free time without any pay and my project has nothing to
+do with the Tampere University of Technology or with the Finnish Academic and
+Research Network Project FUNET, except that I can use their computers.
+
+
+WHERE CAN YOU GET THE PAPERS?
+-----------------------------
+
+Papers are in several sites which have an anonymous FTP server and have
+a bit of disk space for this project.  For example, you can take latest
+NetPapers-file from nic.funet.fi [128.214.6.100], directory
+pub/graphics/papers.  The file contains info about the papers in the Net;
+unfortunately there are not many papers yet.  (Ask me or your system
+administrator for more information about how to use FTP if you don't know.)
+
+Data entry for the paper is the roffbib-format:  %K-field specifies a short
+key which tells in what name the paper is on the disk, %A-fields specifies the
+author(s) of the paper, %T-fields specifies the title of the paper.  You can
+find more information from the manual page of the addbib command in Unix
+systems.  I have used the %O-field to specify from which site(s) you can get
+the paper.
+
+Format of the electronic papers is mainly PostScript.  PostScript is chosen
+because it is a less editable format than others and is the common language
+for laser printers.  File sizes for normal articles are about 50k, but a
+thesis with 180 pages could be over 1M.
+
+
+HOW DO YOU KNOW ABOUT NEW PAPERS?
+---------------------------------
+
+I inform readers of the comp.graphics (UseNet news group) about new papers
+by sending a short information article.  If the mentioned news group is not
+available I can send you a note via e-mail -- joining my mail-list is
+possible by sending mail to me.
+
+
+HOW TO SEND NEW PAPERS TO THE BANK?
+-----------------------------------
+
+Sending the paper to me is possible via anonymous FTP.  I work as a
+moderator and updater for the 'Paper Bank' and therefore I would like
+to get the incoming papers directly to me instead of sending them to the
+'Bank' computers.  The directory for incoming papers is in nic.funet.fi,
+pub/graphics/papers/incoming.
+
+If FTP is not available at your site, you can send the paper on IBM PC
+compatible, Macintosh or Amiga computer 3.5" or 5"1/4 diskette(s) via
+air or surface mail.
+
+I can convert the paper from several other formats to the PostScript format if
+you don't have such converters.  Contact me for more information.
+
+
+FOR MORE INFORMATION
+--------------------
+
+Please send questions, requests, suggestions etc. to my mail
+address:
+
+Juhana Kouhia
+Ylioppilaankatu 10 C 15
+33720 Tampere
+Finland
+
+E-mail:
+kouhia@nic.funet.fi
+kouhia@finfiles.bitnet
+==============================================================================
+

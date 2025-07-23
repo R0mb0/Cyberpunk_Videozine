@@ -1,0 +1,111 @@
+                   Depth Sorting and Splitting Planes
+                  Written by Bernie Roehl, August 1992
+
+Version 4.00 of the REND386 package has support for binary trees of
+"splitting planes" to help reduce the number of visibility errors.
+
+Visibility errors occur when polygons are not rendered in the proper
+order.  This is an inherent limitation of the depth-sorting approach, and
+since depth-sorting is the only technique that will let us achieve
+reasonable rendering speeds, visibility errors are a fact of life.
+
+Splitting planes give you more precise control over rendering order,
+and can get rid of some (but not all) object-object visibility errors.
+
+To understand how visibility errors occur, and how splitting planes can help,
+consider the following situation:
+
+                 /
+        object1 /
+               /
+              /
+             /
+            / object2
+           /
+          /
+         /
+        /
+
+            ^observer
+
+There are two objects (object1 and object2), one on each side of an opaque
+wall.
+
+From the position of the observer in the above diagram, object1 should be
+obscured behind the wall, and object2 should be visible.  The correct
+drawing order is "object1, wall, object2".
+
+However, since the farthest point on the wall is farther away than object1,
+the depth-sorting algorithm will cause the wall to get drawn first; the
+resulting order is "wall, object1, object2" (which is incorrect, since
+object1 appears to be on the near side of the wall when it's not).
+
+We can modify the depth sorting; let's say we sort by nearest point rather
+than farthest.  Clearly this will help in some cases; however, it
+doesn't work for the situation above.  What we'd have is just the opposite
+of the original situation; the order would be "object1, object2, wall", so
+object2 (which should be visible) isn't.
+
+This is a situation where splitting planes can help.  A splitting plane
+is an infinite mathematical plane that breaks space into two areas, one
+on each side of the plane.  When we go to render the scene, we draw the
+objects on the far side of the plane first, then objects "on" the plane,
+then objects on the near side of the plane.
+
+By introducing a splitting plane that runs along the wall, and rendering
+objects on the "far" side of the wall first, we eliminate the problem in
+the situation above; from where the observer is, object1 is on the "far"
+side of the plane and therefore gets drawn first.  The wall is "on" the
+plane, and gets drawn next.  Finally, object2 (which is on the "near"
+side of the plane) gets drawn.  The order is "object1, wall, object2",
+which is what we want.  If the observer moves to the other side of the
+wall, the solution still works; object2 will be on the far side, and
+will therefore be drawn first (followed by the wall, followed by object1).
+
+Note that a splitting plane is a true mathematical plane (i.e. it's
+infinitely large, and has no boundaries).  It is *not* a polygon!
+A splitting plane is defined by a point in the plane and by a normal to
+the plane.  The normal is a line pointing away from the plane: i.e. a
+normal to a floor or ceiling (i.e. constant z coords) might be 0,0,1.
+For a wall with constant x-coordinates, it would be 1,0,0.  Any angle
+can be specified.
+
+A single splitting plane divides space into two "areas"; we can further
+subdivide either or both of these with additional splitting planes.  The
+planes therefore define a binary tree, whose non-leaf nodes are the planes
+and whose leaf nodes are "areas" (with which we can associate various
+properties, including lists of objects in that area).
+
+Note that the order of split definition is important.  For example, four
+splits would perhaps form the pattern:
+
+    2     3   	                1      
+    2444443         or          1222222
+    2     3                     1     3
+111111111111                    1444443 
+                                1
+depending on the order in which they're defined.
+
+Also, you should try to keep walls, ceilings, floors, etc. confined within
+the area defined by their split.  Otherwise vis errors are likely.  It is
+possible to write a program to define splits automatically, and divide walls;
+so far this hasn't been done.  (any volenteers?)
+
+When an object moves, it has to be removed from its current location in the
+splitting tree and re-inserted at the correct place; this imposes a (small)
+overhead.  Because the object is not actually divided, but "exists" on the
+side determined by its center, the overhead is much smaller than with true
+BSP trees; however, it means that split trees are not foolproof when it comes
+to eliminating vis errors.
+
+It's important to keep in mind that splitting planes are not a cure-all; even
+with clever use of splitting planes one can still have visibility errors.
+However, they can be drastically reduced.
+
+By breaking non-convex objects into smaller, separate pieces, you can
+eliminate some errors.  By carefully setting the depth-sorting type field
+for certain objects, you can eliminate still more errors.  And by using
+splitting planes, you can remove most of the remaining errors.
+
+The combination of these techniques can result in scenes that can be rendered
+at high speeds, with relatively few vis errors.

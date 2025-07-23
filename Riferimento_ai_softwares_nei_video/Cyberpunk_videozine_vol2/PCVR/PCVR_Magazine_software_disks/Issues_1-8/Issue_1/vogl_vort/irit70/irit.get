@@ -1,0 +1,43 @@
+	This is IRIT 7.0 (see http://www.cs.technion.ac.il/~irit).
+IRIT 7.0 was fully tested on the following platforms. Previous version
+were tested on other platforms and it is expected that IRIT will
+compile on them with minor or no revisions at all.
+
+* SGI4D  (IRIX 5.x, IRIX 6.x).
+* SUN 4  (SunOS Release 4.1.2, Solaris)
+* Dec    (Alpha AXP running OSF1.3)
+* IBM PC (Window NT 4.0, OS2 3.0 Warp)
+* Amiga  (AmigaDOS 2.1)
+
+	Many thanks should go to Kriton Kyrimis for the Amiga port.
+
+	The distribution locations below have C sources as
+irit70src.*, decumetation is available as postscript files
+(irit70ps.*), man pages (irit70man.*), and http files
+(irit70www.*). Examples of images as irit40i.* (images from version
+4.0) and executables as irit70exe.* (irit7e*.* in msdos name convensions)
+when appropriate:
+
+	You can anonymous ftp IRIT 7.0 from the following locations:
+
+* ftp.cs.technion.ac.il [132.68.32.21], directory /pub/misc/gershon/irit
+  The is the homeland for Irit.
+  (contact person gershon@cs.technion.ac.il (Gershon Elber)).
+
+* ftp.uu.net [192.48.96.9], directory /graphics/irit
+  (contact archive@uunet.uu.net)
+
+* gondwana.ecr.mu.oz.au [128.250.70.62], /pub
+  (contact person bernie@ecr.mu.oz.au (Bernie Kirby)).
+
+* ftp-os2.nmsu.edu [128.123.35.151] os2/graphics.
+  This has only the executables. Sources should be ftp'ed from one
+  of the unix places above.
+ 
+* wuarchive.wustl.edu [128.252.135.4] pub/aminet/gfx/3d
+  has the Amiga port of IRIT 7.0.
+  (contact person kyrimis@cti.gr (Kriton Kyrimis)).
+
+Join IRIT mailing list:		gershon@cs.technion.ac.il
+Mailing list:			irit-mail@cs.technion.ac.il
+Bug reports:			irit-bugs@cs.technion.ac.il

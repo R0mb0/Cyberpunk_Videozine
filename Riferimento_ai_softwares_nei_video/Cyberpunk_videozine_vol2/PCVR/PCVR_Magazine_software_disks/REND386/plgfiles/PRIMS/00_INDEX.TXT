@@ -1,0 +1,8 @@
+box.plg           198  10-12-92  
+cone.plg          647  10-12-92  
+cylinder.plg     1048  10-12-92  
+primcvt.bat        36  10-12-92  
+prims.irt        1160  10-12-92  
+sphere.plg       6855  10-12-92  
+torus.plg       14858  10-12-92  
+truncone.plg     1024  10-12-92  

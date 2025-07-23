@@ -1,0 +1,5 @@
+dactyl.plg      11582  06-09-93  
+dactyl.wld       1895  06-09-93  
+dactyl2.plg     14432  06-08-93  
+dacupp.plg      10463  06-08-93  
+dacupp2.plg      5397  06-08-93  

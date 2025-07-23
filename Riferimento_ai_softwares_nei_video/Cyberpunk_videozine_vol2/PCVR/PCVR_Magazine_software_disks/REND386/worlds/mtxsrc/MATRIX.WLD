@@ -1,0 +1,75 @@
+# Your computer and data in the Matrix
+# copyright (c) 1994 Todd Porter
+# Programmed by:  Todd Porter
+
+
+worldscale 1.0
+hither     10
+yon        1000000
+start 1528,1000,491 25,15,0 2
+skycolor 0
+groundcolor 0
+
+ambient 76
+
+
+
+surfacedef bmrimmed 0xae7f
+surfacedef blrimmed 0xbeaf
+surfacedef gr       0xbdef
+surfacedef purple   0xc1ea
+
+
+surfacemap system
+surface 1 blrimmed
+
+surfacemap drive
+surface 1 gr
+
+surfacemap dir
+surface 1 purple
+
+
+object grid   1,1,1   0,0,0 0,0,0 256 . fixed
+object matrix 1,1,1 -90,0,0 2500,0,2500 0 system fixed 0 System
+object box    1,1,1   0,0,0    2200,0,2200   256 drive fixed 0 A:\
+object box    1,1,1   0,0,0    2450,0,2200   256 drive fixed 0 B:\
+object box    1,1,1   0,0,0    2700,0,2200   256 drive fixed 0 C:\
+object box    1,1,1   0,0,0    2200,0,2450   256 drive fixed 0 D:\
+object pyr    1,1,1   0,0,0   2705,0,2205 256 dir fixed 0 C:\2MWB
+object pyr    1,1,1   0,0,0   2725,0,2205 256 dir fixed 0 C:\WINDOWS
+object pyr    1,1,1   0,0,0   2745,0,2205 256 dir fixed 0 C:\2MCAD
+object pyr    1,1,1   0,0,0   2765,0,2205 256 dir fixed 0 C:\UTILS
+object pyr    1,1,1   0,0,0   2785,0,2205 256 dir fixed 0 C:\TURBODLD
+object pyr    1,1,1   0,0,0   2705,0,2225 256 dir fixed 0 C:\SSPRO
+object pyr    1,1,1   0,0,0   2725,0,2225 256 dir fixed 0 C:\SLMR
+object pyr    1,1,1   0,0,0   2745,0,2225 256 dir fixed 0 C:\BORLANDC
+object pyr    1,1,1   0,0,0   2765,0,2225 256 dir fixed 0 C:\SBPRO
+object pyr    1,1,1   0,0,0   2785,0,2225 256 dir fixed 0 C:\EZTAP
+object pyr    1,1,1   0,0,0   2705,0,2245 256 dir fixed 0 C:\MOUSE
+object pyr    1,1,1   0,0,0   2725,0,2245 256 dir fixed 0 C:\DOS
+object pyr    1,1,1   0,0,0   2745,0,2245 256 dir fixed 0 C:\BTFONTS
+object pyr    1,1,1   0,0,0   2765,0,2245 256 dir fixed 0 C:\BATCH
+object pyr    1,1,1   0,0,0   2785,0,2245 256 dir fixed 0 C:\ANIM
+object pyr    1,1,1   0,0,0   2705,0,2265 256 dir fixed 0 C:\TEMP
+object pyr    1,1,1   0,0,0   2725,0,2265 256 dir fixed 0 C:\CSERVE
+object pyr    1,1,1   0,0,0   2745,0,2265 256 dir fixed 0 C:\QUICKENW
+object pyr    1,1,1   0,0,0   2765,0,2265 256 dir fixed 0 C:\WORKDAY
+object pyr    1,1,1   0,0,0   2785,0,2265 256 dir fixed 0 C:\TEST
+object pyr    1,1,1   0,0,0   2705,0,2285 256 dir fixed 0 C:\FG
+object pyr    1,1,1   0,0,0   2725,0,2285 256 dir fixed 0 C:\WINCIM
+object pyr    1,1,1   0,0,0   2745,0,2285 256 dir fixed 0 C:\WIN32APP
+object pyr    1,1,1   0,0,0   2765,0,2285 256 dir fixed 0 C:\STACKER
+object pyr    1,1,1   0,0,0   2205,0,2455 256 dir fixed 0 D:\3164
+object pyr    1,1,1   0,0,0   2225,0,2455 256 dir fixed 0 D:\CSHOW
+object pyr    1,1,1   0,0,0   2245,0,2455 256 dir fixed 0 D:\PROWIN
+object pyr    1,1,1   0,0,0   2265,0,2455 256 dir fixed 0 D:\FORMFACT
+object pyr    1,1,1   0,0,0   2285,0,2455 256 dir fixed 0 D:\MUSIC
+object pyr    1,1,1   0,0,0   2205,0,2475 256 dir fixed 0 D:\NC9
+object pyr    1,1,1   0,0,0   2225,0,2475 256 dir fixed 0 D:\QL2FAX
+object pyr    1,1,1   0,0,0   2245,0,2475 256 dir fixed 0 D:\TELIX
+object pyr    1,1,1   0,0,0   2265,0,2475 256 dir fixed 0 D:\VR
+object pyr    1,1,1   0,0,0   2285,0,2475 256 dir fixed 0 D:\WP51
+object pyr    1,1,1   0,0,0   2205,0,2495 256 dir fixed 0 D:\ZIPS
+object pyr    1,1,1   0,0,0   2225,0,2495 256 dir fixed 0 D:\MSOFTRS
+object pyr    1,1,1   0,0,0   2245,0,2495 256 dir fixed 0 D:\READER

@@ -1,0 +1,47 @@
+# A window in a wall
+#
+# Created by Bernie Roehl, November 1992
+
+# The dimensions of the wall are 100 by 100, with the window 
+# bottom edge being 50 off the ground and 35 from the top, and
+# the left and right edges of the window being 35 from the nearest
+# wall edge.
+
+# The colors 0x8001 and 0x8002 are the "front" and "back" colors of the
+# wall; the colors 0x8003 and 0x8004 are the "front" and "back" colors of
+# the window glass.
+
+window 12 10
+
+0 0 0
+0 100 0
+25 100 0
+75 100 0
+100 100 0
+100 0 0
+75 0 0
+25 0 0
+25 75 0
+75 75 0
+75 50 0
+25 50 0
+
+# wall, side 1
+0x8001 4 0 1 2 7
+0x8001 4 2 3 9 8
+0x8001 4 3 4 5 6
+0x8001 4 6 7 11 10
+
+# wall, side 2
+0x8002 4 7 2 1 0
+0x8002 4 8 9 3 2
+0x8002 4 6 5 4 3
+0x8002 4 10 11 7 6
+
+# glass, side 1
+0x8003 4 8 9 10 11
+
+# glass, side 2
+0x8004 4 11 10 9 8
+
+# End of window.plg

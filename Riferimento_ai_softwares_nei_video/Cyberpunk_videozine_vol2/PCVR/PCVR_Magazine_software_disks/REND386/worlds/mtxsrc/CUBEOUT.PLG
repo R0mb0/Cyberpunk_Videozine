@@ -1,0 +1,33 @@
+# a cube visible from the outside, 1000x1000
+cubeout 8 6
+
+# vertices:
+# X    Y    Z
+		# front face
+-500 -500 -500  # vertex 0
+ 500 -500 -500  # vertex 1
+ 500  500 -500  # vertex 2
+-500  500 -500  # vertex 3
+
+		# back face
+-500 -500  500  # vertex 4
+ 500 -500  500  # vertex 5
+ 500  500  500  # vertex 6
+-500  500  500  # vertex 7
+
+# polygons: all cosine-lit, assorted colors
+# color #verts vert1 vert2 ...
+
+# these faces are derived from a shifted square
+0x11ff 4 0 1 2 3  # front face: counterclockwise
+0x12ff 4 7 6 5 4  # back face:  clockwise
+
+# these faces are facing us in the sketch, thus are CCW
+0x13ff 4 2 6 7 3  # top
+0x14ff 4 1 5 6 2  # right side
+
+# these faces are away from us in the sketch, and thus CW
+0x15ff 4 0 4 5 1  # bottom
+0x16ff 4 0 3 7 4  # left side
+
+

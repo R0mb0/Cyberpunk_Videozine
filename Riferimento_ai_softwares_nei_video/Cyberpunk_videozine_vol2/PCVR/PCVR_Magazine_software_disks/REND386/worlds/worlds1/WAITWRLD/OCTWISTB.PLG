@@ -1,0 +1,52 @@
+# octwist.plg--------------------
+
+# a twisted cylinder visible from the outside, 1000x1000# will show backface problems.
+octwist 16 18
+
+# vertices:
+# X    Y    Z
+# front face
+-190 -460 -500  # vertex 0
+ 190 -460 -500  # vertex 1
+ 460 -190 -500  # vertex 2
+ 460  190 -500  # vertex 3
+ 190  460 -500  # vertex 4
+-190  460 -500  # vertex 5
+-460  190 -500  # vertex 6
+-460 -190 -500  # vertex 7
+
+# back face
+-190 -460  500  # vertex 8
+ 190 -460  500  # vertex 9
+ 460 -190  500  # vertex 10
+ 460  190  500  # vertex 11
+ 190  460  500  # vertex 12
+-190  460  500  # vertex 13
+-460  190  500  # vertex 14
+-460 -190  500  # vertex 15
+
+# polygons: all cosine-lit, assorted colors
+# color #verts vert1 vert2 ...
+
+# these faces are derived from a shifted octagon
+0x24ff 8 0 1 2 3 4 5 6 7       # front face: counterclockwise
+0x24ff 8 15 14 13 12 11 10 9 8 # back face:  clockwise
+
+# these faces are facing us in the sketch, thus are CCW
+0x21ff 4 5 4 11 12  # top
+0x21ff 4 12 11 4 5  # top
+0x22ff 4 4 3 10 11
+0x22ff 4 11 10 3 4
+0x23ff 4 3 2 9  10  # right side
+0x23ff 4 10 9 2 3   # right side
+0x24ff 4 2 1 8 9
+0x24ff 4 9 8 1 2
+# these faces are away from us in the sketch, and thus CW
+0x25ff 4 15 8 1 0   # bottom
+0x25ff 4 0 1 8 15  # bottom
+0x26ff 4 14 15 0 7
+0x26ff 4 7 0 15 14
+0x27ff 4 13 14 7 6 # left side
+0x27ff 4 6 7 14 13 # left side
+0x28ff 4 12 13 6 5
+0x28ff 4 5 6 13 12

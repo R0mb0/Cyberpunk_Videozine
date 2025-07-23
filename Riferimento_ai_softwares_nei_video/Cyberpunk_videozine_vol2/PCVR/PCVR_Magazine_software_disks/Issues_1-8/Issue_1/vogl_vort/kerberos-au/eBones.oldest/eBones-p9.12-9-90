@@ -1,0 +1,29 @@
+eBones-p9 version 1.0 
+Date: 12-9-90
+
+-rw-r--r--  1 eay      system      32990 Sep 12 10:32 eBones-p9-des.tar.Z
+-rw-------  1 eay      system        740 Sep 12 10:33 eBones-p9.12-9-90
+-rw-r--r--  1 eay      system       1157 Sep 12 10:32 eBones-p9.README
+-rw-r--r--  1 eay      system      16383 Sep 12 10:32 eBones-p9.patch.Z
+-rw-r--r--  1 eay      system     665774 Sep 12 10:33 eBones-p9.tar.Z
+
+I have finally finished re-implementation of encryption in Bones.
+The following are the still existing problems.
+
+- The des routines need to be compatible with MIT version.
+They are not currently.  Soon I will have access to binary version of
+MIT's routines (they are shipped with ultrix 4) and I will attempt
+(by brute force if needed :-) to make all of my routines 100% compatible
+with the ultrix version.  This new version will be released when in the
+next few weeks (I hope :-).
+
+- rlogin -x and rcp -x could have problems when working with MIT's version
+
+- Since I am about to get snowed under with other work,
+I am sending out my version of encrypting Bones without as much
+testing as I would like.  All the programs work here on the vax
+architecture but I have not been able to test them on 68000, sparc or MIPS
+processors yet.  If there are any problems/fixes needed, please
+send them to me.
+
+eric (eay@surf.sics.bu.oz.au)

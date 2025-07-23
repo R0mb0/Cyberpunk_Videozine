@@ -1,0 +1,23 @@
+# Copyright 1993, Mark T. Pflaging
+# read the "readme!.now" file!  Now!
+start  2100,-500,-4200 10,0,0 1.0
+
+object s1=sq1 5,5,5  0,0,0  0,0,0 256
+object s2=sq2 5,5,5  0,0,0  1500,0,0 256
+object s3=sq3 5,5,5  0,0,0  3000,0,0 256
+object s4=sq4 1.8,1.8,1.8  0,0,0  4500,0,0 256
+object s5=sq5 1.8,1.8,1.8  0,0,0  6000,0,0 256
+object s6=sq6 1.8,1.8,1.8  0,0,0  7500,0,0 256
+
+#task spinner 50 s1;0x11fa,0x12fa,0x13fa,0x14fa,0x15fa,0x16fa,0x17fa,0x18fa,0x19fa,0x1afa,0x1bfa,0x1cfa,0x1dfa,0x1efa,0x1ffa
+#task spinner2 60 s1;256
+task sculspin 25 s1;0,16,0
+task sculspin 25 s2;16,0,0
+task sculspin 25 s3;0,0,16
+
+task sculspin 25 s4;8,16,8
+task sculspin 25 s5;16,8,8
+task sculspin 25 s6;8,8,16
+
+# Ciao baby
+

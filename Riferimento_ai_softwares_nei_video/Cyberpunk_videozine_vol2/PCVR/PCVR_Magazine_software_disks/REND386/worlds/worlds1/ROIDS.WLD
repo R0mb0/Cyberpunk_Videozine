@@ -1,0 +1,100 @@
+options cfp
+flymode 1
+# ROIDS.WLD
+#
+# Copyright (c) 1993 Waite Group Press
+# by Mitchell Waite
+# This world shows off several features of REND386. The world consists of
+# many two sided planes rotating about a central sun. The planes rotate
+# on their own axis. Their are four more smaller planes attached to each of the
+# four main planes. Spectacular sweeping movements result from this model.
+# The central sun was made up using NorthCAD Pro Series Modler V9.8 (The Quest Company)
+# This product has a NC9 to PLG file convertor that works great as you can see.
+# To make this world fun the central sun has a transparent window running
+# around it and transparent top. Whats nice about the NorthCAD convertor is
+# uses mostly four side polygons to make its objects and it creates both
+# inside and outside walls for the objects.
+
+loadpath roids
+camera 1 0,0,12000       0,-180,0  2  # starting location, orientation zoom
+camera 2 0,40000,0       90,-180,0  2  # starting location, orientation zoom
+camera 3 0,7000,6300     30,-180,0  2  # look down at solar system
+camera 4 0,11000,20000    30,-180,0  2  # look down at solar system
+camera 5 0,-2000,1200    11,-180,0  2  # look down at solar system
+
+
+GROUNDCOLOR 0xe1
+SKYCOLOR 0xe1
+ambient 76
+hither          10       # anything closer than this gets clipped
+yon             3000000    # anything farther than this doesn't get rendered
+
+
+segment pivot=world      -90,-90,0   0,0,0
+segment npivot=world      -90,-90,0   0,0,0
+# the following objs are made with NorthCAD3D. It has a translator that saves
+# PLGS in the correct format with proper walls inside and outside. Uncomment
+# the ones you wish to see.
+
+object W2=W2       5,5,5  90,0,0,  0,0,3000  0 . pivot
+#object octnc=octnc  .5,.5,.5  90,0,0,  0,0,3000  0 . pivot
+#object octncm=octnc  .25,.25,.25  90,0,0,  0,500,3000  0 . npivot
+#object octncm=octnc  .25,.25,.25  90,0,0,  0,-500,3000  0 . npivot
+object sphnc6=sphnc6  1.5,1.5,1.5  90,0,0,  0,0,0  0 . pivot
+
+# asteroids
+object facet=facetri       15,15,15  0,0,0,   10000,10000,0   0 . pivot
+  object moont=facetri     5,5,5  0,0,0,     5000,0,0   0 . facet
+  object moont2=facetri     5,5,5  0,0,0,   -5000,0,0   0 . facet
+  object moont3=facetri     5,5,5  0,0,0,   0,0,5000   0 . facet
+  object moont4=facetri     5,5,5  0,0,0,   0,0,-5000   0 . facet 
+
+object face=face       15,15,15  0,0,0,   10000,0,0   0 . pivot
+  object moon=face     5,5,5  0,0,0,     5000,0,0   0 . face
+    object smoon=facetri     5,5,5  0,0,0,     1500,0,0   0 . moon
+    object smoon2=facetri     5,5,5  0,0,0,     -1500,0,0   0 . moon
+    object smoon3=facetri     5,5,5  0,0,0,    0,0,1500   0 . moon
+    object smoon4=facetri     5,5,5  0,0,0,     0,0,-1500   0 . moon
+  object moon2=face     5,5,5  0,0,0,   -5000,0,0   0 . face
+  object moon3=face     5,5,5  0,0,0,   0,0,5000   0 . face
+  object moon4=face     5,5,5  0,0,0,   0,0,-5000   0 . face
+ 
+object face2=face      15,15,15  0,0,0,    -10000,0,0   0 . pivot
+  object moon5=face     5,5,5  0,0,0,     5000,0,0   0 . face2
+  object moon6=face     5,5,5  0,0,0,   -5000,0,0   0 . face2
+  object moon7=face     5,5,5  0,0,0,   0,0,5000   0 . face2
+  object moon8=face     5,5,5  0,0,0,   0,0,-5000   0 . face2 
+object face3=face      15,15,15  0,0,0,    0,10000,0   0 . pivot
+  object moon9=face     5,5,5  0,0,0,     5000,0,0   0 . face3
+  object moon10=face     5,5,5  0,0,0,   -5000,0,0   0 . face3
+  object moon11=face     5,5,5  0,0,0,   0,0,5000   0 . face3
+  object moon12=face     5,5,5  0,0,0,   0,0,-5000   0 . face
+object face4=face      15,15,15  0,0,0,   0,-10000,0   0 . pivot
+  object moon13=face     5,5,5  0,0,0,     5000,0,0   0 . face4
+  object moon14=face     5,5,5  0,0,0,   -5000,0,0   0 . face4
+  object moon15=face     5,5,5  0,0,0,   0,0,5000   0 . face4
+  object moon16=face     5,5,5  0,0,0,   0,0,-5000   0 . face4
+
+# this is the animation section
+animation 150
+ state a
+  do face=step(x,x,x  10,10,10)[]
+  do face2=step(x,x,x  15,15,15)[]
+  do face3=step(x,x,x  20,20,20)[]
+  do face4=step(x,x,x  25,25,25)[]
+  do facetri=step(x,x,x  30,30,30)[]
+  do moon=step(x,x,x  30,30,30)[]
+
+  do facet=step(x,x,x  -10,-10,-10)[]
+  do facet2=step(x,x,x  -15,-15,-15)[]
+  do facet3=step(x,x,x  -20,-20,-20)[]
+  do facet4=step(x,x,x  -25,-25,-25)[]
+
+  do pivot=step(x,x,x  0,0,20)[]
+  do npivot=step(x,x,x  0,0,-100)[]
+
+include ballw.ani
+
+title Asteroids!
+title by Mitchell Waite
+title memory

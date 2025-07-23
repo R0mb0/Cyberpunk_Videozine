@@ -1,0 +1,16 @@
+If you want to use a Menelli box with a PC, all you need is:
+
+        cphpg.s19  -- my version of glove code for HC11
+        dlm.exe    -- downloader program for PC, to write the .s19 file
+                      to the HC11's EEPROM
+        dl.bat     -- Batch file used to download s/w to HC11
+        menelli.gif - Circuit diagram
+
+If you think you might want to modify the HC11 code, get the 
+source (cphpg.asm) and the assembler (ass11.exe).
+
+A version of REND386 which works with the Menelli box is 
+available at http://www.cms.dmu.ac.uk/~cph/Public/Rend386/pgdemo.exe.
+
+
+cph / 11-Jul-94

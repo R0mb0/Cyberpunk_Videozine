@@ -1,0 +1,244 @@
+PLGX.EXE USER'S MANUAL
+
+A PLG file processing package
+by Dave Stampe (C) 13/5/93
+
+Getting Started:
+PLGX is a multipurpose PLG file processing utility 
+designed to improve the level of standardization among 
+PLG files, and to make modification and combination of 
+PLG files easier.  It supports many types of file 
+transformation, cleanup and modification, while 
+preserving the comments needed to make the PLG file 
+readable.
+
+When staring PLGX, you can get a quick syntax giude by 
+typing PLGX with no arguments.  You will see:
+
+PLGX.EXE PLG file processor (c) 1993 by Dave STampe
+USE: PLGX <infile> <outfile> <commands>
+Commands: <angle brackets> enclose a numeric argument
+
+/I information on objects
+ /?  this help screen
+/C or /CXYZ center object in x,y,z overall
+ /G or /GXYZ ground (bottom y default) or other axis
+ /Z  use center of gravity instead of box center
+/V or /V <delta> combines duplicate vertices (IRIT, NorthCad, etc)
+ /N  renumber vertices in comments (use with /V or new files)
+ /W  integer (whole) numbers only in output
+/T <tx,ty,tz> translate PLG objects
+ /R  <rx,ry,rz> left-handed, degrees: rotate PLG objects about (0,0,0)
+ /S  <scale> or /S <sx,sy,sz> scale PLG
+ /B  <size> or /B <sx,sy,sz> scale PLG to given size bounding box
+ /L  or /L <size> sets ize of longest axis, default 1000
+ /D  default size box, equivalent to /B 1000
+/P <color> repaints all polys in given color
+ /Q  repaints polys to random colors for debugging
+/F reverse vertex order of all polygons
+/O  object in file to process
+ /Y  all objects in file are considered one for /B, /D, /C, /G, /I
+
+on the computer screen.  There are a number of 
+commands available for you to use.  You can use PLGX 
+from the command line, typing in the arguments each 
+time, or make a batch file to implement your favorite 
+transformations.
+
+PLGX CAPABILITES:
+
+PLGX supports these operations on PLG files:
+
+Information: /I
+	gives PLG object names, polygon and vertex 
+counts, color mapping type (surface mapped, standard 
+colors, or one-to-one palette (absolute or raw 
+palette) colors.  Also gives the box bounds (the x, y, 
+and z axis planes that would enclose the object), the 
+center of the box and the size of the box (and thus 
+the PLG object) in the x, y, and z directions.
+These sizes are given seperately for each object in a 
+PLG file, if more than one exists.  By adding the /Y 
+command to the command line. the PLG file will be 
+prescanned to get the bounding box for all the objects 
+in the file, and these objects may then be treated as 
+one object for the purpose of transformation.
+
+Standardization:
+	several commands can be used to place a PLG 
+object in a standard location (centered about 0,0,0, 
+usually) or to change it to a standard size.  The 
+commands for this are /C, /G, /Z, /L, and /D.
+
+/C: Centers the object about (0,0,0).  If you add the 
+/Z command, the center will be the average of the 
+vertices rather than the center of the bounding box.  
+If several objects in one PLG file are to be loaded as 
+one object, use the /Y command to prevent all the 
+subobjects from being moved relative to each other.  
+If you don't want to center the object in all 
+directions, add the axis names you do want to change 
+to the command: for example, /CXZ or /CY.
+
+/G: "Grounds" the object, making the lower limit of 
+the box at (0,0,0).  This is useful for setting an 
+object to load with its bottom flush to the "ground", 
+for example /CXZ /GY will center an object, and make 
+its bottom flush to the ground when loaded with no 
+offset.  Grounding is also useful for setting the 
+rotation point of an object when animated or rotated 
+in PLGX, since rotation takes place around the (0,0,0) 
+point of an object.
+
+/D sets an object into a standard size bounding box of 
+1000x1000x1000 units.  This will make loading of 
+objects that need resizing (for example, rectangular 
+objects from cubes or wall section in a building) 
+easier to calculate.  
+Not all objects look good when cubic, so a proportion-
+aving varient is available.  /L sets the longest 
+dimension to be 1000 units long.  You can also specify 
+a size for the longest dimension: for example, /L 100 
+will make the longest dimension of an object 100 units 
+in length.
+
+Modifications:
+	other commands let you modify objects to combine 
+them or to make loading easier.  These commands are 
+/B, /S, /R, and /T.
+
+A very flexible version is /B, which sets the size of 
+the PLG object in all directions.  /B 100 will fit the 
+object into a 100x100x100 cube, while /B 1000,100,10 
+will fit the object into a 1000x100x10 box.  This is 
+useful for litting objects together into one larger 
+objects.  All parts of a composite object are affected 
+together by these sizing commands: to affect only part 
+of a PLG file, use the /O command.  For example, to 
+affect only the second object in a PLG file, add /O 2 
+to the command line.
+
+For absolute scaling, as when objects are loaded in 
+REND386, use the /S command.  You can scale the object 
+symmetricly: for example /S 1.5 will expland it 50%.  
+You can expand it differently on each axis: for 
+example /S 10,20,5 to change its shape.  DO NOT USE 
+NEGATIVE SCALING FACTORS: these will cause some parts 
+of the object to become invisible!
+
+/R will rotate the object as a whole about it (0,0,0) 
+point.  The /C and /G commands take effect before 
+rotation occurs to simplfy your task.  Rotation occurs 
+in the same way as in REND386: left-handed rotation, 
+with rotation about the Y axis firtst, X axis next, 
+and Z axis last.  By rotating around only one object 
+at a time, you won't need to worry about this.  
+Rotation is given in degrees: for example /R 0,90,0 
+will rotate a figure 90 degrees about the Y axis.
+
+/T moves an object's center after rotation.  This can 
+be used to exactly center an object, set its (0,0,0) 
+point about which it will turn as part of a jointed 
+figure, or to place it in a composite object.  For 
+example, /T 0,10,-10 will move an object up 10 units 
+and out (negative z) by 10 units.
+
+Coloring and Painting:
+	are required to make PLG objects visible for 
+editing or debugging.  Two simple paint commands are 
+included: /P and /Q.
+
+/P will paint every polygon in the PLG file the color 
+that follows it.  The color can be of any format that 
+is legal in a PLG file.  /P 0x1FFF would paint evey 
+polygon cosine-lit white.  You can paint any one 
+object in the file by using the /O command.
+
+/Q paints all the polygons in the file using a color 
+sequence, using cosine-lit colors with hues from 1 
+through 15.  This makes it easy to distinguish 
+polygons for debugging or painting the object.
+
+Emergency Surgery:
+	is needed when PLG files are created by some 
+translators from other 3D editors.  For example, IRIT 
+and NorthCad both produce seperate vertices for each 
+polygon of each object, increasing memory useage by 
+50% and slowing REND386 by 40%.  Also, some 
+translators produce polygons with the vertex lists in 
+the wrong order, making objects appear inside out.
+
+/V is used to merge duplicate vertices.  It will 
+usually check to see that each vertex is within 0.0001 
+unit of the duplicate: this is the delta.  You can set 
+the delta: for example, /V 10 will merge any vertices 
+that are within 10 units of each other.  THIS CAN 
+CAUSE DUPLICATE VERTICES IN A POLYGON AND COULD CRASH 
+REND386.
+
+If you use /V, you should use /N as well.  This will 
+add comments to vertex lines in the PLG file, making 
+debugging easier.  These will be added to those 
+comments already present, so you may have to clean up 
+the resulting file.  This function is also good for 
+annoting new PLG files automatically.
+
+/F will reverse the order of polygon's vertex lists, 
+to fix inside-out problems.  This should be used with 
+care.
+
+/W will round of the final vertex coordinates after 
+scaling, rotating, etc. to the nearest integer.  This 
+makes the PLG files look cleaner, especially if the 
+original polygon files used had many fractional 
+numbers, or the object had to be reduced in size.
+
+Order of operations:
+	in PLGX is important to determine how to best 
+modify your PLG files.  If you need to perform certain 
+actions out of sequence, you will have to create 
+intermediate PLG files and eun PLGX several times.
+
+First:  load file, /I
+Second: /C /G
+Third:  /R
+Fourth: /D /B /S  (all these operations are 
+mutually exclusive)
+Fifth:  /F
+Sixth:  /T
+Seventh:        /W
+Eighth: /V
+Ninth:  save file
+
+File Specifications:
+	allow you to specify PLG source and destination 
+files.  You need only specify the file names: PLGX 
+will add the .PLG extension if needed and if you have 
+not specified your own extension.  The first file name 
+is always the source file: the second is the 
+destination file.
+Generally, you should be very careful if specifying 
+the same source and destination files.  This can 
+confuse DOS, or destroy your files.  You can use al 
+least part of the source file name to make the 
+destination file name (this is handy in batch files).  
+Just place a '$' in the destination file name wher you 
+want the source file name to be inserted: PLGX file1 
+new\$  would process file1.plg to new\file1.plg, for 
+example.  
+
+SAMPLE USES:
+
+You should always run this on a new PLG file, so it 
+has a known size, and is as efficient as possible:
+
+plgx <source> <dest> /I /V /N /L /C
+
+To make an object recolorable by surface mapping, try
+
+plgx <source> <dest> /P 0x8001
+
+To look at a file's contents, try 
+
+plgx <source> /I
+

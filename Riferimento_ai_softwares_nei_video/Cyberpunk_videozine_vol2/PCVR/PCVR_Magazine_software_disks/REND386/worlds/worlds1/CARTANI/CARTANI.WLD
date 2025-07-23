@@ -1,0 +1,84 @@
+#
+# CARTANI.WLD
+#
+# A wheeled cart and sun demo for the animation chapter
+# Created by Dave Stampe, January 1993
+# for use with the REND386 package.
+#
+
+loadpath r386w\wld\worlds1\cartani
+
+start 1000,800,-2600 -0,0,0 2  # starting location, orientation and zoom
+camera 2 1000 5200 -280 0 65 0
+
+ambient 76
+
+# Surface definitions:
+
+surfacedef rd    0x11ff
+surfacedef blu   0x1bff
+surfacedef yel   0x16ff
+surfacedef grn   0x09ff
+
+surfacedef steel1    0x22eF
+surfacedef steel2    0x2c2F
+
+# Surface mappings:
+
+surfacemap red
+surface 1 rd
+surface 2 rd
+surface 3 rd
+surface 4 rd
+surface 5 rd
+surface 6 rd
+
+surfacemap blue
+surface 1 blu
+surface 2 blu
+surface 3 blu
+surface 4 blu
+surface 5 blu
+surface 6 blu
+
+surfacemap yellow
+surface 1 yel
+surface 2 yel
+surface 3 yel
+surface 4 yel
+surface 5 yel
+surface 6 yel
+
+# the cart animation
+
+object block 1,5,1 0,0,0 1000,0,2000 0 red
+
+segment pivot=world -90,-90,0 1000,0,2000
+
+object cart=ccube 2,0.2,5 -90,180,0 -1500,0,100  0  blue  pivot
+object wheel1=wheel 1,1,1 0,-90,0   -110,0,0 0 . cart
+object wheel2=wheel 1,1,1 0,90,0     110,0,0 0 . cart
+
+object ccube 1,1,1 0,0,0 0,0,2000  0  yellow  pivot
+object ccube 1,1,1 0,0,0 0,1500,1500  0  yellow  pivot
+
+animation 150
+ state a
+  do pivot=step(x,x,x x,x,-40)[]
+  do wheel1=step(x,x,x x,x,-200)[]
+  do wheel2=step(x,x,x x,x,200)[]
+
+# the sun animation
+
+segment spivot=world -45,-90,0 0,0,0 				   # the tilted pivot
+object sun=sun 3,3,3 0,0,0 0,-10000,10000 0 . spivot                      # the sun object
+mlight 0,0,0 1 40 sun                           # a point light source attached to the sun
+
+animation 150                                   # the sun animation (fast so it's smooth close up)
+  state a
+    do spivot=step(x,x,x x,x,15)[]                      # rotate at 15 degrees/second
+
+title Cart Animation
+title by Dave Stampe
+title memory
+

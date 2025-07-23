@@ -1,0 +1,385 @@
+
+/* (c) 1993 Bill Gerlt
+
+	 Permission is given to copy and distribute this code as long as
+	 this comment block is included in full and the code is not used
+	 in any commercial product without prior permission from the author.
+	 This source code is offered without warranty or guarantee of any kind,
+	 and the author expressly disclaims any responsibility for consequences
+	 of its use.
+
+	 This code compiles under Borland C++ v3.1.  It works only for DOS,
+	 not Windows.
+
+	 This is some sample code to get the PGSI working in AGE request
+	 mode.  It simply prints the PGSI data to the screen in an infinite
+	 loop after it finishes initializing.  It also drives the SEGA
+	 glasses, making them switch from left to right in the same infinite
+	 loop.
+
+	 Some of the initialization code is a little messy with delays
+	 and such due to my lack of understanding of the initial state
+	 of the glove and pgsi upon power-up.
+
+	William Gerlt <gerlt@feenix.metronet.com>
+*/
+
+#include <dos.h>
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+
+
+
+
+/* see the PGSI documentation for the details of the AGE
+	 packet layout */
+
+typedef struct age_packet
+{ unsigned char header1;
+	unsigned char header2;
+	char          x;
+	char          y;
+	char          z;
+	char          rot;
+	unsigned char flex;  /* the finger flex byte */
+	int thumb;           /* 0, 1, 2, or 3 for the thumb flex */
+	int finger1;         /* 0, 1, 2, or 3 for index finger flex */
+	int finger2;         /* 0, 1, 2, or 3 for middle finger flex */
+	int finger3;         /* 0, 1, 2, or 3 for ring finger flex */
+	unsigned char buttons;
+	unsigned char gstat1;
+	unsigned char gstat2;
+	unsigned char recvals;
+	};
+
+
+
+
+
+
+
+
+typedef struct serial_port
+{ char byte;
+	char enable_ints;
+	char int_id;
+	char line_control;
+	char modem_control;
+	char line_status;
+	char modem_status;
+	char junk;
+	};
+
+
+
+
+
+
+
+
+
+
+
+void get_age_packet (int port_addr, struct age_packet *packet)
+{ struct serial_port near *addr;
+
+	addr = (struct serial_port near *)port_addr;
+
+	/* When the port is ready, send 0x02 to request an AGE packet */
+	while ((inportb((int)&(addr)->line_status) & (1<<5)) == 0);
+	outportb((int)&(addr)->byte, (char)0x02);   /* age request packet */
+
+	/* Read until you find the beginning of the AGE packet, 0x5F,
+		 just in case there was some junk at the serial port */
+	(packet->header1) = 0x00;
+	while ((packet->header1) != 0x5F)
+		{ while ((inportb((int)&(addr)->line_status) & (1<<0)) == 0);
+			packet->header1 = (unsigned char)inportb((int)&(addr)->byte);
+			};
+
+	/* read the remaining 10 bytes in the packet */
+	while ((inportb((int)&(addr)->line_status) & (1<<0)) == 0);
+	packet->header2 = (unsigned char)inportb((int)&(addr)->byte);
+
+	while ((inportb((int)&(addr)->line_status) & (1<<0)) == 0);
+	packet->x = (char)inportb((int)&(addr)->byte);
+
+	while ((inportb((int)&(addr)->line_status) & (1<<0)) == 0);
+	packet->y = (char)inportb((int)&(addr)->byte);
+
+	while ((inportb((int)&(addr)->line_status) & (1<<0)) == 0);
+	packet->z = (char)inportb((int)&(addr)->byte);
+
+	while ((inportb((int)&(addr)->line_status) & (1<<0)) == 0);
+	packet->rot = (char)inportb((int)&(addr)->byte);
+
+	while ((inportb((int)&(addr)->line_status) & (1<<0)) == 0);
+	packet->flex = (unsigned char)inportb((int)&(addr)->byte);
+
+	while ((inportb((int)&(addr)->line_status) & (1<<0)) == 0);
+	packet->buttons = (unsigned char)inportb((int)&(addr)->byte);
+
+	while ((inportb((int)&(addr)->line_status) & (1<<0)) == 0);
+	packet->gstat1 = (unsigned char)inportb((int)&(addr)->byte);
+
+	while ((inportb((int)&(addr)->line_status) & (1<<0)) == 0);
+	packet->gstat2 = (unsigned char)inportb((int)&(addr)->byte);
+
+	while ((inportb((int)&(addr)->line_status) & (1<<0)) == 0);
+	packet->recvals = (unsigned char)inportb((int)&(addr)->byte);
+
+	/* pull apart the flex byte */
+	packet->thumb = (int)(((packet->flex) & 0xC0) >> 6);
+	packet->finger1 = (int)(((packet->flex) & 0x30) >> 4);
+	packet->finger2 = (int)(((packet->flex) & 0xC) >> 2);
+	packet->finger3 = (int)((packet->flex) & 0x3);
+	}
+
+
+
+
+/* turn both lenses dark at the same time */
+void glasses_both_dark (int port_addr)
+{ struct serial_port near *addr;
+
+	addr = (struct serial_port near *)port_addr;
+
+	while ((inportb((int)&(addr)->line_status) & (1<<5)) == 0);
+	outportb((int)&(addr)->byte, (char)0x18);
+	}
+
+
+
+/* turn both lenses clear at the same time */
+void glasses_both_clear (int port_addr)
+{ struct serial_port near *addr;
+
+	addr = (struct serial_port near *)port_addr;
+
+	while ((inportb((int)&(addr)->line_status) & (1<<5)) == 0);
+	outportb((int)&(addr)->byte, (char)0x19);
+	}
+
+
+
+
+
+
+/* turn the left lens dark and the right lens clear */
+void glasses_left_dark (int port_addr)
+{ struct serial_port near *addr;
+
+	addr = (struct serial_port near *)port_addr;
+
+	while ((inportb((int)&(addr)->line_status) & (1<<5)) == 0);
+	outportb((int)&(addr)->byte, (char)0x1B);
+	}
+
+
+
+
+
+/* turn the right lens dark and the left lens clear */
+void glasses_right_dark (int port_addr)
+{ struct serial_port near *addr;
+
+	addr = (struct serial_port near *)port_addr;
+
+	while ((inportb((int)&(addr)->line_status) & (1<<5)) == 0);
+	outportb((int)&(addr)->byte, (char)0x1A);
+	}
+
+
+
+
+
+
+void init_glove_age (int port_addr)
+{ struct serial_port near *addr;
+
+
+	struct age_packet *junk;
+	junk = (struct age_packet *)malloc(sizeof(struct age_packet));
+
+
+	addr = (struct serial_port near *)port_addr;
+
+	/* disable interrupts */
+	outportb((int)&(addr)->enable_ints,
+					 0);
+
+	/* tell line control no parity bit, 1 stop bit,
+		 and 8 data bits for PGSI */
+	outportb((int)&(addr)->line_control,
+					 (1<<7)|(0<<6)|(0<<3)|(0<<2)|(3));
+
+	/* turn the control lines on */
+	outportb((int)&(addr)->modem_control,
+					 (1<<3)|(1<<2)|(1<<1)|(1<<0));
+
+	/* 9600 baud for PGSI */
+	outportb((int)&(addr)->byte,
+					 12 & 0xFF);
+	outportb((int)&(addr)->enable_ints,
+					 12 >> 8);
+
+	/* tell line control we're done */
+	outportb((int)&(addr)->line_control,
+					 (0<<7)|(0<<6)|(0<<3)|(0<<2)|(3));
+
+	/* read and clear everything */
+	inportb((int)&(addr)->byte);
+	inportb((int)&(addr)->enable_ints);
+	inportb((int)&(addr)->int_id);
+	inportb((int)&(addr)->line_status);
+
+
+	/* initialize PowerGlove by sending 0x04 */
+	while ((inportb((int)&(addr)->line_status) & (1<<5)) == 0);
+	outportb((int)&(addr)->byte, (char)0x04);
+
+	/* might want to turn on filters and deglitching at this
+		 point, but I haven't yet */
+
+
+	/* wait a while for the glove's power-up message to get
+	finished going to the serial port */
+	delay(3000);
+
+	/* Keep requesting packets until you find the beginning of
+		 one. */
+	junk->header1 = 0;
+	while (((junk->header1) != 0x5F) ||
+				 ((junk->header2) != 0x5F))
+		{ /* put the PGSI in AGE request mode, which also requests
+				 a packet */
+			while ((inportb((int)&(addr)->line_status) & (1<<5)) == 0);
+			outportb((int)&(addr)->byte, (char)0x02);
+
+			/* let the packet you requested get finished.  read the
+				 last byte of it and try to get another one. */
+			delay(2000);
+			inportb((int)&(addr)->byte);
+			get_age_packet(port_addr,junk);
+			};
+
+	/* just for kicks, who's in a hurry?  don't know why,
+	   but this seems to be necessary */
+	delay(2000);
+	}
+
+
+
+
+
+
+void print_age_packet (struct age_packet *glove_data,
+											 int col,
+											 int row)
+{	gotoxy(col,row);
+	printf("header1 - %X  ", (int)(glove_data->header1));
+	gotoxy(col,++row);
+	printf("header2 - %X  ", (int)(glove_data->header2));
+	gotoxy(col,++row);
+	printf("x       - %d  ", (int)(glove_data->x));
+	gotoxy(col,++row);
+	printf("y       - %d  ", (int)(glove_data->y));
+	gotoxy(col,++row);
+	printf("z       - %d  ", (int)(glove_data->z));
+	gotoxy(col,++row);
+	printf("rot     - %d  ", (int)(glove_data->rot));
+	gotoxy(col,++row);
+	printf("thumb   - %d  ", glove_data->thumb);
+	gotoxy(col,++row);
+	printf("finger1 - %d  ", glove_data->finger1);
+	gotoxy(col,++row);
+	printf("finger2 - %d  ", glove_data->finger2);
+	gotoxy(col,++row);
+	printf("finger3 - %d  ", glove_data->finger3);
+	gotoxy(col,++row);
+	printf("buttons - %d", (int)(glove_data->buttons));
+	gotoxy(col,++row);
+	printf("gstat1  - %d", (int)(glove_data->gstat1));
+	gotoxy(col,++row);
+	printf("gstat2  - %d", (int)(glove_data->gstat2));
+	gotoxy(col,++row);
+	printf("recvals - %X", (int)(glove_data->recvals));
+	}
+
+
+
+
+
+#define COM1 0x3F8
+#define COM2 0x2F8
+
+#define COM3 0x3E8
+#define COM4 0x2E8
+
+
+
+
+/* make sure the PowerGlove is connected and powered up
+	 before you run this code */
+
+/* use whatever COM port you want, I chose COM2 */
+void main (void)
+{ struct age_packet *glove_data;
+
+
+	glove_data = (struct age_packet *)malloc(sizeof(struct age_packet));
+
+	window(1,1,80,25);
+	clrscr();
+	textcolor(7);
+
+	printf("Initializing glove...   ");
+
+	init_glove_age(COM2);
+
+	printf("Finished initializing glove");
+
+	/* the initialization can take a few seconds, be patient */
+
+	while (!kbhit())
+		{ get_age_packet(COM2, glove_data);
+			print_age_packet(glove_data, 5, 3);
+
+			/*glasses_both_clear(COM2);
+			gotoxy(2,20);
+			printf("left");
+			gotoxy(70,20);
+			printf("right");
+			delay(200);*/
+
+			glasses_both_dark(COM2);
+			gotoxy(2,20);
+			printf("     ");
+			delay(100);
+
+			gotoxy(70,20);
+			printf("right");
+			glasses_left_dark(COM2);
+			delay(100);
+
+			glasses_both_dark(COM2);
+			gotoxy(70,20);
+			printf("     ");
+			delay(100);
+
+
+			gotoxy(2,20);
+			printf("left");
+			glasses_right_dark(COM2);
+			delay(100);
+
+			/*glasses_both_dark(COM2);
+			gotoxy(2,20);
+			printf("     ");
+			gotoxy(70,20);
+			printf("     ");
+			delay(200);*/
+			};
+	/* could turn glove off */
+	}

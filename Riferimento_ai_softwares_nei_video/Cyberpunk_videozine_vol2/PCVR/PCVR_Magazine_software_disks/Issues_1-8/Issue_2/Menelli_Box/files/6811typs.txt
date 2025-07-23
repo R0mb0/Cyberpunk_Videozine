@@ -1,0 +1,84 @@
+From: kilian@cray.com (Alan Kilian)
+Newsgroups: sci.electronics
+Date: 23 Feb 93 00:11:50 GMT
+
+O.K. Here's REALLY everything I know about different versions of MC68HC11s:
+
+The following parts have a 4 MHZ non-multiplexed bus
++-----------------------------------------------------------------------------+
+| PART  | EPROM | ROM | EEPROM | RAM | IO |  Comments                         |
++-----------------------------------------------------------------------------+
+| 7N4   |  24K  |     |   640  | 768 | 62 | 8bit D/A, 6PWM, Math              |
+| N4    |       | 24K |   640  | 768 | 62 | 8bit D/A, 6PWM, Math              |
+| 7M2   |  32K  |     |        |1280 | 62 | 16bit Math Coprocessor            |
+| M2    |       | 32K |        |1280 | 62 | 16bit Math Coprocessor            |
+| 7P2   |  32K  |     |   640  |1024 | 62 | 2 extra SCI                       |
+| P2    |       | 32K |   640  |1024 | 62 | 2 extra SCI                       |
+| 7K4   |  24K  |     |   640  | 768 | 62 | 4PWM                              |
+| K4    |       | 24K |   640  | 768 | 62 | 4PWM                              |
+| KA4   |       | 24K |   640  | 768 | 51 | 4PWM                              |
+| K3    |       | 24K |   640  | 768 | 62 | 4PWM                              |
+| K1    |       |     |   640  | 768 | 62 | 4PWM                              |
+| K0    |       |     |        | 768 | 62 | 4PWM                              |
+| F1    |       |     |   512  |1024 | 30 |                                   |
++-----------------------------------------------------------------------------+
+
+The following parts have a 2 MHZ non-multiplexed bus
++-----------------------------------------------------------------------------+
+| PART  | EPROM | ROM | EEPROM | RAM | IO |  Comments                         |
++-----------------------------------------------------------------------------+
+| 7G5   |  16K  |     |        | 512 | 66 | 10bit A/D 4PWM                    |
+| G5    |       | 16K |        | 512 | 66 | 10bit A/D 4PWM                    |
+| G7    |       | 24K |        | 512 | 66 | 10bit A/D 4PWM                    |
+| 7J6   |  16K  |     |        | 512 | 54 |                                   |
+| J6    |       | 16K |        | 512 | 54 |                                   |
++-----------------------------------------------------------------------------+
+
+The following parts have a 3 MHZ multiplexed bus
++-----------------------------------------------------------------------------+
+| PART  | EPROM | ROM | EEPROM | RAM | IO |  Comments                         |
++-----------------------------------------------------------------------------+
+| E20   |       | 20K |   512  | 788 | 38 |                                   |
+| 7L6   |  16K  |     |   512  | 512 | 46 |                                   |
+| L6    |       | 16K |   512  | 512 | 46 |                                   |
+| L5    |  16K  |     |        | 512 | 46 |                                   |
+| L1    |       |     |   512  | 512 | 46 |                                   |
+| L0    |       |     |        | 512 | 30 |                                   |
+| 7E9   |  12K  |     |   512  | 512 | 38 |  4 input capture                  |
+| E9    |       | 12K |   512  | 512 | 38 |  4 input capture                  |
+| E1    |       |     |   512  | 512 | 38 |  4 input capture                  |
+| E0    |       |     |        | 512 | 22 |  4 input capture                  |
+| 8A8   |       |     | 8K+512 | 256 | 38 |                                   |
+| A8    |       |  8K |   512  | 256 | 38 |                                   |
+| A7    |       |  8K |        | 256 | 38 |                                   |
+| A1    |       |     |   512  | 256 | 38 |                                   |
+| A0    |       |     |        | 256 | 38 |                                   |
+| 7D3   |   4K  |     |        | 192 | 32 |                                   |
+| D3    |       |  4K |        | 192 | 32 |                                   |
+| D0    |       |     |        | 192 | 14 |                                   |
++-----------------------------------------------------------------------------+
+
+The following parts have a 2 MHZ multiplexed bus
++-----------------------------------------------------------------------------+
+| PART  | EPROM | ROM | EEPROM | RAM | IO |  Comments                         |
++-----------------------------------------------------------------------------+
+| 8E2   |       |     |    2K  | 256 | 38 |                                   |
++-----------------------------------------------------------------------------+
+
+Notes:
+0) To form part numbers from these designations, start with MC68HC and then add
+   a 7 or an 8 if the suffis has it, then 11 then the suffix, then the package
+   type. For example: 8E2 in a PLCC package is MC68HC811E2FN, 7D3 in a 48-pin
+   DIP is MC68HC711D3P, A8 in a PLCC is MC68HC11A8FN O.K.?
+1) On the E2, and F1 parts the EEPROM is relocatable to the top of any 4K page.
+   Relocation is done with the upper 4 bits of the CONFIG register.
+2) I think the L6 part comes in 64 or 68 pin versions.
+3) The E9 part only comes in 52 pin PLCC
+4) The A8 comes in either 52 pin PLCC or 48 pin DIP. 
+   On the 48 pin DIP version Port E bits 4,5,6,7 (Analog inputs 4,5,6,7) are
+   not available. That's where they get the extra 4 pins from.
+5) The suffix for 52 pin PLCC is "FN"
+   The suffix for 52 pin ceramic window is "FS"
+   The suffix for 48 pin DIP  is "P"
+
+

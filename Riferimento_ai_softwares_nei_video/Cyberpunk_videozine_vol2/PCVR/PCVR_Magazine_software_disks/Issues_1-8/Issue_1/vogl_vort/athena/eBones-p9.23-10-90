@@ -1,0 +1,20 @@
+eBones-p9 version 1.5 (previous released version was 1.4)
+Date: 23-10-90
+
+-rw-------  1 eay        670551 Oct 23 10:25 eBones-p9.tar.Z
+-rw-------  1 eay         33626 Oct 23 10:23 eBones-p9-des.tar.Z
+-rw-------  1 eay          1329 Sep 12 23:46 eBones-p9.23-10-90
+-rw-------  1 eay          1165 Sep 12 13:46 eBones-p9.README
+-rw-------  1 eay         16381 Oct 23 10:30 eBones-p9.patch.Z
+
+Fixed a bug in klogind (I had written read instead of write).
+
+This is my re-implementation of encryption in Bones (kerberos without
+encryption).
+I believe my routes are compatable with MIT's (please send me email
+if they are not).
+
+There my still be some word alligment problems on some machines,
+please contact me if you find any.
+
+eric (eay@surf.sics.bu.oz.au)

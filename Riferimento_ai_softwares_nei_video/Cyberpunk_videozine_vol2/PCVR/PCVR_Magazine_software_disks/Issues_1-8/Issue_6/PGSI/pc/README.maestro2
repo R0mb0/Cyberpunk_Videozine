@@ -1,0 +1,7 @@
+Maestro II is a "virtual keyboard instrument" - it turns a Mattel PowerGlove
+outfitted with a SIGArch PGSI adapter into a realtime MIDI controller, via
+a PC running Microsoft Windows 3.1 with a MIDI interface.  Read the
+MAESTRO2.WRI file (packed inside the .ZIP) for more information.
+
+-Chris Wilson
+ cwilson@ncsa.uiuc.edu

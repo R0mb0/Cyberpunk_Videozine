@@ -1,0 +1,9 @@
+lpr -Plw bib.ps
+lpr -Plw app.ps
+lpr -Plw ch7ch8ch9.ps
+lpr -Plw ch6b.ps
+lpr -Plw ch6a.ps
+lpr -Plw ch5b.ps
+lpr -Plw ch5a.ps
+lpr -Plw ch3ch4.ps
+lpr -Plw ch1ch2.ps

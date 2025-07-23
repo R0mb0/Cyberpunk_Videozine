@@ -1,0 +1,85 @@
+README		- This
+GraphicsGems	- Source code from the books "Graphics Gems I & II"
+		  (GraphicsGems/GemsI and GraphicsGems/GemsII)
+atomart.tar.gz	- Raytracer that does nothing but spheres and planes
+book.Z		- The Issac (nee Robert) Nathanual Zebede Stanlislaws Predergast
+		  joke book.
+chess20.tar.gz	- Chess pieces in OFF format - these are better quality than
+		  the ones in vort.
+images/*	- Some images produced by the VORT raytracer (Sun rasterfile
+		  format)
+images/ppm/*	- Some 24bit ppm images produced mainly by the VORT raytracer,
+		  and some classics like lenna and mandril.
+images/haines/*	- Erich Haines' Pictures (from his MS and SPD)
+movies/*	- Some movies produced by the VORT raytracer (VORT 8-bit
+		  colourmapped format)
+contrib/*	- various thing that have been sent to us. At the moment this
+		  mainly consists of input files (scenes, geometry files,
+		  tilepatterns, and a whole lot of usefull furniture items)
+		  for art (the VORT raytracer) - see the subdirectory artscenes.
+		  If you grab VORT this is a must get.
+nff/*		- Eric Haines NFF and SPD stuff plus some nff files in the
+		  directory nff/nff_files
+SPD.3.0.shar.Z  - Eric Haines NFF and SPD .......
+nff2art1.0.c	- Convert NFF files to (old art) art 1.0  input files
+nff2art2.0.c	- Convert NFF files to (new art) art 2.0  input files
+off/*		- Directory containing OFF files and programs
+off.tar.gz	- The whole lot of the above OFF directory
+offdisp.tar.gz	- Sunview program for displaying OFF files.
+oort10.tar.gz	- object oriented ray-tracer.
+oort10.txt
+oort10.zip
+pc/*		- A vi, lex, yacc, and make program.
+preview.c	- NFF previewer using VOGLE (get vogle.tar.gz as well)
+papers/*	- A collection of papers relating to graphics
+send_beer	- VERY USEFUL UTILITY SCRIPT.
+send_beer.el	- VERY USEFUL EMACS UTILITY SCRIPT.
+thack.tar.gz	- A game.
+vogle.tar.gz	- A device independent 3D graphics library.
+		  (mailing list: vogle@ecr.mu.oz.au)
+voglew.zip	- Vogle compiled for windoze. (BC++ 2.0)
+vogl.tar.gz	- A device independent 3D graphics library based on VOGLE that
+		  tries to be a subset of SGI-GL. If you write programs using
+		  VOGL then they should work unchanged on an SGI.
+		  (mailing list: vogle@ecr.mu.oz.au)
+vopl.tar.gz	- A graph plotting library and program using vogle (only 2D yet)
+vopl_patch.1	- A patch to gpp to stop it barfing when it finds blank lines
+		  at the end of the file.
+vopl_patch.2	- Fix to the above fix.
+vvopl.tar.gz    - An Iris GL version of vopl.
+vort.tar.gz	- The whole lot of what is in the vort directory above. 
+		  This is the *most* up to date version, the patches do not
+		  need to be applied.
+gzip-1.2.4.tar	- the source for gzip, which uncompresses the .gz files.
+ArtForTheMac.sea.Hqx - Macintosh version of art with display program, beta
+		release.
+ArtForTheMac.README - README information on the above.
+
+oldvort.tar.gz	- the old version of the above.
+
+offfile.ftpsites - ftp sites with off files useful in vort.
+vorttoppm.c	- Converts VORT files to ppm files (doesn't need pbmplus)
+ppmtovort.c	- Converts ppm files to VORT files (doesn't need pbmplus)
+oldvort.tar.gz	- vort version 1.1
+simplex.c	- A simple X11 'hello, world' program (origin unknown)
+athena/eBones-p9.tar.gz	- Eric's (Bond Uni) version of MIT's Kerberos/bones
+		      with his own DES code and all the auth. code re installed.
+			(Correspondence to eay@psych.psy.uq.oz.au)
+athena/eBones-p9-des.tar.gz - Eric's DES code library
+			(Correspondence to eay@psych.psy.uq.oz.au)
+sun-gif.tar.gz	- A sunview based GIF file viewer.
+xgif.tar.gz	- An X11 based GIF viewer. (Probably not the latest version).
+xfract.tar.gz	- X11 based fractal program.
+hershey.tar.gz	- The Hershey font library taken from VOGL (see above).
+		  Runs with VOGL or SGI-GL.
+
+libRT.tar.gz	- a ray tracing library with a parser for the NFF grammer.
+		Has several different acceleration techniques in it and
+		should be relatively simple to add more, useful for people
+		investigating ray tracing...
+
+seattle.txt	- the text of a letter sent by the American Indian Chief, 
+		Seattle, to the president of the United States, in 1854. 
+		Food for thought...
+
+All problems and inquiries may be reported to echidna@ecr.mu.oz.au.

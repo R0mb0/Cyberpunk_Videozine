@@ -1,0 +1,480 @@
+#-------------------------------- VALLEY ---------------------------------
+#all the rides having to do with the tower need work
+#--------------------------------------------------------------------------                               
+
+loadpath valley
+
+hither10
+yon 10000000
+
+
+options a
+camera 1 -140000 1000 -230500     0 90 0    2   #at entrance
+camera 2 -180000 112000 -230500   10 90 0   2   #above entrance(spin tower)
+camera 3 250000 550000 -250000    90 0 0    2    #high above tower
+camera 4 128000 1000 -120000       0 0 0    2    #at island
+#camera 5  
+camera 6 200000 1000 -230500       0 90 0   2    #tower      
+camera 7  470000,1000,-300000      0 90 0   2    #cottage
+camera 8 383000 1000 -150000       0 90 0   2    #spark
+
+option cfp 
+
+stepsize  20
+anglestep 1
+
+ambient 90
+mlight  0,7000,0  spot 10  bulb=cloud   
+
+groundcolor 2
+skycolor 11
+
+split 0,1,0  0,1,0 0
+#-------------------------------------------------------------------------
+#------------------------GENERAL SCENERY----------------------------------
+#mountains----------------------------------------------------------------
+object mountain 120,120,100  0,68,0   0,0,0            2 . 
+object mountain 100,100,120  0,30,0   100000,0,30000   2 . 
+object mountain 170,110,120  0,90,0   180000,0,50000   2 .
+object mountain 100,90,100   0,160,0  300000,0,40000   2 .
+object mountain 100,100,170  0,40,0   400000,0,-30000  2 .
+object mountain 80,80,130    0,20,0   50000,0,-50000   2 . 
+object mountain 100,70,100   0,120,0  240000,0,-30000  2 .
+object mountain 150,100,120  0,180,0  350000,0,-20000  2 .
+object mountain 130,100,100  0,170,0  450000,0,-100000 2 .
+
+object mountain 100,100,120  0,130,0  500000,0,-180000 2 . 
+object mountain 140,110,120  0,190,0  580000,0,-330000 2 .
+object mountain 100,90,100   0,160,0  500000,0,-400000 2 .
+object mountain 100,100,170  0,40,0   500000,0,-500000 2 .
+object mountain 80,80,130    0,20,0   50000,0,-150000  2 . 
+object mountain 100,70,100   0,120,0  540000,0,-240000 2 .
+object mountain 130,100,100  0,70,0   550000,0,-450000 2 .
+
+object mountain 100,100,120  0,30,0   100000,0,-400000 2 . 
+object mountain 170,110,120  0,190,0  180000,0,-470000 2 .
+object mountain 100,90,100   0,160,0  300000,0,-450000 2 .
+object mountain 100,100,170  0,40,0   400000,0,-470000 2 .
+object mountain 80,80,130    0,20,0   50000,0,-450000  2 . 
+object mountain 100,70,100   0,120,0  240000,0,-460000 2 .
+object mountain 130,100,100  0,70,0   450000,0,-430000 2 .
+object mountain 80,80,130    0,20,0   -30000,0,-150000 2 . 
+object mountain 150,100,120  0,180,0  -20000,0,-320000 2 .
+object mountain 130,100,100  0,70,0   0,0,-450000      2 .
+#trees---------------------------------------------------
+object tree1.plg    1,1,1   0,0,0  -100000,0,-229000 2 . 
+object tree1.plg    1,1,1   0,0,0   -20000,0,-229000 2 .
+object tree1.plg    1,1,1   0,0,0    60000,0,-229000 2 .               
+object tree1.plg    1,1,1   0,0,0   140000,0,-229000 2 .               
+#trees----------
+object tree1.plg    1,1,1   0,0,0  -100000,0,-232000 2 . 
+object tree1.plg    1,1,1   0,0,0   -20000,0,-232000 2 .
+object tree1.plg    1,1,1   0,0,0    60000,0,-232000 2 .               
+object tree1.plg    1,1,1   0,0,0   140000,0,-232000 2 .               
+#---------------------------------------------------------------------------
+#-----------------------------MISC PARTS------------------------------------
+#---------------------------------------------------------------------------
+#roads---------------
+polyobj 4 0x1edd -125000,0,-231000 -125000,0,-230000 209000,0,-230000 209000,0,-231000
+object sn=sign 500,200,0  0,190,0 450000,1000,126000 2 .
+animation100
+   state a
+      do sn=abstep(x,x,x 20,0,0)[]
+#------------------------------------------------------------------------
+#---------------------------THE ENTRANCE---------------------------------
+#------------------------------------------------------------------------
+#entrance left --------------
+object tower.plg      2,5,2     0,0,0     -126000,0,-228000 2 . 
+object marker1.plg    5,10,240  0,0,0     -126000,90,-191000 2 .
+object marker1.plg    150,10,5  0,0,0     -103500,0,-155000 2 .
+object tower.plg      2,5,2     0,0,0     -126000,0,-155000 2 .   
+#flag---------
+object mt=flag        5,5,5     0,90,0    -126000,6000,-228000 0 .
+animation 2
+   state a
+      do mt=userep(1)[state=b]
+   state b
+      do mt=userep(2)[state=c]
+   state c
+      do mt=userep(3)[state=d]
+   state d
+      do mt=userep(2)[state=a]
+#entrance right-----------------------------------
+object tower.plg          2,5,2      0,0,0       -126000,0,-233000 2 .  
+object marker1.plg        5,10,265   0,0,0       -126000,90,-273000 2 .
+object marker1.plg        5,10,55    0,-45,0     -119000,0,-318500 0 .
+object tower.plg          2,5,2      0,0,0       -126000,0,-312500 2 . 
+#flag
+object mt=flag            5,5,5      0,90,0      -126000,6000,-233000 0 .
+animation 3
+   state a
+      do mt=userep(1)[state=b]
+   state b
+      do mt=userep(2)[state=c]
+   state c
+      do mt=userep(3)[state=d]
+   state d
+      do mt=userep(2)[state=a]
+#gates-----------------------------------------------
+object marker1.plg       5,5,16       0,0,0      -126000,3000,-230500 # 
+object mt=gate           15,25,5      0,90,0     -126000,0,-228980 0 .  #lh
+animation 10
+   state a
+      do mt=step(x,x,x 0,8,0)[]
+      do mt=rotlimit(x,x,x x,170,x)[][exit]
+object mt=gate           15,25,5      0,-90,0    -126000,0,-232020 0 .  #rh
+animation 10
+   state a
+      do mt=step(x,x,x 0,-8,0)[]
+      do mt=rotlimit(x,-170,x x,x,x)[][exit] 
+
+#-------------------------------------------------------------------------
+#----------------------------TENT-----------------------------------------
+#-------------------------------------------------------------------------
+object tent      200,200,200     0,0,0     -100000,0,-215000   2 .
+object mt=sword     1,1,1        0,0,0     -97000,1200,-210000 0 .
+animation 50
+   state a
+      do mt=abstep(x,x,x 0.1,5,0.1)[]
+object dt=dagger  .75,.75,.75    0,0,0     -98500,1000,-209500 0 .
+animation 50
+   state a
+      do dt=abstep(x,x,x 9,1,1)[]
+
+
+#---------------------------------------------------------------------------
+#-----------------------------THE TOWER-------------------------------------
+#---------------------------------------------------------------------------
+#tower--------------------------- 
+object tower.plg     10,30,10    0,0,0     237000,1,-230500 0 .
+object db=gate       10,20,5     0,90,0    232300,0,-230000 0 . # drawbridge
+object hole          10,20,5     0,90,0    232350,0,-230000 2 .
+animation 10
+   state a
+      do sensor (225000,0,-231000   231000,1000,-229000)[exit][state=b]
+   state b
+      do db=step(x,x,x 0,8,0)[]
+      do db=rotlimit(x,x,x x,210,x)[][exit]
+#spires--------------------------
+object spire1=cube   .01,.01,.01    0,0,0     237000,0,-230500 0 .
+animation 10
+   state a
+      do spire1=step(x,x,x  0,2,0)[]
+object spire2=cube   .01,.01,.01     0,0,0    237000,0,-230500 2 .
+animation 10
+   state a
+      do spire2=step(x,x,x  0,-3,0)[]
+#steps---------------------------------
+object stp=cube   50,2,20   0,0,0     4000,100,0 0 .  spire2   
+animation 4
+   state attach
+      do sensor(238000,0,-231500  241000,2000,-229500)[exit][state=stairs]
+   state stairs
+      do stp=attach(1)[]
+      do stp=step(x,.5,x x,x,x)[]
+      do stp=poslimit(x,35000,x  x,38000,x)[][state=sensor]
+   state sensor
+      do sensor(x,34000,x  x,38500,x)[][state=off]
+   state off
+      do stp=attach(0)[exit]
+#****************************needs fixed********************************
+#star ride from tower------------------------   
+object core=marker1 .01,.01,.01    0,0,0   237000,1000,-230500 0 .  spire1
+animation 1      
+   state ready
+       do sensor(236000,0,-231500  238000,2000,-229500)[exit][state=whee]
+   state whee
+       do core=attach(1)[]
+       do core=moveto(-180000,89500,-230500  x,x,x)[exit]
+#*************************************************************************
+#star in tower--------------------------------
+object sy=stary   50,100,50   30,20,60    237000,20000,-230500 0 .
+animation 10 
+   state a
+      do sy=abstep(x,x,x 25,-15,25)[]
+object sy=stary   50,200,50   30,20,60    237000,20000,-230500 0 .
+animation 10 
+   state a
+      do sy=abstep(x,x,x -25,25,-25)[]
+object sy=stary   50,300,50   30,20,60    237000,20000,-230500 0 .
+animation 10 
+   state a
+      do sy=abstep(x,x,x 35,-35,35)[]
+#moat--------------------------------
+object moat.plg    30,0,30       0,0,0        237000,0,-230500 
+object fin         1,1,1         0,90,0       -20000,0,0    0 . spire1
+object fin         1,1,1         0,-90,0      -25000,0,0    0 . spire2      
+object dock        10,120,5      90,0,-90     211000,300,-230000 2 .
+object dock        1,10,10       0,0,0        214000,0,-230000   2 .   
+object dock        1,10,10       0,0,0        220000,0,-230000   2 . 
+object ramp        200,30,100    0,0,0        209000,0,-231000   2 .
+object ramp        200,30,100    0,-180,0     225000,0,-230000   2 .   
+#object dock       10,50,5       90,0,0       128500,300,-110000 2 .
+object dock        1,10,10       0,0,0        214000,0,-231100   2 .   
+object dock        1,10,10       0,0,0        220000,0,-231100   2 . 
+
+#flag----------------------------------
+object flag          5,5,5       0,90,0     237000,35500,-230500 0 .
+#birds----------------------------------
+object bd=bird    250,250,250       0,0,0  -100000,80000,100000 0 . spire1 
+animation 3
+   state a
+      do bd=userep(2)[state=b]
+   state b
+      do bd=userep(3)[state=c]
+   state c
+      do bd=userep(2)[state=d]
+   state d
+      do bd=userep(1)[state=a]
+
+object bd=bird    250,250,250       0,0,0  14000,36000,-240000 0 . spire2 
+animation 3
+   state a
+      do bd=userep(2)[state=b]
+   state b
+      do bd=userep(3)[state=c]
+   state c
+      do bd=userep(2)[state=d]
+   state d
+      do bd=userep(1)[state=a]
+
+object bd=bird    250,250,250       0,0,0  24000,28000,-10000 0 . spire2 
+animation 3
+   state a
+      do bd=userep(1)[state=b]
+   state b
+      do bd=userep(2)[state=c]
+   state c
+      do bd=userep(3)[state=d]
+   state d
+      do bd=userep(2)[state=a]
+
+object bd=bird    250,250,250       0,0,0  -20000,42000,24000 0 . spire1 
+animation 3
+   state a
+      do bd=userep(3)[state=b]
+   state b
+      do bd=userep(2)[state=c]
+   state c
+      do bd=userep(1)[state=d]
+   state d
+      do bd=userep(2)[state=a]
+
+object bd=bird    250,250,250       0,0,0  180000,60000,-20000 0 . spire1 
+animation 3
+   state a
+      do bd=userep(1)[state=b]
+   state b
+      do bd=userep(2)[state=c]
+   state c
+      do bd=userep(3)[state=d]
+   state d
+      do bd=userep(2)[state=a]
+
+#-------------------------------------------------------------------------
+#--------------------------THE CLOUDS-------------------------------------
+#-------------------------------------------------------------------------
+#star in sky -----------------------
+object bs=starb    2000,2000,2000    30,20,60    450300,89500,126600  2 .
+animation 10 
+   state a
+      do bs=abstep(x,x,x 25,-15,25)[]
+object bs=starb    2000,2000,2000    30,20,60    450300,89500,126600   2 .
+animation 10 
+   state a
+      do bs=abstep(x,x,x -25,25,-25)[]
+object bs=starb    2000,2000,2000    30,20,60    450300,89500,126600   2 .
+animation 10 
+   state a
+      do bs=abstep(x,x,x 35,-35,35)[]
+#--------------------------------------------------------------------------
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+#
+#
+#                        THE RIDE DOWN
+#  this needs work!!!!
+#
+#  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+#-------------------------------------------------------------------------
+object ca=marker1  .10,.10,.10       0,0,0       450300,89500,126600   0 .    
+animation 100      
+   state ready
+       do sensor(430300,69500,106600  470300,1095000,146600)[exit][state=off1]
+   state off1
+       do core=attach(0)[state=down]
+   state down
+       do ca=attach(1)[state=whee]
+   state whee
+       do ca=gravity(x,-500,x  x,50,x)[]   
+       do ca=poslimit(x,x,x  x,1000,x)[][state=off]
+   state off   
+       do ca=attach(0)[]
+       do sensor(430300,0,106600 470300,1000,146600)[][exit]
+#------------------------------------------------------------------------      
+#---------------------------CLOUD CITY-----------------------------------
+#-------------------------------------------------------------------------
+object cloud=cloud   60,1,60    0,0,0     -240000,70000,-250000 0 . spire1
+object cloud=cloud   60,1,60    0,45,0    -250000,60000,-240000 0 . spire1  
+object tower.plg     4,10,4     0,0,0     -240000,70000,-240000 0 . spire1   
+object mt=flag        5,5,5     0,90,0    -240000,82000,-240000 0 . spire1 
+animation 3
+   state a
+      do mt=userep(1)[state=b]
+   state b
+      do mt=userep(2)[state=c]
+   state c
+      do mt=userep(3)[state=d]
+   state d
+      do mt=userep(2)[state=a]
+#-------------------------------------------------------------------------
+#----------------------------THE ISLAND-----------------------------------
+#------------------------------------------------------------------------- 
+#lake----------------------
+object pool      7000,1,7000     0,0,0       100000,0,-110000  2 .
+object island    5,300,5         0,0,0       130000,0,-80000   2 .
+#docks---------------------
+object dock      10,50,5         90,0,0      128500,300,-88000  2 .
+object dock      1,10,10         0,0,0       128500,0,-88000    2 .   
+object dock      1,10,10         0,0,0       129400,0,-88000    2 . 
+object ramp      200,30,100      0,-90,0     129500,0,-112000   2 .
+object dock      10,50,5         90,0,0      128500,300,-110000 2 .
+object dock      1,10,10         0,0,0       128500,0,-105000   2 .   
+object dock      1,10,10         0,0,0       129400,0,-105000   2 . 
+#trees---------------------
+object tree1.plg    1,1,1   0,0,0   127200,0,-82650  2 . 
+object tree1.plg    1,1,1   0,0,0   129600,0,-76660  2 .
+object tree1.plg    1,1,1   0,0,0   133850,0,-78900  2 .               
+
+#------------------------------------------------------------------------
+#--------------------------THE FOUNTAIN(at island)-----------------------
+#-------------------------------------------------------------------------
+object fount.plg      2,.5,2        0,40,0    130000,300,-80000 2 .
+#water--------------
+object ww=water     100,2500,100    0,0,0     129950,700,-80000 2 . 
+animation 4
+   state a
+      do ww=abstep(x,x,x  0,-20,0)[]
+object ww=water     100,2500,100    0,90,0    129975,700,-80050 2 .
+animation 5
+   state a
+      do ww=abstep(x,x,x  0,40,0)[]
+object ww=water     100,2500,100    0,40,0     130025,700,-80050 2 .
+animation 4
+   state a
+      do ww=abstep(x,x,x  0,-60,0)[]
+object ww=water     100,2500,100    0,90,0     130050,700,-80000 2 .
+animation 5
+   state a
+      do ww=abstep(x,x,x  0,10,0)[]
+object ww=water     100,2500,100    0,40,0     130025,700,-79950 2 . 
+animation 4
+   state a
+      do ww=abstep(x,x,x  0,-30,0)[]
+object ww=water     100,2500,100    0,90,0     129975,700,-79950 2 .
+animation 5
+   state a
+      do ww=abstep(x,x,x  0,50,0)[]
+#------------------------------------
+#boat ride---------------------------
+object mt=boat      3,3,1      0,90,0      130000,1,-107000 0 . 
+animation 50
+    state dock
+       do mt=abstep(x,x,10 x,x,x)[]
+       do mt=poslimit(x,x,x x,x,-86000)[state=wait][]
+    state wait
+       do mt=attach(0)[]
+       do timer(5)[state=wait][]
+       do sensor(129000,x,-88000 131000,x,-84000)[state=island][state=ride1]
+    state ride1
+       do mt=attach(1)[state=island]
+    state island
+       do mt=abstep(x,x,-10 x,x,x)[]
+       do mt=poslimit(x,x,-107000 x,x,x)[state=wt][]
+     state wt
+        do mt=attach(0)[]
+        do timer(5)[state=wt][]
+        do sensor(129000,x,-109000 131000,x,-105000)[state=dock][state=ride2]
+     state ride2
+        do mt=attach(1)[state=dock]
+#----------------------------------------------------------------------
+#-------------------------COTTAGE--------------------------------------
+#----------------------------------------------------------------------
+object cottage      1,1,1     0,90,0    480000,0,-300000  0 .
+object roof         1,1,1     0,90,0    480000,0,-300000  0 . cottage
+object tree1.plg    1,1,1     0,0,0     480000,0,-298000  2 . 
+object tree1.plg    1,1,1     0,0,0     480000,0,-307000  2 .
+#door-----------------------------
+object dr=gate      10,15,5   0,90,0    480000,0,-303500 0 . 
+animation 10
+   state a
+      do sensor ( 475000,0,-306000  479000,2000,-303000)[exit][state=b]
+   state b
+      do dr=step(x,x,x 0,8,0)[]
+      do dr=rotlimit(x,x,x x,170,x)[][exit]
+#desk stuff------------------------
+object desk3      .6,.6,.6    0,90,0      480550,0,-301500     0 .
+object candle     .5,1,.5     0,0,0       480800,450,-302200   0 .      
+object fy=flame    1,1,1      0,0,0       480800,448,-302200   0 .
+animation 200
+   state a 
+      do fy=abstep(x,x,x x,75,x)[]
+object book       .4,.4,.4    0,90,0      480600,450,-301800  0 .  
+object pg=page    .4,.4,.4    0,90,0      480600,450,-301800  0 .  
+animation 5 
+   state a
+      do pg=userep(1)[state=b]
+   state b
+      do pg=userep(2)[state=c]
+   state c
+      do pg=userep(3)[state=d]
+   state d
+      do pg=userep(4)[state=e]
+   state e
+      do pg=userep(5)[state=f]
+   state f
+      do pg=userep(6)[state=g]
+   state g
+      do pg=userep(7)[state=h]
+   state h
+      do timer(3)[][state=a]
+#------------------------------------------------------------------------
+#-------------------------FUTURE SITES-----------------------------------
+#------------------------------------------------------------------------
+#red star-------------------
+object sr=starr   100,100,100   30,20,60    480000,5000,-302500 2 . 
+animation 10 
+   state a
+      do sr=abstep(x,x,x 25,-15,25)[]
+object sr=starr   100,100,100   30,20,60    480000,5000,-302500 2 . 
+animation 10 
+   state a
+      do sr=abstep(x,x,x -25,25,-25)[]
+object sr=starr   100,200,100   30,20,60    480000,5000,-302500 2 . 
+animation 10 
+   state a
+      do sr=abstep(x,x,x 35,-35,35)[]
+#yellow star--------------------
+object sy=stary   50,100,50     30,20,60    388000,1000,-150500 0 .
+animation 10 
+   state a
+      do sy=abstep(x,x,x 25,-15,25)[]
+object sy=stary   50,200,50     30,20,60    388000,1000,-150500 0 .
+animation 10 
+   state a
+      do sy=abstep(x,x,x -25,25,-25)[]
+object sy=stary   50,300,50     30,20,60    388000,1000,-150500 0 .
+animation 10 
+   state a
+      do sy=abstep(x,x,x 35,-35,35)[]
+#--------------------------------------------------------------------------
+#-----------------------------TITLE----------------------------------------
+#--------------------------------------------------------------------------
+title Valley
+title by Dennis McKenzie
+title memory
+#--------------------------------------------------------------------------
+#----------------------------END-------------------------------------------
+#--------------------------------------------------------------------------
+#Thanks to the people I borrowed plg's from!
+
+
