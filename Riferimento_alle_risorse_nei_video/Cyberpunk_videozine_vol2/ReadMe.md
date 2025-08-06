@@ -69,3 +69,26 @@ Software usato per collegarsi alla BBS RAM: [http://bbslist.textfiles.com/504/](
 - [link 2](https://www.edueda.net/index.php?title=Piazza_Virtuale)
 
 </details>
+
+<details>
+<summary>
+
+## Black Ice (UK)
+  
+</summary>
+
+- [Black Ice (UK) - Issue 01](https://archive.org/details/Black.Ice.Issue.01)
+- [Black Ice (UK) - Issue 04](https://archive.org/details/Black.Ice.Issue.04)
+
+</details>
+
+<details>
+<summary>
+
+## 2600 Magazine
+
+</summary>
+
+- [2600 Magazine](https://www.2600.com/)
+
+</details>
