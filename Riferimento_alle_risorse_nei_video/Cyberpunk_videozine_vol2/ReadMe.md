@@ -105,3 +105,26 @@ Software usato per collegarsi alla BBS RAM: [http://bbslist.textfiles.com/504/](
 - [Phone Losers Blue Box 3.0 for Android](https://phone-losers-blue-box.soft112.com/)
 
 </details>
+
+<details>
+<summary>
+
+## PGP Encryption
+  
+</summary>
+
+- [Wikipedia](https://en.wikipedia.org/wiki/Pretty_Good_Privacy)
+
+</details>
+
+<details>
+<summary>
+
+## Chip Clipper
+
+</summary>
+
+- [Wikipedia](https://it.wikipedia.org/wiki/Chip_Clipper)
+- [Electronic Privacy Information Center](https://archive.epic.org/crypto/clipper/)
+  
+</details>
