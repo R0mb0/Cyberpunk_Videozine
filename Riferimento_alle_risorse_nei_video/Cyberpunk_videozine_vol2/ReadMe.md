@@ -46,5 +46,26 @@ Software usato per collegarsi alla BBS RAM: [http://bbslist.textfiles.com/504/](
 
 </details>
 
+<details>
+<summary>
 
+## ESP Magazine
+  
+</summary>
 
+- [Wkipedia](https://en.wikipedia.org/wiki/Elder_Signs_Press)
+- [ESP magazine](http://www.eldersignspress.com/)
+
+</details>
+
+<details>
+<summary>
+
+## Piazza virtuale
+
+</summary>
+
+- [link 1](https://vangoghtv.hs-mainz.de/?page_id=84746&lang=en)
+- [link 2](https://www.edueda.net/index.php?title=Piazza_Virtuale)
+
+</details>
