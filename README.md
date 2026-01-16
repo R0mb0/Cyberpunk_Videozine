@@ -29,7 +29,7 @@ Source: youtube
 
 <details>
 <summary>
-<h2> Un omaggio speciale a <a href="https://www.youtube.com/@Sixthclon"> Sixthclone <img vertical-align="middle" height="10%" width="10%" src="https://yt3.ggpht.com/ytc/AIdro_nexicen5-7JqbzLJJ-f4B7V0_x6_-CD4WlHuaLqz7-4gU=s800-c-k-c0x00ffffff-no-rj" alt="Sixthclone profile image" /></a></h2>
+<h2> Un omaggio speciale a <a href="https://www.youtube.com/@Sixthclone"> Sixthclone <img vertical-align="middle" height="10%" width="10%" src="https://yt3.ggpht.com/ytc/AIdro_nexicen5-7JqbzLJJ-f4B7V0_x6_-CD4WlHuaLqz7-4gU=s800-c-k-c0x00ffffff-no-rj" alt="Sixthclone profile image" /></a></h2>
 </summary>
 <div align="center">
 
